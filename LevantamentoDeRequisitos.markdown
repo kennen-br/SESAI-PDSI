@@ -23,7 +23,7 @@ Estes dados serão importados de outros sistemas.
 
 ## Dados coletados / recebidos
 
-* Os dados poderão ser valores absolutos ou textos informativos.
+* Os dados poderão ser valores absolutos ou textos informativos. Arquivos de imagens podem ser incluídos no resultado final.
 
 ### Textos informativos
 
