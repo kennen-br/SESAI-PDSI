@@ -1,15 +1,42 @@
 # SESAI-PDSI #
+## Visão geral ##
 
 Software para coleta e consolidação da família de dados destinados à elaboração do Plano Distrital de Saúde Indígena.
-
-## Visão geral ##
 
 A SESAI é a área do Ministério da Saúde criada para coordenar e executar o processo de gestão do Subsistema de Atenção à Saúde Indígena em todo Território Nacional. Com esforços voltados para a implementação do Subsistema de Atenção à Saúde Indígena constitui-se o Plano Distrital de Saúde Indígena, de forma que sua construção é iniciada nos Conselhos Locais de Saúde Indígena (CSLI), com consolidação pelos Distritos Sanitários Especiais Indígenas (DSEI) e aprovação no Conselho Distrital de Saúde Indígena (CONDISI) sendo posteriormente encaminhado à Secretaria Especial de Saúde Indígena (SESAI) para homologação.
 
 O Plano Distrital tem por si só o papel de aprimorar o planejamento, tanto do orçamento quanto da gestão, através também do monitoramento e avaliação, dentro dos respectivos Distritos Sanitários Especiais Indígenas (DSEI) viabilizando uma maior aderência ao Plano Nacional de Saúde/ Plano Plurianual e o Planejamento Estratégico da Secretaria Especial de Saúde Indígena.
 
-###PLANO DISTRITAL DE SAÚDE INDÍGENA (PDSI) 2016 – 2019###
-####Estruturação e conteúdo####
+### Solução ###
+
+Dado o início das coletas em território, que vem sendo realizado de forma sistemática, compreendendo um padrão processual já determinado em planejamento, percebe-se a oportunidade de informatizar e sistematizar tal processo através de uma ferramenta para a coleta da família de dados e consolidação das informações em banco de dados, para posterior verificação e consulta por meio de painéis de visualização online, relatórios e gráficos.
+
+Com a entrada em operação desta ferramenta de coleta de dados e consequente desativação do modelo de controle de coleta de dados em planilhas considera-se o proveito de se centralizar o controle destes processos, desenvolvendo um novo sistema, de propriedade da Pacto Desenvolvimento Institucional, que possuísse as funcionalidades para tal, mas que permitisse uma maior flexibilidade e agilidade para a evolução das atividades de gestão e monitoramento dentro dos Conselhos Locais de Saúde Indígena (CSLI) e Distritos Sanitários Especiais Indígenas (DSEI), além de a possibilidade de desenvolvimento de funcionalidades que venham de encontro às necessidades tanto no âmbito operacional quanto executivo.
+
+Do ponto de vista puramente sistêmico, o desenvolvimento desta ferramenta deve considerar prontamente a necessidade de coleta de dados em ambiente sem conectividade em redes de computadores, e consequentemente, sem acesso à Internet. Parte de suas funcionalidades, portanto, prevê a interface de dados, coletados em ambiente off-line, para posterior consolidação em banco de dados em meio digital.
+
+### Modelo proposto ###
+
+A coleta de dados, tem sua como sua atividade central a consolidação das informações dentro da estrutura de dados proposta para o sistema para posteriormente permitir a geração do . Portanto, o preenchimento do formulário com perguntas, em diferentes níveis de acesso, levando em consideração o direcionamento das questões de acordo com o usuário e as instâncias da Saúde Indígena. Tal processo também deverá ter como prevista a opção para upload da planilha de dados coletados, sendo opção a ser utilizada enquanto a ferramenta não estiver em produção.
+
+O painel de visualização e controle da informação, ambos também com diferentes níveis de acesso. O perfil Gerencial, permitindo a funcionalidades de gerenciamento dos processos de coleta de informação realizados em território e o perfil Executivo, com funcionalidades para análises quantitativas, gráficos e relatórios.
+
+O painel administrativo permite a gestão e controle da ferramenta como um todo. Controle de acessos e usuários, informações técnicas acerca da aplicação, logs de ações, entre outras funcionalidades para gerenciamento da aplicação. 
+
+Para descrição do Modelo proposto o estaremos abordando em três aspectos fundamentais:
+- A coleta de dados, o fluxo de tratamento e arquitetura das informações consolidadas;
+- Visualização e revisão dos dados;
+- Geração do documento PDSI.
+
+___________
+
+##Plano Distrital de Saúde Indígena (PDSI) 2016 – 2019##
+A composição do PDSI reflete o trabalho conjunto das diversas instâcias da Secretaria de Atenção e Saúde Indígena, ora na coleta de dados, criação de textos explicativos sobre metodolgia dos processos, justificativas, critérios, entre outras informações, que em sua totalidade, após serem revisados pela SESAI Central subsidiam a geração do documento PDSI.
+
+###ESTRUTURAÇÃO E CONTEÚDO###
+
+Segue modelo definido como estrutra do Plano Distrital Sanitário Indígena 2016-2019.
+
 |Capítulo	|Conteúdo	|Número de páginas	|Observações |
 |:----------|:----------|:-----------------:|:-----------|
 |1. Introdução|	Explicação ao leitor do que se trata o PDSI e o que ele encontrará nesse documento. <br /> Os princípios balizadores para a elaboração do PDSI | Máximo de 1 página | Texto padrão para todos os 34 DSEIs.<br /> Deve ser produzido pela SESAI Central.|
@@ -32,7 +59,7 @@ Diante das necessidades previstas para a aplicação do Plano Nacional de Saúde
 
 Desta forma, recai a responsabilidade do processo sobre os respectivos Conselhos Locais de Saúde Indígena (CSLI), onde Plano Distrital de Saúde Indígena iniciará sua construção, e também, pelos Distritos Sanitários Especiais Indígenas (DSEI), através da coleta de tal família de dados, sendo descritos como:
 
-### APRESENTAÇÕES DOS DSEI###
+#### APRESENTAÇÕES DSEI####
 Textos analíticos e situacionais de caracter explicativo acerca dos pontos a serem levantados ou questionados à cada DSEI, informação coletada através dos próprios coordenadores de DSEI sendo posteriormente revisada pela SESAI Central de acordo com a necessidade citada abaixo, correspondem as seguintes seções do documento PDSI:
 
 1. Introdução
@@ -63,7 +90,7 @@ Textos analíticos e situacionais de caracter explicativo acerca dos pontos a se
 	* Breve Explicação da distribuição orçamentária	
 
 
-### CARACTERIZAÇÃO DOS DSEI ###
+#### CARACTERIZAÇÃO DSEI ####
 Refere-se a família de dados a serem consolidados por meio da coleta no sistema, através do preenchimento dos formulários criados, ou pela consulta via interface de dados à sistemas legados. Os dados a serem coletados seguem descritos nas planilhas abaixo relacionadas.
 
 | PLANILHA   | DESCRIÇÃO | STATUS |
@@ -90,30 +117,6 @@ Refere-se a família de dados a serem consolidados por meio da coleta no sistema
 | - | *Planilha de orçamento* | PENDENTE |
 
 
-
-## Solução ##
-
-Dado o início das coletas em território, que vem sendo realizado de forma sistemática, compreendendo um padrão processual já determinado em planejamento, percebe-se a oportunidade de informatizar e sistematizar tal processo através de uma ferramenta para a coleta da família de dados e consolidação das informações em banco de dados, para posterior verificação e consulta por meio de painéis de visualização online, relatórios e gráficos.
-
-Com a entrada em operação desta ferramenta de coleta de dados e consequente desativação do modelo de controle de coleta de dados em planilhas considera-se o proveito de se centralizar o controle destes processos, desenvolvendo um novo sistema, de propriedade da Pacto Desenvolvimento Institucional, que possuísse as funcionalidades para tal, mas que permitisse uma maior flexibilidade e agilidade para a evolução das atividades de gestão e monitoramento dentro dos Conselhos Locais de Saúde Indígena (CSLI) e Distritos Sanitários Especiais Indígenas (DSEI), além de a possibilidade de desenvolvimento de funcionalidades que venham de encontro às necessidades tanto no âmbito operacional quanto executivo.
-
-Do ponto de vista puramente sistêmico, o desenvolvimento desta ferramenta deve considerar prontamente a necessidade de coleta de dados em ambiente sem conectividade em redes de computadores, e consequentemente, sem acesso à Internet. Parte de suas funcionalidades, portanto, prevê a interface de dados, coletados em ambiente off-line, para posterior consolidação em banco de dados em meio digital.
-
-....(SEGUE)....detalhar ou não?
-
-### Modelo proposto ###
-
-A coleta de dados, tem sua como sua atividade central a consolidação das informações dentro da estrutura de dados proposta para o sistema para posteriormente permitir a geração do . Portanto, o preenchimento do formulário com perguntas, em diferentes níveis de acesso, levando em consideração o direcionamento das questões de acordo com o usuário e as instâncias da Saúde Indígena. Tal processo também deverá ter como prevista a opção para upload da planilha de dados coletados, sendo opção a ser utilizada enquanto a ferramenta não estiver em produção.
-
-O painel de visualização e controle da informação, ambos também com diferentes níveis de acesso. O perfil Gerencial, permitindo a funcionalidades de gerenciamento dos processos de coleta de informação realizados em território e o perfil Executivo, com funcionalidades para análises quantitativas, gráficos e relatórios.
-
-O painel administrativo permite a gestão e controle da ferramenta como um todo. Controle de acessos e usuários, informações técnicas acerca da aplicação, logs de ações, entre outras funcionalidades para gerenciamento da aplicação. 
-
-Para descrição do Modelo proposto o estaremos abordando em três aspectos fundamentais:
-- A coleta de dados, o fluxo de tratamento e arquitetura das informações consolidadas;
-- Visualização dos dados;
-- Geração do documento PDSI.
-
 ## Especificação de Requisitos ##
 ### Requisitos de Negócio
 * **RN.01:** Definição da arquitetura e relacionamento entre os dados da coleta
@@ -128,6 +131,7 @@ Para descrição do Modelo proposto o estaremos abordando em três aspectos fund
 
 * **RN.05:**
 
+__________
 
 ### Requisitos de Funcionais
 
