@@ -29,6 +29,7 @@ aptitude install -y \
   wget \
   rake \
   s3cmd \
+  imagemagick \
   htop
 
 # Remove default ruby

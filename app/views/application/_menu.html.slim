@@ -1,0 +1,25 @@
+header.navigation role="banner"
+  .navigation-wrapper
+    nav role="navigation"
+      button#menu-button.js-menu-trigger.sliding-menu-button type="button"
+        i.fa.fa-bars
+
+      ul#js-navigation-menu.navigation-menu.show
+        li.nav-link
+          //a href="javascript:void(0)"  Products
+          span.white_color
+            = current_user.username
+    .navigation-tools
+      == link_to raw('Sair ' + icon('sign-out')), destroy_user_session_path, { method: :delete, class: 'sign-up' }
+
+nav.js-menu.sliding-menu-content
+  ul
+    li
+      = link_to 'Início', root_path
+    li
+      = link_to 'Alterar Senha', edit_password_path
+
+    / Render specific menu to each profile
+    == render "menu_#{current_user.user_type.menu_name}"
+
+.js-menu-screen.sliding-menu-fade-screen

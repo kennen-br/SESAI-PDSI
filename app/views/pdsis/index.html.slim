@@ -1,0 +1,63 @@
+h1 Meu PDSI 2016-2019
+
+.vertical-tabs-container
+  .vertical-tabs
+    a.js-vertical-tab.vertical-tab.is-active href="javascript:void(0)" rel="tab1"  1. Introdução
+    a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab2"  2. O Processo de construção do PDSI 2016-2019
+    /a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab3"  3. Caracterização do DSEI
+    /a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab4"  3.1.a Território e população - Mapa
+    /a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab5"  3.1.b Território e população - Dados Demográficos
+  .vertical-tab-content-container
+    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading.is-active href="" rel="tab1"  Item 1
+    #tab1.js-vertical-tab-content.vertical-tab-content
+      h2 1. Introdução
+
+      == @pdsi.introducao_1
+
+    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab2"  Item 2
+    #tab2.js-vertical-tab-content.vertical-tab-content
+      h2 2. O processo de construção do PDSI 2016-2019
+
+      == @pdsi.compose_item_2 || 'Não informado'
+
+      .right-align
+        = link_to edit_pdsi_path(@pdsi, section: 'processo-de-construcao-do-pdsi'), class: 'button' do
+          i.fa.fa-pencil
+          | Alterar
+      |&nbsp;
+
+    /a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab3"  Item 3
+    #tab3.js-vertical-tab-content.vertical-tab-content
+      h2 3. Caracterização do DSEI
+
+      == @pdsi.compose_item_3 || 'Não informado'
+
+      .right-align
+        = link_to edit_pdsi_path(@pdsi, section: 'caracterizacao-do-dsei'), class: 'button' do
+          i.fa.fa-pencil
+          | Alterar
+      |&nbsp;
+
+    /a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab4"  Item 4
+    #tab4.js-vertical-tab-content.vertical-tab-content
+      h2 3.1. Território e população - Mapa
+
+      = image_tag @pdsi.map.url
+
+      .right-align
+        = link_to edit_pdsi_path(@pdsi, section: 'mapa'), class: 'button' do
+          i.fa.fa-pencil
+          | Alterar
+      |&nbsp;
+
+    /a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab5"  Item 4
+    #tab5.js-vertical-tab-content.vertical-tab-content
+      h2 3.1. Território e população - Mapa
+
+      == render 'dado_demograficos/show'
+
+      .right-align
+        = link_to edit_dado_demografico_path(@dado_demografico), class: 'button' do
+          i.fa.fa-pencil
+          | Alterar
+      |&nbsp;

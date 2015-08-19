@@ -1,0 +1,15 @@
+= form_for @pdsi do |f|
+  - if @pdsi.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@pdsi.errors.count, "error")} prohibited this pdsi from being saved:"
+      ul
+        - @pdsi.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :user
+    = f.text_field :user
+  .field
+    = f.label :processo_construcao_pdsi_2
+    = f.text_area :processo_construcao_pdsi_2
+  .actions = f.submit

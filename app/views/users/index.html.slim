@@ -1,0 +1,23 @@
+h1 Usuários do sistema
+
+table
+  thead
+    tr
+      th Usuário
+      th Nome
+      th Permissão
+      th Ativo
+      th Ações
+  tbody
+    - @users.each do |user|
+      tr
+        td = user.username
+        td = user.profile.name
+        td = user.user_type.name
+        td = user.active ? 'sim' : 'não'
+        td
+          = link_to 'Editar', edit_user_path(user)
+
+= link_to new_user_path, class: 'button' do
+  i.fa.fa-plus
+  | Cadastrar usuário

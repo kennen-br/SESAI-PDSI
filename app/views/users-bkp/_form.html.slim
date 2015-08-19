@@ -1,0 +1,62 @@
+= form_for @user do |f|
+  - if @user.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
+      ul
+        - @user.errors.full_messages.each do |message|
+          li = message
+
+  ul.accordion
+    = f.fields_for :cost_users, current_user.user_costs do |item|
+      li
+        a.js-accordion-trigger href="javascript:void(0)"
+          = item.object.cost.name
+        ul.submenu
+          li
+            fieldset
+              .cost_user_container
+                .value_2015
+                  = item.label :value_2015
+                  = item.text_field :value_2015
+                .value_2016
+                  = item.label :value_2016
+                  = item.text_field :value_2016
+                .value
+                  = item.label      :reason
+                  = item.text_area  :reason,  size: "10x3"
+                .value
+                  = item.label      :criteria
+                  = item.text_area  :criteria,  size: "10x3"
+                -if item.object.cost.ask_distribution
+                  .value
+                    = item.label      :distribution
+                    = item.text_area  :distribution,  size: "10x3"
+
+
+    /fieldset
+      = item.object.cost.name
+
+      = item.hidden_field :cost_id
+      = item.hidden_field :user_id
+
+      .cost_user_container
+        .value_2015
+          = item.label :value_2015
+          = item.text_field :value_2015
+        .value_2016
+          = item.label :value_2016
+          = item.text_field :value_2016
+        .value
+          = item.label      :reason
+          = item.text_area  :reason,  size: "10x3"
+        .value
+          = item.label      :criteria
+          = item.text_area  :criteria,  size: "10x3"
+        -if item.object.cost.ask_distribution
+          .value
+            = item.label      :distribution
+            = item.text_area  :distribution,  size: "10x3"
+
+button.button type="submit" onclick="$('#edit_user_#{current_user.id}').submit()"
+  | Salvar informações
+  i.fa.fa-floppy-o

@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong User:
+  = @pdsi.user
+p
+  strong Processo construcao pdsi 2:
+  = @pdsi.processo_construcao_pdsi_2
+
+= link_to 'Edit', edit_pdsi_path(@pdsi)
+'|
+= link_to 'Back', pdsis_path

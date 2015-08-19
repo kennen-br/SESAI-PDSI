@@ -1,0 +1,21 @@
+h1 Alterar template
+
+= form_for(@text_template, url: text_template_path(@text_template, section: @section_url)) do |f|
+  - if @text_template.errors.any?
+    #error_explanation.flash-error
+      h2 = "#{pluralize(@text_template.errors.count, "error")} prohibited this text_template from being saved:"
+      ul
+        - @text_template.errors.full_messages.each do |message|
+          li = message
+
+  fieldset
+    == render @section, f: f
+
+  .actions
+    a.button href="javascript:void(0)" onclick="$(this).closest('form').submit()"
+      i.fa.fa-save
+      | Salvar
+
+    = link_to text_templates_path, class: 'button' do
+      i.fa.fa-warning
+      | Cancelar

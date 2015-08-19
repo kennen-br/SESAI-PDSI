@@ -1,0 +1,51 @@
+h1 Cadastrar usuário
+
+= form_for @user do |f|
+  - if @user.errors.any?
+    #error_explanation.flash-error
+      h2 = "#{pluralize(@user.errors.count, "error")} erros encontrados:"
+      ul
+        - @user.errors.full_messages.each do |message|
+          li = message
+
+  fieldset
+    legend Usuário e acesso
+
+    .field
+      = f.label :username
+      = f.text_field  :username
+
+    .field
+      = f.label :password
+      = f.password_field  :password, autocomplete: 'off'
+
+    .field
+      = f.label :password_confirmation
+      = f.password_field  :password_confirmation, autocomplete: 'off'
+
+    .field
+      = f.label :user_type
+      = f.collection_select :user_type_id, UserType.all, :id, :name, prompt: true
+
+    .field
+      = f.label :active
+      label.label-switch
+        = f.check_box :active
+        .checkbox
+
+    = f.fields_for :profile do |p|
+      fieldset
+        legend Perfil
+
+        .field
+          = p.label :name
+          = p.text_field  :name
+
+  .actions
+    a.button href="javascript:void(0)" onclick="$(this).closest('form').submit()"
+      i.fa.fa-save
+      | Salvar
+
+    = link_to users_path, class: 'button' do
+      i.fa.fa-warning
+      | Cancelar

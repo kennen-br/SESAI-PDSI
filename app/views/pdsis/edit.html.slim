@@ -1,0 +1,22 @@
+h1 Alterar textos
+
+= form_for @pdsi, url: pdsi_path(@pdsi, section: @section_url), html: { multipart: true } do |f|
+  - if @pdsi.errors.any?
+    #error_explanation.flash-error
+      h2 = "#{pluralize(@pdsi.errors.count, "error")} prohibited this pdsi from being saved:"
+      ul
+        - @pdsi.errors.full_messages.each do |message|
+          li = message
+
+  fieldset
+    .edit-section
+      == render @section, f: f
+
+  .actions
+    a.button href="javascript:void(0)" onclick="$(this).closest('form').submit()"
+      i.fa.fa-save
+      | Salvar
+
+    = link_to pdsis_path, class: 'button' do
+      i.fa.fa-warning
+      | Cancelar

@@ -1,0 +1,28 @@
+= form_for @cost_user do |f|
+  - if @cost_user.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@cost_user.errors.count, "error")} prohibited this cost_user from being saved:"
+      ul
+        - @cost_user.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :cost
+    //= f.text_field :cost
+    = @cost_user.cost.name
+  .field
+    = f.label :value_2015
+    = f.text_field :value_2015
+  .field
+    = f.label :value_2016
+    = f.text_field :value_2016
+  .field
+    = f.label :reason
+    = f.text_area :reason
+  .field
+    = f.label :criteria
+    = f.text_area :criteria
+  .field
+    = f.label :distribution
+    = f.text_area :distribution
+  .actions = f.submit

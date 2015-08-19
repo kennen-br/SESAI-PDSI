@@ -1,0 +1,21 @@
+h1 Editar dados demográficos
+
+= form_for @dado_demografico do |f|
+  - if @dado_demografico.errors.any?
+    #error_explanation.flash-error
+      h2 = "#{pluralize(@dado_demografico.errors.count, "error")} encontrados"
+      ul
+        - @dado_demografico.errors.full_messages.each do |message|
+          li = message
+
+  fieldset
+    == render 'form', f: f
+
+  .actions
+    a.button href="javascript:void(0)" onclick="$(this).closest('form').submit()"
+      i.fa.fa-save
+      | Salvar
+
+    = link_to pdsis_path, class: 'button' do
+      i.fa.fa-warning
+      | Cancelar

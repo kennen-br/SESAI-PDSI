@@ -1,0 +1,38 @@
+h1 Dimensionamento de Necessidades
+
+.vertical-tabs-container
+  .vertical-tabs
+    - @items.each_with_index do |item, i|
+      a.js-vertical-tab.vertical-tab class=('is-active' if i == 0) href="javascript:void(0)" rel="tab#{item.id}" = item.cost.name
+
+  .vertical-tab-content-container
+    - @items.each_with_index do |item, i|
+      a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading class=('is_active' if i == 0) href="" rel="tab#{item.id}" = item.cost.name
+
+      .js-vertical-tab-content.vertical-tab-content id=("tab#{item.id}")
+        .cost_user_container
+          .value_2015
+            label Orçamento necessário para 2015
+            = number_to_currency item.value_2015
+
+          .value_2016
+            label Orçamento necessário para 2016
+            = number_to_currency item.value_2016
+
+          .value
+            label Justificativa
+            = item.reason
+
+          .value
+            label Critério
+            = item.criteria
+
+          - if item.cost.ask_distribution?
+            .value
+              label Distribuição
+              = item.distribution
+
+/= link_to 'Alterar', edit_user_path, class: 'button'
+= link_to edit_user_path, class: 'button' do
+  | Editar dados
+  i.fa.fa-pencil-square-o

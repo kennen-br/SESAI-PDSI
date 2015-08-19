@@ -1,0 +1,13 @@
+h1 Alterar Dimensionamento de Necessidades
+
+form action="/alterar" method="POST" id="form_costs_user" name="form_costs_user"
+  - @costs.each do |cost|
+   == render 'form', cost: cost, item: current_user.recover_values_to_cost(cost)
+   - break
+
+  input type="submit" value="Salvar"
+
+//= link_to 'Show', @cost_user
+//'|
+//= link_to 'Back', cost_users_path
+
