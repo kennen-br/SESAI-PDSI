@@ -21,6 +21,7 @@
     |5	|Transações/Operações executadas pelos usuários|	Devem ser geradas, registradas e disponibilizadas as informações das operações de acessos realizadas nas aplicações pelos usuários. Os tipos de informações que devem ser consideradas como escopo do domínio funcional são as seguintes:<br />Exemplos de operações de acessos dos usuários<br />- Concessão de acesso<br />- Revogação do acesso<br />- Bloqueio<br />- Desbloqueio<br />- Outras transações relacionadas|
 
 * **RU.03:** Log de usuários ativos no preenchimento da coleta de cada DSEI
+
     | # | DADOS / INFORMAÇÕES | OBSERVAÇÕES |
     |---|---------------------|-------------|
     |	1|	Nome da Aplicação|	Nome da aplicação/sistemas acessado|
