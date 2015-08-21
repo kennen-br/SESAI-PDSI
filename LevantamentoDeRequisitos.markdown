@@ -25,6 +25,8 @@ Estes dados serão importados de outros sistemas.
 
 * Os dados poderão ser valores absolutos ou textos informativos. Arquivos de imagens podem ser incluídos no resultado final.
 
+[Mais informações sobre os tipos de dados coletados podem ser obtidas clicando aqui](DadosColetados.markdown)
+
 ### Textos informativos
 
 * Os textos informativos são os textos que compõe o relatório final.
