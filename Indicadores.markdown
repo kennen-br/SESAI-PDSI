@@ -1,8 +1,8 @@
 # Localizações / DSEIS, Polos serão informados
 
-# Planilha de necessidades
+## Planilha de necessidades
 
-## Aba Investimento
+### Aba Investimento
 
 * Os dados coletados são divididos em três grupos:
  * Edificações
@@ -20,7 +20,7 @@
  * Percentual de Cobertura Atual Frente a Necessária
 * Caso seja um valor bruto, os dados utilizados para cálculo não serão coletados
 
-## Aba Custeio
+### Aba Custeio
 
 * Informar quantidades na planilha fornecida.
 * Após receber e computar os dados, desenvolver uma interface para informar a justificativa da quantidade solicitada.
@@ -41,3 +41,8 @@ O campo "Servidores Públicos Federais" foi sugerido remover, pois não é poss�
 
 * Os dados absolutos compõe indicadores
 * Os indicadores podem ser referentes ao distrito ou ao polo base
+
+
+## 4.2. Balanço do PDSI 2012-2015
+
+Arquivo Mapa Estratégico_v7 DGESI
