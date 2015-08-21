@@ -49,7 +49,7 @@ Estes dados serão importados de outros sistemas.
 * Para geração de indicadores, é utilizada uma fórmula. Esta fórmula utiliza operadores sobre dados absolutos.
 * Os indicadores possuem classificações de acordo com o resultado da fórmula.
 
-Mais informações sobre cada uma das listagens de indicadores, em cada uma das planilhas, pode ser obtida [Aqui](Indicadores)
+Mais informações sobre cada uma das listagens de indicadores, em cada uma das planilhas, pode ser obtida [Aqui](DadosColetados.markdown)
 
 # Apresentação dos resultados
 
