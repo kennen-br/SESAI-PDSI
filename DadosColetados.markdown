@@ -2,6 +2,8 @@
 
 ## Planilha de necessidades
 
+A Referência ao capítulo do PDSI ainda não foi definida.
+
 ### Aba Investimento
 
 * Os dados coletados são divididos em três grupos:
@@ -37,12 +39,9 @@ Salvo para os campos, que requerem apenas Justificativa:
 
 O campo "Servidores Públicos Federais" foi sugerido remover, pois não é possível quantificar, monetarizar ou distribuir.
 
-# Planilha de mapa territorial
-
-* Os dados absolutos compõe indicadores
-* Os indicadores podem ser referentes ao distrito ou ao polo base
-
-
 ## 4.2. Balanço do PDSI 2012-2015
 
 Arquivo Mapa Estratégico_v7 DGESI
+
+* Os dados absolutos compõe indicadores
+* Os indicadores podem ser referentes ao distrito ou ao polo base
