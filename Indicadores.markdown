@@ -20,9 +20,6 @@
  * Percentual de Cobertura Atual Frente a Necessária
 * Caso seja um valor bruto, os dados utilizados para cálculo não serão coletados
 
-
-
-
 ## Aba Custeio
 
 * Informar quantidades na planilha fornecida.
