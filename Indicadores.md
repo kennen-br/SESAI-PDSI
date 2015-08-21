@@ -2,6 +2,21 @@
 
 # Planilha de necessidades
 
+## Aba Investimento
+
+* Os dados coletados são divididos em três grupos:
+ * Edificações
+ * Saneamento
+ * Equipamentos
+* Para cada um destes grupos deverá ser informada a "Previsão Orçamentária de Referência para 2016* (em R$)"
+* Os dados coletados podem ser utilizados para cálculos ou então serão dados brutos.
+ * Para os dados utilizados para cálculos, serão coletadas as seguintes informações
+  * Quantidade Existente em 2015
+  * Quantidade Necessária para atender o DSEI
+  * Valor Unitário Médio (em R$ / projeção 2016)
+ * Os valores calculados a partir desses dados coletados serão:
+  * Déficit Quantidativo (item 2 - item 1)
+
 ## Aba Custeio
 
 * Informar quantidades na planilha fornecida.
