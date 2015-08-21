@@ -9,13 +9,14 @@
  * Saneamento
  * Equipamentos
 * Para cada um destes grupos deverá ser informada a "Previsão Orçamentária de Referência para 2016* (em R$)"
-* Os dados coletados podem ser utilizados para cálculos ou então serão dados brutos.
- * Para os dados utilizados para cálculos, serão coletadas as seguintes informações
-  * Quantidade Existente em 2015
-  * Quantidade Necessária para atender o DSEI
-  * Valor Unitário Médio (em R$ / projeção 2016)
- * Os valores calculados a partir desses dados coletados serão:
-  * Déficit Quantidativo (item 2 - item 1)
+* Os dados coletados podem ser utilizados para cálculos, ou podem ser dados brutos finais
+* Os dados utilizados para realizar cálculos serão
+ 1. Quantidade Existente em 2015
+ 2. Quantidade Necessária para atender o DSEI
+ 3. Valor Unitário Médio (em R$ / projeção 2016)
+* Os valores calculados a partir desses dados coletados serão
+ * Déficit Quantidativo (item i - item ii)
+ * Percentual de Cobertura Atual Frente a Necessária
 
 ## Aba Custeio
 
