@@ -8,7 +8,8 @@
  * Edificações
  * Saneamento
  * Equipamentos
-* Para cada um destes grupos deverá ser informada a "Previsão Orçamentária de Referência para 2016* (em R$)"
+* Para cada um destes grupos deverá ser informada a "Previsão Orçamentária de Referência para 2016 (em R$)"
+  * Será calculada a Estimativa do Orçamento Necessário para Pleno Atendimento do Déficit Quantitativo (em R$ / projeção 2016)
 * Os dados coletados podem ser utilizados para cálculos, ou podem ser dados brutos finais
 * Os dados utilizados para realizar cálculos serão
  1. Quantidade Existente em 2015
@@ -17,6 +18,10 @@
 * Os valores calculados a partir desses dados coletados serão
  * Déficit Quantidativo (item i - item ii)
  * Percentual de Cobertura Atual Frente a Necessária
+* Caso seja um valor bruto, os dados utilizados para cálculo não serão coletados
+
+
+
 
 ## Aba Custeio
 
