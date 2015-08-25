@@ -56,6 +56,8 @@ Mais informações sobre cada uma das listagens de indicadores, em cada uma das 
 # Apresentação dos resultados
 
 * O produto final será um relatório em PDF, com informações computadas a partir dos dados calculados, alguns textos informados via interface gráfica, mapas (ou em imagem ou em pdf).
+* O PDSI não poderá ser gerado se existirem pendências de dados
+  * O texto do item 4.2 precisa ser aprovado pelo SESAI Central. 
 
 # Interface administrativa (Admin)
 

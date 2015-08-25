@@ -92,19 +92,18 @@ Os DSEIS, Polos serão informados
 
 * **TODO**
   * Descobrir o que é isso
+    * Todos os municípios tem CAPAIs?
 
 # 4 Análise Situacional
 
-* **Formato**: imagem
-* Texto analítico
+* **Formato**: texto
+* Texto orientativo será enviado pela CESAI central
+* Coordenador do DSEI será responsável por elaborar o texto final, com base no texto orientativo.
 
-## 4.1 Balanço do PDSI 2015-2015
+**NOTE**:
+  * Item 4.1 anterior, o Balanço do PDSI 2012-2015 foi removido.
 
-**TODO**:
-  * Mais informações sobre este conteúdo. README fala de tabelas em formato excel, e fala em anexo.
-  * Quem será o responsável por informar os dados no sistema?
-
-## 4.2 Indicadores da saúde indígena no DSEI
+## 4.1 Indicadores da saúde indígena no DSEI
 
 Arquivo Mapa Estratégico\_v7 DGESI
 
@@ -119,11 +118,11 @@ Arquivo Mapa Estratégico\_v7 DGESI
   * Amarelo para valores entre dois números determinados.
   * Verde para valores superiores a um determinado número.
 
-## 4.3 Principais desafios a serem enfrentados em 2016 - 2019
+## 4.2 Principais desafios a serem enfrentados em 2016 - 2019
 
 * **Formato**: texto
-**TODO**:
-  * Quem será o responsável por informar os dados no sistema?
+* Texto informado deverá ser revisto e aprovado pelo SESAI Central
+* Uma vez aprovado, o texto não poderá mais ser alterado.
 
 # 5 Resultados esperados 2016 - 2019
 
@@ -132,9 +131,15 @@ Arquivo Mapa Estratégico\_v7 DGESI
   * README fala em formato digital a definir no sistema / formulário
 
 # 6 Projeção Orçamentária 2016 - 2019
+
 **TODO**:
   * Quem será o responsável por informar os dados no sistema?
   * README fala sobre formulário enviado pela SESAI Central, que formulário é esse?
+
+# 7 Anexos
+
+* **TODO**:
+  * Definir o que fazer com os anexos: formato etc.
 
 # Outras informações não relacionadas aos capítulos do PDSI
 
