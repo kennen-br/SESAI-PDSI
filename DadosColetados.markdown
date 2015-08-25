@@ -16,6 +16,9 @@ Os DSEIS, Polos serão informados
 * Os valores únicos serão preenchidos pelo Coordernador do DSEI
 * O texto padrão possuirá *tags* para substituição pelos valores únicos
 
+* **TODO**:
+  * Viabilidade de informar o texto para o coordenador editar manualmente e substituir os valores
+
 # 3 Caracterização do DSEI
 
 * Dado será coletado em formato de texto com editor WYSIWYG
@@ -32,11 +35,63 @@ Os DSEIS, Polos serão informados
 * O upload da imagem será feito pelo coordenador do DSEI (Esta informação não estava explícita no documento)
 * A imagem será posicionada no PDSI
 
-### B) Dados demográficos e C) Dados fisiográficos
+* **TODO**:
+  * Verificar origem do mapa, talvez seja apenas um mapa para todos os DSEIS fornecido pela SESAI Central
 
-**TODO**:
-  * Mais informações sobre este conteúdo. README fala de tabelas em formato excel, e fala em anexo.
-  * Quem será o responsável por informar os dados no sistema?
+### B) Dados demográficos
+
+* Arquivo caracterizacaoDSEI_planilhasPDSI_Voficina23 e 24.xls
+* Planilha 3.1.b
+
+### C) Dados fisiográficos
+
+* Arquivo caracterizacaoDSEI_planilhasPDSI_Voficina23 e 24.xls
+* Planilha 3.1.c
+
+## 3.2 Dados de gestão
+
+### 3.2 A
+
+### 3.2 B
+
+* **TODO**:
+  * Verificar este item, a princípio não era para ser preenchido. Foi cogitado adicionar à planilha de custos e necessidades
+
+### 3.2 C
+
+* O coordernador do DSEI irá informar estes dados
+* O coordenador do DSEI informará os dados por EMSI, dividido por polo-base.
+
+* **TODO**:
+  * Definir o que é o espaço "Comentários"
+
+### 3.2 D
+
+* O coordenador do DSEI irá informar estes dados
+* O coordenador informará para cada polo-base, informações de cada um dos municípios
+* Talvez tenha mais de um estabelecimento de saúde para cada município
+
+### 3.2 E
+
+* As informações sobre a sede do DSEI será informada na linha 4 da planilha
+* AS linhas 5 e 6 serão preenchidas para cada CASAI do DSEI
+* A linha 7 apresenta a quantidade total de CASAIs do DSEI
+* As linhas 8 e 9 serão preenchidas para cada Polo Base do DSEI do Tipo 1 (Assistencial e Administrativo)
+* A linha 10 apresentará a quantidade total de Polos Base do Tipo 1 do DSEI
+* As linhas 11 e 12 serão preenchidas para cada Polo Base do DSEI do Tipo 2 (Administrativo)
+* A linha 13 apresentará a quantidade total de Polos Base do Tipo 2 do DSEI
+* As linhas 14 e 15 serão preenchidas para cada UBSI do DSEI
+* A linha 16 apresentará a quantidade total de UBSIS do DSEI
+
+* **TODO**
+  * Descobrir como identificar um Polo Base como sendo do Tipo 1 ou do Tipo 2
+
+### 3.2 F
+
+### 3.2 G - Infrtaestrutura dos CAPAIs
+
+* **TODO**
+  * Descobrir o que é isso
 
 # 4 Análise Situacional
 
