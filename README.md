@@ -17,7 +17,7 @@ Do ponto de vista puramente sistêmico, o desenvolvimento desta ferramenta deve 
 
 ### Modelo proposto ###
 
-A coleta de dados, tem sua como sua atividade central a consolidação das informações dentro da estrutura de dados proposta para o sistema para posteriormente permitir a geração do . Portanto, o preenchimento do formulário com perguntas, em diferentes níveis de acesso, levando em consideração o direcionamento das questões de acordo com o usuário e as instâncias da Saúde Indígena. Tal processo também deverá ter como prevista a opção para upload da planilha de dados coletados, sendo opção a ser utilizada enquanto a ferramenta não estiver em produção.
+A coleta de dados, tem sua como sua atividade central a consolidação das informações dentro da estrutura de dados proposta para o sistema para posteriormente permitir a geração do Plano Distrital de Saúde Indígena (PDSI). Portanto, o preenchimento do formulário com perguntas, em diferentes níveis de acesso, levando em consideração o direcionamento das questões de acordo com o usuário e as instâncias da Saúde Indígena. Tal processo também deverá ter como prevista a opção para upload da planilha de dados coletados, sendo opção a ser utilizada enquanto a ferramenta não estiver em produção.
 
 O painel de visualização e controle da informação, ambos também com diferentes níveis de acesso. O perfil Gerencial, permitindo a funcionalidades de gerenciamento dos processos de coleta de informação realizados em território e o perfil Executivo, com funcionalidades para análises quantitativas, gráficos e relatórios.
 
@@ -46,9 +46,8 @@ Segue modelo definido como estrutra do Plano Distrital Sanitário Indígena 2016
 ||B) Dados demográficos;<br /> C) Dados fisiográficos|	Tabelas padrão	|Tabelas de caracterização do DSEI (Anexo), Dados deverão ser inseridos em formulário excel.<br />No documento formal do PDSI deverá constar um “print” desse formulário.|
 |3.2 Gestão| a) Meios de transporte; <br /> b) Recursos Humanos; <br /> C) Capacidade instalada; <br /> D) Rede de serviços; <br /> E) Infraestrutura de saúde Edificações; <br /> F) Infraestrutura de saúde Saneamento |	Tabelas padrão	| Tabelas de caracterização do DSEI (Anexo), Dados deverão ser inseridos em formulário excel.|
 |4. Análise Situacional|	Texto analítico com os principais **avanços** e **dificuldades** do DSEI no período |	Máximo de 2 páginas |	Oficinas realizadas com CONDISI e Conselhos locais deverão subsidiar a síntese <br /> Documento Orientativo enviado pela SESAI Central proporciona orientações para essa análise. |
-|4.1. Balanço do PDSI 2012-2015| Tabelas com comparativo entre o planejado e o realizado (deverão constar apenas no anexo)	| |	Dados do planejado x realizado deverão ser inseridos em formato digital (Excel).<br /> No documento formal do PDSI deverá constar um “print” desse formulário|
-|4.2. Indicadores da saúde indígena no DSEI | Situação dos indicadores do mapa estratégico selecionados para serem coletados nesta fase de elaboração do PDSI	| |	Dados dos indicadores deverão ser inseridos em formato digital (a definir o sistema de inserção/ Formulário). <br />No documento formal do PDSI deverá constar um “print” desse formulário|
-|4.3. Principais desafios a serem enfrentados em 2016-2019 |	Síntese analítica dos indicadores e da caracterização do DSEI, incluindo as especificidades de cada DSEI e apontando os principais desafios a serem enfrentados no quadriênio 2016-2019 (principais desafios que o plano deverá responder)	| Máximo de 2 páginas |	Oficinas realizadas com CONDISI e Conselhos locais deverão subsidiar a síntese<br /> SESAI Central deverá fazer revisão deste texto |
+|4.1. Indicadores da saúde indígena no DSEI | Situação dos indicadores do mapa estratégico selecionados para serem coletados nesta fase de elaboração do PDSI	| |	Dados dos indicadores deverão ser inseridos em formato digital (a definir o sistema de inserção/ Formulário). <br />No documento formal do PDSI deverá constar um “print” desse formulário|
+|4.2. Principais desafios a serem enfrentados em 2016-2019 |	Síntese analítica dos indicadores e da caracterização do DSEI, incluindo as especificidades de cada DSEI e apontando os principais desafios a serem enfrentados no quadriênio 2016-2019 (principais desafios que o plano deverá responder)	| Máximo de 2 páginas |	Oficinas realizadas com CONDISI e Conselhos locais deverão subsidiar a síntese<br /> SESAI Central deverá fazer revisão deste texto |
 |5. RESULTADOS ESPERADOS 2016-2019	| Explicação metodológica das categorias do plano e de sua conexão com o plano estratégico da SESAI.<br /> Apresentação dos Resultados Esperados, organizados por estratégia e por ano (2016 a 2019). <br /> Identificar Resultados que compõem o Plano Estratégico da SESAI como um todo e os que são específicos do DSEI.|	Máximo de 2 páginas|	Elaborado pela SESAI Central	<br />Sempre que possível, apresentar linha de base de 2014. Resultados Esperados deverão ser inseridos em formato digital (a definir o sistema/formulário). <br />No documento formal do PDSI deverá constar um “print” desse formulário |
 |6. Projeção Orçamentária 2016-2019	| Explicação sobre funcionamento do orçamento <br />Números macro, por rubrica e por ano. |	Máximo de 3 páginas  | A partir de formulário enviado pela sesai central |
 ||Breve Explicação da distribuição orçamentária| 0,5 página|<br />SESAI CENTRAL: Explicar porque determinados itens não serão incorporados (investimento e equipamento) <br />SESAI CENTRAL: Incluir referência à portaria que detalha a distribuição orçamentária	|
@@ -127,10 +126,6 @@ Refere-se a família de dados a serem consolidados por meio da coleta no sistema
 
 * **RN.03:** Consolidação das regras de cálculo de indicadores
 
-* **RN.04:** 
-
-* **RN.05:**
-
 __________
 
 ### Requisitos de Funcionais
@@ -145,11 +140,9 @@ __________
 
 * **RF.05:** Integração dos dados coletados entre os diversos eixos (indicadores, dados demográficos, orçamento, etc.) – BI
 
-* **RF.06:** 
+* **RF.06:** Interface de dados com sistemas legados
 
-* **RF.07:** Interface de dados com sistemas legados
-
-* **RF.08:** Gerador do documento PDSI (pdf)
+* **RF.07:** Gerador do documento PDSI (pdf)
 ______________
 
 ### Requisitos do Sistema
@@ -207,13 +200,5 @@ ______________
 * **RD.05:** Integração da proposta de layout e arte dos eixos dos Mapa de Indicadores
 ______________
 
-#### Siglas
-
-| Sigla | Significado |
-| --- | --- |
-| CONDISI | Conselho Distrital de Saúde Indígena |
-| CSLI | Conselhos Locais de Saúde Indígena |
-| DSEI | Distritos Sanitários Especiais Indígenas |
-| SESAI | Secretaria Especial de Saúde Indígena |
 
 
