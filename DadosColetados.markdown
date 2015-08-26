@@ -52,6 +52,11 @@ Os DSEIS, Polos serão informados
 
 ### 3.2 A
 
+* Para cada aldeia do DSEI, serão informados os dados para a **UBSI**, **Polo Base**, **CASAI** e **Média e Alta Compexidade**
+
+* **TODO**:
+  * Verificar se apenas um meio de transporte será informado para cada destino (ubsi, polo base etc.)
+
 ### 3.2 B
 
 * **TODO**:
@@ -118,11 +123,21 @@ Arquivo Mapa Estratégico\_v7 DGESI
   * Amarelo para valores entre dois números determinados.
   * Verde para valores superiores a um determinado número.
 
+* **TODO**:
+  * Verificar viabilidade de não coletar os dados por Polo Base e sim agrupado pelo DSEI
+
 ## 4.2 Principais desafios a serem enfrentados em 2016 - 2019
 
 * **Formato**: texto
-* Texto informado deverá ser revisto e aprovado pelo SESAI Central
-* Uma vez aprovado, o texto não poderá mais ser alterado.
+
+1. DSEI escreve texto
+2. DSEI marca texto como pronto para revisão
+3. SESAI Central revisa o texto
+  1. Se o texto não for aprovado, SESAI cadastra observações
+  2. Se o texto não foi aprovado, DSEI corrige de acordo com observações
+  3. DSEI novamente marca o texto como pronto para revisão e o processo se repete no item 3
+  4. Se o texto foi aprovado, SESAI Central marca o texto como aprovado
+4. Após aprovado, o texto não poderá mais ser alterado
 
 # 5 Resultados esperados 2016 - 2019
 
