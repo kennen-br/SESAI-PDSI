@@ -5,16 +5,15 @@ Os DSEIS, Polos serão informados
 # 1 Introdução
 
 * Dado será coletado em formato de texto com editor WYSIWYG
-* Apenas um texto padrão para todos os DSEIS
 * O texto será produzido pela SESAI Central
+* O texto possuirá uma *tag* que será substituída pelo nome do DSEI
 
 # 2 O Processo de Construção do PDSI 2016 - 2019
 
 * **Formato**: texto
 * Cada DSEI possui um texto diferente, similar entre sí porém com valores únicos.
 * O texto padrão será elaborado e fornecido pela SESAI Central
-* Os valores únicos serão preenchidos pelo Coordernador do DSEI
-* O texto padrão possuirá *tags* para substituição pelos valores únicos
+* O texto padrão possuirá uma *tag* para substituição por um texto composto pelo coordenador do DSEI
 
 * **TODO**:
   * Viabilidade de informar o texto para o coordenador editar manualmente e substituir os valores
