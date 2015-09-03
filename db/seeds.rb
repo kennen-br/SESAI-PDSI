@@ -26,14 +26,14 @@ end
 
 if UserType.all.size == 0
   UserType.create name: 'Administrador'
-  UserType.create name: 'Operador DSEI'
   UserType.create name: 'Usuário SESAI Central'
+  UserType.create name: 'Operador DSEI'
 end
 
 if User.all.size == 0
-  User.create!([
-    { username: "AD0001", password: "Rapadura1234!@\#$", current_sign_in_ip: "10.0.2.2", last_sign_in_ip: "10.0.2.2", user_type: UserType.first, active: true, profile: Profile.new(name: 'Administrador 01') }
-  ])
+  User.create!([{ username: "AD0001", password: 'Rapadura1234!@#$', current_sign_in_ip: "10.0.2.2", last_sign_in_ip: "10.0.2.2", user_type: UserType.first,   active: true, profile: Profile.new(name: 'Administrador 01') }])
+  User.create!([{ username: "US0001", password: 'Rapadura1234!@#$', current_sign_in_ip: "10.0.2.2", last_sign_in_ip: "10.0.2.2", user_type: UserType.second,  active: true, profile: Profile.new(name: 'Operador do SESAI Central 01') }])
+  User.create!([{ username: "OD0001", password: 'Rapadura1234!@#$', current_sign_in_ip: "10.0.2.2", last_sign_in_ip: "10.0.2.2", user_type: UserType.last,    active: true, profile: Profile.new(name: 'Operador do DSEI 01') }])
 end
 
 if TextTemplate.all.size == 0
