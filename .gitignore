@@ -14,5 +14,14 @@
 # Ignore all logfiles and tempfiles.
 log/
 tmp/
+coverage/
+app/views/refills
+config/database.yml
+
+# Paperclip uploads
+public/system
+
+home.html.slim
+_line.html.slim
 
 .vagrant
