@@ -42,6 +42,7 @@ gem 'devise'
 gem 'devise-i18n'
 
 gem 'mysql2'
+gem 'pg'
 gem 'seed_dump'
 
 gem 'whenever'
@@ -79,7 +80,6 @@ group :development, :test do
 end
 
 group :production, :staging do
-  gem 'pg'
   gem 'newrelic_rpm'
   gem 'rails_12factor'
 end

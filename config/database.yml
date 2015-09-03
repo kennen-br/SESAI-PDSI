@@ -15,20 +15,20 @@ development:
 #  database: db/development.sqlite3
 
 # MYSQL
-  adapter   : mysql2
-  encoding  : utf8
-  database  : sesai_pdsi
-  username  : root
-  password  : rapadura
-  host      : localhost
+#  adapter   : mysql2
+#  encoding  : utf8
+#  database  : sesai_pdsi
+#  username  : root
+#  password  : rapadura
+#  host      : localhost
 
 # PostgreSQL
-#  adapter   : postgresql
-#  encoding  : utf8
-#  database  : palpiteiros_fc
-#  username  : desenv
-#  password  : rapadura
-#  host      : 192.168.33.13
+ adapter   : postgresql
+ encoding  : utf8
+ database  : sesai_pdsi
+ username  : desenv
+ password  : rapadura
+ host      : 192.168.33.13
 
 
 # Warning: The database defined as "test" will be erased and
