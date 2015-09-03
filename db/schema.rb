@@ -75,7 +75,6 @@ ActiveRecord::Schema.define(version: 20150902204322) do
   create_table "profiles", force: :cascade do |t|
     t.integer  "user_id",    limit: 4,   null: false
     t.string   "name",       limit: 255, null: false
-    t.integer  "dsei_id",    limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
