@@ -36,6 +36,19 @@ $ rails server -b 0.0.0.0
 
 e agora acesse seu navegador em http://localhost:3000
 
+# Deploy
+
+```
+$ git push heroku rc:master
+```
+
+## Comandos heroku
+```
+$  git push heroku rc:master
+$  heroku run rails console
+$  heroku run bash
+```
+
 # Documentação
 
 * [Especificação do projeto](doc/README.markdown)
