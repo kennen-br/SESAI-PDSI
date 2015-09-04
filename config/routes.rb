@@ -6,8 +6,8 @@ Rails.application.routes.draw do
     get   '/:id/alterar/:section',  to: 'pdsis#edit',   as: :edit_pdsi
 
     scope '/dados-demograficos' do
-      patch '/:id/alterar',  to: 'dado_demograficos#update',  as: :dado_demografico
-      get   '/:id/alterar',  to: 'dado_demograficos#edit',    as: :edit_dado_demografico
+      patch '/:id/alterar',  to: 'demographic_datas#update',  as: :demographic_data
+      get   '/:id/alterar',  to: 'demographic_datas#edit',    as: :edit_demographic_data
     end
   end
 

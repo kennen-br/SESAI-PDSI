@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "dado_demograficos/show", type: :view do
+RSpec.describe "demographic_datas/show", type: :view do
   before(:each) do
-    @dado_demografico = assign(:dado_demografico, DadoDemografico.create!(
+    @demographic_data = assign(:demographic_data, DemographicData.create!(
       :pdsi => nil,
       :extensao_territorial => "Extensao Territorial",
       :municipio_sede => "Municipio Sede",

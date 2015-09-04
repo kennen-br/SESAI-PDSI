@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150902204322) do
+ActiveRecord::Schema.define(version: 20150909133627) do
 
   create_table "cost_users", force: :cascade do |t|
     t.integer  "cost_id",      limit: 4
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20150902204322) do
     t.datetime "updated_at",                                  null: false
   end
 
-  create_table "dado_demograficos", force: :cascade do |t|
+  create_table "demographic_datas", force: :cascade do |t|
     t.integer  "pdsi_id",                 limit: 4
     t.string   "extensao_territorial",    limit: 255
     t.string   "municipio_sede",          limit: 255
@@ -56,7 +56,17 @@ ActiveRecord::Schema.define(version: 20150902204322) do
     t.datetime "updated_at",                            null: false
   end
 
-  add_index "dado_demograficos", ["pdsi_id"], name: "index_dado_demograficos_on_pdsi_id", using: :btree
+  add_index "demographic_datas", ["pdsi_id"], name: "index_demographic_datas_on_pdsi_id", using: :btree
+
+  create_table "etnias", force: :cascade do |t|
+    t.integer  "demographic_data_id", limit: 4
+    t.string   "name",                limit: 255
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  add_index "etnias", ["demographic_data_id", "name"], name: "index_etnias_on_demographic_data_id_and_name", unique: true, using: :btree
+  add_index "etnias", ["demographic_data_id"], name: "index_etnias_on_demographic_data_id", using: :btree
 
   create_table "pdsis", force: :cascade do |t|
     t.integer  "user_id",                    limit: 4
@@ -88,6 +98,16 @@ ActiveRecord::Schema.define(version: 20150902204322) do
     t.text     "processo_construcao_pdsi_2", limit: 65535
   end
 
+  create_table "transportations", force: :cascade do |t|
+    t.integer  "demographic_data_id", limit: 4
+    t.string   "name",                limit: 255
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  add_index "transportations", ["demographic_data_id", "name"], name: "index_transportations_on_demographic_data_id_and_name", unique: true, using: :btree
+  add_index "transportations", ["demographic_data_id"], name: "index_transportations_on_demographic_data_id", using: :btree
+
   create_table "user_types", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
     t.datetime "created_at",             null: false
@@ -112,7 +132,9 @@ ActiveRecord::Schema.define(version: 20150902204322) do
 
   add_foreign_key "cost_users", "costs"
   add_foreign_key "cost_users", "users"
-  add_foreign_key "dado_demograficos", "pdsis"
+  add_foreign_key "demographic_datas", "pdsis"
+  add_foreign_key "etnias", "demographic_datas"
   add_foreign_key "pdsis", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "transportations", "demographic_datas"
 end

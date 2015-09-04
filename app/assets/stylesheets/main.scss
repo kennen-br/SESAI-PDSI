@@ -51,6 +51,10 @@ span.white_color{
     margin-right:  5px;
   }
 
+  &.btn-sm {
+    font-size: modular-scale(-1);
+  }
+
   color: #fff !important;
 }
 
@@ -123,5 +127,13 @@ button#menu-button{
   .sample-text{
     @include span-columns(6);
     @include omega();
+  }
+}
+
+// Cocoon nested forms
+.nested-form {
+  .destroy {
+    text-align: center;
+    width: 7%;
   }
 }
