@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909133627) do
+ActiveRecord::Schema.define(version: 20150909192717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "base_polos", force: :cascade do |t|
+    t.integer  "dsei_id"
+    t.string   "name",       null: false
+    t.integer  "sesai_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "base_polos", ["dsei_id"], name: "index_base_polos_on_dsei_id", using: :btree
 
   create_table "cost_users", force: :cascade do |t|
     t.integer  "cost_id"
@@ -60,6 +70,28 @@ ActiveRecord::Schema.define(version: 20150909133627) do
   end
 
   add_index "demographic_datas", ["pdsi_id"], name: "index_demographic_datas_on_pdsi_id", using: :btree
+
+  create_table "dseis", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.integer  "sesai_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "ethnicities", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.integer  "sesai_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "ethnicities_villages", force: :cascade do |t|
+    t.integer "ethnicity_id"
+    t.integer "village_id"
+  end
+
+  add_index "ethnicities_villages", ["ethnicity_id"], name: "index_ethnicities_villages_on_ethnicity_id", using: :btree
+  add_index "ethnicities_villages", ["village_id"], name: "index_ethnicities_villages_on_village_id", using: :btree
 
   create_table "etnias", force: :cascade do |t|
     t.integer  "demographic_data_id"
@@ -133,6 +165,17 @@ ActiveRecord::Schema.define(version: 20150909133627) do
 
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  create_table "villages", force: :cascade do |t|
+    t.integer  "base_polo_id"
+    t.string   "name",         null: false
+    t.integer  "sesai_id",     null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "villages", ["base_polo_id"], name: "index_villages_on_base_polo_id", using: :btree
+
+  add_foreign_key "base_polos", "dseis"
   add_foreign_key "cost_users", "costs"
   add_foreign_key "cost_users", "users"
   add_foreign_key "demographic_datas", "pdsis"
@@ -140,4 +183,5 @@ ActiveRecord::Schema.define(version: 20150909133627) do
   add_foreign_key "pdsis", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "transportations", "demographic_datas"
+  add_foreign_key "villages", "base_polos"
 end
