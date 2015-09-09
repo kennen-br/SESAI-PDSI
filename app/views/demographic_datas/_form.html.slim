@@ -1,0 +1,71 @@
+.field
+  = f.label :extensao_territorial
+  = f.text_field :extensao_territorial
+.field
+  = f.label :municipio_sede
+  = f.text_field :municipio_sede
+.field
+  = f.label :endereco
+  = f.text_field :endereco
+.field
+  = f.label :email
+  = f.text_field :email
+.field
+  = f.label :numero_municipios
+  = f.number_field :numero_municipios
+.field
+  = f.label :populacao_indigena
+  = f.number_field :populacao_indigena
+
+fieldset
+  legend Etnias
+  table.table.nested-form
+    thead
+      tr
+        th Nome
+        th.destroy Apagar?
+    tbody#etnias
+      = f.fields_for :etnias do |etnia|
+        = render 'etnia_fields', { f: etnia }
+    tfoot
+      tr
+        td.links.right-align colspan="2"
+          = link_to_add_association f, :etnias, { data: { "association-insertion-node": '#etnias', "association-insertion-method": 'append' }, class: 'button btn-sm' } do
+            = icon 'plus'
+            | Adicionar Etnia
+
+.field
+  = f.label :numero_polos_base
+  = f.number_field :numero_polos_base
+.field
+  = f.label :numero_ubsi
+  = f.number_field :numero_ubsi
+.field
+  = f.label :numero_regioes_de_saude
+  = f.number_field :numero_regioes_de_saude
+.field
+  = f.label :numero_casais
+  = f.number_field :numero_casais
+.field
+  = f.label :numero_aldeias
+  = f.number_field :numero_aldeias
+.field
+  = f.label :numero_familias
+  = f.number_field :numero_familias
+
+fieldset
+  legend Meios de Transporte
+  table.table.nested-form
+    thead
+      tr
+        th Nome
+        th.destroy Apagar?
+    tbody#transportations
+      = f.fields_for :transportations do |transportation|
+        = render 'transportation_fields', { f: transportation }
+    tfoot
+      tr
+        td.links.right-align colspan="2"
+          = link_to_add_association f, :transportations, { data: { "association-insertion-node": '#transportations', "association-insertion-method": 'append' }, class: 'button btn-sm' } do
+            = icon 'plus'
+            | Adicionar Meio de Transporte

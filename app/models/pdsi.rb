@@ -1,8 +1,8 @@
 class Pdsi < ActiveRecord::Base
   belongs_to  :user
 
-  has_one :dado_demografico
-  accepts_nested_attributes_for :dado_demografico
+  has_one :demographic_data
+  accepts_nested_attributes_for :demographic_data
 
   has_attached_file :map, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :map, content_type: /\Aimage\/.*\Z/
@@ -15,10 +15,10 @@ class Pdsi < ActiveRecord::Base
     @text_template = TextTemplate.first
   end
 
-  def dado_demografico
-    return @dado_demografico unless @dado_demografico.nil?
+  def demographic_data
+    return @demographic_data unless @demographic_data.nil?
 
-    @dado_demografico = DadoDemografico.first_or_create pdsi: self
+    @demographic_data = DemographicData.first_or_create pdsi: self
   end
 
   def sample(attr)

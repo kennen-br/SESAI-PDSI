@@ -28,7 +28,7 @@ pt-BR:
         processo_construcao_pdsi_2: '2. O processo de construção do PDSI 2016-2019'
         caracterizacao_do_dsei:     '3. Caracterização do DSEI'
 
-      dado_demografico:
+      demographic_data:
         extensao_territorial:     Extensão territorial
         municipio_sede:           Município sede do DSEI
         endereco:                 Endereço
@@ -43,6 +43,12 @@ pt-BR:
         numero_aldeias:           Nº de aldeias
         numero_familias:          Nº de famílias
         meios_de_transporte:      Meios de transporte
+
+      etnia:
+        name: Nome
+
+      transportation:
+        name: Nome
 
       cost:
         name: 'Custeio'

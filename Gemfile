@@ -26,6 +26,9 @@ gem 'mailchimp-api',                require: 'mailchimp'
 # http://stackoverflow.com/a/18581914
 gem 'activerecord-session_store'
 
+# Nested Forms
+gem "cocoon"
+
 # Markdown
 gem 'redcarpet'
 

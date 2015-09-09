@@ -1,6 +1,6 @@
-class CreateDadoDemograficos < ActiveRecord::Migration
+class CreateDemographicDatas < ActiveRecord::Migration
   def change
-    create_table :dado_demograficos do |t|
+    create_table :demographic_datas do |t|
       t.references :pdsi, index: true, foreign_key: true
       t.string :extensao_territorial
       t.string :municipio_sede

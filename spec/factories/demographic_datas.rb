@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :dado_demografico do
+  factory :demographic_data do
     pdsi nil
 extensao_territorial "MyString"
 municipio_sede "MyString"

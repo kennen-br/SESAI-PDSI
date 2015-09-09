@@ -1,11 +1,11 @@
 h1 Editar dados demográficos
 
-= form_for @dado_demografico do |f|
-  - if @dado_demografico.errors.any?
+= form_for @demographic_data do |f|
+  - if @demographic_data.errors.any?
     #error_explanation.flash-error
-      h2 = "#{pluralize(@dado_demografico.errors.count, "error")} encontrados"
+      h2 = "#{pluralize(@demographic_data.errors.count, "error")} encontrados"
       ul
-        - @dado_demografico.errors.full_messages.each do |message|
+        - @demographic_data.errors.full_messages.each do |message|
           li = message
 
   fieldset

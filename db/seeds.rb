@@ -54,8 +54,8 @@ if Pdsi.count == 0
   ])
 end
 
-if DadoDemografico.count == 0
-  DadoDemografico.create!([
-    {pdsi_id: 1, extensao_territorial: "123,45 KM2", municipio_sede: "São Jorge do Patrocínio", endereco: "Rua Hum, Quadra Dois. Número Três, Bloco Quatro, Apartamento Cinco.", email: "rodrigo@devlandia.net", numero_municipios: 1, populacao_indigena: 2, etnias: "etnia 1, etnia 2, etnia 3.", numero_polos_base: 3, numero_ubsi: 4, numero_regioes_de_saude: 5, numero_casais: 6, numero_aldeias: 7, numero_familias: 8, meios_de_transporte: "Tuk-tuk"}
+if DemographicData.count == 0
+  DemographicData.create!([
+    { pdsi_id: 1, extensao_territorial: "123,45 KM2", municipio_sede: "São Jorge do Patrocínio", endereco: "Rua Hum, Quadra Dois. Número Três, Bloco Quatro, Apartamento Cinco.", email: "rodrigo@devlandia.net", numero_municipios: 1, populacao_indigena: 2, numero_polos_base: 3, numero_ubsi: 4, numero_regioes_de_saude: 5, numero_casais: 6, numero_aldeias: 7, numero_familias: 8 }
   ])
 end
