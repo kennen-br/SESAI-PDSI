@@ -29,6 +29,9 @@ gem 'activerecord-session_store'
 # Nested Forms
 gem "cocoon"
 
+# Wysiwyg
+gem "wysiwyg-rails"
+
 # Markdown
 gem 'redcarpet'
 
