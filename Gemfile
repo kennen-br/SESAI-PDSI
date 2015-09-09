@@ -44,7 +44,7 @@ gem 'unicorn'
 gem 'devise'
 gem 'devise-i18n'
 
-gem 'mysql2'
+#gem 'mysql2'
 gem 'pg'
 gem 'seed_dump'
 
