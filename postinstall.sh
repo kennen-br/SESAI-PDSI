@@ -1,6 +1,6 @@
 # Avoid Mysql Installation Prompt
-sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password rapadura'
-sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password rapadura'
+#sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password rapadura'
+#sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password rapadura'
 
 # Language Settings
 export LANGUAGE=pt_BR.UTF-8
@@ -17,8 +17,9 @@ aptitude install -y \
   build-essential \
   curl \
   git \
-  mysql-server-5.5 \
-  libmysqlclient-dev \
+  #mysql-server-5.5 \
+  #libmysqlclient-dev \
+  postgresql \
   libxslt1-dev \
   libxml2-dev \
   libpq-dev \
@@ -45,4 +46,14 @@ su -c '/home/vagrant/.rvm/bin/rvm use 2.2.0 --default' vagrant
 su -c '/home/vagrant/.rvm/bin/rvm all do gem install bundle' vagrant
 
 # Create mysql database
-su -c "echo 'CREATE DATABASE sesai-pdsi' | mysql -u root -p'rapadura'"
+#su -c "echo 'CREATE DATABASE sesai-pdsi' | mysql -u root -p'rapadura'"
+
+# Copy postgresql config files to proper dir
+#DIR="$(pwd)/sandbox/sesai-pdsi"
+#sudo su -c "cp ${DIR}/samples/pg_hba.conf /etc/postgresql/9.3/main/" vagrant
+#sudo su -c "cp ${DIR}/samples/postgresql.conf /etc/postgresql/9.3/main/" vagrant
+
+# Create postgresql user and database
+sudo su - postgres -c "echo \"CREATE USER desenv WITH SUPERUSER CREATEDB CREATEROLE ENCRYPTED PASSWORD 'rapadura';\" |psql -U postgres -d postgres" vagrant
+sudo su - postgres -c "echo \"CREATE DATABASE sesai_pdsi;\" |psql -U postgres -d postgres" vagrant
+sudo su - postgres -c "echo \"GRANT ALL PRIVILEGES ON DATABASE sesai_pdsi TO desenv;\" |psql -U postgres -d postgres" vagrant

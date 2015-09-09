@@ -141,7 +141,6 @@ GEM
     mina-unicorn (0.3.0)
     mini_portile (0.6.2)
     minitest (5.8.0)
-    mysql2 (0.3.19)
     nav_lynx (1.1.1)
       rails (>= 3.1.0)
     neat (1.7.2)
@@ -336,7 +335,6 @@ DEPENDENCIES
   mina-multistage
   mina-nginx
   mina-unicorn
-  mysql2
   nav_lynx
   neat
   newrelic_rpm
