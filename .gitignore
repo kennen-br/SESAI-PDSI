@@ -19,6 +19,7 @@ tmp/
 coverage/
 app/views/refills
 config/database.yml
+batch/
 
 # Paperclip uploads
 public/system

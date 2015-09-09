@@ -167,10 +167,12 @@ ActiveRecord::Schema.define(version: 20150909192717) do
 
   create_table "villages", force: :cascade do |t|
     t.integer  "base_polo_id"
-    t.string   "name",         null: false
-    t.integer  "sesai_id",     null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.string   "name",          null: false
+    t.integer  "sesai_id",      null: false
+    t.string   "city_name",     null: false
+    t.integer  "city_sesai_id", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "villages", ["base_polo_id"], name: "index_villages_on_base_polo_id", using: :btree
