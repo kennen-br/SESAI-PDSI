@@ -18,11 +18,11 @@
     = f.text_field :value_2016
   .field
     = f.label :reason
-    = f.text_area :reason
+    = f.text_area :reason, { class: 'basic-editable' }
   .field
     = f.label :criteria
-    = f.text_area :criteria
+    = f.text_area :criteria, { class: 'basic-editable' }
   .field
     = f.label :distribution
-    = f.text_area :distribution
+    = f.text_area :distribution, { class: 'basic-editable' }
   .actions = f.submit
