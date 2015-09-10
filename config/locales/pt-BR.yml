@@ -44,6 +44,35 @@ pt-BR:
         numero_familias:          Nº de famílias
         meios_de_transporte:      Meios de transporte
 
+      physiographic_data:
+        pt_fluency: Fluência em português
+        #m_1:        Homens de até 1 ano
+        #m_1_4:      Homens de 1 a 4 anos
+        #m_5_9:      Homens de 5 a 9 anos
+        #m_10_49:    Homens de 10 a 49 anos
+        #m_50_59:    Homens de 50 a 59 anos
+        #m_60:       Homens com mais de 60 anos
+        #w_1:        Mulheres de até 1 ano
+        #w_1_4:      Mulheres de 1 a 4 anos
+        #w_5_9:      Mulheres de 5 a 9 anos
+        #w_10_49:    Mulheres de 10 a 49 anos
+        #w_50_59:    Mulheres de 50 a 59 anos
+        #w_60:       Mulheres com mais de 60 anos
+        m_1:        até 1 ano
+        m_1_4:      de 1 a 4 anos
+        m_5_9:      de 5 a 9 anos
+        m_10_49:    de 10 a 49 anos
+        m_50_59:    de 50 a 59 anos
+        m_60:       mais de 60 anos
+        w_1:        até 1 ano
+        w_1_4:      de 1 a 4 anos
+        w_5_9:      de 5 a 9 anos
+        w_10_49:    de 10 a 49 anos
+        w_50_59:    de 50 a 59 anos
+        w_60:       mais de 60 anos
+
+      pdsi_base_polo_datum:
+        city_name:  Cidade
       etnia:
         name: Nome
 

@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
 
   has_one :pdsi
 
+  belongs_to  :dsei
+
   validates :user_type, presence: true
 
   def email_required?

@@ -137,3 +137,19 @@ button#menu-button{
     width: 7%;
   }
 }
+
+.inline_field{
+  @include outer-container;
+
+  label.inline_pt_fluency{
+    @include span-columns(3);
+  }
+
+  .inline_line{
+    @include outer-container;
+
+    .value{
+      @include span-columns(2);
+    }
+  }
+}

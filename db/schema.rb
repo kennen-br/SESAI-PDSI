@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909192717) do
+ActiveRecord::Schema.define(version: 20150911144301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,6 +103,17 @@ ActiveRecord::Schema.define(version: 20150909192717) do
   add_index "etnias", ["demographic_data_id", "name"], name: "index_etnias_on_demographic_data_id_and_name", unique: true, using: :btree
   add_index "etnias", ["demographic_data_id"], name: "index_etnias_on_demographic_data_id", using: :btree
 
+  create_table "pdsi_base_polo_data", force: :cascade do |t|
+    t.integer  "pdsi_id"
+    t.integer  "base_polo_id"
+    t.string   "city_name"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "pdsi_base_polo_data", ["base_polo_id"], name: "index_pdsi_base_polo_data_on_base_polo_id", using: :btree
+  add_index "pdsi_base_polo_data", ["pdsi_id"], name: "index_pdsi_base_polo_data_on_pdsi_id", using: :btree
+
   create_table "pdsis", force: :cascade do |t|
     t.integer  "user_id"
     t.text     "processo_construcao_pdsi_2"
@@ -116,6 +127,38 @@ ActiveRecord::Schema.define(version: 20150909192717) do
   end
 
   add_index "pdsis", ["user_id"], name: "index_pdsis_on_user_id", using: :btree
+
+  create_table "physiographic_data_languages", force: :cascade do |t|
+    t.integer  "physiographic_data_id"
+    t.string   "language"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "physiographic_data_languages", ["physiographic_data_id"], name: "index_physiographic_data_languages_on_physiographic_data_id", using: :btree
+
+  create_table "physiographic_datas", force: :cascade do |t|
+    t.integer  "pdsi_id"
+    t.integer  "village_id"
+    t.string   "pt_fluency"
+    t.integer  "m_1"
+    t.integer  "m_1_4"
+    t.integer  "m_5_9"
+    t.integer  "m_10_49"
+    t.integer  "m_50_59"
+    t.integer  "m_60"
+    t.integer  "w_1"
+    t.integer  "w_1_4"
+    t.integer  "w_5_9"
+    t.integer  "w_10_49"
+    t.integer  "w_50_59"
+    t.integer  "w_60"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "physiographic_datas", ["pdsi_id"], name: "index_physiographic_datas_on_pdsi_id", using: :btree
+  add_index "physiographic_datas", ["village_id"], name: "index_physiographic_datas_on_village_id", using: :btree
 
   create_table "profiles", force: :cascade do |t|
     t.integer  "user_id",    null: false
@@ -161,8 +204,10 @@ ActiveRecord::Schema.define(version: 20150909192717) do
     t.datetime "updated_at",                      null: false
     t.integer  "user_type_id"
     t.boolean  "active"
+    t.integer  "dsei_id"
   end
 
+  add_index "users", ["dsei_id"], name: "index_users_on_dsei_id", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   create_table "villages", force: :cascade do |t|
@@ -182,8 +227,14 @@ ActiveRecord::Schema.define(version: 20150909192717) do
   add_foreign_key "cost_users", "users"
   add_foreign_key "demographic_datas", "pdsis"
   add_foreign_key "etnias", "demographic_datas"
+  add_foreign_key "pdsi_base_polo_data", "base_polos"
+  add_foreign_key "pdsi_base_polo_data", "pdsis"
   add_foreign_key "pdsis", "users"
+  add_foreign_key "physiographic_data_languages", "physiographic_datas"
+  add_foreign_key "physiographic_datas", "pdsis"
+  add_foreign_key "physiographic_datas", "villages"
   add_foreign_key "profiles", "users"
   add_foreign_key "transportations", "demographic_datas"
+  add_foreign_key "users", "dseis"
   add_foreign_key "villages", "base_polos"
 end
