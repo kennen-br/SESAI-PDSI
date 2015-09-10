@@ -3,7 +3,7 @@ class BasePolo < ActiveRecord::Base
 
   has_many  :villages
 
-  validates :name, length: { maximum: 255 }, presence: true, uniqueness: true
+  validates :name, length: { maximum: 255 }, uniqueness: { scope: :dsei }, presence: true
   validates :sesai_id,  numericality: true, uniqueness: true
 
   validates :dsei,  presence: true

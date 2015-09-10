@@ -3,7 +3,7 @@ require "#{Rails.root}/lib/debug.rb"
 
 namespace :data do
   task import: :environment do
-    count = 0
+    #count = 0
     first = true
     CSV.foreach("#{Rails.root}/batch/etnias.csv") do |row|
       if first
@@ -17,8 +17,8 @@ namespace :data do
 
       etnia_to_vila_unless_exists etnia, aldeia
 
-      break if count > 9
-      count += 1
+      #break if count > 9
+      #count += 1
     end
   end
 end
@@ -41,10 +41,11 @@ def row_to_hash(row)
 end
 
 def dsei_from_sesai_id(hash)
-  item  = Dsei.where(sesai_id: hash[:dsei_sesai_id]).first_or_initialize
+  #item  = Dsei.where(sesai_id: hash[:dsei_sesai_id]).first_or_initialize
+  item  = Dsei.where(name: hash[:dsei_name]).first_or_initialize
   return item unless item.id.nil?
 
-  item.name = hash[:dsei_name]
+  item.sesai_id = hash[:dsei_sesai_id]
 
   unless item.valid?
     fail "DSEI || #{hash.to_s} => #{item.errors.messages.to_s}"
@@ -56,12 +57,12 @@ def dsei_from_sesai_id(hash)
 end
 
 def polo_base_from_sesai_id(hash)
-  item  = BasePolo.where(sesai_id: hash[:polo_base_sesai_id]).first_or_initialize
+  dsei  = dsei_from_sesai_id hash
+
+  item  = BasePolo.where(name: hash[:polo_base_name], dsei: dsei).first_or_initialize
   return item unless item.id.nil?
 
-
-  item.name = hash[:polo_base_name]
-  item.dsei = dsei_from_sesai_id hash
+  item.sesai_id = hash[:polo_base_sesai_id]
 
   unless item.valid?
     fail "Polo Base || #{hash.to_s} => #{item.errors.messages.to_s}"
@@ -73,11 +74,11 @@ def polo_base_from_sesai_id(hash)
 end
 
 def aldeia_from_sesai_id(hash)
-  item  = Village.where(sesai_id: hash[:aldeia_sesai_id]).first_or_initialize
+  polo_base = polo_base_from_sesai_id hash
+  item      = Village.where(name: hash[:aldeia_name], base_polo: polo_base).first_or_initialize
   return item unless item.id.nil?
 
-  item.name           = hash[:aldeia_name]
-  item.base_polo      = polo_base_from_sesai_id hash
+  item.sesai_id       = hash[:aldeia_sesai_id]
   item.city_name      = hash[:municipio_name]
   item.city_sesai_id  = hash[:municipio_id]
 
@@ -106,7 +107,6 @@ def etnia_from_sesai_id(hash)
 end
 
 def etnia_to_vila_unless_exists(etnia, aldeia)
-
   aldeia.ethnicities << etnia if aldeia.ethnicities.where(id: etnia.id).empty?
 
   unless aldeia.valid?
@@ -114,5 +114,4 @@ def etnia_to_vila_unless_exists(etnia, aldeia)
   end
 
   aldeia.save
-
 end
