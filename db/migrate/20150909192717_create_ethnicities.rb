@@ -8,8 +8,8 @@ class CreateEthnicities < ActiveRecord::Migration
     end
 
     create_table :ethnicities_villages do |t|
-      t.belongs_to  :ethnicity, index: true
-      t.belongs_to  :village,   index: true
+      t.belongs_to  :ethnicity, index: true, foreign_key: true
+      t.belongs_to  :village,   index: true, foreign_key: true
     end
   end
 end
