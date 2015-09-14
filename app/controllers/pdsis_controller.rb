@@ -39,7 +39,7 @@ private
       pdsi_base_polo_data_attributes: [:id, :base_polo_id, :city_name],
       physiographic_datas_attributes: [
         :id, :vilage_id, :pt_fluency, :m_1, :m_1_4, :m_5_9, :m_10_49, :m_50_59, :m_60, :w_1, :w_1_4, :w_5_9, :w_10_49, :w_50_59, :w_60,
-        physiographic_data_languages_attributes: [:id, :physiographic_data_id, :language]
+        physiographic_data_languages_attributes: [:id, :physiographic_data_id, :language, :_destroy]
       ]
     )
   end
