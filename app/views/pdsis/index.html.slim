@@ -7,14 +7,15 @@ h1 Meu PDSI 2016-2019
     a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab3"  3. Caracterização do DSEI
     a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab4"  3.1.a Território e população - Mapa
     a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab5"  3.1.b Território e população - Dados Demográficos
+    a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab6"  3.1.c Território e população - Dados Fisiográficos
   .vertical-tab-content-container
-    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading.is-active href="" rel="tab1"  Item 1
+    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading.is-active href="" rel="tab1"
     #tab1.js-vertical-tab-content.vertical-tab-content
       h2 1. Introdução
 
       == @pdsi.introducao_1
 
-    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab2"  Item 2
+    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab2"
     #tab2.js-vertical-tab-content.vertical-tab-content
       h2 2. O processo de construção do PDSI 2016-2019
 
@@ -26,7 +27,7 @@ h1 Meu PDSI 2016-2019
           | Alterar
       |&nbsp;
 
-    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab3"  Item 3
+    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab3"
     #tab3.js-vertical-tab-content.vertical-tab-content
       h2 3. Caracterização do DSEI
 
@@ -38,7 +39,7 @@ h1 Meu PDSI 2016-2019
           | Alterar
       |&nbsp;
 
-    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab4"  Item 4
+    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab4"
     #tab4.js-vertical-tab-content.vertical-tab-content
       h2 3.1. Território e população - Mapa
 
@@ -50,14 +51,26 @@ h1 Meu PDSI 2016-2019
           | Alterar
       |&nbsp;
 
-    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab5"  Item 4
+    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab5"
     #tab5.js-vertical-tab-content.vertical-tab-content
-      h2 3.1. Território e população - Mapa
+      h2 3.1.b Território e população - Dados demográficos
 
       == render 'demographic_datas/show'
 
       .right-align
         = link_to edit_demographic_data_path(@demographic_data), class: 'button' do
+          i.fa.fa-pencil
+          | Alterar
+      |&nbsp;
+
+    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab6"
+    #tab6.js-vertical-tab-content.vertical-tab-content
+      h2 3.1.c Território e população - Dados fisiográficos
+
+      == @pdsi.compose_item_3 || 'Não informado'
+
+      .right-align
+        = link_to edit_pdsi_path(@pdsi, section: 'dados-fisiograficos'), class: 'button' do
           i.fa.fa-pencil
           | Alterar
       |&nbsp;

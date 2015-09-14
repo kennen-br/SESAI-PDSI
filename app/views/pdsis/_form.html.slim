@@ -1,7 +1,7 @@
 = form_for @pdsi do |f|
   - if @pdsi.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@pdsi.errors.count, "error")} prohibited this pdsi from being saved:"
+    #error_explanation.flash-error
+      h2 = "#{pluralize(@pdsi.errors.count, "error")} encontrados"
       ul
         - @pdsi.errors.full_messages.each do |message|
           li = message

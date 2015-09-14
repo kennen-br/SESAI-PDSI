@@ -56,6 +56,10 @@ gem 'whenever'
 # Host Configuration
 gem 'rack-canonical-host'
 
+group :development do
+  gem 'bullet'
+end
+
 group :development, :test do
   gem 'byebug'
   gem 'spring'

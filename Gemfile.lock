@@ -56,6 +56,9 @@ GEM
       sass (~> 3.4)
       thor
     builder (3.2.2)
+    bullet (4.14.7)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.9.0)
     byebug (6.0.0)
     capybara (2.4.4)
       mime-types (>= 1.16)
@@ -296,6 +299,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    uniform_notifier (1.9.0)
     warden (1.2.3)
       rack (>= 1.0)
     web-console (2.2.1)
@@ -318,6 +322,7 @@ DEPENDENCIES
   activerecord-session_store
   bitters
   bourbon
+  bullet
   byebug
   capybara
   cocoon

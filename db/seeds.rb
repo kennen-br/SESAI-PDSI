@@ -1,27 +1,3 @@
-if UserType.count == 0
-  UserType.create!([
-    {name: "Administrador"},
-    {name: "Usuário SESAI Central"},
-    {name: "Operador DSEI"}
-  ])
-end
-
-if User.count == 0
-  User.create!([
-    { username: "AD0001", password: 'Rapadura1234!@#$', current_sign_in_ip: "10.0.2.2", last_sign_in_ip: "10.0.2.2", user_type: UserType.first,   active: true, profile: Profile.new(name: 'Administrador 01') },
-    { username: "US0001", password: 'Rapadura1234!@#$', current_sign_in_ip: "10.0.2.2", last_sign_in_ip: "10.0.2.2", user_type: UserType.second,  active: true, profile: Profile.new(name: 'Operador do SESAI Central 01') },
-    { username: "OD0001", password: 'Rapadura1234!@#$', current_sign_in_ip: "10.0.2.2", last_sign_in_ip: "10.0.2.2", user_type: UserType.last,    active: true, profile: Profile.new(name: 'Operador do DSEI 01') }
-  ])
-end
-
-if Profile.count == 0
-  Profile.create!([
-    {user_id: 1, name: "Administrador 01", dsei_id: nil},
-    {user_id: 2, name: "Operador do SESAI Central 01", dsei_id: nil},
-    {user_id: 3, name: "Operador do DSEI 01", dsei_id: nil}
-  ])
-end
-
 if Dsei.count == 0
   Dsei.create!([
     {name: "ALAGOAS E SERGIPE", sesai_id: 1},
@@ -15065,6 +15041,30 @@ if Ethnicity.count == 0
     {ethnicity_id: 90, village_id: 4707},
     {ethnicity_id: 90, village_id: 4944},
     {ethnicity_id: 90, village_id: 4945}
+  ])
+end
+
+if UserType.count == 0
+  UserType.create!([
+    {name: "Administrador"},
+    {name: "Usuário SESAI Central"},
+    {name: "Operador DSEI"}
+  ])
+end
+
+if User.count == 0
+  User.create!([
+    { username: "AD0001", password: 'Rapadura1234!@#$', current_sign_in_ip: "10.0.2.2", last_sign_in_ip: "10.0.2.2", user_type: UserType.first,   active: true, profile: Profile.new(name: 'Administrador 01') },
+    { username: "US0001", password: 'Rapadura1234!@#$', current_sign_in_ip: "10.0.2.2", last_sign_in_ip: "10.0.2.2", user_type: UserType.second,  active: true, profile: Profile.new(name: 'Operador do SESAI Central 01') },
+    { username: "OD0001", password: 'Rapadura1234!@#$', current_sign_in_ip: "10.0.2.2", last_sign_in_ip: "10.0.2.2", user_type: UserType.last,    active: true, profile: Profile.new(name: 'Operador do DSEI 01'), dsei: Dsei.find(3) }
+  ])
+end
+
+if Profile.count == 0
+  Profile.create!([
+    {user_id: 1, name: "Administrador 01", dsei_id: nil},
+    {user_id: 2, name: "Operador do SESAI Central 01", dsei_id: nil},
+    {user_id: 3, name: "Operador do DSEI 01", dsei_id: nil}
   ])
 end
 

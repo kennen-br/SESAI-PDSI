@@ -1,0 +1,84 @@
+= f.hidden_field :village_id
+
+.field
+  = f.label :pt_fluency
+  = f.select :pt_fluency, options_for_select(%w{ Plena Suficiente Parcial Limitada }, f.object.pt_fluency), include_blank: true
+
+.field.inline_field
+  h3 Homens
+
+  .inline_line
+    .value
+      = f.label :m_1
+    .value
+      = f.label :m_1_4
+    .value
+      = f.label :m_5_9
+    .value
+      = f.label :m_10_49
+    .value
+      = f.label :m_50_59
+    .value
+      = f.label :m_60
+  .inline_line
+    .value
+      = f.number_field :m_1
+    .value
+      = f.number_field :m_1_4
+    .value
+      = f.number_field :m_5_9
+    .value
+      = f.number_field :m_10_49
+    .value
+      = f.number_field :m_50_59
+    .value
+      = f.number_field :m_60
+
+.field.inline_field
+  h3 Mulheres
+
+  .inline_line
+    .value
+      = f.label :w_1
+    .value
+      = f.label :w_1_4
+    .value
+      = f.label :w_5_9
+    .value
+      = f.label :w_10_49
+    .value
+      = f.label :w_50_59
+    .value
+      = f.label :w_60
+  .inline_line
+    .value
+      = f.number_field :w_1
+    .value
+      = f.number_field :w_1_4
+    .value
+      = f.number_field :w_5_9
+    .value
+      = f.number_field :w_10_49
+    .value
+      = f.number_field :w_50_59
+    .value
+      = f.number_field :w_60
+
+fieldset
+  legend Lingua Indígena
+
+  - tbody_id = "physiographic_data_languages_#{f.object.id}"
+  table.table.nested-form
+    thead
+      tr
+        th Nome
+        th.destroy Apagar?
+    tbody id=(tbody_id)
+      = f.fields_for :physiographic_data_languages do |physiographic_data_language|
+        = render 'physiographic_data_language_fields', { f: physiographic_data_language }
+    tfoot
+      tr
+        td.links.right-align colspan="2"
+          = link_to_add_association f, :physiographic_data_languages, { data: { "association-insertion-node": "##{tbody_id}", "association-insertion-method": 'append' }, class: 'button btn-sm' } do
+            = icon 'plus'
+            | Adicionar Lingua Indígena

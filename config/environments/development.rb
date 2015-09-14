@@ -40,4 +40,22 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  config.after_initialize do
+    Bullet.enable        = true
+    Bullet.alert         = true
+    Bullet.console       = true
+    Bullet.bullet_logger = true
+    Bullet.rails_logger  = true
+    Bullet.add_footer    = true
+    # Notifiers
+    # Bullet.xmpp          = false
+    # Bullet.growl         = false
+    # Bullet.honeybadger   = false
+    # Bullet.bugsnag       = false
+    Bullet.airbrake      = false
+    # Bullet.rollbar       = false
+    # Bullet.slack         = false
+    # Bullet.stacktrace_includes = false
+  end
 end
