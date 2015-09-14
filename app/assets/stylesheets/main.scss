@@ -2,15 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$base-spacing: 1.5em !default;
-$alert-color: #fff6bf !default;
-$error-color: #fbe3e4 !default;
-$notice-color: #e5edf8 !default;
-$success-color: #e6efc2 !default;
+$base-spacing  : 1.5em !default;
+$alert-color   : #fff6bf !default;
+$error-color   : #fbe3e4 !default;
+$notice-color  : #e5edf8 !default;
+$success-color : #e6efc2 !default;
 
 body{
-  margin  : 0;
-  padding : 0;
+  margin      : 0;
+  padding     : 0;
+  background  : #f6f6f6;
+  font-family : 'Open Sans', sans-serif;
 }
 
 .container{
@@ -19,13 +21,6 @@ body{
 
 .content{
   @include span-columns(12);
-}
-
-#login-container{
-  @include span-columns(6);
-  @include shift(3);
-
-  padding-top : 100px;
 }
 
 span.white_color{
@@ -58,29 +53,6 @@ span.white_color{
   color: #fff !important;
 }
 
-@mixin flash($color) {
-  background-color  : $color;
-  color             : darken($color, 60%);
-  display           : bock;
-  margin            : 1em 0em;
-  padding           : $base-spacing / 2;
-  text-align        : center;
-
-  a {
-    color             : darken($color, 70%);
-    text-decoration   : underline;
-
-    &:focus,
-    &:hover {
-      color           : darken($color, 90%);
-    }
-  }
-
-  .flash-link-close{
-    float               : right;
-  }
-}
-
 .flash-alert {
   @include flash($alert-color);
 }
@@ -103,20 +75,20 @@ button#menu-button{
   @include border-bottom-radius(50%);
   @include border-left-radius(50%);
 
-  padding: 10px !important;
-  font-size: 22px;
-  margin-right: 10px;
+  font-size    : 22px;
+  margin-right : 10px;
+  padding      : 10px !important;
 }
 
 .field_with_errors{
 
   input{
-    background-color  : $error-color;
+    background-color : $error-color;
   }
 }
 
 .right-align{
-  text-align  : right;
+  text-align : right;
 }
 
 .edit-section{
@@ -133,8 +105,8 @@ button#menu-button{
 // Cocoon nested forms
 .nested-form {
   .destroy {
-    text-align: center;
-    width: 7%;
+    text-align : center;
+    width      : 7%;
   }
 }
 

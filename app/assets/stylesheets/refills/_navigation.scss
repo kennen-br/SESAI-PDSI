@@ -5,14 +5,14 @@ header.navigation {
   $base-accent-color: #477DCA !default;
   $dark-gray: #333 !default;
   $large-screen: em(860) !default;
-  
+
   a {
     text-decoration: none;
   }
   //////////////////////////////////////////////////////////////////////////////////
 
   $navigation-padding: 1em;
-  $navigation-background: $dark-gray;
+  $navigation-background: #8493ca;
   $navigation-color: transparentize(white, 0.3);
   $navigation-color-hover: white;
   $navigation-height: 60px;
@@ -40,14 +40,33 @@ header.navigation {
   }
 
   .logo {
+    @include position(relative);
+
+    color: #FFF;
     float: left;
-    max-height: $navigation-height;
+    min-height: $navigation-height;
+    overflow: hidden;
     padding-left: $navigation-padding;
     padding-right: 2em;
 
-    img {
-      max-height: $navigation-height;
-      padding: 0.8em 0;
+    .fa {
+      @include position(absolute, null null -40px null);
+
+      color: #7983aa;
+      font-size: modular-scale(8);
+      z-index: -1;
+    }
+    .title {
+      @include margin(15px null null 20px);
+
+      font-size: modular-scale(1);
+      font-weight: 700;
+      line-height: 1em;
+    }
+    .subtitle {
+      @include margin(null null null 20px);
+
+      font-size: modular-scale(0);
     }
   }
 
