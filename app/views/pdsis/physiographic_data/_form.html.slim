@@ -67,17 +67,18 @@
 fieldset
   legend Lingua Indígena
 
+  - tbody_id = "physiographic_data_languages_#{f.object.id}"
   table.table.nested-form
     thead
       tr
         th Nome
         th.destroy Apagar?
-    tbody#physiographic_data_languages
+    tbody id=(tbody_id)
       = f.fields_for :physiographic_data_languages do |physiographic_data_language|
         = render 'physiographic_data_language_fields', { f: physiographic_data_language }
     tfoot
       tr
         td.links.right-align colspan="2"
-          = link_to_add_association f, :physiographic_data_languages, { data: { "association-insertion-node": '#physiographic_data_languages', "association-insertion-method": 'append' }, class: 'button btn-sm' } do
+          = link_to_add_association f, :physiographic_data_languages, { data: { "association-insertion-node": "##{tbody_id}", "association-insertion-method": 'append' }, class: 'button btn-sm' } do
             = icon 'plus'
             | Adicionar Lingua Indígena
