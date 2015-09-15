@@ -94,6 +94,9 @@ pt-BR:
         permanencia_odontologistas:       Odontologistas
         permanencia_tecnicos_enfermagem:  Técnicos / Auxiliares de enfermagem
 
+      service_network:
+        city_name:  Cidade
+
       cost:
         name: 'Custeio'
 

@@ -1,0 +1,23 @@
+- @dsei.base_polos_with_service_networks.each do |base_polo|
+  fieldset
+    legend
+      |Polo Base &nbsp;
+      strong = base_polo.name
+
+    - base_polo.service_networks.each do |service_network|
+      fieldset
+        legend
+          |Cidade&nbsp;
+          strong = service_network.city_name
+
+        fieldset
+          legend Estabelecimentos de saúde (Complementariedade da Atenção Básica)
+          ul.default
+            - service_network.health_establishments.each do |item|
+              li = item.name
+
+        fieldset
+          legend Estabelecimentos de saúde (Complementariedade da Atenção Básica)
+          ul.default
+            - service_network.health_specializeds.each do |item|
+              li = item.name
