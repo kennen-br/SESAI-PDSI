@@ -62,3 +62,15 @@ $  heroku run bash
 * [Especificação do projeto](doc/README.markdown)
 * [Dados que serão coletados e suas origens](doc/DadosColetados.markdown)
 * [Requisitos relacionados aos usuários](doc/RequisitosDeUsuario.markdown)
+
+## Gerando documentação do projeto
+
+Gera o ERD do modelo do banco de dados, baseado nos models e seus relacionamentos
+```
+$ rake erd
+```
+
+Gera o diagrama de classes
+```
+$ rake diagram:all
+```

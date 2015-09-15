@@ -58,6 +58,8 @@ gem 'rack-canonical-host'
 
 group :development do
   gem 'bullet'
+  gem 'rails-erd'
+  gem 'railroady'
 end
 
 group :development, :test do
