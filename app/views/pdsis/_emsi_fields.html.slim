@@ -1,0 +1,46 @@
+fieldset
+  .field
+    = f.label :name
+    = f.text_field  :name
+
+    h2 Número de Profissionais
+    table
+      thead
+        tr
+          th = f.label :numero_medicos
+          th = f.label :numero_enfermeiros
+          th = f.label :numero_odontologistas
+          th = f.label :numero_tecnicos_enfermagem
+          th = f.label :asb
+          th = f.label :ais
+      tbody
+        tr
+          td = f.number_field :numero_medicos
+          td = f.number_field :numero_enfermeiros
+          td = f.number_field :numero_odontologistas
+          td = f.number_field :numero_tecnicos_enfermagem
+          td = f.number_field :asb
+          td = f.number_field :ais
+
+  .field
+    = f.label :aisan
+    = f.number_field :aisan
+
+  .field
+    = f.label :aldeias_atendidas
+    = f.number_field :aldeias_atendidas
+
+  h2 Tempo de permanência em aldeia (dias por mês)
+  table
+    thead
+      tr
+        th = f.label :permanencia_medicos
+        th = f.label :permanencia_enfermeiros
+        th = f.label :permanencia_odontologistas
+        th = f.label :permanencia_tecnicos_enfermagem
+    tbody
+      tr
+        td = f.number_field :permanencia_medicos
+        td = f.number_field :permanencia_enfermeiros
+        td = f.number_field :permanencia_odontologistas
+        td = f.number_field :permanencia_tecnicos_enfermagem

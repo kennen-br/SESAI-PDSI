@@ -1,6 +1,6 @@
 class PdsisController < ApplicationController
   before_action :set_pdsi#, only: [:index, :show, :edit, :update]
-  #before_action :set_physiographic_data, only: [:edit]
+  before_action :set_section, only: [:edit, :update]
 
   # GET /pdsis
   def index
@@ -11,8 +11,6 @@ class PdsisController < ApplicationController
   end
 
   def edit
-    @section_url  = params[:section].gsub(/_/, '-')
-    @section      = params[:section].gsub(/-/, '_')
   end
 
   def update
@@ -31,6 +29,11 @@ private
     @dsei             = current_user.dsei
   end
 
+  def set_section
+    @section_url  = params[:section].gsub(/_/, '-')
+    @section      = params[:section].gsub(/-/, '_')
+  end
+
   # Only allow a trusted parameter "white list" through.
   def pdsi_params
     params.require(:pdsi).permit(
@@ -40,7 +43,8 @@ private
       physiographic_datas_attributes: [
         :id, :vilage_id, :pt_fluency, :m_1, :m_1_4, :m_5_9, :m_10_49, :m_50_59, :m_60, :w_1, :w_1_4, :w_5_9, :w_10_49, :w_50_59, :w_60,
         physiographic_data_languages_attributes: [:id, :physiographic_data_id, :language, :_destroy]
-      ]
+      ],
+      emsis_attributes: [:id, :name, :base_polo_id, :pdsi_id, :numero_medicos, :numero_enfermeiros, :numero_odontologistas, :numero_tecnicos_enfermagem, :asb, :ais, :aisan, :aldeias_atendidas, :permanencia_medicos, :permanencia_enfermeiros, :permanencia_odontologistas, :permanencia_tecnicos_enfermagem, :_destroy]
     )
   end
 end

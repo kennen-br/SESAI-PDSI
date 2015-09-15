@@ -79,6 +79,21 @@ pt-BR:
       transportation:
         name: Nome
 
+      emsi:
+        name:                             Nome do EMSI
+        numero_medicos:                   Médicos
+        numero_enfermeiros:               Enfermeiros
+        numero_odontologistas:            Odontologistas
+        numero_tecnicos_enfermagem:       Técnicos / Auxiliares de enfermagem
+        asb:                              ASB
+        ais:                              AIS
+        aisan:                            AISAN
+        aldeias_atendidas:                Número de aldeias atendidas
+        permanencia_medicos:              Médicos
+        permanencia_enfermeiros:          Enfermeiros
+        permanencia_odontologistas:       Odontologistas
+        permanencia_tecnicos_enfermagem:  Técnicos / Auxiliares de enfermagem
+
       cost:
         name: 'Custeio'
 

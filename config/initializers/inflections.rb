@@ -18,4 +18,5 @@
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'demographic_data',   'demographic_datas'
   inflect.irregular 'physiographic_data', 'physiographic_datas'
+  inflect.irregular 'emsi',               'emsis'
 end

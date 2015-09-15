@@ -6,6 +6,6 @@ class Dsei < ActiveRecord::Base
   validates :sesai_id,  numericality: true, uniqueness: true
 
   def base_polos_with_children
-    base_polos.includes(:pdsi_base_polo_datum, villages: [physiographic_data: [:physiographic_data_languages]])
+    base_polos.includes(:pdsi_base_polo_datum, :emsis, villages: [physiographic_data: [:physiographic_data_languages]])
   end
 end

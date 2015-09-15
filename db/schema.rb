@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150911144301) do
+ActiveRecord::Schema.define(version: 20150914190850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,29 @@ ActiveRecord::Schema.define(version: 20150911144301) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "emsis", force: :cascade do |t|
+    t.integer  "pdsi_id"
+    t.integer  "base_polo_id"
+    t.string   "name",                            null: false
+    t.integer  "numero_medicos"
+    t.integer  "numero_enfermeiros"
+    t.integer  "numero_odontologistas"
+    t.integer  "numero_tecnicos_enfermagem"
+    t.integer  "asb"
+    t.integer  "ais"
+    t.integer  "aisan"
+    t.integer  "aldeias_atendidas"
+    t.integer  "permanencia_medicos"
+    t.integer  "permanencia_enfermeiros"
+    t.integer  "permanencia_odontologistas"
+    t.integer  "permanencia_tecnicos_enfermagem"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  add_index "emsis", ["base_polo_id"], name: "index_emsis_on_base_polo_id", using: :btree
+  add_index "emsis", ["pdsi_id"], name: "index_emsis_on_pdsi_id", using: :btree
 
   create_table "ethnicities", force: :cascade do |t|
     t.string   "name",       null: false
@@ -226,6 +249,8 @@ ActiveRecord::Schema.define(version: 20150911144301) do
   add_foreign_key "cost_users", "costs"
   add_foreign_key "cost_users", "users"
   add_foreign_key "demographic_datas", "pdsis"
+  add_foreign_key "emsis", "base_polos"
+  add_foreign_key "emsis", "pdsis"
   add_foreign_key "ethnicities_villages", "ethnicities"
   add_foreign_key "ethnicities_villages", "villages"
   add_foreign_key "etnias", "demographic_datas"
