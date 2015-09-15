@@ -226,6 +226,8 @@ ActiveRecord::Schema.define(version: 20150911144301) do
   add_foreign_key "cost_users", "costs"
   add_foreign_key "cost_users", "users"
   add_foreign_key "demographic_datas", "pdsis"
+  add_foreign_key "ethnicities_villages", "ethnicities"
+  add_foreign_key "ethnicities_villages", "villages"
   add_foreign_key "etnias", "demographic_datas"
   add_foreign_key "pdsi_base_polo_data", "base_polos"
   add_foreign_key "pdsi_base_polo_data", "pdsis"
