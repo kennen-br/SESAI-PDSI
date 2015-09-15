@@ -31,6 +31,7 @@ aptitude install -y \
   rake \
   s3cmd \
   imagemagick \
+  graphviz \
   htop
 
 # Remove default ruby
