@@ -8,7 +8,11 @@
   .field
     strong = PdsiBasePoloDatum.human_attribute_name 'city_name'
     | &nbsp;
-    = base_polo.pdsi_data.city_name || 'Não Informado'
+
+    - if base_polo.pdsi_base_polo_datum.nil?
+      | 'Não Informada'
+    - else
+      = base_polo.pdsi_base_polo_datum.city_name
 
   - base_polo.villages.each do |village|
     fieldset
@@ -16,77 +20,7 @@
         | Aldeia&nbsp;
         strong = village.name
 
-      .field
-        strong = PhysiographicData.human_attribute_name 'pt_fluency'
-        | &nbsp;
-        = village.physiographic_data.pt_fluency
-
-      fieldset
-        legend Homens
-        .field.inline_field
-          .inline_line
-            .value
-              = PhysiographicData.human_attribute_name :m_1
-            .value
-              = PhysiographicData.human_attribute_name :m_1_4
-            .value
-              = PhysiographicData.human_attribute_name :m_5_9
-            .value
-              = PhysiographicData.human_attribute_name :m_10_49
-            .value
-              = PhysiographicData.human_attribute_name :m_50_59
-            .value
-              = PhysiographicData.human_attribute_name :m_60
-          .inline_line
-            .value
-              = village.physiographic_data.m_1
-            .value
-              = village.physiographic_data.m_1_4
-            .value
-              = village.physiographic_data.m_5_9
-            .value
-              = village.physiographic_data.m_10_49
-            .value
-              = village.physiographic_data.m_50_59
-            .value
-              = village.physiographic_data.m_60
-
-      fieldset
-        legend Mulheres
-        .field.inline_field
-          .inline_line
-            .value
-              = PhysiographicData.human_attribute_name :w_1
-            .value
-              = PhysiographicData.human_attribute_name :w_1_4
-            .value
-              = PhysiographicData.human_attribute_name :w_5_9
-            .value
-              = PhysiographicData.human_attribute_name :w_10_49
-            .value
-              = PhysiographicData.human_attribute_name :w_50_59
-            .value
-              = PhysiographicData.human_attribute_name :w_60
-          .inline_line
-            .value
-              = village.physiographic_data.w_1
-            .value
-              = village.physiographic_data.w_1_4
-            .value
-              = village.physiographic_data.w_5_9
-            .value
-              = village.physiographic_data.w_10_49
-            .value
-              = village.physiographic_data.w_50_59
-            .value
-              = village.physiographic_data.w_60
-
-      fieldset
-        legend Lingua indígena
-
-        ul
-          - village.physiographic_data.physiographic_data_languages.each do |language|
-            li = language.language
-
-        - if village.physiographic_data.physiographic_data_languages.blank?
-          h3 Não informado
+      - if village.physiographic_data.nil?
+        h3 Dados da aldeia não informados
+      -else
+        = render 'pdsis/physiographic_data/village_data', village: village

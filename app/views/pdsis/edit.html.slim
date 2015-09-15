@@ -3,7 +3,7 @@ h2 &nbsp;
 = form_for @pdsi, url: pdsi_path(@pdsi, section: @section_url), html: { multipart: true } do |f|
   - if @pdsi.errors.any?
     #error_explanation.flash-error
-      h2 = "#{pluralize(@pdsi.errors.count, "error")} prohibited this pdsi from being saved:"
+      h2 = "#{pluralize(@pdsi.errors.count, "error")} encontrados:"
       ul
         - @pdsi.errors.full_messages.each do |message|
           li = message

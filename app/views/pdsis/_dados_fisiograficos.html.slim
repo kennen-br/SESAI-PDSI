@@ -4,7 +4,7 @@
       |Polo Base &nbsp;
       strong = base_polo.name
 
-    = f.fields_for :pdsi_base_polo_data, base_polo.pdsi_data do |item|
+    = f.fields_for :pdsi_base_polo_data, base_polo.pdsi_data(@pdsi) do |item|
       = item.hidden_field :base_polo_id
 
       .field
@@ -16,7 +16,8 @@
         legend
           | Aldeia&nbsp;
           strong = village.name
-        = f.fields_for :physiographic_datas, village.physiographic_data do |item|
+        = f.fields_for :physiographic_datas, village.physiographic_datum(@pdsi) do |item|
           == render 'pdsis/physiographic_data/form', f: item
 
+      /- break
   /- break

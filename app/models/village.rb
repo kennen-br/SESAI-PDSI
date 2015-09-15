@@ -9,9 +9,9 @@ class Village < ActiveRecord::Base
   validates :name, length: { maximum: 255 }, uniqueness: { scope: :base_polo }, presence: true
   validates :sesai_id,  numericality: true, uniqueness: true
 
-  def physiographic_data
+  def physiographic_datum(pdsi)
     return @physiographic_data unless @physiographic_data.nil?
 
-    @physiographic_data = PhysiographicData.where(village: self).first_or_create
+    @physiographic_data = PhysiographicData.where(village: self, pdsi: pdsi).first_or_create
   end
 end
