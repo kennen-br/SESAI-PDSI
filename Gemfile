@@ -26,6 +26,9 @@ gem 'mailchimp-api',                require: 'mailchimp'
 # http://stackoverflow.com/a/18581914
 gem 'activerecord-session_store'
 
+# Loading Bar to link
+gem 'pace-rails'
+
 # Nested Forms
 gem "cocoon"
 
