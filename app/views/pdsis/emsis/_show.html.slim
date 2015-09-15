@@ -1,0 +1,57 @@
+- @dsei.base_polos_with_children.each do |base_polo|
+  fieldset
+    legend
+      |Polo Base &nbsp;
+      strong = base_polo.name
+
+  - base_polo.emsis.each do |emsi|
+    fieldset
+      legend
+        |EMSI &nbsp;
+        strong = emsi.name
+
+      .field
+        h2 = Emsi.human_attribute_name :name
+        = emsi.name
+
+        h2 Número de Profissionais
+        table
+          thead
+            tr
+              th = Emsi.human_attribute_name :numero_medicos
+              th = Emsi.human_attribute_name :numero_enfermeiros
+              th = Emsi.human_attribute_name :numero_odontologistas
+              th = Emsi.human_attribute_name :numero_tecnicos_enfermagem
+              th = Emsi.human_attribute_name :asb
+              th = Emsi.human_attribute_name :ais
+          tbody
+            tr
+              td = emsi.numero_medicos
+              td = emsi.numero_enfermeiros
+              td = emsi.numero_odontologistas
+              td = emsi.numero_tecnicos_enfermagem
+              td = emsi.asb
+              td = emsi.ais
+
+      .field
+        h2 = Emsi.human_attribute_name :aisan
+        = emsi.aisan
+
+      .field
+        h2 = Emsi.human_attribute_name :aldeias_atendidas
+        = emsi.aldeias_atendidas
+
+      h2 Tempo de permanência em aldeia (dias por mês)
+      table
+        thead
+          tr
+            th = Emsi.human_attribute_name :permanencia_medicos
+            th = Emsi.human_attribute_name :permanencia_enfermeiros
+            th = Emsi.human_attribute_name :permanencia_odontologistas
+            th = Emsi.human_attribute_name :permanencia_tecnicos_enfermagem
+        tbody
+          tr
+            td = emsi.permanencia_medicos
+            td = emsi.permanencia_enfermeiros
+            td = emsi.permanencia_odontologistas
+            td = emsi.permanencia_tecnicos_enfermagem

@@ -13,6 +13,8 @@ h2 &nbsp;
       == render @section, f: f
 
   .actions
+    = hidden_field_tag :section, @section
+
     a.button href="javascript:void(0)" onclick="$(this).closest('form').submit()"
       i.fa.fa-save
       | Salvar

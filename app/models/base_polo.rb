@@ -5,7 +5,7 @@ class BasePolo < ActiveRecord::Base
 
   has_many  :villages
   has_one   :pdsi_base_polo_datum
-  #has_many  :emsis
+  has_many  :emsis
 
   validates :name, length: { maximum: 255 }, uniqueness: { scope: :dsei }, presence: true
   validates :sesai_id,  numericality: true, uniqueness: true
