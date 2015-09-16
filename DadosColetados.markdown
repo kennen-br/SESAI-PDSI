@@ -8,6 +8,8 @@ Os DSEIS, Polos serão informados
 * O texto será produzido pela SESAI Central
 * O texto possuirá uma *tag* que será substituída pelo nome do DSEI
 
+* Dados armazenados na tabela text_templates
+
 # 2 O Processo de Construção do PDSI 2016 - 2019
 
 * **Formato**: texto
@@ -15,14 +17,15 @@ Os DSEIS, Polos serão informados
 * O texto padrão será elaborado e fornecido pela SESAI Central
 * O texto padrão possuirá uma *tag* para substituição por um texto composto pelo coordenador do DSEI
 
-* **TODO**:
-  * Viabilidade de informar o texto para o coordenador editar manualmente e substituir os valores
+* Dados armazenados na tabela pdsis, utilizando valores da tabela text_templates
 
 # 3 Caracterização do DSEI
 
 * Dado será coletado em formato de texto com editor WYSIWYG
 * Breve histórico escrito em texto corrente.
 * O texto será preenchido pelo coordenador do DSEI (Esta informação não estava explícita no documento)
+
+* Dados armazenados na tabela pdsis
 
 ## 3.1 Território e população
 
@@ -37,15 +40,21 @@ Os DSEIS, Polos serão informados
 * **TODO**:
   * Verificar origem do mapa, talvez seja apenas um mapa para todos os DSEIS fornecido pela SESAI Central
 
+* Dados armazenados na tabela pdsis
+
 ### B) Dados demográficos
 
 * Arquivo caracterizacaoDSEI_planilhasPDSI_Voficina23 e 24.xls
 * Planilha 3.1.b
 
+* Dados armazenados na tabela demographic_data
+
 ### C) Dados fisiográficos
 
 * Arquivo caracterizacaoDSEI_planilhasPDSI_Voficina23 e 24.xls
 * Planilha 3.1.c
+
+* Dados armazenados na tabela physiographic_datas e physiographic_data_languages
 
 ## 3.2 Dados de gestão
 
@@ -69,11 +78,15 @@ Os DSEIS, Polos serão informados
 * **TODO**:
   * Definir o que é o espaço "Comentários"
 
+* Dados armazenados na tabela emsis
+
 ### 3.2 D
 
 * O coordenador do DSEI irá informar estes dados
 * O coordenador informará para cada polo-base, informações de cada um dos municípios
 * Talvez tenha mais de um estabelecimento de saúde para cada município
+
+* Dados armazenados na tabela service_networks, health_specializeds e health_establishments
 
 ### 3.2 E
 
