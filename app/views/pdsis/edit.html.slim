@@ -10,7 +10,7 @@ h2 &nbsp;
 
   fieldset
     .edit-section
-      == render @section, f: f
+      == render "pdsis/#{@section}/form", f: f
 
   .actions
     = hidden_field_tag :section, @section

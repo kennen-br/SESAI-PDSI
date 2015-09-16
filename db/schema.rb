@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916142743) do
+ActiveRecord::Schema.define(version: 20150916181555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -168,6 +168,28 @@ ActiveRecord::Schema.define(version: 20150916142743) do
   add_index "infrastructure_buildings", ["pdsi_id"], name: "index_infrastructure_buildings_on_pdsi_id", using: :btree
   add_index "infrastructure_buildings", ["village_id"], name: "index_infrastructure_buildings_on_village_id", using: :btree
 
+  create_table "infrastructure_sanitations", force: :cascade do |t|
+    t.integer  "pdsi_id"
+    t.integer  "village_id"
+    t.boolean  "abastecimento_agua"
+    t.boolean  "abastecimento_agua_alternativo"
+    t.boolean  "saa_completo"
+    t.string   "nome_saa"
+    t.string   "tipo_captacao_agua"
+    t.string   "nome_concessionaria"
+    t.string   "tipo_tratamento_agua"
+    t.boolean  "abastecimento_mqa"
+    t.boolean  "saa_manutencao"
+    t.integer  "qtd_msd_individual"
+    t.integer  "qtd_msd_coletiva"
+    t.boolean  "esgotamento_sanitario"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "infrastructure_sanitations", ["pdsi_id"], name: "index_infrastructure_sanitations_on_pdsi_id", using: :btree
+  add_index "infrastructure_sanitations", ["village_id"], name: "index_infrastructure_sanitations_on_village_id", using: :btree
+
   create_table "pdsi_base_polo_data", force: :cascade do |t|
     t.integer  "pdsi_id"
     t.integer  "base_polo_id"
@@ -312,6 +334,8 @@ ActiveRecord::Schema.define(version: 20150916142743) do
   add_foreign_key "infrastructure_buildings", "infrastructure_building_types"
   add_foreign_key "infrastructure_buildings", "pdsis"
   add_foreign_key "infrastructure_buildings", "villages"
+  add_foreign_key "infrastructure_sanitations", "pdsis"
+  add_foreign_key "infrastructure_sanitations", "villages"
   add_foreign_key "pdsi_base_polo_data", "base_polos"
   add_foreign_key "pdsi_base_polo_data", "pdsis"
   add_foreign_key "pdsis", "users"
