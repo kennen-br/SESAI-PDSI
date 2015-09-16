@@ -1,0 +1,8 @@
+#infrastructure_buildings
+  = f.fields_for :infrastructure_buildings do |ib|
+    == render 'pdsis/infraestrutura_edificacoes/infrastructure_building_fields', f: ib
+
+  .links
+    = link_to_add_association f, :infrastructure_buildings, { class: 'button btn-sm', partial: 'pdsis/infraestrutura_edificacoes/infrastructure_building_fields' } do
+      = icon 'plus'
+      | Adicionar Infraestrutura
