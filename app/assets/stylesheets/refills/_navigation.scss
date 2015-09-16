@@ -300,12 +300,15 @@ header.navigation {
 
   .sign-up {
     @include button(flat, $base-accent-color);
-    display: inline;
-    float: right;
-    font-size: 0.8em;
-    margin-top: 1em;
-    padding: 0.75em 1em;
-    text-transform: uppercase;
+    @include padding(2px 7px);
+    @include margin(1.5em null null);
+
+    background     : transparent;
+    border         : 1px solid #FFF;
+    float          : right;
+    font-size      : 0.8em;
+    font-weight    : 400;
+    text-transform : uppercase;
   }
 
   // Search bar

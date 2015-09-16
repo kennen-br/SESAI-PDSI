@@ -70,13 +70,17 @@
   }
 }
 
-.sliding-menu-button {
-  @include button(flat, #477DCA);
-  padding: 10px 16px;
-  display: inline-block;
-  cursor: pointer;
-  position: relative;
-  outline: none;
+button#menu-button.sliding-menu-button {
+  @include position(relative);
+  @include size(35px);
+  @include padding(0);
+  @include margin(12px null null);
+
+  background : transparent;
+  border     : 1px solid #FFF;
+  cursor     : pointer;
+  font-size  : modular-scale(-1);
+  outline    : none;
 
   img {
     height: 1.3em;
