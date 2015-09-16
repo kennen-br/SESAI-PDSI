@@ -97,6 +97,18 @@ pt-BR:
       service_network:
         city_name:  Cidade
 
+
+      infrastructure_building_type:
+        name: Nome
+
+      infrastructure_building:
+        name:             Nome do estabelecimento de saúde
+        uf:               UF
+        city_name:        Cidade
+        cnes:             CNES
+        building_status:  Situação do imóvel
+        ground_status:    Situação do terreno
+
       cost:
         name: 'Custeio'
 
