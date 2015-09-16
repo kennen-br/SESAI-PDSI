@@ -44,7 +44,12 @@ private
         :id, :vilage_id, :pt_fluency, :m_1, :m_1_4, :m_5_9, :m_10_49, :m_50_59, :m_60, :w_1, :w_1_4, :w_5_9, :w_10_49, :w_50_59, :w_60,
         physiographic_data_languages_attributes: [:id, :physiographic_data_id, :language, :_destroy]
       ],
-      emsis_attributes: [:id, :name, :base_polo_id, :pdsi_id, :numero_medicos, :numero_enfermeiros, :numero_odontologistas, :numero_tecnicos_enfermagem, :asb, :ais, :aisan, :aldeias_atendidas, :permanencia_medicos, :permanencia_enfermeiros, :permanencia_odontologistas, :permanencia_tecnicos_enfermagem, :_destroy]
+      emsis_attributes: [:id, :name, :base_polo_id, :pdsi_id, :numero_medicos, :numero_enfermeiros, :numero_odontologistas, :numero_tecnicos_enfermagem, :asb, :ais, :aisan, :aldeias_atendidas, :permanencia_medicos, :permanencia_enfermeiros, :permanencia_odontologistas, :permanencia_tecnicos_enfermagem, :_destroy],
+      service_networks_attributes: [
+        :id, :base_polo_id, :pdsi_id, :city_name,
+        health_establishments_attributes:  [:id, :service_network_id, :name, :_destroy],
+        health_specializeds_attributes:    [:id, :service_network_id, :name, :_destroy]
+      ]
     )
   end
 end

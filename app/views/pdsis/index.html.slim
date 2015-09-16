@@ -8,7 +8,8 @@ h1 Meu PDSI 2016-2019
     a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab4"  3.1.a Território e população - Mapa
     a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab5"  3.1.b Território e população - Dados Demográficos
     a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab6"  3.1.c Território e população - Dados Fisiográficos
-    a.js-vertical-tab.vertical-tab.is_active href="javascript:void(0)" rel="tab7"  3.2.c Gestão - Capacidade instalada
+    a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab7"  3.2.c Gestão - Capacidade instalada
+    a.js-vertical-tab.vertical-tab.is_active href="javascript:void(0)" rel="tab8"  3.2.d Gestão - Rede de serviços
   .vertical-tab-content-container
     a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading.is-active href="" rel="tab1"
     #tab1.js-vertical-tab-content.vertical-tab-content
@@ -84,6 +85,19 @@ h1 Meu PDSI 2016-2019
 
       .right-align
         = link_to edit_pdsi_path(@pdsi, section: 'capacidade-instalada'), class: 'button' do
+          i.fa.fa-pencil
+          | Alterar
+      |&nbsp;
+
+    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab8"
+    #tab8.js-vertical-tab-content.vertical-tab-content
+      h2 3.2.d Gestão - Rede de Serviços
+
+      /== render 'pdsis/emsis/show'
+      h3 TODO: Visualizar rede de serviços
+
+      .right-align
+        = link_to edit_pdsi_path(@pdsi, section: 'rede-servicos'), class: 'button' do
           i.fa.fa-pencil
           | Alterar
       |&nbsp;

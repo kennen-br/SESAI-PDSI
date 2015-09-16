@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914190850) do
+ActiveRecord::Schema.define(version: 20150915200748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,6 +126,24 @@ ActiveRecord::Schema.define(version: 20150914190850) do
   add_index "etnias", ["demographic_data_id", "name"], name: "index_etnias_on_demographic_data_id_and_name", unique: true, using: :btree
   add_index "etnias", ["demographic_data_id"], name: "index_etnias_on_demographic_data_id", using: :btree
 
+  create_table "health_establishments", force: :cascade do |t|
+    t.integer  "service_network_id"
+    t.string   "name"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "health_establishments", ["service_network_id"], name: "index_health_establishments_on_service_network_id", using: :btree
+
+  create_table "health_specializeds", force: :cascade do |t|
+    t.integer  "service_network_id"
+    t.string   "name"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "health_specializeds", ["service_network_id"], name: "index_health_specializeds_on_service_network_id", using: :btree
+
   create_table "pdsi_base_polo_data", force: :cascade do |t|
     t.integer  "pdsi_id"
     t.integer  "base_polo_id"
@@ -192,6 +210,17 @@ ActiveRecord::Schema.define(version: 20150914190850) do
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
+  create_table "service_networks", force: :cascade do |t|
+    t.integer  "base_polo_id"
+    t.integer  "pdsi_id"
+    t.string   "city_name"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "service_networks", ["base_polo_id"], name: "index_service_networks_on_base_polo_id", using: :btree
+  add_index "service_networks", ["pdsi_id"], name: "index_service_networks_on_pdsi_id", using: :btree
+
   create_table "text_templates", force: :cascade do |t|
     t.text     "introducao_1"
     t.datetime "created_at",                 null: false
@@ -254,6 +283,8 @@ ActiveRecord::Schema.define(version: 20150914190850) do
   add_foreign_key "ethnicities_villages", "ethnicities"
   add_foreign_key "ethnicities_villages", "villages"
   add_foreign_key "etnias", "demographic_datas"
+  add_foreign_key "health_establishments", "service_networks"
+  add_foreign_key "health_specializeds", "service_networks"
   add_foreign_key "pdsi_base_polo_data", "base_polos"
   add_foreign_key "pdsi_base_polo_data", "pdsis"
   add_foreign_key "pdsis", "users"
@@ -261,6 +292,8 @@ ActiveRecord::Schema.define(version: 20150914190850) do
   add_foreign_key "physiographic_datas", "pdsis"
   add_foreign_key "physiographic_datas", "villages"
   add_foreign_key "profiles", "users"
+  add_foreign_key "service_networks", "base_polos"
+  add_foreign_key "service_networks", "pdsis"
   add_foreign_key "transportations", "demographic_datas"
   add_foreign_key "users", "dseis"
   add_foreign_key "villages", "base_polos"

@@ -47,7 +47,7 @@ Rails.application.configure do
     Bullet.console       = true
     Bullet.bullet_logger = true
     Bullet.rails_logger  = true
-    Bullet.add_footer    = true
+    # Bullet.add_footer    = true
     # Notifiers
     # Bullet.xmpp          = false
     # Bullet.growl         = false
