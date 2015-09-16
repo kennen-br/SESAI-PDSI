@@ -5,6 +5,8 @@ class Village < ActiveRecord::Base
 
   has_one   :physiographic_data
 
+  has_many  :infrastructure_buildings
+
   validates :base_polo, presence: true
   validates :name, length: { maximum: 255 }, uniqueness: { scope: :base_polo }, presence: true
   validates :sesai_id,  numericality: true, uniqueness: true

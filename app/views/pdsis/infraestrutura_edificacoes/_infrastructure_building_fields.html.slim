@@ -1,0 +1,26 @@
+fieldset
+  .field
+    = f.label :name
+    = f.text_field :name
+
+  .field
+    = f.label :uf
+    = f.select :uf, options_for_select(%w{ AC AL AM AP BA CE DF ES GO MA MG MS MT PA PB PE PI PR RJ RN RO RR RS SC SE SP TO }, f.object.uf), include_blank: true
+
+  .field
+    = f.label :city_name
+    = f.text_field :city_name
+
+  h2 TODO: Falta aldeia
+
+  .field
+    = f.label :cnes
+    = f.text_field :cnes
+
+  .field
+    = f.label :building_status
+    = f.select :building_status, options_for_select(%w{ Próprio Cedido Alugado }, f.object.building_status), include_blank: true
+
+  .field
+    = f.label :ground_status
+    = f.select :ground_status, options_for_select(['Regularizado', 'Não regularizado', 'Em regularização'], f.object.ground_status), include_blank: true

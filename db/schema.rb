@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150915200748) do
+ActiveRecord::Schema.define(version: 20150916142743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,30 @@ ActiveRecord::Schema.define(version: 20150915200748) do
   end
 
   add_index "health_specializeds", ["service_network_id"], name: "index_health_specializeds_on_service_network_id", using: :btree
+
+  create_table "infrastructure_building_types", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "infrastructure_buildings", force: :cascade do |t|
+    t.integer  "pdsi_id"
+    t.integer  "infrastructure_building_type_id"
+    t.string   "name"
+    t.string   "uf"
+    t.string   "city_name"
+    t.integer  "village_id"
+    t.string   "cnes"
+    t.string   "building_status"
+    t.string   "ground_status"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  add_index "infrastructure_buildings", ["infrastructure_building_type_id"], name: "idx_ibt_on_ibt_id", using: :btree
+  add_index "infrastructure_buildings", ["pdsi_id"], name: "index_infrastructure_buildings_on_pdsi_id", using: :btree
+  add_index "infrastructure_buildings", ["village_id"], name: "index_infrastructure_buildings_on_village_id", using: :btree
 
   create_table "pdsi_base_polo_data", force: :cascade do |t|
     t.integer  "pdsi_id"
@@ -285,6 +309,9 @@ ActiveRecord::Schema.define(version: 20150915200748) do
   add_foreign_key "etnias", "demographic_datas"
   add_foreign_key "health_establishments", "service_networks"
   add_foreign_key "health_specializeds", "service_networks"
+  add_foreign_key "infrastructure_buildings", "infrastructure_building_types"
+  add_foreign_key "infrastructure_buildings", "pdsis"
+  add_foreign_key "infrastructure_buildings", "villages"
   add_foreign_key "pdsi_base_polo_data", "base_polos"
   add_foreign_key "pdsi_base_polo_data", "pdsis"
   add_foreign_key "pdsis", "users"
