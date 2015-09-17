@@ -2,24 +2,23 @@ h1 Meu PDSI 2016-2019
 
 .vertical-tabs-container
   .vertical-tabs
-    /a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab1"  1. Introdução
-    /a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab2"  2. O Processo de construção do PDSI 2016-2019
-    /a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab3"  3. Caracterização do DSEI
-    /a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab4"  3.1.a Território e população - Mapa
-    /a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab5"  3.1.b Território e população - Dados Demográficos
-    /a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab6"  3.1.c Território e população - Dados Fisiográficos
-    /a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab7"  3.2.c Gestão - Capacidade instalada
-    /a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab8"  3.2.d Gestão - Rede de serviços
-    a.js-vertical-tab.vertical-tab.is_active href="javascript:void(0)" rel="tab9"  3.2.e Gestão - Infraestrutura de saúde edificações
+    a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab1"  1. Introdução
+    a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab2"  2. O Processo de construção do PDSI 2016-2019
+    a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab3"  3. Caracterização do DSEI
+    a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab4"  3.1.a Território e população - Mapa
+    a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab5"  3.1.b Território e população - Dados Demográficos
+    a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab6"  3.1.c Território e população - Dados Fisiográficos
+    a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab7"  3.2.c Gestão - Capacidade instalada
+    a.js-vertical-tab.vertical-tab.is_active href="javascript:void(0)" rel="tab8"  3.2.d Gestão - Rede de serviços
   .vertical-tab-content-container
-    /a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading.is-active href="" rel="tab1"
-    /#tab1.js-vertical-tab-content.vertical-tab-content
+    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading.is-active href="" rel="tab1"
+    #tab1.js-vertical-tab-content.vertical-tab-content
       h2 1. Introdução
 
       == @pdsi.introducao_1
 
-    /a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab2"
-    /#tab2.js-vertical-tab-content.vertical-tab-content
+    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab2"
+    #tab2.js-vertical-tab-content.vertical-tab-content
       h2 2. O processo de construção do PDSI 2016-2019
 
       == @pdsi.compose_item_2 || 'Não informado'
@@ -30,8 +29,8 @@ h1 Meu PDSI 2016-2019
           | Alterar
       |&nbsp;
 
-    /a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab3"
-    /#tab3.js-vertical-tab-content.vertical-tab-content
+    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab3"
+    #tab3.js-vertical-tab-content.vertical-tab-content
       h2 3. Caracterização do DSEI
 
       == @pdsi.compose_item_3 || 'Não informado'
@@ -42,8 +41,8 @@ h1 Meu PDSI 2016-2019
           | Alterar
       |&nbsp;
 
-    /a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab4"
-    /#tab4.js-vertical-tab-content.vertical-tab-content
+    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab4"
+    #tab4.js-vertical-tab-content.vertical-tab-content
       h2 3.1. Território e população - Mapa
 
       = image_tag @pdsi.map.url
@@ -54,8 +53,8 @@ h1 Meu PDSI 2016-2019
           | Alterar
       |&nbsp;
 
-    /a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab5"
-    /#tab5.js-vertical-tab-content.vertical-tab-content
+    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab5"
+    #tab5.js-vertical-tab-content.vertical-tab-content
       h2 3.1.b Território e população - Dados demográficos
 
       == render 'demographic_datas/show'
@@ -66,8 +65,8 @@ h1 Meu PDSI 2016-2019
           | Alterar
       |&nbsp;
 
-    /a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab6"
-    /#tab6.js-vertical-tab-content.vertical-tab-content
+    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab6"
+    #tab6.js-vertical-tab-content.vertical-tab-content
       h2 3.1.c Território e população - Dados fisiográficos
 
       == render 'pdsis/dados_fisiograficos/show'
@@ -78,8 +77,8 @@ h1 Meu PDSI 2016-2019
           | Alterar
       |&nbsp;
 
-    /a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab7"
-    /#tab7.js-vertical-tab-content.vertical-tab-content
+    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab7"
+    #tab7.js-vertical-tab-content.vertical-tab-content
       h2 3.2.c Gestão - Capacidade instalada
 
       == render 'pdsis/capacidade_instalada/show'
@@ -90,27 +89,15 @@ h1 Meu PDSI 2016-2019
           | Alterar
       |&nbsp;
 
-    /a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab8"
-    /#tab8.js-vertical-tab-content.vertical-tab-content
+    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab8"
+    #tab8.js-vertical-tab-content.vertical-tab-content
       h2 3.2.d Gestão - Rede de Serviços
-
-      == render 'pdsis/rede_servicos/show'
-
-      .right-align
-        = link_to edit_pdsi_path(@pdsi, section: 'rede-servicos'), class: 'button' do
-          i.fa.fa-pencil
-          | Alterar
-      |&nbsp;
-
-    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab9"
-    #tab9.js-vertical-tab-content.vertical-tab-content
-      h2 3.2.e Gestão - Infraestrutura de saúde edificações
 
       /== render 'pdsis/emsis/show'
       h3 TODO: Visualizar rede de serviços
 
       .right-align
-        = link_to edit_pdsi_path(@pdsi, section: 'infraestrutura-edificacoes'), class: 'button' do
+        = link_to edit_pdsi_path(@pdsi, section: 'rede-servicos'), class: 'button' do
           i.fa.fa-pencil
           | Alterar
       |&nbsp;
