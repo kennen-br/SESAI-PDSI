@@ -1,19 +1,23 @@
 fieldset
   .field
+    = f.label :infrastructure_building_type_id
+    = f.collection_select :infrastructure_building_type_id, InfrastructureBuildingType.all, :id, :name, {include_blank: true}, { class: 'hide-field', data: { field: 'village-select', equal: 'Sede do DSEI'} }
+
+  .field
     = f.label :name
     = f.text_field :name
 
   .field
     = f.label :uf
-    = select_uf :uf, f.object.uf
+    = select_uf f, :uf, f.object.uf
 
   .field
     = f.label :city_name
     = f.text_field :city_name
 
-  .field
+  .field.village-select style=("display: none;" if !f.object.new_record? && f.object.infrastructure_building_type.name == 'Sede do DSEI')
     = f.label :village
-    = select_village_from_dsei f.object.pdsi.dsei, :village, f.object.village_id
+    = select_village_from_dsei f, f.object.pdsi.dsei, :village, f.object.village_id
 
   .field
     = f.label :cnes
