@@ -1,4 +1,6 @@
 class Dsei < ActiveRecord::Base
+  attr_accessor :villages
+
   has_many  :base_polos
   has_many  :users
 
@@ -15,5 +17,20 @@ class Dsei < ActiveRecord::Base
 
   def base_polos_with_service_networks
     base_polos.includes(service_networks: [:health_establishments, :health_specializeds])
+  end
+
+  def villages
+    return @villages unless @villages.nil?
+
+    @villages = {}
+
+    Dsei.eager_load(base_polos: [:villages]).where(id: id).first.base_polos.each do |base_polo|
+      @villages[base_polo.id]  = { name: base_polo.name, villages: {} }
+      base_polo.villages.each do |village|
+        @villages[base_polo.id][:villages][village.id]  = village.name
+      end
+    end
+
+    @villages
   end
 end

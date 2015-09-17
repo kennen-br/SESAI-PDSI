@@ -5,13 +5,15 @@ fieldset
 
   .field
     = f.label :uf
-    = f.select :uf, options_for_select(%w{ AC AL AM AP BA CE DF ES GO MA MG MS MT PA PB PE PI PR RJ RN RO RR RS SC SE SP TO }, f.object.uf), include_blank: true
+    = select_uf :uf, f.object.uf
 
   .field
     = f.label :city_name
     = f.text_field :city_name
 
-  h2 TODO: Falta aldeia
+  .field
+    = f.label :village
+    = select_village_from_dsei f.object.pdsi.dsei, :village, f.object.village_id
 
   .field
     = f.label :cnes
