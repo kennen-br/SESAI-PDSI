@@ -129,3 +129,34 @@ button#menu-button{
 .vertical-tab-content-container{
   height: none !important;
 }
+
+// Page contents
+.page-content {
+  @include margin(2em null);
+  @include padding(1em 3em);
+
+  background    : #FFF;
+  border-radius : 2px;
+  box-shadow    : 1px 1px 5px -1px rgba(0, 0, 0, .3);
+
+  .page-title {
+    @include padding(null null 15px);
+
+    border-bottom: 1px solid #CCC;
+
+    .fa {
+      @include margin(null 2px null -35px);
+
+      font-size: 2em;
+    }
+    strong {
+      @include padding(2px 5px);
+
+      border         : 1px solid #ccc;
+      border-radius  : 3px;
+      display        : inline-block;
+      font-weight    : 400;
+      vertical-align : 6px;
+    }
+  }
+}
