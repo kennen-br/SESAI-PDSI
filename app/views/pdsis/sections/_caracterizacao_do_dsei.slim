@@ -1,0 +1,67 @@
+ul.accordion-tabs-minimal
+  li.tab-header-and-content
+    a.tab-link.is-active[href="#"]
+      | Breve Histórico
+    .tab-content
+
+      == @pdsi.compose_item_3 || 'Não informado'
+
+      .right-align
+        = link_to edit_pdsi_path(@pdsi, section: 'caracterizacao-do-dsei'), class: 'button' do
+          i.fa.fa-pencil
+          | Alterar
+      |&nbsp;
+  li.tab-header-and-content
+    a.tab-link[href="#"]
+      | 3.1 Território e População
+    .tab-content
+      p Atualizar informações sobre o distrito, com base na oficina de geoinformação.
+      p Conteúdo: Destacar a localização da sede do Distrito, dos polos-base e aspectos geográficos (rios, estradas, limites territoriais, políticos).
+
+      ul.accordion
+        li
+          a.js-accordion-trigger[href="javascript:void(0)"]
+            | A) MAPA
+          .accordion-content
+            = link_to edit_pdsi_path(@pdsi, section: 'mapa'), class: 'button pull-right edit-link' do
+              i.fa.fa-pencil
+              | Alterar
+            = image_tag @pdsi.map.url
+        li
+          a.js-accordion-trigger[href="javascript:void(0)"]
+            | B) Dados Demográficos
+          .accordion-content
+            = link_to edit_demographic_data_path(@demographic_data), class: 'button pull-right edit-link' do
+              i.fa.fa-pencil
+              | Alterar
+            == render 'demographic_datas/show'
+        li
+          a.js-accordion-trigger[href="javascript:void(0)"]
+            | C) Dados fisiográficos
+          .accordion-content
+            = link_to edit_pdsi_path(@pdsi, section: 'dados-fisiograficos'), class: 'button pull-right edit-link' do
+              i.fa.fa-pencil
+              | Alterar
+            == render 'pdsis/dados_fisiograficos/show'
+
+  li.tab-header-and-content
+    a.tab-link[href="#"]
+      | 3.2 Gestão
+    .tab-content
+      ul.accordion
+        li
+          a.js-accordion-trigger[href="javascript:void(0)"]
+            | C) Capacidade Instalada
+          .accordion-content
+            = link_to edit_pdsi_path(@pdsi, section: 'capacidade-instalada'), class: 'button pull-right edit-link' do
+              i.fa.fa-pencil
+              | Alterar
+            == render 'pdsis/capacidade_instalada/show'
+        li
+          a.js-accordion-trigger[href="javascript:void(0)"]
+            | D) Redes de Serviços
+          .accordion-content
+            = link_to edit_pdsi_path(@pdsi, section: 'rede-servicos'), class: 'button pull-right edit-link' do
+              i.fa.fa-pencil
+              | Alterar
+            == render 'pdsis/rede_servicos/show'
