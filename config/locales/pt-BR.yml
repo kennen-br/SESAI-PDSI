@@ -123,6 +123,12 @@ pt-BR:
         qtd_msd_coletiva:               Quantidade de msd coletivas
         esgotamento_sanitario:          Esgotamento sanitário
 
+      capai:
+        city_name:      Cidade
+        uf:             UF
+        type:           Tipo de CAPAI
+        host_capacity:  Capacidade de hospedagem
+
       cost:
         name: 'Custeio'
 

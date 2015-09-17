@@ -1,0 +1,10 @@
+h1 Infraestrutura de saúde - CAPAIs
+
+#infrastructure_buildings
+  = f.fields_for :capais do |ib|
+    == render 'pdsis/capais/capai_fields', f: ib
+
+  .links
+    = link_to_add_association f, :capais, { class: 'button btn-sm', partial: 'pdsis/capais/capai_fields' } do
+      = icon 'plus'
+      | Adicionar CAPAI

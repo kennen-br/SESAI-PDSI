@@ -41,8 +41,9 @@ ActiveRecord::Schema.define(version: 20150917140404) do
     t.string   "city_name"
     t.string   "uf"
     t.string   "type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "host_capacity"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "capais", ["pdsi_id"], name: "index_capais_on_pdsi_id", using: :btree
