@@ -41,6 +41,25 @@ span.white_color{
 
 .button{
   @include button;
+  @include padding(2px 12px);
+
+
+  background  : transparent;
+  border      : 1px solid #CCC;
+  box-shadow  : none;
+  color       : #666;
+  font-size   : modular-scale(-1);
+  font-weight : 400;
+  text-shadow : none;
+
+  &:not(.disabled) {
+    &:hover, &:active, &:focus {
+      background   : #f6f6f6;
+      border-color : #000;
+      box-shadow   : none;
+      color        : #000;
+    }
+  }
 
   i.fa {
     margin-right:  5px;
@@ -49,8 +68,6 @@ span.white_color{
   &.btn-sm {
     font-size: modular-scale(-1);
   }
-
-  color: #fff !important;
 }
 
 .flash-alert {
@@ -85,6 +102,10 @@ button#menu-button{
   input{
     background-color : $error-color;
   }
+}
+
+.pull-right {
+  float: right;
 }
 
 .right-align{
@@ -158,5 +179,9 @@ button#menu-button{
       font-weight    : 400;
       vertical-align : 6px;
     }
+  }
+
+  .accordion .accordion-content .edit-link {
+    @include position(absolute, 10px 10px null null);
   }
 }

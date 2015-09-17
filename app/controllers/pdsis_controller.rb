@@ -1,6 +1,6 @@
 class PdsisController < ApplicationController
   before_action :set_pdsi#, only: [:index, :show, :edit, :update]
-  before_action :set_section, only: [:edit, :update]
+  before_action :set_section, only: [:index, :edit, :update]
 
   # GET /pdsis
   def index
@@ -30,8 +30,9 @@ private
   end
 
   def set_section
-    @section_url  = params[:section].gsub(/_/, '-')
-    @section      = params[:section].gsub(/-/, '_')
+    section = params[:section] || 'introducao'
+    @section_url  = section.gsub(/_/, '-')
+    @section      = section.gsub(/-/, '_')
   end
 
   # Only allow a trusted parameter "white list" through.
