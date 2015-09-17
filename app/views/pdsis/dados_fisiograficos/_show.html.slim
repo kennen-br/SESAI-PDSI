@@ -1,4 +1,4 @@
-- @dsei.base_polos_with_children.each do |base_polo|
+- @dsei.base_polos_with_physiographic_data.each do |base_polo|
   .field
     strong
       | Polo base
@@ -23,4 +23,4 @@
       - if village.physiographic_data.nil?
         h3 Dados da aldeia não informados
       -else
-        = render 'pdsis/physiographic_data/village_data', village: village
+        = render 'pdsis/dados_fisiograficos/village_data', village: village

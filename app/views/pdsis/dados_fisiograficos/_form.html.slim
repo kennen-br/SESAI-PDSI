@@ -1,4 +1,6 @@
-- @dsei.base_polos_with_children.each do |base_polo|
+h1 Dados fisiográficos
+
+- @dsei.base_polos_with_physiographic_data.each do |base_polo|
   fieldset
     legend
       |Polo Base &nbsp;
@@ -17,7 +19,7 @@
           | Aldeia&nbsp;
           strong = village.name
         = f.fields_for :physiographic_datas, village.physiographic_datum(@pdsi) do |item|
-          == render 'pdsis/physiographic_data/form', f: item
+          == render 'pdsis/dados_fisiograficos/form_aldeias', f: item
 
       /- break
   /- break

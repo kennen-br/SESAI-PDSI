@@ -1,3 +1,5 @@
+h1 Capacidade instalada
+
 - @dsei.base_polos.each do |base_polo|
   fieldset
     legend
@@ -9,10 +11,10 @@
       = f.fields_for :emsis do |emsi|
         = emsi.hidden_field :base_polo_id,  value: base_polo.id
 
-        = render 'emsi_fields', { f: emsi }
+        = render 'pdsis/capacidade_instalada/emsi_fields', { f: emsi }
 
     .right-align
-      = link_to_add_association f, :emsis, { data: { "association-insertion-node": "##{nform_id}", "association-insertion-method": 'append' }, class: 'button btn-sm' } do
+      = link_to_add_association f, :emsis, { data: { "association-insertion-node": "##{nform_id}", "association-insertion-method": 'append' }, class: 'button btn-sm', partial: 'pdsis/capacidade_instalada/emsi_fields' } do
         = icon 'plus'
         | Adicionar EMSI
 
