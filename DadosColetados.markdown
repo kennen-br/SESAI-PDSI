@@ -100,16 +100,18 @@ Os DSEIS, Polos serão informados
 * As linhas 14 e 15 serão preenchidas para cada UBSI do DSEI
 * A linha 16 apresentará a quantidade total de UBSIS do DSEI
 
+* Dados armazenados na tabela infrastructure_buildings e infrastructure_building_types
+
 * **TODO**
   * Descobrir como identificar um Polo Base como sendo do Tipo 1 ou do Tipo 2
 
 ### 3.2 F
 
+* Dados armazenados na tabela infrastructure_sanitations
+
 ### 3.2 G - Infrtaestrutura dos CAPAIs
 
-* **TODO**
-  * Descobrir o que é isso
-    * Todos os municípios tem CAPAIs?
+* Dados armazenados na tabela capais
 
 # 4 Análise Situacional
 
