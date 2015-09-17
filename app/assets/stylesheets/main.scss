@@ -2,15 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$base-spacing: 1.5em !default;
-$alert-color: #fff6bf !default;
-$error-color: #fbe3e4 !default;
-$notice-color: #e5edf8 !default;
-$success-color: #e6efc2 !default;
+$base-spacing  : 1.5em !default;
+$alert-color   : #fff6bf !default;
+$error-color   : #fbe3e4 !default;
+$notice-color  : #e5edf8 !default;
+$success-color : #e6efc2 !default;
 
 body{
-  margin  : 0;
-  padding : 0;
+  margin      : 0;
+  padding     : 0;
+  background  : #f6f6f6;
+  font-family : 'Open Sans', sans-serif;
 }
 
 .container{
@@ -19,13 +21,6 @@ body{
 
 .content{
   @include span-columns(12);
-}
-
-#login-container{
-  @include span-columns(6);
-  @include shift(3);
-
-  padding-top : 100px;
 }
 
 span.white_color{
@@ -46,6 +41,25 @@ span.white_color{
 
 .button{
   @include button;
+  @include padding(2px 12px);
+
+
+  background  : transparent;
+  border      : 1px solid #CCC;
+  box-shadow  : none;
+  color       : #666;
+  font-size   : modular-scale(-1);
+  font-weight : 400;
+  text-shadow : none;
+
+  &:not(.disabled) {
+    &:hover, &:active, &:focus {
+      background   : #f6f6f6;
+      border-color : #000;
+      box-shadow   : none;
+      color        : #000;
+    }
+  }
 
   i.fa {
     margin-right:  5px;
@@ -53,31 +67,6 @@ span.white_color{
 
   &.btn-sm {
     font-size: modular-scale(-1);
-  }
-
-  color: #fff !important;
-}
-
-@mixin flash($color) {
-  background-color  : $color;
-  color             : darken($color, 60%);
-  display           : bock;
-  margin            : 1em 0em;
-  padding           : $base-spacing / 2;
-  text-align        : center;
-
-  a {
-    color             : darken($color, 70%);
-    text-decoration   : underline;
-
-    &:focus,
-    &:hover {
-      color           : darken($color, 90%);
-    }
-  }
-
-  .flash-link-close{
-    float               : right;
   }
 }
 
@@ -103,20 +92,24 @@ button#menu-button{
   @include border-bottom-radius(50%);
   @include border-left-radius(50%);
 
-  padding: 10px !important;
-  font-size: 22px;
-  margin-right: 10px;
+  font-size    : 22px;
+  margin-right : 10px;
+  padding      : 10px;
 }
 
 .field_with_errors{
 
   input{
-    background-color  : $error-color;
+    background-color : $error-color;
   }
 }
 
+.pull-right {
+  float: right;
+}
+
 .right-align{
-  text-align  : right;
+  text-align : right;
 }
 
 .edit-section{
@@ -133,8 +126,8 @@ button#menu-button{
 // Cocoon nested forms
 .nested-form {
   .destroy {
-    text-align: center;
-    width: 7%;
+    text-align : center;
+    width      : 7%;
   }
 }
 
@@ -156,4 +149,39 @@ button#menu-button{
 
 .vertical-tab-content-container{
   height: none !important;
+}
+
+// Page contents
+.page-content {
+  @include margin(2em null);
+  @include padding(1em 3em);
+
+  background    : #FFF;
+  border-radius : 2px;
+  box-shadow    : 1px 1px 5px -1px rgba(0, 0, 0, .3);
+
+  .page-title {
+    @include padding(null null 15px);
+
+    border-bottom: 1px solid #CCC;
+
+    .fa {
+      @include margin(null 2px null -35px);
+
+      font-size: 2em;
+    }
+    strong {
+      @include padding(2px 5px);
+
+      border         : 1px solid #ccc;
+      border-radius  : 3px;
+      display        : inline-block;
+      font-weight    : 400;
+      vertical-align : 6px;
+    }
+  }
+
+  .accordion .accordion-content .edit-link {
+    @include position(absolute, 10px 10px null null);
+  }
 }

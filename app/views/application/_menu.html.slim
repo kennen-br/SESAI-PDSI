@@ -1,25 +1,28 @@
 header.navigation role="banner"
   .navigation-wrapper
-    nav role="navigation"
-      button#menu-button.js-menu-trigger.sliding-menu-button type="button"
-        i.fa.fa-bars
+    - if user_signed_in?
+      nav role="navigation"
+        button#menu-button.js-menu-trigger.sliding-menu-button type="button"
+          i.fa.fa-bars
 
-      ul#js-navigation-menu.navigation-menu.show
-        li.nav-link
-          //a href="javascript:void(0)"  Products
-          span.white_color
-            = current_user.username
-    .navigation-tools
-      == link_to raw('Sair ' + icon('sign-out')), destroy_user_session_path, { method: :delete, class: 'sign-up' }
+    a.logo
+      = icon 'plus'
+      .title SAÚDE INDÍGENA
+      .subtitle PDSInfo
 
-nav.js-menu.sliding-menu-content
-  ul
-    li
-      = link_to 'Início', root_path
-    li
-      = link_to 'Alterar Senha', edit_password_path
+    - if user_signed_in?
+      .navigation-tools
+        == link_to raw('Sair ' + icon('sign-out')), destroy_user_session_path, { method: :delete, class: 'sign-up' }
 
-    / Render specific menu to each profile
-    == render "menu_#{current_user.user_type.menu_name}"
+- if user_signed_in?
+  nav.js-menu.sliding-menu-content
+    ul
+      li
+        = link_to 'Início', root_path
+      li
+        = link_to 'Alterar Senha', edit_password_path
 
-.js-menu-screen.sliding-menu-fade-screen
+      / Render specific menu to each profile
+      == render "menu_#{current_user.user_type.menu_name}"
+
+  .js-menu-screen.sliding-menu-fade-screen
