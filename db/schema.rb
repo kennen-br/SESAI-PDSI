@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916181555) do
+ActiveRecord::Schema.define(version: 20150917140404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,27 @@ ActiveRecord::Schema.define(version: 20150916181555) do
   end
 
   add_index "base_polos", ["dsei_id"], name: "index_base_polos_on_dsei_id", using: :btree
+
+  create_table "capai_villages", force: :cascade do |t|
+    t.integer  "capai_id"
+    t.integer  "village_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "capai_villages", ["capai_id"], name: "index_capai_villages_on_capai_id", using: :btree
+  add_index "capai_villages", ["village_id"], name: "index_capai_villages_on_village_id", using: :btree
+
+  create_table "capais", force: :cascade do |t|
+    t.integer  "pdsi_id"
+    t.string   "city_name"
+    t.string   "uf"
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "capais", ["pdsi_id"], name: "index_capais_on_pdsi_id", using: :btree
 
   create_table "cost_users", force: :cascade do |t|
     t.integer  "cost_id"
@@ -321,6 +342,9 @@ ActiveRecord::Schema.define(version: 20150916181555) do
   add_index "villages", ["base_polo_id"], name: "index_villages_on_base_polo_id", using: :btree
 
   add_foreign_key "base_polos", "dseis"
+  add_foreign_key "capai_villages", "capais"
+  add_foreign_key "capai_villages", "villages"
+  add_foreign_key "capais", "pdsis"
   add_foreign_key "cost_users", "costs"
   add_foreign_key "cost_users", "users"
   add_foreign_key "demographic_datas", "pdsis"
