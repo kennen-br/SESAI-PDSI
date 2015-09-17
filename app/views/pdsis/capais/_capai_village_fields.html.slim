@@ -1,6 +1,7 @@
 tr.nested-fields
   td.field
-    strong TODO:&nbsp;
-    | Adicionar select com aldeia
+    = f.label :village
+    /= select_village_from_dsei @dsei, :village, f.object.village_id
+    h2 TODO: Adicionar select de villages
   td.field.destroy
     = f.check_box :_destroy
