@@ -1,4 +1,6 @@
-h2 &nbsp;
+h1.page-title
+  = icon 'edit'
+  = breadcrumbs [{ name: 'ESTRUTURA E CONTEÚDO | PDSI', path: nil }] + section_path(@section)
 
 = form_for @pdsi, url: pdsi_path(@pdsi, section: @section_url), html: { multipart: true } do |f|
   - if @pdsi.errors.any?
@@ -8,9 +10,8 @@ h2 &nbsp;
         - @pdsi.errors.full_messages.each do |message|
           li = message
 
-  fieldset
-    .edit-section
-      == render "pdsis/#{@section}/form", f: f
+  .edit-section
+    == render "pdsis/#{@section}/form", f: f
 
   .actions
     = hidden_field_tag :section, @section
@@ -19,6 +20,8 @@ h2 &nbsp;
       i.fa.fa-save
       | Salvar
 
-    = link_to pdsis_path, class: 'button' do
+    | &nbsp;
+
+    = link_to 'javascript:history.back()', class: 'button' do
       i.fa.fa-warning
       | Cancelar

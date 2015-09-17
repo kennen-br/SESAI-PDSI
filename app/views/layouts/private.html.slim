@@ -21,6 +21,7 @@ html lang="#{I18n.locale}"
     .container
       .content
         = render 'notices'
-        = yield
+        .page-content
+          = yield
 
 

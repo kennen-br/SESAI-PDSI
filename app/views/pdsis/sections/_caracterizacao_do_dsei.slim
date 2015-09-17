@@ -65,3 +65,11 @@ ul.accordion-tabs-minimal
               i.fa.fa-pencil
               | Alterar
             == render 'pdsis/rede_servicos/show'
+        li
+          a.js-accordion-trigger[href="javascript:void(0)"]
+            | E) Infraestrutura de saúde edificações
+          .accordion-content
+            = link_to edit_pdsi_path(@pdsi, section: 'infraestrutura-edificacoes'), class: 'button pull-right edit-link' do
+              i.fa.fa-pencil
+              | Alterar
+            h3 TODO: Visualizar rede de serviços
