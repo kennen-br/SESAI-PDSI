@@ -4,8 +4,12 @@
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
 
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300);
+
 // Reffils components
 @import 'refills/accordion';
+@import 'refills/accordion-tabs-minimal';
 @import 'refills/navigation';
 @import 'refills/sliding-menu';
 @import 'refills/switch';
@@ -15,4 +19,12 @@
 @import 'froala/froala_editor.min';
 @import 'froala/froala_style.min';
 
+// Pace
+@import 'pace/yellow/pace-theme-flash';
+
+// Devise
+@import 'devise/sessions';
+
+@import 'mixins';
+@import 'forms';
 @import 'main';

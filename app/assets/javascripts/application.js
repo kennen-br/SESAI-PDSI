@@ -14,6 +14,7 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require cocoon
+//= require pace/pace
 //= require froala_editor.min.js
 //= require_tree .
 //= require turbolinks

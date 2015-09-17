@@ -1,0 +1,23 @@
+#sessions-new
+  h2 PDSInfo
+  .subtitle
+    | SECRETARIA ESPECIAL DE ATENAÇÃO AO INDÍGENA
+    br
+    | Período: 2016-2019
+
+  p Aplicação para coleta e consolidação da família de dados destinados à elaboração do Plano Distrital de Saúde Indígena
+
+  fieldset
+    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      .field
+        = f.label :username
+        = f.text_field :username, autofocus: true, placeholder: 'Login'
+      .field
+        = f.label :password, 'Senha'
+        = f.password_field :password, autocomplete: "off", placeholder: 'Senha'
+      - if devise_mapping.rememberable?
+        .field
+          = f.check_box :remember_me
+          = f.label :remember_me
+      .actions
+        = f.submit "ENTRAR"

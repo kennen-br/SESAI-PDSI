@@ -5,14 +5,14 @@ header.navigation {
   $base-accent-color: #477DCA !default;
   $dark-gray: #333 !default;
   $large-screen: em(860) !default;
-  
+
   a {
     text-decoration: none;
   }
   //////////////////////////////////////////////////////////////////////////////////
 
   $navigation-padding: 1em;
-  $navigation-background: $dark-gray;
+  $navigation-background: #8493ca;
   $navigation-color: transparentize(white, 0.3);
   $navigation-color-hover: white;
   $navigation-height: 60px;
@@ -30,24 +30,43 @@ header.navigation {
   border-bottom: 1px solid darken($navigation-background, 10);
   min-height: $navigation-height;
   width: 100%;
-  z-index: 999;
+  z-index: 50;
 
   .navigation-wrapper {
     @include clearfix;
     @include outer-container;
     position: relative;
-    z-index: 9999;
+    z-index: 60;
   }
 
   .logo {
+    @include position(relative);
+
+    color: #FFF;
     float: left;
-    max-height: $navigation-height;
+    min-height: $navigation-height;
+    overflow: hidden;
     padding-left: $navigation-padding;
     padding-right: 2em;
 
-    img {
-      max-height: $navigation-height;
-      padding: 0.8em 0;
+    .fa {
+      @include position(absolute, null null -40px null);
+
+      color: #7983aa;
+      font-size: modular-scale(8);
+      z-index: -1;
+    }
+    .title {
+      @include margin(15px null null 20px);
+
+      font-size: modular-scale(1);
+      font-weight: 700;
+      line-height: 1em;
+    }
+    .subtitle {
+      @include margin(null null null 20px);
+
+      font-size: modular-scale(0);
     }
   }
 
@@ -78,7 +97,7 @@ header.navigation {
   nav {
     float: none;
     min-height: $navigation-height;
-    z-index: 9999999;
+    z-index: 71;
 
     @include media ($horizontal-bar-mode) {
       float: left;
@@ -93,7 +112,7 @@ header.navigation {
     overflow: visible;
     padding: 0;
     width: 100%;
-    z-index: 9999;
+    z-index: 60;
 
     &.show {
       display: block;
@@ -116,7 +135,7 @@ header.navigation {
     padding-right: 0.8em;
     text-align: right;
     width: 100%;
-    z-index: 9999;
+    z-index: 60;
 
     @include media ($horizontal-bar-mode) {
       background: transparent;
@@ -281,12 +300,15 @@ header.navigation {
 
   .sign-up {
     @include button(flat, $base-accent-color);
-    display: inline;
-    float: right;
-    font-size: 0.8em;
-    margin-top: 1em;
-    padding: 0.75em 1em;
-    text-transform: uppercase;
+    @include padding(2px 7px);
+    @include margin(1.5em null null);
+
+    background     : transparent;
+    border         : 1px solid #FFF;
+    float          : right;
+    font-size      : 0.8em;
+    font-weight    : 400;
+    text-transform : uppercase;
   }
 
   // Search bar

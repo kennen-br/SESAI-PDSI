@@ -1,103 +1,20 @@
-h1 Meu PDSI 2016-2019
+.page-content
+  h1.page-title
+    = icon 'edit'
+    strong ESTRUTURA E CONTEÚDO | PDSI
 
-.vertical-tabs-container
-  .vertical-tabs
-    a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab1"  1. Introdução
-    a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab2"  2. O Processo de construção do PDSI 2016-2019
-    a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab3"  3. Caracterização do DSEI
-    a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab4"  3.1.a Território e população - Mapa
-    a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab5"  3.1.b Território e população - Dados Demográficos
-    a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab6"  3.1.c Território e população - Dados Fisiográficos
-    a.js-vertical-tab.vertical-tab href="javascript:void(0)" rel="tab7"  3.2.c Gestão - Capacidade instalada
-    a.js-vertical-tab.vertical-tab.is_active href="javascript:void(0)" rel="tab8"  3.2.d Gestão - Rede de serviços
-  .vertical-tab-content-container
-    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading.is-active href="" rel="tab1"
-    #tab1.js-vertical-tab-content.vertical-tab-content
-      h2 1. Introdução
+  p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia laboriosam accusamus incidunt, quisquam eveniet dignissimos necessitatibus, minima earum, cum soluta dolore impedit eius nam veniam. Laudantium alias praesentium illum, nihil.
 
-      == @pdsi.introducao_1
+  .vertical-tabs-container
+    .vertical-tabs
+      - link_opt = [{ class: 'vertical-tab' }, {:selected_class => 'is-active'}]
+      = nav_link_to pdsis_path(section: 'introducao'), link_opt[0], link_opt[1] do
+        | 1. Introdução
+      = nav_link_to pdsis_path(section: 'processo-de-construcao-do-pdsi'), link_opt[0], link_opt[1] do
+        | 2. O Processo de construção do PDSI 2016-2019
+      = nav_link_to pdsis_path(section: 'caracterizacao-do-dsei'), link_opt[0], link_opt[1] do
+        | 3. Caracterização do DSEI
 
-    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab2"
-    #tab2.js-vertical-tab-content.vertical-tab-content
-      h2 2. O processo de construção do PDSI 2016-2019
-
-      == @pdsi.compose_item_2 || 'Não informado'
-
-      .right-align
-        = link_to edit_pdsi_path(@pdsi, section: 'processo-de-construcao-do-pdsi'), class: 'button' do
-          i.fa.fa-pencil
-          | Alterar
-      |&nbsp;
-
-    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab3"
-    #tab3.js-vertical-tab-content.vertical-tab-content
-      h2 3. Caracterização do DSEI
-
-      == @pdsi.compose_item_3 || 'Não informado'
-
-      .right-align
-        = link_to edit_pdsi_path(@pdsi, section: 'caracterizacao-do-dsei'), class: 'button' do
-          i.fa.fa-pencil
-          | Alterar
-      |&nbsp;
-
-    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab4"
-    #tab4.js-vertical-tab-content.vertical-tab-content
-      h2 3.1. Território e população - Mapa
-
-      = image_tag @pdsi.map.url
-
-      .right-align
-        = link_to edit_pdsi_path(@pdsi, section: 'mapa'), class: 'button' do
-          i.fa.fa-pencil
-          | Alterar
-      |&nbsp;
-
-    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab5"
-    #tab5.js-vertical-tab-content.vertical-tab-content
-      h2 3.1.b Território e população - Dados demográficos
-
-      == render 'demographic_datas/show'
-
-      .right-align
-        = link_to edit_demographic_data_path(@demographic_data), class: 'button' do
-          i.fa.fa-pencil
-          | Alterar
-      |&nbsp;
-
-    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab6"
-    #tab6.js-vertical-tab-content.vertical-tab-content
-      h2 3.1.c Território e população - Dados fisiográficos
-
-      == render 'pdsis/dados_fisiograficos/show'
-
-      .right-align
-        = link_to edit_pdsi_path(@pdsi, section: 'dados-fisiograficos'), class: 'button' do
-          i.fa.fa-pencil
-          | Alterar
-      |&nbsp;
-
-    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab7"
-    #tab7.js-vertical-tab-content.vertical-tab-content
-      h2 3.2.c Gestão - Capacidade instalada
-
-      == render 'pdsis/capacidade_instalada/show'
-
-      .right-align
-        = link_to edit_pdsi_path(@pdsi, section: 'capacidade-instalada'), class: 'button' do
-          i.fa.fa-pencil
-          | Alterar
-      |&nbsp;
-
-    a.js-vertical-tab-accordion-heading.vertical-tab-accordion-heading href="" rel="tab8"
-    #tab8.js-vertical-tab-content.vertical-tab-content
-      h2 3.2.d Gestão - Rede de Serviços
-
-      /== render 'pdsis/emsis/show'
-      h3 TODO: Visualizar rede de serviços
-
-      .right-align
-        = link_to edit_pdsi_path(@pdsi, section: 'rede-servicos'), class: 'button' do
-          i.fa.fa-pencil
-          | Alterar
-      |&nbsp;
+    .vertical-tab-content-container
+      .vertical-tab-content style="display: block;"
+        = render "pdsis/sections/#{@section}"
