@@ -1,4 +1,6 @@
 class Pdsi < ActiveRecord::Base
+  attr_accessor :dsei
+
   belongs_to  :user
 
   has_one :demographic_data
@@ -26,6 +28,12 @@ class Pdsi < ActiveRecord::Base
   validates_attachment_content_type :map, content_type: /\Aimage\/.*\Z/
 
   attr_accessor :text_template
+
+  def dsei
+    return @dsei unless @dsei.nil?
+
+    @dsei = user.dsei
+  end
 
   def text_template
     return @text_template unless @text_template.nil?
