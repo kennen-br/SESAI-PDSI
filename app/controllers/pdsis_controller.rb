@@ -52,7 +52,7 @@ private
         health_specializeds_attributes:    [:id, :service_network_id, :name, :_destroy]
       ],
       infrastructure_buildings_attributes: [
-        :id, :infrastructure_building_type_id, :name, :uf, :city_name, :village_id, :cnes, :building_status, :ground_status
+        :id, :infrastructure_building_type_id, :name, :uf, :city_name, :village_id, :cnes, :building_status, :ground_status, :_destroy
       ]
     )
   end
