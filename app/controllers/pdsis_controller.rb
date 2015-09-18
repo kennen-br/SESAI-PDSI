@@ -14,9 +14,6 @@ class PdsisController < ApplicationController
   end
 
   def update
-    debug pdsi_params
-    debug params
-
     if @pdsi.update(pdsi_params)
       redirect_to pdsis_path, notice: 'Dados atualizados com sucesso.'
     else
@@ -59,6 +56,10 @@ private
       ],
       infrastructure_sanitations_attributes: [
         :id, :village_id, :abastecimento_agua, :abastecimento_agua_alternativo, :saa_completo, :nome_saa, :tipo_captacao_agua, :nome_concessionaria, :tipo_tratamento_agua, :abastecimento_mqa, :saa_manutencao, :qtd_msd_individual, :qtd_msd_coletiva, :esgotamento_sanitario
+      ],
+      capais_attributes: [
+        :pdsi_id, :city_name, :uf, :capai_type, :host_capacity, :_destroy,
+        capai_villages: [:id, :capai_id, :village_id, :_destroy],
       ],
       destinations_attributes: [:id, :pdsi_id, :origin_village_id, :destination_village_id, :destination_type_id, :boat_time, :road_time, :fly_time, :_destroy],
     )
