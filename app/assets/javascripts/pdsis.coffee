@@ -2,7 +2,6 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-<<<<<<< HEAD
 element_index = (element_id) ->
   regExp  = /.*(\d)/
   matches = regExp.exec element_id
