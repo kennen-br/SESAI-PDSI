@@ -75,6 +75,10 @@ class Pdsi < ActiveRecord::Base
     DestinationType.eager_load(destinations: [:origin_village, :destination_village]).where('destinations.pdsi_id = ?', id)
   end
 
+  def capais_with_villages
+    Capai.eager_load(capai_villages: [:village]).where(pdsi: self)
+  end
+
 private
   def compose_item(sample_attr, key, value)
     default = sample(sample_attr)

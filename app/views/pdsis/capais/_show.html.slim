@@ -1,4 +1,4 @@
-- @pdsi.capais.each do |capai|
+- @pdsi.capais_with_villages.each do |capai|
   fieldset
     legend
       strong = capai.city_name
@@ -31,5 +31,5 @@
       legend Aldeias atendidas
 
       ul
-        - capai.capai_villages.each do |village|
-          li = village.name
+        - capai.capai_villages.each do |capai_village|
+          li = capai_village.village.name

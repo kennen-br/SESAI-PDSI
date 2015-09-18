@@ -14,6 +14,9 @@ class PdsisController < ApplicationController
   end
 
   def update
+    debug pdsi_params
+    debug params
+
     if @pdsi.update(pdsi_params)
       redirect_to pdsis_path, notice: 'Dados atualizados com sucesso.'
     else
@@ -59,7 +62,7 @@ private
       ],
       capais_attributes: [
         :pdsi_id, :city_name, :uf, :capai_type, :host_capacity, :_destroy,
-        capai_villages: [:id, :capai_id, :village_id, :_destroy],
+        capai_villages_attributes: [:id, :capai_id, :village_id, :_destroy],
       ],
       destinations_attributes: [:id, :pdsi_id, :origin_village_id, :destination_village_id, :destination_type_id, :boat_time, :road_time, :fly_time, :_destroy],
     )
