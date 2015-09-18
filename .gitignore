@@ -17,7 +17,6 @@
 log/
 tmp/
 coverage/
-app/views/refills
 config/database.yml
 batch/
 
