@@ -4,9 +4,9 @@ class Village < ActiveRecord::Base
   has_and_belongs_to_many :ethnicities
 
   has_one   :physiographic_data
-
   has_many  :infrastructure_buildings
   has_many  :infrastructure_sanitations
+  has_many  :capai_villages
 
   validates :base_polo, presence: true
   validates :name, length: { maximum: 255 }, uniqueness: { scope: :base_polo }, presence: true

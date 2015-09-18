@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get '/pdsis/show', to: 'pdsis#show'
+
   scope '/meu-pdsi' do
     get   '/(ver/:section)',        to: 'pdsis#index',  as: :pdsis
     patch '/:id/alterar/:section',  to: 'pdsis#update', as: :pdsi

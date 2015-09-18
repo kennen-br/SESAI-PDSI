@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916181555) do
+ActiveRecord::Schema.define(version: 20150918194612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,28 @@ ActiveRecord::Schema.define(version: 20150916181555) do
   end
 
   add_index "base_polos", ["dsei_id"], name: "index_base_polos_on_dsei_id", using: :btree
+
+  create_table "capai_villages", force: :cascade do |t|
+    t.integer  "capai_id"
+    t.integer  "village_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "capai_villages", ["capai_id"], name: "index_capai_villages_on_capai_id", using: :btree
+  add_index "capai_villages", ["village_id"], name: "index_capai_villages_on_village_id", using: :btree
+
+  create_table "capais", force: :cascade do |t|
+    t.integer  "pdsi_id"
+    t.string   "city_name"
+    t.string   "uf"
+    t.string   "capai_type"
+    t.integer  "host_capacity"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "capais", ["pdsi_id"], name: "index_capais_on_pdsi_id", using: :btree
 
   create_table "cost_users", force: :cascade do |t|
     t.integer  "cost_id"
@@ -70,6 +92,27 @@ ActiveRecord::Schema.define(version: 20150916181555) do
   end
 
   add_index "demographic_datas", ["pdsi_id"], name: "index_demographic_datas_on_pdsi_id", using: :btree
+
+  create_table "destination_types", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "destinations", force: :cascade do |t|
+    t.integer  "pdsi_id"
+    t.integer  "origin_village_id",      null: false
+    t.integer  "destination_village_id", null: false
+    t.integer  "destination_type_id"
+    t.string   "boat_time"
+    t.string   "road_time"
+    t.string   "fly_time"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "destinations", ["destination_type_id"], name: "index_destinations_on_destination_type_id", using: :btree
+  add_index "destinations", ["pdsi_id"], name: "index_destinations_on_pdsi_id", using: :btree
 
   create_table "dseis", force: :cascade do |t|
     t.string   "name",       null: false
@@ -321,9 +364,16 @@ ActiveRecord::Schema.define(version: 20150916181555) do
   add_index "villages", ["base_polo_id"], name: "index_villages_on_base_polo_id", using: :btree
 
   add_foreign_key "base_polos", "dseis"
+  add_foreign_key "capai_villages", "capais"
+  add_foreign_key "capai_villages", "villages"
+  add_foreign_key "capais", "pdsis"
   add_foreign_key "cost_users", "costs"
   add_foreign_key "cost_users", "users"
   add_foreign_key "demographic_datas", "pdsis"
+  add_foreign_key "destinations", "destination_types"
+  add_foreign_key "destinations", "pdsis"
+  add_foreign_key "destinations", "villages", column: "destination_village_id"
+  add_foreign_key "destinations", "villages", column: "origin_village_id"
   add_foreign_key "emsis", "base_polos"
   add_foreign_key "emsis", "pdsis"
   add_foreign_key "ethnicities_villages", "ethnicities"
