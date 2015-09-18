@@ -1,0 +1,33 @@
+fieldset
+  - if f.object.new_record?
+    = f.hidden_field :infrastructure_building_type_id, value: building_type.id
+  - else
+    = f.hidden_field :infrastructure_building_type_id
+
+  .field
+    = f.label :name
+    = f.text_field :name
+
+  .field
+    = f.label :uf
+    = select_uf f, :uf, f.object.uf
+
+  .field
+    = f.label :city_name
+    = f.text_field :city_name
+
+  .field.village-select style=("display: none;" if !f.object.new_record? && f.object.hide_village?)
+    = f.label :village_id
+    = select_village_from_dsei f, f.object.pdsi.dsei, :village_id, f.object.village_id
+
+  .field
+    = f.label :cnes
+    = f.text_field :cnes
+
+  .field
+    = f.label :building_status
+    = f.select :building_status, options_for_select(%w{ Próprio Cedido Alugado }, f.object.building_status), include_blank: true
+
+  .field
+    = f.label :ground_status
+    = f.select :ground_status, options_for_select(['Regularizado', 'Não regularizado', 'Em regularização'], f.object.ground_status), include_blank: true

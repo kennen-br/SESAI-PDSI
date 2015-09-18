@@ -1,0 +1,49 @@
+- InfrastructureBuildingType.order(:id).all.each do |building_type|
+  fieldset
+    legend
+      strong = building_type.name
+
+    - @pdsi.infrastructure_buildings.where(infrastructure_building_type: building_type).each do |infra|
+      fieldset
+        .field
+          p
+            strong = InfrastructureBuilding.human_attribute_name 'name'
+            br
+            = infra.name
+
+        .field
+          p
+            strong = InfrastructureBuilding.human_attribute_name 'uf'
+            br
+            = infra.uf
+
+        .field
+          p
+            strong = InfrastructureBuilding.human_attribute_name 'city_name'
+            br
+            = infra.city_name
+
+        - unless infra.hide_village?
+          .field
+            p
+              strong = InfrastructureBuilding.human_attribute_name 'village'
+              br
+              = infra.village.name
+
+        .field
+          p
+            strong = InfrastructureBuilding.human_attribute_name 'cnes'
+            br
+            = infra.cnes
+
+        .field
+          p
+            strong = InfrastructureBuilding.human_attribute_name 'building_status'
+            br
+            = infra.building_status
+
+        .field
+          p
+            strong = InfrastructureBuilding.human_attribute_name 'ground_status'
+            br
+            = infra.ground_status

@@ -26,4 +26,11 @@ form {
       color: #000;
     }
   }
+
+  .actions {
+    @include margin(20px null null);
+    @include padding(10px null null);
+
+    border-top: 1px solid #ccc;
+  }
 }

@@ -1,4 +1,6 @@
 class Pdsi < ActiveRecord::Base
+  attr_accessor :dsei
+
   belongs_to  :user
 
   has_one :demographic_data
@@ -16,10 +18,19 @@ class Pdsi < ActiveRecord::Base
   has_many  :service_networks
   accepts_nested_attributes_for :service_networks, reject_if: :all_blank, allow_destroy: true
 
+  has_many  :infrastructure_buildings
+  accepts_nested_attributes_for :infrastructure_buildings, reject_if: :all_blank, allow_destroy: true
+
   has_attached_file :map, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :map, content_type: /\Aimage\/.*\Z/
 
   attr_accessor :text_template
+
+  def dsei
+    return @dsei unless @dsei.nil?
+
+    @dsei = user.dsei
+  end
 
   def text_template
     return @text_template unless @text_template.nil?
