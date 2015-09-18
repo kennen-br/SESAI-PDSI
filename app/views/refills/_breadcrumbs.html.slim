@@ -1,0 +1,4 @@
+.breadcrumb
+  - links.each do |link|
+    = link_to (link[:path].nil? ? 'javascript:void(0)' : link[:path]) do
+      = link[:name]

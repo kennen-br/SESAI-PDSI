@@ -1,3 +1,13 @@
+if InfrastructureBuildingType.count == 0
+    InfrastructureBuildingType.create!([
+        { name: 'Sede do DSEI' },
+        { name: 'CASAI' },
+        { name: 'Sede de Polo Base Tipo 1' },
+        { name: 'Sede de Polo Base Tipo 2' },
+        { name: 'UBSI' }
+    ])
+end
+
 if Dsei.count == 0
   Dsei.create!([
     {name: "ALAGOAS E SERGIPE", sesai_id: 1},

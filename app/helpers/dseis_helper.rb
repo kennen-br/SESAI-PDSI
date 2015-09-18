@@ -1,11 +1,10 @@
 module DseisHelper
-  def select_village_from_dsei(dsei, field_name, field_value)
-
-    opts  = select_opts(dsei)
-    return select_tag field_name, options_for_select(opts, field_value), include_blank: true
+  def select_village_from_dsei(f, dsei, field_name, field_value)
+    opts  = select_opts(dsei, field_value)
+    return f.select field_name, opts, include_blank: true
   end
 
-  def select_opts(dsei)
+  def select_opts(dsei, field_value)
     debug "begin"
     opts  = []
     dsei.villages.each do |key, value|
@@ -14,6 +13,6 @@ module DseisHelper
       opts << [value[:name], values]
     end
 
-    grouped_options_for_select(opts)
+    grouped_options_for_select(opts, field_value)
   end
 end
