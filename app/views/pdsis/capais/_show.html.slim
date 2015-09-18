@@ -1,0 +1,35 @@
+- @pdsi.capais.each do |capai|
+  fieldset
+    legend
+      strong = capai.city_name
+
+    .field
+      p
+        strong = Capai.human_attribute_name 'city_name'
+        br
+        = capai.city_name
+
+    .field
+      p
+        strong = Capai.human_attribute_name 'uf'
+        br
+        = capai.uf
+
+    .field
+      p
+        strong = Capai.human_attribute_name 'capai_type'
+        br
+        = capai.capai_type
+
+    .field
+      p
+        strong = Capai.human_attribute_name 'host_capacity'
+        br
+        = capai.host_capacity
+
+    fieldset
+      legend Aldeias atendidas
+
+      ul
+        - capai.capai_villages.each do |village|
+          li = village.name
