@@ -8,30 +8,30 @@ fieldset
     = f.label :destination_village
     = select_village_from_dsei f, @dsei, :origin_village, f.object.origin_village_id
 
-  .field
+  .field.destiny-transport
     label Transporte fluvial?
     label.label-switch
-      = check_box_tag "use_boat_#{f.index}", "use_checkox_#{f.index}", f.object.use_boat?, class: 'use_boat'
+      = check_box_tag "use_boat_#{f.index}", "use_checkox_#{f.index}", f.object.use_boat?, data: { type: 'boat' }
       .checkbox
 
     fieldset id=("fields_to_boat_time_#{f.index}") style="display: none"
       = f.label       :boat_time
       = f.text_field  :boat_time
 
-  .field
+  .field.destiny-transport
     label Transporte rodoviário?
     label.label-switch
-      = check_box_tag "use_road_#{f.index}", "use_checkox_#{f.index}", f.object.use_road?, class: 'use_road'
+      = check_box_tag "use_road_#{f.index}", "use_checkox_#{f.index}", f.object.use_road?, data: { type: 'road' }
       .checkbox
 
     fieldset id=("fields_to_road_time_#{f.index}") style="display: none"
       = f.label       :road_time
       = f.text_field  :road_time
 
-  .field
+  .field.destiny-transport
     label Transporte aéreo?
     label.label-switch
-      = check_box_tag "use_fly_#{f.index}", "use_checkox_#{f.index}", f.object.use_fly?, class: 'use_fly'
+      = check_box_tag "use_fly_#{f.index}", "use_checkox_#{f.index}", f.object.use_fly?, data: { type: 'fly' }
       .checkbox
 
     fieldset id=("fields_to_fly_time_#{f.index}") style="display: none"
