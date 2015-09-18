@@ -1,4 +1,6 @@
-h1 Editar dados demográficos
+h1.page-title
+  = icon 'edit'
+  = breadcrumbs [{ name: 'ESTRUTURA E CONTEÚDO | PDSI', path: nil }, { name: 'Caracterização do DSEI', path: pdsis_path(section: 'caracterizacao-do-dsei')}, { name: 'Dados Demográficos', path: nil }]
 
 = form_for @demographic_data do |f|
   - if @demographic_data.errors.any?
