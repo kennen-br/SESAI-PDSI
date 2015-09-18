@@ -5,6 +5,19 @@ form {
       box-shadow    : none;
     }
 
+    &.checkbox {
+      @include margin(null null 10px);
+
+      label {
+        display: inline;
+      }
+      input[type="checkbox"] {
+        @include margin(null 0 null 10px);
+
+        vertical-align: middle;
+      }
+    }
+
     &.delete {
       @include position(absolute, 0 0 null null);
       @include padding(5px 10px);

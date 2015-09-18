@@ -107,22 +107,25 @@ pt-BR:
         city_name:        Cidade
         cnes:             CNES
         village:          Aldeia
+        village_id:       Aldeia
         building_status:  Situação do imóvel
         ground_status:    Situação do terreno
 
       infrastructure_sanitation:
-        abastecimento_agua:             Aldeia com abastecimento de água
-        abastecimento_agua_alternativo: Abastecimendo de água alternativo
-        saa_completo:                   SAA completo
+        village:                        Aldeia
+        village_id:                     Aldeia
+        abastecimento_agua:             Aldeia com abastecimento de água?
+        abastecimento_agua_alternativo: Abastecimendo de água alternativo?
+        saa_completo:                   SAA completo?
         nome_saa:                       Nome do SAA que atende a aldeia
         tipo_captacao_agua:             Tipo de captação de água
         nome_concessionaria:            Nome da concessionária
         tipo_tratamento_agua:           Tipo de tratamento de água
-        abastecimento_mqa:              Abastecimento com MQA
-        saa_manutencao:                 SAA com manutenção
+        abastecimento_mqa:              Abastecimento com MQA?
+        saa_manutencao:                 SAA com manutenção?
         qtd_msd_individual:             Quantidade de msd individuais
         qtd_msd_coletiva:               Quantidade de msd coletivas
-        esgotamento_sanitario:          Esgotamento sanitário
+        esgotamento_sanitario:          Esgotamento sanitário?
 
       cost:
         name: 'Custeio'
