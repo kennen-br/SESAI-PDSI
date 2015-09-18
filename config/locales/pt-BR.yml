@@ -130,6 +130,17 @@ pt-BR:
         type:           Tipo de CAPAI
         host_capacity:  Capacidade de hospedagem
 
+      destination_type:
+        name: Nome
+
+      destination:
+        origin_village:       Aldeia origem
+        destination_village:  Aldeia destino
+        destination_type:     Tipo do destino
+        boat_time:            Duração da viagem (em horas)
+        road_time:            Duração da viagem (em horas)
+        fly_time:             Duração da viagem (Aéreo)
+
       cost:
         name: 'Custeio'
 

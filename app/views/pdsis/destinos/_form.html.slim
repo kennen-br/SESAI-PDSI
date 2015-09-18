@@ -1,0 +1,10 @@
+h1 Meios de Transporte para ACESSO DOS POVOS INDÍGENAS AOS SERVIÇOS DE SAÚDE
+
+#destinations
+  = f.fields_for :destinations  do |destination|
+    == render 'pdsis/destinos/destination_fields',  f: destination
+
+  .links
+    = link_to_add_association f, :destinations, { class: 'button btn-sm', partial: 'pdsis/destinos/destination_fields' } do
+      = icon 'plus'
+      | Adicionar Infraestrutura
