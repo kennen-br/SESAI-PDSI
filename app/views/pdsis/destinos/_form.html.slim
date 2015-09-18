@@ -8,8 +8,8 @@ h1 Meios de Transporte para ACESSO DOS POVOS INDÍGENAS AOS SERVIÇOS DE SAÚDE
       strong = destination_type.name
 
     div id=(body_id)
-      = f.fields_for :destinations  do |destination|
-        == render 'pdsis/destinos/destination_fields',  f: destination
+      = f.fields_for :destinations, @pdsi.destinations.where(destination_type: destination_type) do |destination|
+        == render 'pdsis/destinos/destination_fields',  f: destination, destination_type: destination_type
 
     .links
       = link_to_add_association f, :destinations, { data: { "association-insertion-node": "##{body_id}"}, class: 'button btn-sm', partial: 'pdsis/destinos/destination_fields', render_options: { locals: { destination_type: destination_type } } } do

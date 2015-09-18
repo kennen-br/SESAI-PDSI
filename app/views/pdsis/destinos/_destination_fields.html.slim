@@ -2,11 +2,11 @@ fieldset
   = f.hidden_field :destination_type_id, value: destination_type.id
   .field
     = f.label :origin_village
-    = select_village_from_dsei f, @dsei, :origin_village, f.object.origin_village_id
+    = select_village_from_dsei f, @dsei, :origin_village_id, f.object.origin_village_id
 
   .field
     = f.label :destination_village
-    = select_village_from_dsei f, @dsei, :origin_village, f.object.origin_village_id
+    = select_village_from_dsei f, @dsei, :destination_village_id, f.object.destination_village_id
 
   .field.destiny-transport
     label Transporte fluvial?
