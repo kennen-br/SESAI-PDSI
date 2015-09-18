@@ -4,6 +4,25 @@ form {
       border-radius : 1px;
       box-shadow    : none;
     }
+
+    &.delete {
+      @include position(absolute, 0 0 null null);
+      @include padding(5px 10px);
+
+      background   : #FFF;
+      border       : 1px solid #e6e6e6;
+      border-width : 0 0 1px 1px;
+      font-size    : 0.9em;
+
+      label {
+        display: inline;
+      }
+      input[type="checkbox"] {
+        @include margin(null 0 null 5px);
+
+        vertical-align: middle;
+      }
+    }
   }
 
   input[type=submit] {
@@ -25,5 +44,12 @@ form {
     &:hover {
       color: #000;
     }
+  }
+
+  .actions {
+    @include margin(20px null null);
+    @include padding(10px null null);
+
+    border-top: 1px solid #ccc;
   }
 }

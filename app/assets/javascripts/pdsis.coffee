@@ -2,6 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+<<<<<<< HEAD
 element_index = (element_id) ->
   regExp  = /.*(\d)/
   matches = regExp.exec element_id
@@ -27,6 +28,14 @@ manage_element = (element) ->
   return
 
 $(document).ready ->
+  $(document).on 'change', '.hide-field', (e) ->
+    $this = $(this)
+    if $this.data('equal') == $this.find(':selected').text()
+      $this.parent().parent().find(".#{$this.data('field')}").prop('selectedIndex',0).hide()
+    else
+      $this.parent().parent().find(".#{$this.data('field')}").show()
+    return
+
   $('.use_boat').each (item) ->
     manage_element $(this)
     return

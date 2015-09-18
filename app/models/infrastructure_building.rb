@@ -5,5 +5,8 @@ class InfrastructureBuilding < ActiveRecord::Base
 
   validates :pdsi_id,                         presence: true
   validates :infrastructure_building_type_id, presence: true
-  validates :village_id,                      presence: true
+
+  def hide_village?
+    infrastructure_building_type.name == 'Sede do DSEI' ? true : false
+  end
 end

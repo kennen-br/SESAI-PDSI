@@ -4,6 +4,7 @@ class CreateInfrastructureBuildings < ActiveRecord::Migration
       t.references :pdsi, index: true, foreign_key: true
       t.references :infrastructure_building_type, index: { name: 'idx_ibt_on_ibt_id' }, foreign_key: true
       t.string :name
+      t.string :uf
       t.string :city_name
       t.references :village, index: true, foreign_key: true
       t.string :cnes
