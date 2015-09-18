@@ -1,0 +1,45 @@
+- @pdsi.destinations_with_villages.each do |destination_type|
+  fieldset
+    legend
+      strong = destination_type.name
+
+    - destination_type.destinations.each do |destination|
+      fieldset
+        .field
+          p
+            strong = Destination.human_attribute_name 'origin_village'
+            br
+            = destination.origin_village.name
+
+        .field
+          p
+            strong = Destination.human_attribute_name 'destination_village'
+            br
+            = destination.destination_village.name
+
+        - unless destination.boat_time.blank?
+          .field
+            p
+              strong = Destination.human_attribute_name 'boat_time'
+              br
+              = destination.boat_time
+
+        - unless destination.road_time.blank?
+          .field
+            p
+              strong = Destination.human_attribute_name 'road_time'
+              br
+              = destination.road_time
+
+        - unless destination.fly_time.blank?
+          .field
+            p
+              strong = Destination.human_attribute_name 'fly_time'
+              br
+              = destination.fly_time
+
+        .field
+          p
+            strong Total da viagem
+            br
+            = destination.total_time

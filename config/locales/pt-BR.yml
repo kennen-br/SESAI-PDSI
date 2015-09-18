@@ -2,8 +2,21 @@
 pt-BR:
   activerecord:
     models:
-      user:           'Usuário'
-      text_template:  'Template de texto'
+      user:               Usuário
+      text_template:      Template de texto
+      pdsi:               PDSI
+      demographic_data:   Dados demográficos
+      physiographic_data: Dados fisiográficos
+      pdsi_base_polo_datum: Dados do Polo Base
+      transportation:       Transporte
+      emsi:                 EMSI
+      service_network:
+      infrastructure_building_type: Tipo de infraestrutura (Edificação)
+      infrastructure_building:      Infraestrutura (Edificação)
+      infrastructure_sanitation:    Infraestrutura (Saneamento)
+      capai:                        CAPAI
+      destination_type:             Tipo de destino
+      destination:                  Destino
     attributes:
       user:
         username:               Usuário
@@ -129,6 +142,17 @@ pt-BR:
         uf:             UF
         type:           Tipo de CAPAI
         host_capacity:  Capacidade de hospedagem
+
+      destination_type:
+        name: Nome
+
+      destination:
+        origin_village:       Aldeia origem
+        destination_village:  Aldeia destino
+        destination_type:     Tipo do destino
+        boat_time:            Duração da viagem (em horas)
+        road_time:            Duração da viagem (em horas)
+        fly_time:             Duração da viagem (Aéreo)
 
       cost:
         name: 'Custeio'

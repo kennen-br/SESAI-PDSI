@@ -14,6 +14,9 @@ class PdsisController < ApplicationController
   end
 
   def update
+    debug pdsi_params
+    debug params
+
     if @pdsi.update(pdsi_params)
       redirect_to pdsis_path, notice: 'Dados atualizados com sucesso.'
     else
@@ -53,7 +56,8 @@ private
       ],
       infrastructure_buildings_attributes: [
         :id, :infrastructure_building_type_id, :name, :uf, :city_name, :village_id, :cnes, :building_status, :ground_status, :_destroy
-      ]
+      ],
+      destinations_attributes: [:id, :pdsi_id, :origin_village_id, :destination_village_id, :destination_type_id, :boat_time, :road_time, :fly_time, :_destroy]
     )
   end
 end

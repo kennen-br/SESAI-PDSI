@@ -5,7 +5,6 @@ module DseisHelper
   end
 
   def select_opts(dsei, field_value)
-    debug "begin"
     opts  = []
     dsei.villages.each do |key, value|
       values  = []
