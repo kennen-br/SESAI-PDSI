@@ -1,16 +1,12 @@
 fieldset
+  = f.hidden_field :destination_type_id, value: destination_type.id
   .field
     = f.label :origin_village
-    = select_village_from_dsei @dsei, :village, f.object.origin_village_id
-
-  .field
-    = f.label             :destination_type
-    /= f.collection_select :destination_type, DestinationType.all, :id, :name
-    = f.select  :destination_type, options_for_select((DestinationType.all.map { |item| [item.name, item.id] }), f.object.destination_type), include_blank: true
+    = select_village_from_dsei f, @dsei, :origin_village, f.object.origin_village_id
 
   .field
     = f.label :destination_village
-    = select_village_from_dsei @dsei, :village, f.object.origin_village_id
+    = select_village_from_dsei f, @dsei, :origin_village, f.object.origin_village_id
 
   .field
     label Transporte fluvial?
