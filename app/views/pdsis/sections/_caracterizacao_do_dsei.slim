@@ -72,4 +72,4 @@ ul.accordion-tabs-minimal
             = link_to edit_pdsi_path(@pdsi, section: 'infraestrutura-edificacoes'), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
               | Alterar
-            h3 TODO: Visualizar rede de serviços
+            == render 'pdsis/infraestrutura_edificacoes/show'
