@@ -20,4 +20,8 @@ class Destination < ActiveRecord::Base
   def use_fly?
     !fly_time.nil?
   end
+
+  def total_time
+    'TODO: Calcular isso'
+  end
 end

@@ -71,6 +71,10 @@ class Pdsi < ActiveRecord::Base
     caracterizacao_do_dsei_3
   end
 
+  def destinations_with_villages
+    DestinationType.eager_load(destinations: [:origin_village, :destination_village]).where('destinations.pdsi_id = ?', id)
+  end
+
 private
   def compose_item(sample_attr, key, value)
     default = sample(sample_attr)
