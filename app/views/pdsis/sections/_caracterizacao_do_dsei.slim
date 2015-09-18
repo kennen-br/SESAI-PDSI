@@ -81,3 +81,11 @@ ul.accordion-tabs-minimal
               i.fa.fa-pencil
               | Alterar
             == render 'pdsis/infraestrutura_edificacoes/show'
+        li
+          a.js-accordion-trigger[href="javascript:void(0)"]
+            | F) Infraestrutura de saúde - Saneamento
+          .accordion-content
+            = link_to edit_pdsi_path(@pdsi, section: 'infraestrutura-saneamento'), class: 'button pull-right edit-link' do
+              i.fa.fa-pencil
+              | Alterar
+            == render 'pdsis/infraestrutura_saneamento/show'

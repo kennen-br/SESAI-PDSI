@@ -4,7 +4,7 @@ module PdsisHelper
     three = [{ name: 'Caracterização do DSEI', path: pdsis_path('caracterizacao-do-dsei')}]
     bread = [{ name: section_name(section), path: pdsis_path(section: section.gsub(/_/, '-'))}]
 
-    if %w"mapa dados_fisiograficos capacidade_instalada rede_servicos infraestrutura_edificacoes".include? section
+    if %w"mapa dados_fisiograficos capacidade_instalada rede_servicos infraestrutura_edificacoes infraestrutura_saneamento".include? section
       three + bread
     else
       bread
@@ -20,7 +20,8 @@ module PdsisHelper
       dados_fisiograficos: 'Dados fisiográficos',
       capacidade_instalada: 'Capacidade Instalada',
       rede_servicos: 'Rede de serviços',
-      infraestrutura_edificacoes: 'Infraestrutura de saúde edificações'
+      infraestrutura_edificacoes: 'Infraestrutura de saúde edificações',
+      infraestrutura_saneamento: 'Infraestrutura de saúde - Saneamento'
     }[section.to_sym]
   end
 end
