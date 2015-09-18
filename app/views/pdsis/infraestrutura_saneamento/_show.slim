@@ -1,0 +1,75 @@
+- @pdsi.infrastructure_sanitations.each do |is|
+  fieldset
+    legend = "#{is.village.base_polo.name}/#{is.village.city_name} - #{is.village.name}"
+
+    .field
+      p
+        strong = InfrastructureSanitation.human_attribute_name 'abastecimento_agua'
+        br
+        = is.abastecimento_agua ? 'Sim' : 'Não'
+
+    .field
+      p
+        strong = InfrastructureSanitation.human_attribute_name 'abastecimento_agua_alternativo'
+        br
+        = is.abastecimento_agua_alternativo ? 'Sim' : 'Não'
+
+    .field
+      p
+        strong = InfrastructureSanitation.human_attribute_name 'saa_completo'
+        br
+        = is.saa_completo ? 'Sim' : 'Não'
+
+    .field
+      p
+        strong = InfrastructureSanitation.human_attribute_name 'nome_saa'
+        br
+        = is.nome_saa
+
+    .field
+      p
+        strong = InfrastructureSanitation.human_attribute_name 'tipo_captacao_agua'
+        br
+        = is.tipo_captacao_agua
+
+    .field
+      p
+        strong = InfrastructureSanitation.human_attribute_name 'nome_concessionaria'
+        br
+        = is.nome_concessionaria
+
+    .field
+      p
+        strong = InfrastructureSanitation.human_attribute_name 'tipo_tratamento_agua'
+        br
+        = is.tipo_tratamento_agua
+
+    .field
+      p
+        strong = InfrastructureSanitation.human_attribute_name 'abastecimento_mqa'
+        br
+        = is.abastecimento_mqa ? 'Sim' : 'Não'
+
+    .field
+      p
+        strong = InfrastructureSanitation.human_attribute_name 'saa_manutencao'
+        br
+        = is.saa_manutencao ? 'Sim' : 'Não'
+
+    .field
+      p
+        strong = InfrastructureSanitation.human_attribute_name 'qtd_msd_individual'
+        br
+        = is.qtd_msd_individual
+
+    .field
+      p
+        strong = InfrastructureSanitation.human_attribute_name 'qtd_msd_coletiva'
+        br
+        = is.qtd_msd_coletiva
+
+    .field
+      p
+        strong = InfrastructureSanitation.human_attribute_name 'esgotamento_sanitario'
+        br
+        = is.esgotamento_sanitario ? 'Sim' : 'Não'

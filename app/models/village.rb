@@ -6,6 +6,7 @@ class Village < ActiveRecord::Base
   has_one   :physiographic_data
 
   has_many  :infrastructure_buildings
+  has_many  :infrastructure_sanitations
 
   validates :base_polo, presence: true
   validates :name, length: { maximum: 255 }, uniqueness: { scope: :base_polo }, presence: true

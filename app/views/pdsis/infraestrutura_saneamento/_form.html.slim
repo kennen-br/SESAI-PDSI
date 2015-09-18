@@ -1,3 +1,12 @@
-h1 Infraestrutura de saneamento
+#infrastructure_sanitation
 
-| asfd
+  fieldset
+    legend Infraestrutura de saúde - Saneamento
+
+    = f.fields_for :infrastructure_sanitations do |is|
+      == render 'pdsis/infraestrutura_saneamento/infrastructure_sanitation_fields', { f: is }
+
+    .links
+      = link_to_add_association f, :infrastructure_sanitations, class: 'button btn-sm', partial: 'pdsis/infraestrutura_saneamento/infrastructure_sanitation_fields' do
+        = icon 'plus'
+        | Adicionar Infraestrutura

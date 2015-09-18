@@ -29,10 +29,9 @@ class BasePolo < ActiveRecord::Base
     items = service_networks
     return items unless items.blank?
 
-    cities.each do |city|
-      service_networks << ServiceNetwork.new(pdsi: pdsi, base_polo: self, city_name: city)
-      save
-    end
+    cities.each { |city| service_networks << ServiceNetwork.new(pdsi: pdsi, base_polo: self, city_name: city) }
+
+    save
 
     service_networks
   end
