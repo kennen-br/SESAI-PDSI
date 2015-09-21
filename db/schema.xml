@@ -1,4 +1,5 @@
-QL XML created by WWW SQL Designer, http://code.google.com/p/wwwsqldesigner/ -->
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- SQL XML created by WWW SQL Designer, http://code.google.com/p/wwwsqldesigner/ -->
 <!-- Active URL: http://ladodireito.com/sql/ -->
 <sql>
 <datatypes db="mysql">
@@ -408,7 +409,7 @@ QL XML created by WWW SQL Designer, http://code.google.com/p/wwwsqldesigner/ -->
 <part>id</part>
 </key>
 </table>
-<table x="1063" y="1198" name="infrastructure_buildings">
+<table x="1075" y="1130" name="infrastructure_buildings">
 <row name="id" null="1" autoincrement="1">
 <datatype>TINYINT</datatype>
 <default>NULL</default></row>
@@ -457,7 +458,7 @@ QL XML created by WWW SQL Designer, http://code.google.com/p/wwwsqldesigner/ -->
 <part>id</part>
 </key>
 </table>
-<table x="1062" y="1536" name="infrastructure_sanitations">
+<table x="1713" y="1315" name="infrastructure_sanitations">
 <row name="pdsi_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="pdsis" row="id" />
@@ -509,7 +510,7 @@ QL XML created by WWW SQL Designer, http://code.google.com/p/wwwsqldesigner/ -->
 <part>id</part>
 </key>
 </table>
-<table x="1461" y="1417" name="capais">
+<table x="1215" y="1472" name="capais">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -530,7 +531,7 @@ QL XML created by WWW SQL Designer, http://code.google.com/p/wwwsqldesigner/ -->
 <part>id</part>
 </key>
 </table>
-<table x="1656" y="1453" name="capai_villages">
+<table x="1407" y="1487" name="capai_villages">
 <row name="id" null="1" autoincrement="1">
 <datatype>TINYINT</datatype>
 <default>NULL</default></row>
@@ -546,5 +547,48 @@ QL XML created by WWW SQL Designer, http://code.google.com/p/wwwsqldesigner/ -->
 <part>id</part>
 </key>
 </table>
+<table x="1120" y="1675" name="transportations">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="pdsi_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="pdsis" row="id" />
+</row>
+<row name="origin_village_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="villages" row="id" />
+</row>
+<row name="destination_village_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="villages" row="id" />
+</row>
+<row name="destination_type_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="destination_types" row="id" />
+</row>
+<row name="boat_time" null="1" autoincrement="0">
+<datatype>VARCHAR(100)</datatype>
+<default>NULL</default></row>
+<row name="road_time" null="1" autoincrement="0">
+<datatype>VARCHAR(100)</datatype>
+<default>NULL</default></row>
+<row name="fly_time" null="1" autoincrement="0">
+<datatype>VARCHAR(100)</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1408" y="1690" name="destination_types">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name" null="1" autoincrement="0">
+<datatype>VARCHAR(100)</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
 </sql>
-
