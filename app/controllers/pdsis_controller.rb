@@ -40,7 +40,9 @@ private
   end
 
   def set_base_polo
-    @base_polo = BasePolo.find(params[:base_polo]) || @dsei.base_polos.order(:id).first
+    if params[:section] == 'dados-fisiograficos'
+      @base_polo = BasePolo.find(params[:base_polo]) || @dsei.base_polos.order(:id).first
+    end
   end
 
   # Only allow a trusted parameter "white list" through.
