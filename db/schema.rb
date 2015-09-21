@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150918194612) do
+ActiveRecord::Schema.define(version: 20150921132335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -254,6 +254,7 @@ ActiveRecord::Schema.define(version: 20150918194612) do
     t.string   "map_content_type"
     t.integer  "map_file_size"
     t.datetime "map_updated_at"
+    t.text     "analise_situacional_4"
   end
 
   add_index "pdsis", ["user_id"], name: "index_pdsis_on_user_id", using: :btree
@@ -315,6 +316,7 @@ ActiveRecord::Schema.define(version: 20150918194612) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.text     "processo_construcao_pdsi_2"
+    t.text     "analise_situacional_4"
   end
 
   create_table "transportations", force: :cascade do |t|

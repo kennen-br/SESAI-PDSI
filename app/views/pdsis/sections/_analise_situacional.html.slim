@@ -1,0 +1,18 @@
+ul.accordion-tabs-minimal
+  li.tab-header-and-content
+    a.tab-link.is-active[href="#"]
+      | Texto discursivo
+    .tab-content
+      == @pdsi.compose_item_4 || 'Não informado'
+
+      .right-align
+        = link_to edit_pdsi_path(@pdsi, section: 'analise-situacional'), class: 'button' do
+          i.fa.fa-pencil
+          | Alterar
+      |&nbsp;
+  li.tab-header-and-content
+    a.tab-link[href="#"]
+      | 4.1 Indicadores da saúde indígena no DSEI
+    .tab-content
+      h3 TODO
+      p Apenas para utilizar abas
