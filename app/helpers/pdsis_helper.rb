@@ -21,7 +21,8 @@ module PdsisHelper
       capacidade_instalada: 'Capacidade Instalada',
       rede_servicos: 'Rede de serviços',
       infraestrutura_edificacoes: 'Infraestrutura de saúde edificações',
-      infraestrutura_saneamento: 'Infraestrutura de saúde - Saneamento'
+      infraestrutura_saneamento:  'Infraestrutura de saúde - Saneamento',
+      analise_situacional:        'Análise Situacional'
     }[section.to_sym]
   end
 end

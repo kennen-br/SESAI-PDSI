@@ -24,3 +24,16 @@ fieldset
     = link_to edit_text_template_path(@text_template, section: 'processo-de-construcao-do-pdsi'), class: 'button' do
       i.fa.fa-pencil
       | Alterar
+
+h2 4. Análise situacional
+
+fieldset
+  - if @text_template.analise_situacional_4.nil?
+    | Não informado
+  - else
+    == @text_template.analise_situacional_4
+
+  .right-align
+    = link_to edit_text_template_path(@text_template, section: 'analise-situacional'), class: 'button' do
+      i.fa.fa-pencil
+      | Alterar
