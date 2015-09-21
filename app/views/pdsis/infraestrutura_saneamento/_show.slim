@@ -1,4 +1,4 @@
-- @pdsi.infrastructure_sanitations.each do |is|
+- @pdsi.infrastructure_sanitations.includes(village: [:base_polo]).each do |is|
   fieldset
     legend = "#{is.village.base_polo.name}/#{is.village.city_name} - #{is.village.name}"
 

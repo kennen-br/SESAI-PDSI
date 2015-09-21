@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   get '/pdsis/show', to: 'pdsis#show'
 
   scope '/meu-pdsi' do
-    get   '/(ver/:section)',        to: 'pdsis#index',  as: :pdsis
-    patch '/:id/alterar/:section',  to: 'pdsis#update', as: :pdsi
-    get   '/:id/alterar/:section',  to: 'pdsis#edit',   as: :edit_pdsi
+    get   '/(ver/:section)',                    to: 'pdsis#index',  as: :pdsis
+    patch '/:id/alterar/:section',              to: 'pdsis#update', as: :pdsi
+    get   '/:id/alterar/:section(/:base_polo)', to: 'pdsis#edit',   as: :edit_pdsi
 
     scope '/dados-demograficos' do
       patch '/:id/alterar',  to: 'demographic_datas#update',  as: :demographic_data

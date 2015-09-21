@@ -39,7 +39,7 @@ ul.accordion-tabs-minimal
           a.js-accordion-trigger[href="javascript:void(0)"]
             | C) Dados fisiográficos
           .accordion-content
-            = link_to edit_pdsi_path(@pdsi, section: 'dados-fisiograficos'), class: 'button pull-right edit-link' do
+            = link_to edit_pdsi_path(@pdsi, section: 'dados-fisiograficos', base_polo: @dsei.base_polos.order(:id).first), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
               | Alterar
             == render 'pdsis/dados_fisiograficos/show'
