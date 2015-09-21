@@ -1,14 +1,13 @@
 class TextTemplatesController < ApplicationController
   before_action :set_text_template
   before_action :check_sesai_central_actions#,  only: [:index, :edit, :update]
+  before_action :set_section, except: [:index]
 
   # GET /text_templates
   def index
   end
 
   def edit
-    @section_url  = params[:section].gsub(/_/, '-')
-    @section      = params[:section].gsub(/-/, '_')
   end
 
   def update
@@ -27,6 +26,11 @@ private
 
   # Only allow a trusted parameter "white list" through.
   def text_template_params
-    params.require(:text_template).permit(:introducao_1, :processo_construcao_pdsi_2)
+    params.require(:text_template).permit(:introducao_1, :processo_construcao_pdsi_2, :analise_situacional_4)
+  end
+
+  def set_section
+    @section_url  = params[:section].gsub(/_/, '-')
+    @section      = params[:section].gsub(/-/, '_')
   end
 end
