@@ -15162,6 +15162,15 @@ if AbsoluteDatum.count == 0
     {absolute_datum_level_id: 1, name: "NÚMERO DE ESTABELECIMENTOS (SEDE, PÓLOS BASE, CASAI, UBSI)"},
     {absolute_datum_level_id: 1, name: "NÚMERO DE ESTABELECIMENTOS COM SIASI EM FUNCIONAMENTO"},
     {absolute_datum_level_id: 1, name: "NÚMERO DE ESTABELECIMENTOS COM HÓRUS EM OPERAÇÃO"},
-    {absolute_datum_level_id: 1, name: "NÚMERO DE ESTABELECIMENTOS DE SAÚDE NO CNES"}
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ESTABELECIMENTOS DE SAÚDE NO CNES"},
+    {absolute_datum_level_id: 2, name: "NÚMERO DE DIAS DE PERMANÊNCIA DOS USUÁRIOS NAS CASAI EM 2014"},
+    {absolute_datum_level_id: 2, name: "NÚMERO DE USUÁRIOS DAS CASAI EM 2014"},
+    {absolute_datum_level_id: 3, name: "NÚMERO DE REUNIÕES ORDINÁRIAS DO CONDISI REALIZADAS EM 2015"},
+    {absolute_datum_level_id: 3, name: "NÚMERO DE REUNIÕES ORDINÁRIAS PROGRAMADAS EM 2015"},
+    {absolute_datum_level_id: 3, name: "NÚMERO DE REUNIÕES ORDINÁRIAS REALIZADAS NOS CONSELHOS LOCAIS EM 2015"},
+    {absolute_datum_level_id: 3, name: "NÚMERO DE CONSELHEIROS DISTRITAIS QUALIFICADOS EM 2014"},
+    {absolute_datum_level_id: 3, name: "NÚMERO DE CONSELHEIROS DISTRITAIS EM 2014"},
+    {absolute_datum_level_id: 3, name: "NÚMERO DE CONSELHEIROS LOCAIS QUALIFICADOS EM 2014"},
+    {absolute_datum_level_id: 3, name: "NÚMERO DE CONSELHEIROS LOCAIS EM 2014"}
   ])
 end
