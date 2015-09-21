@@ -1,6 +1,7 @@
 class PdsisController < ApplicationController
   before_action :set_pdsi#, only: [:index, :show, :edit, :update]
   before_action :set_section, only: [:index, :edit, :update]
+  before_action :set_base_polo, only: [:edit]
 
   # GET /pdsis
   def index
@@ -36,6 +37,10 @@ private
     section = params[:section] || 'introducao'
     @section_url  = section.gsub(/_/, '-')
     @section      = section.gsub(/-/, '_')
+  end
+
+  def set_base_polo
+    @base_polo = BasePolo.find(params[:base_polo]) || @dsei.base_polos.order(:id).first
   end
 
   # Only allow a trusted parameter "white list" through.

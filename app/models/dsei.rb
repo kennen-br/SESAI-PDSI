@@ -11,8 +11,12 @@ class Dsei < ActiveRecord::Base
     base_polos.includes(:pdsi_base_polo_datum, :emsis)
   end
 
-  def base_polos_with_physiographic_data
-    base_polos.includes(villages: [physiographic_data: [:physiographic_data_languages]])
+  def base_polos_with_physiographic_data(include_polo_base = true)
+    if include_polo_base
+      base_polos.includes(:pdsi_base_polo_datum, villages: [physiographic_data: [:physiographic_data_languages]])
+    else
+      base_polos.includes(villages: [physiographic_data: [:physiographic_data_languages]])
+    end
   end
 
   def base_polos_with_service_networks

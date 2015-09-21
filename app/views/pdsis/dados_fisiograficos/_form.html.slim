@@ -1,25 +1,29 @@
-h1 Dados fisiográficos
+h1 POLO BASE: #{@base_polo.name}
 
-- @dsei.base_polos_with_physiographic_data.each do |base_polo|
-  fieldset
-    legend
-      |Polo Base &nbsp;
-      strong = base_polo.name
-
-    = f.fields_for :pdsi_base_polo_data, base_polo.pdsi_data(@pdsi) do |item|
-      = item.hidden_field :base_polo_id
-
-      .field
-        = item.label  :city_name
-        = item.select :city_name, options_for_select(base_polo.cities, item.object.city_name), include_blank: true
-
-    - base_polo.villages.each do |village|
+.vertical-tabs-container
+  .vertical-tabs style="width: 30%;"
+    - @dsei.base_polos.order(:id).each do |base_polo|
+      - link_opt = [{ class: 'vertical-tab' }, {:selected_class => 'is-active'}]
+      = nav_link_to edit_pdsi_path(@pdsi, section: 'dados-fisiograficos', base_polo: base_polo), link_opt[0], link_opt[1] do
+        = base_polo.name
+  .vertical-tab-content-container
+    .vertical-tab-content style="display: block;"
       fieldset
         legend
-          | Aldeia&nbsp;
-          strong = village.name
-        = f.fields_for :physiographic_datas, village.physiographic_datum(@pdsi) do |item|
-          == render 'pdsis/dados_fisiograficos/form_aldeias', f: item
+          |Polo Base &nbsp;
+          strong = @base_polo.name
 
-      /- break
-  /- break
+        = f.fields_for :pdsi_base_polo_data, @base_polo.pdsi_data(@pdsi) do |item|
+          = item.hidden_field :base_polo_id
+
+          .field
+            = item.label  :city_name
+            = item.select :city_name, options_for_select(@base_polo.cities, item.object.city_name), include_blank: true
+
+        - @base_polo.villages.each do |village|
+          fieldset
+            legend
+              | Aldeia&nbsp;
+              strong = village.name
+            = f.fields_for :physiographic_datas, village.physiographic_datum(@pdsi) do |item|
+              == render 'pdsis/dados_fisiograficos/form_aldeias', f: item
