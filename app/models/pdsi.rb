@@ -30,6 +30,9 @@ class Pdsi < ActiveRecord::Base
   has_many  :destinations
   accepts_nested_attributes_for :destinations, reject_if: :all_blank, allow_destroy: true
 
+  has_many  :absolute_data_dseis
+  accepts_nested_attributes_for :absolute_data_dseis, reject_if: :all_blank, allow_destroy: true
+
   has_attached_file :map, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :map, content_type: /\Aimage\/.*\Z/
 
