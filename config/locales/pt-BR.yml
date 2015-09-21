@@ -17,6 +17,8 @@ pt-BR:
       capai:                        CAPAI
       destination_type:             Tipo de destino
       destination:                  Destino
+      absolute_datum_level:         Nível do dado absoluto
+      absolute_datum:               Dado absoluto
     attributes:
       user:
         username:               Usuário
@@ -157,6 +159,14 @@ pt-BR:
         boat_time:            Duração da viagem (em horas)
         road_time:            Duração da viagem (em horas)
         fly_time:             Duração da viagem (Aéreo)
+
+      absolute_datum_level:
+        name:                 Nível
+
+      absolute_datum:
+        absolute_datum_level:     Nível
+        absolute_datum_level_id:  Nível
+        name:                     Dado absoluto
 
       cost:
         name: 'Custeio'

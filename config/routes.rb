@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :absolute_data, path: 'dados-absolutos', path_names: { new: 'cadastrar', edit: 'alterar' }
+
   get '/pdsis/show', to: 'pdsis#show'
 
   scope '/meu-pdsi' do

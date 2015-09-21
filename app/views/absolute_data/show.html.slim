@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Absolute datum level:
+  = @absolute_datum.absolute_datum_level
+p
+  strong Name:
+  = @absolute_datum.name
+
+= link_to 'Edit', edit_absolute_datum_path(@absolute_datum)
+'|
+= link_to 'Back', absolute_data_path

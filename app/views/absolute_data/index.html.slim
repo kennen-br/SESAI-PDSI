@@ -1,0 +1,25 @@
+h1
+  | Dados absolutos
+  /= AbsoluteDatum.model_name.human.pluralize
+
+table
+  thead
+    tr
+      th = AbsoluteDatum.human_attribute_name 'absolute_datum_level'
+      th = AbsoluteDatum.human_attribute_name 'name'
+      th Ações
+
+  tbody
+    - @absolute_data.each do |absolute_datum|
+      tr
+        td = absolute_datum.absolute_datum_level
+        td = absolute_datum.name
+        td
+          = link_to edit_absolute_datum_path(absolute_datum), class: 'button' do
+            i.fa.fa-pencil
+            | Editar
+br
+
+= link_to new_absolute_datum_path, class: 'button' do
+  i.fa.fa-plus
+  | Cadastrar dado absoluto
