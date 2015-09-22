@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922181404) do
+ActiveRecord::Schema.define(version: 20150922195249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,8 +19,9 @@ ActiveRecord::Schema.define(version: 20150922181404) do
   create_table "absolute_data", force: :cascade do |t|
     t.integer  "absolute_datum_level_id"
     t.string   "name"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.boolean  "is_specific",             default: false
   end
 
   add_index "absolute_data", ["absolute_datum_level_id"], name: "index_absolute_data_on_absolute_datum_level_id", using: :btree
@@ -374,6 +375,16 @@ ActiveRecord::Schema.define(version: 20150922181404) do
   add_index "service_networks", ["base_polo_id"], name: "index_service_networks_on_base_polo_id", using: :btree
   add_index "service_networks", ["pdsi_id"], name: "index_service_networks_on_pdsi_id", using: :btree
 
+  create_table "specific_absolute_data", force: :cascade do |t|
+    t.integer  "absolute_datum_id"
+    t.integer  "dsei_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "specific_absolute_data", ["absolute_datum_id"], name: "index_specific_absolute_data_on_absolute_datum_id", using: :btree
+  add_index "specific_absolute_data", ["dsei_id"], name: "index_specific_absolute_data_on_dsei_id", using: :btree
+
   create_table "text_templates", force: :cascade do |t|
     t.text     "introducao_1"
     t.datetime "created_at",                 null: false
@@ -471,6 +482,8 @@ ActiveRecord::Schema.define(version: 20150922181404) do
   add_foreign_key "profiles", "users"
   add_foreign_key "service_networks", "base_polos"
   add_foreign_key "service_networks", "pdsis"
+  add_foreign_key "specific_absolute_data", "absolute_data"
+  add_foreign_key "specific_absolute_data", "dseis"
   add_foreign_key "transportations", "demographic_datas"
   add_foreign_key "users", "dseis"
   add_foreign_key "villages", "base_polos"

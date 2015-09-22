@@ -92,10 +92,15 @@ class Pdsi < ActiveRecord::Base
 
   def absolute_data_dseis_with_values
     items = absolute_data_dseis
-   return items.includes(:absolute_datum) unless items.blank?
+    return items.includes(:absolute_datum) unless items.blank?
 
     level = AbsoluteDatumLevel.find 3
+
     AbsoluteDatum.where(absolute_datum_level: level).order(:id).each do |ad|
+      if ad.is_specific
+        item = ad.specific_absolute_data.where(dsei: dsei).first
+        next if item.nil?
+      end
       absolute_data_dseis << AbsoluteDataDsei.new(absolute_datum: ad, dsei: dsei, pdsi: self)
     end
 
@@ -104,12 +109,18 @@ class Pdsi < ActiveRecord::Base
     absolute_data_dseis_with_values
   end
 
+  #SpecificAbsoluteDatum.create absolute_datum_id: 47, dsei_id: 3
+  #SpecificAbsoluteDatum.create absolute_datum_id: 49, dsei_id: 3
   def absolute_data_base_polos_with_values(base_polo)
     items = absolute_data_base_polos.where(base_polo: base_polo)
     return items.includes(:absolute_datum) unless items.blank?
 
     level = AbsoluteDatumLevel.find 1
     AbsoluteDatum.where(absolute_datum_level: level).order(:id).each do |ad|
+      if ad.is_specific
+        item = ad.specific_absolute_data.where(dsei: dsei).first
+        next if item.nil?
+      end
       absolute_data_base_polos << AbsoluteDataBasePolo.new(pdsi: self, base_polo: base_polo, absolute_datum: ad)
     end
 
@@ -124,6 +135,11 @@ class Pdsi < ActiveRecord::Base
 
     level = AbsoluteDatumLevel.find 2
     AbsoluteDatum.where(absolute_datum_level: level).order(:id).each do |ad|
+      if ad.is_specific
+        item = ad.specific_absolute_data.where(dsei: dsei).first
+        next if item.nil?
+      end
+
       absolute_data_casais << AbsoluteDataCasai.new(pdsi: self, casai: casai, absolute_datum: ad)
     end
 
