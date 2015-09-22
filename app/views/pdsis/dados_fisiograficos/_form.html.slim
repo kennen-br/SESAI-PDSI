@@ -8,7 +8,7 @@ h1 POLO BASE: #{@base_polo.name}
       - link_opt = [{ class: 'vertical-tab' }, {:selected_class => 'is-active'}]
       = nav_link_to edit_pdsi_path(@pdsi, section: 'dados-fisiograficos', base_polo: base_polo), link_opt[0], link_opt[1] do
         = base_polo.name
-  .vertical-tab-content-container
+  .vertical-tab-content-container style="width: 70%;"
     .vertical-tab-content style="display: block;"
       fieldset
         legend

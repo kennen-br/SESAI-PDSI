@@ -18,7 +18,7 @@ ul.accordion-tabs-minimal
       p Apenas para utilizar abas
 
       .right-align
-        = link_to edit_pdsi_path(@pdsi, section: 'indicadores-saude-indigena'), class: 'button' do
+        = link_to health_indicators_path(@pdsi, subsection: 'dsei'), class: 'button' do
           i.fa.fa-pencil
           | Alterar
       |&nbsp;

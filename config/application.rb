@@ -28,5 +28,8 @@ module SesaiPdsi
     config.active_record.raise_in_transactional_callbacks = true
 
     config.encoding = 'utf-8'
+
+    # NavLynx Configs
+    config.nav_lynx.selected_class = 'is-active'
   end
 end

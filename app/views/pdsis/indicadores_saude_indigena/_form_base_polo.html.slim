@@ -1,10 +1,20 @@
-- @dsei.base_polos.order(:id).each do |base_polo|
-  fieldset
-    legend
-      | Polo base&nbsp;
-      strong = base_polo.name
+= render 'hidden_fields'
 
-    = f.fields_for :absolute_data_base_polos, @pdsi.absolute_data_base_polos_with_values(base_polo) do |item|
-      .field
-        label = item.object.absolute_datum.name
-        = item.number_field :value
+- params[:base_polo] = @base_polo.id if params[:base_polo].nil?
+
+.vertical-tabs-container
+  .vertical-tabs style="width: 30%;"
+    - @dsei.base_polos.order(:id).each do |base_polo|
+      - active = params[:base_polo].to_s == base_polo.id.to_s ? ' is-active' : ''
+      = link_to  base_polo.name, health_indicators_path(@pdsi, subsection: 'base-polo', base_polo: base_polo), { class: "vertical-tab#{active}" }
+  .vertical-tab-content-container style="width: 70%;"
+    .vertical-tab-content style="display: block;"
+      fieldset
+        legend
+          | Polo base&nbsp;
+          strong = @base_polo.name
+
+        = f.fields_for :absolute_data_base_polos, @pdsi.absolute_data_base_polos_with_values(@base_polo) do |item|
+          .field
+            label = item.object.absolute_datum.name
+            = item.number_field :value

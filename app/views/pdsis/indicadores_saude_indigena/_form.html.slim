@@ -1,22 +1,9 @@
-ul.accordion-tabs-minimal
-  li.tab-header-and-content
-    a.tab-link.is-active[href="#"]
-      | DSEI
-    .tab-content
+ul.accordion-tabs-minimal.active-links
+  li.tab-header-and-content class=("default-active" if params[:subsection] == 'dsei')
+    = link_to 'DSEI', health_indicators_path(@pdsi, subsection: 'dsei'), class: 'tab-link'
+  li.tab-header-and-content class=("default-active" if params[:subsection] == 'base-polo')
+    = link_to 'Polo Base', health_indicators_path(@pdsi, subsection: 'base-polo'), class: 'tab-link'
+  li.tab-header-and-content class=("default-active" if params[:subsection] == 'casai')
+    = link_to 'CASAIs', health_indicators_path(@pdsi, subsection: 'casai'), class: 'tab-link'
 
-      = render 'pdsis/indicadores_saude_indigena/form_dsei', f: f
-
-  li.tab-header-and-content
-    a.tab-link[href="#"]
-      | Polos Base
-    .tab-content
-
-      == render 'pdsis/indicadores_saude_indigena/form_base_polo', f: f
-
-  li.tab-header-and-content
-    a.tab-link[href="#"]
-      | CASAIs
-    .tab-content
-
-      p casai
-
+= render "pdsis/indicadores_saude_indigena/form_#{@subsection}", f: f

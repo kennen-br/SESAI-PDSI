@@ -14,6 +14,10 @@ Rails.application.routes.draw do
       patch '/:id/alterar',  to: 'demographic_datas#update',  as: :demographic_data
       get   '/:id/alterar',  to: 'demographic_datas#edit',    as: :edit_demographic_data
     end
+
+    scope '/indicadores-saude-indigena', defaults: { section: 'indicadores-saude-indigena' }  do
+      get '/:id/:subsection/alterar(/polo-base/:base_polo)(/casai/:casai)', to: 'pdsis#health_indicators', as: :health_indicators
+    end
   end
 
   scope '/templates' do
