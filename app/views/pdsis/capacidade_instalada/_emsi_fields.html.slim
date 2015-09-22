@@ -1,7 +1,8 @@
-fieldset
+fieldset.emsi-fieldset class=('new' if f.object.new_record?)
+  = f.hidden_field :base_polo_id, value: base_polo.id
   .field
     = f.label :name
-    = f.text_field  :name
+    = f.text_field  :name, class: 'emsi-name', data: { base_polo: base_polo.id }
 
     h2 Número de Profissionais
     table

@@ -4,54 +4,59 @@
       |Polo Base &nbsp;
       strong = base_polo.name
 
-  - base_polo.emsis.each do |emsi|
-    fieldset
-      legend
-        |EMSI &nbsp;
-        strong = emsi.name
+    - base_polo.emsis.each do |emsi|
+      fieldset
+        legend
+          |EMSI &nbsp;
+          strong = emsi.name
 
-      .field
-        h2 = Emsi.human_attribute_name :name
-        = emsi.name
+        .field
+          p
+            strong #{Emsi.human_attribute_name :name}:&nbsp;
+            = emsi.name
 
-        h2 Número de Profissionais
-        table
-          thead
-            tr
-              th = Emsi.human_attribute_name :numero_medicos
-              th = Emsi.human_attribute_name :numero_enfermeiros
-              th = Emsi.human_attribute_name :numero_odontologistas
-              th = Emsi.human_attribute_name :numero_tecnicos_enfermagem
-              th = Emsi.human_attribute_name :asb
-              th = Emsi.human_attribute_name :ais
-          tbody
-            tr
-              td = emsi.numero_medicos
-              td = emsi.numero_enfermeiros
-              td = emsi.numero_odontologistas
-              td = emsi.numero_tecnicos_enfermagem
-              td = emsi.asb
-              td = emsi.ais
+          strong Número de Profissionais
+          .simple-list
+            .item
+              strong #{Emsi.human_attribute_name :numero_medicos}:&nbsp;
+              = emsi.numero_medicos
+            .item
+              strong #{Emsi.human_attribute_name :numero_enfermeiros}:&nbsp;
+              = emsi.numero_enfermeiros
+            .item
+              strong #{Emsi.human_attribute_name :numero_odontologistas}:&nbsp;
+              = emsi.numero_odontologistas
+            .item
+              strong #{Emsi.human_attribute_name :numero_tecnicos_enfermagem}:&nbsp;
+              = emsi.numero_tecnicos_enfermagem
+            .item
+              strong #{Emsi.human_attribute_name :asb}:&nbsp;
+              = emsi.asb
+            .item
+              strong #{Emsi.human_attribute_name :ais}:&nbsp;
+              = emsi.ais
 
-      .field
-        h2 = Emsi.human_attribute_name :aisan
-        = emsi.aisan
+        .field
+          p
+            strong #{Emsi.human_attribute_name :aisan}:&nbsp;
+            = emsi.aisan
 
-      .field
-        h2 = Emsi.human_attribute_name :aldeias_atendidas
-        = emsi.aldeias_atendidas
+        .field
+          p
+            strong #{Emsi.human_attribute_name :aldeias_atendidas}:&nbsp;
+            = emsi.aldeias_atendidas
 
-      h2 Tempo de permanência em aldeia (dias por mês)
-      table
-        thead
-          tr
-            th = Emsi.human_attribute_name :permanencia_medicos
-            th = Emsi.human_attribute_name :permanencia_enfermeiros
-            th = Emsi.human_attribute_name :permanencia_odontologistas
-            th = Emsi.human_attribute_name :permanencia_tecnicos_enfermagem
-        tbody
-          tr
-            td = emsi.permanencia_medicos
-            td = emsi.permanencia_enfermeiros
-            td = emsi.permanencia_odontologistas
-            td = emsi.permanencia_tecnicos_enfermagem
+        strong Tempo de permanência em aldeia (dias por mês)
+        .simple-list
+          .item
+            strong #{Emsi.human_attribute_name :permanencia_medicos}:&nbsp;
+            = emsi.permanencia_medicos
+          .item
+            strong #{Emsi.human_attribute_name :permanencia_enfermeiros}:&nbsp;
+            = emsi.permanencia_enfermeiros
+          .item
+            strong #{Emsi.human_attribute_name :permanencia_odontologistas}:&nbsp;
+            = emsi.permanencia_odontologistas
+          .item
+            strong #{Emsi.human_attribute_name :permanencia_tecnicos_enfermagem}:&nbsp;
+            = emsi.permanencia_tecnicos_enfermagem

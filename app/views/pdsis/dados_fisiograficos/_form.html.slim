@@ -1,5 +1,7 @@
 h1 POLO BASE: #{@base_polo.name}
 
+= render 'hidden_fields'
+
 .vertical-tabs-container
   .vertical-tabs style="width: 30%;"
     - @dsei.base_polos.order(:id).each do |base_polo|
