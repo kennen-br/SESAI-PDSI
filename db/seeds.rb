@@ -15116,7 +15116,7 @@ if DemographicData.count == 0
   ])
 end
 
-if AbsoluteDatum.count == 0
+if AbsoluteDatumLevel.count == 0
   AbsoluteDatumLevel.create!([
     {name: "Polo Base"},
     {name: "CASAI"},
