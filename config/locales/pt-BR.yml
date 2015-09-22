@@ -35,6 +35,17 @@ pt-BR:
       user_type:
         name: Nome
 
+      dsei:
+        name: Nome
+
+      base_polo:
+        name: Nome
+        dsei: DSEI
+
+      casai:
+        name: Nome
+        dsei: DSEI
+      
       text_template:
         introducao_1:               '1. Introdução'
         processo_construcao_pdsi_2: '2. O processo de construção do PDSI 2016-2019'

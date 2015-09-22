@@ -2,6 +2,7 @@ class Dsei < ActiveRecord::Base
   attr_accessor :villages
 
   has_many  :base_polos
+  has_many  :casais
   has_many  :users
   has_many  :absolute_data_dseis
 

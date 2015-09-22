@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Dsei:
+  = @casai.dsei
+p
+  strong Name:
+  = @casai.name
+
+= link_to 'Edit', edit_casai_path(@casai)
+'|
+= link_to 'Back', casais_path

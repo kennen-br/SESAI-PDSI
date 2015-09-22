@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :casais, path_names: { new: 'cadastrar', edit: 'alterar' }
   resources :absolute_data, path: 'dados-absolutos', path_names: { new: 'cadastrar', edit: 'alterar' }
 
   get '/pdsis/show', to: 'pdsis#show'

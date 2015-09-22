@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922130438) do
+ActiveRecord::Schema.define(version: 20150922175139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,15 @@ ActiveRecord::Schema.define(version: 20150922130438) do
   end
 
   add_index "capais", ["pdsi_id"], name: "index_capais_on_pdsi_id", using: :btree
+
+  create_table "casais", force: :cascade do |t|
+    t.integer  "dsei_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "casais", ["dsei_id"], name: "index_casais_on_dsei_id", using: :btree
 
   create_table "cost_users", force: :cascade do |t|
     t.integer  "cost_id"
@@ -417,6 +426,7 @@ ActiveRecord::Schema.define(version: 20150922130438) do
   add_foreign_key "capai_villages", "capais"
   add_foreign_key "capai_villages", "villages"
   add_foreign_key "capais", "pdsis"
+  add_foreign_key "casais", "dseis"
   add_foreign_key "cost_users", "costs"
   add_foreign_key "cost_users", "users"
   add_foreign_key "demographic_datas", "pdsis"

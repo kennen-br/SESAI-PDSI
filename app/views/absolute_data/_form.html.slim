@@ -1,7 +1,9 @@
 = form_for @absolute_datum do |f|
   - if @absolute_datum.errors.any?
     #error_explanation.flash-error
-      h2 = "#{pluralize(@absolute_datum.errors.count, "erro")} encontrados"
+      h2
+        = pluralize(@absolute_datum.errors.count, "erro")
+        = pluralize(@absolute_datum.errors.count, "encontrado")
       ul
         - @absolute_datum.errors.full_messages.each do |message|
           li = message
