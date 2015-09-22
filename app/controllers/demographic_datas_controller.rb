@@ -12,7 +12,6 @@ class DemographicDatasController < ApplicationController
 
   # PATCH/PUT /demographic_datas/1
   def update
-    debug demographic_data_params
     if @demographic_data.update(demographic_data_params)
       redirect_to pdsis_path, notice: 'Dados atualizados com sucesso.'
     else
