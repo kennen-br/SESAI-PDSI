@@ -656,13 +656,14 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="absolute_data" row="id" />
 </row>
+<row name="casai_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="casais" row="id" />
+</row>
 <row name="pdsi_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="pdsis" row="id" />
 </row>
-<row name="casai_name" null="1" autoincrement="0">
-<datatype>VARCHAR(100)</datatype>
-<default>NULL</default></row>
 <row name="value" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -695,7 +696,7 @@
 </table>
 <table x="722" y="340" name="casais">
 <row name="id" null="1" autoincrement="1">
-<datatype>TINYINT</datatype>
+<datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="dsei_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
