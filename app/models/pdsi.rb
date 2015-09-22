@@ -34,6 +34,9 @@ class Pdsi < ActiveRecord::Base
   has_many  :absolute_data_base_polos
   accepts_nested_attributes_for :absolute_data_base_polos, reject_if: :all_blank, allow_destroy: true
 
+  has_many  :absolute_data_casais
+  accepts_nested_attributes_for :absolute_data_casais, reject_if: :all_blank, allow_destroy: true
+
   has_attached_file :map, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :map, content_type: /\Aimage\/.*\Z/
 
@@ -98,7 +101,7 @@ class Pdsi < ActiveRecord::Base
 
     save
 
-    absolute_data_dseis.includes(:absolute_datum)
+    absolute_data_dseis_with_values
   end
 
   def absolute_data_base_polos_with_values(base_polo)
@@ -112,7 +115,21 @@ class Pdsi < ActiveRecord::Base
 
     save
 
-    absolute_data_base_polos.includes(:absolute_datum)
+    absolute_data_base_polos_with_values(base_polo)
+  end
+
+  def absolute_data_casais_with_values(casai)
+    items = absolute_data_casais.where(casai: casai)
+    return items.includes(:absolute_datum) unless items.blank?
+
+    level = AbsoluteDatumLevel.find 2
+    AbsoluteDatum.where(absolute_datum_level: level).order(:id).each do |ad|
+      absolute_data_casais << AbsoluteDataCasai.new(pdsi: self, casai: casai, absolute_datum: ad)
+    end
+
+    save
+
+    absolute_data_casais_with_values(casai)
   end
 
 private

@@ -1,0 +1,14 @@
+.flash-notice
+  | Caso esteja faltando algum CASAI, é necessário cadastrá-lo clicando&nbsp;
+  = link_to 'aqui', casais_path
+
+- @dsei.casais.order(:id).each do |casai|
+  fieldset
+    legend
+      | CASAI &nbsp;
+      strong = casai.name
+
+    = f.fields_for :absolute_data_casais, @pdsi.absolute_data_casais_with_values(casai) do |item|
+      .field
+        label = item.object.absolute_datum.name
+        = item.number_field :value

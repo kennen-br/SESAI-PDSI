@@ -33,6 +33,6 @@ class BasePolo < ActiveRecord::Base
 
     save
 
-    service_networks
+    force_service_networks(pdsi)
   end
 end
