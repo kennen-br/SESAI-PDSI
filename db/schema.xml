@@ -602,6 +602,9 @@
 <row name="name" null="1" autoincrement="0">
 <datatype>VARCHAR(100)</datatype>
 <default>NULL</default></row>
+<row name="is_specific" null="1" autoincrement="0">
+<datatype>bit</datatype>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -637,7 +640,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="676" y="1649" name="absolute_datum_levels">
+<table x="658" y="1633" name="absolute_datum_levels">
 <row name="id" null="1" autoincrement="1">
 <datatype>TINYINT</datatype>
 <default>NULL</default></row>
@@ -705,6 +708,22 @@
 <row name="name" null="1" autoincrement="0">
 <datatype>VARCHAR(100)</datatype>
 <default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1293" y="1612" name="specific_absolute_data">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="absolute_datum_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="absolute_data" row="id" />
+</row>
+<row name="dsei_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="dseis" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
