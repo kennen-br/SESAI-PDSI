@@ -1,47 +1,75 @@
-h2 = DemographicData.human_attribute_name 'extensao_territorial'
-p = @demographic_data.extensao_territorial || 'Não informado'
+p
+  strong #{DemographicData.human_attribute_name 'extensao_territorial'}:
+  br
+  = @demographic_data.extensao_territorial || 'Não informado'
 
-h2 = DemographicData.human_attribute_name 'municipio_sede'
-p = @demographic_data.municipio_sede || 'Não informado'
+p
+  strong #{DemographicData.human_attribute_name 'municipio_sede'}:
+  br
+  = @demographic_data.municipio_sede || 'Não informado'
 
-h2 = DemographicData.human_attribute_name 'endereco'
-p = @demographic_data.endereco || 'Não informado'
+p
+  strong #{DemographicData.human_attribute_name 'endereco'}:
+  br
+  = @demographic_data.endereco || 'Não informado'
 
-h2 = DemographicData.human_attribute_name 'email'
-p = @demographic_data.email || 'Não informado'
+p
+  strong #{DemographicData.human_attribute_name 'email'}:
+  br
+  = @demographic_data.email || 'Não informado'
 
-h2 = DemographicData.human_attribute_name 'numero_municipios'
-p = @demographic_data.numero_municipios || 'Não informado'
+p
+  strong #{DemographicData.human_attribute_name 'numero_municipios'}:
+  br
+  = @demographic_data.numero_municipios || 'Não informado'
 
-h2 = DemographicData.human_attribute_name 'populacao_indigena'
-p = @demographic_data.populacao_indigena || 'Não informado'
+p
+  strong #{DemographicData.human_attribute_name 'populacao_indigena'}:
+  br
+  = @demographic_data.populacao_indigena || 'Não informado'
 
-h2 = DemographicData.human_attribute_name 'etnias'
-- if @demographic_data.etnias.blank?
-  | Não informado
-- else
-  p = @demographic_data.etnias.map { |item| item.name }.join ', '
+p
+  strong #{DemographicData.human_attribute_name 'etnias'}:
+  br
+  - if @demographic_data.etnias.blank?
+    | Não informado
+  - else
+    = @demographic_data.etnias.map { |item| item.name }.join ', '
 
-h2 = DemographicData.human_attribute_name 'numero_polos_base'
-p = @demographic_data.numero_polos_base || 'Não informado'
+p
+  strong #{DemographicData.human_attribute_name 'numero_polos_base'}:
+  br
+  = @demographic_data.numero_polos_base || 'Não informado'
 
-h2 = DemographicData.human_attribute_name 'numero_ubsi'
-p = @demographic_data.numero_ubsi || 'Não informado'
+p
+  strong #{DemographicData.human_attribute_name 'numero_ubsi'}:
+  br
+  = @demographic_data.numero_ubsi || 'Não informado'
 
-h2 = DemographicData.human_attribute_name 'numero_regioes_de_saude'
-p = @demographic_data.numero_regioes_de_saude || 'Não informado'
+p
+  strong #{DemographicData.human_attribute_name 'numero_regioes_de_saude'}:
+  br
+  = @demographic_data.numero_regioes_de_saude || 'Não informado'
 
-h2 = DemographicData.human_attribute_name 'numero_casais'
-p = @demographic_data.numero_casais || 'Não informado'
+p
+  strong #{DemographicData.human_attribute_name 'numero_casais'}:
+  br
+  = @demographic_data.numero_casais || 'Não informado'
 
-h2 = DemographicData.human_attribute_name 'numero_aldeias'
-p = @demographic_data.numero_aldeias || 'Não informado'
+p
+  strong #{DemographicData.human_attribute_name 'numero_aldeias'}:
+  br
+  = @demographic_data.numero_aldeias || 'Não informado'
 
-h2 = DemographicData.human_attribute_name 'numero_familias'
-p = @demographic_data.numero_familias || 'Não informado'
+p
+  strong #{DemographicData.human_attribute_name 'numero_familias'}:
+  br
+  = @demographic_data.numero_familias || 'Não informado'
 
-h2 = DemographicData.human_attribute_name 'meios_de_transporte'
-- if @demographic_data.transportations.blank?
-  | Não informado
--else
-  p = @demographic_data.transportations.map { |item| item.name }.join ', '
+p
+  strong #{DemographicData.human_attribute_name 'meios_de_transporte'}:
+  br
+  - if @demographic_data.transportations.blank?
+    | Não informado
+  - else
+    = @demographic_data.transportations.map { |item| item.name }.join ', '

@@ -157,6 +157,15 @@ button#menu-button{
   height: none !important;
 }
 
+.simple-list {
+  @include margin(null null 10px null);
+  @include padding(10px);
+
+  border: 1px solid #CCC;
+  border-width: 1px 0;
+  font-size: .9em;
+}
+
 // Page contents
 .page-content {
   @include margin(2em null);

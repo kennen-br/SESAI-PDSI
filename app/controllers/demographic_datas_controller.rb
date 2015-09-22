@@ -14,7 +14,7 @@ class DemographicDatasController < ApplicationController
   def update
     debug demographic_data_params
     if @demographic_data.update(demographic_data_params)
-      redirect_to pdsis_path, notice: 'Dados atualizados com sucesso.'
+      redirect_to edit_demographic_data_path(@demographic_data), notice: 'Dados atualizados com sucesso.'
     else
       render :edit
     end

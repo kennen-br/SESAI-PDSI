@@ -19,7 +19,7 @@ class PdsisController < ApplicationController
     debug params
 
     if @pdsi.update(pdsi_params)
-      redirect_to pdsis_path, notice: 'Dados atualizados com sucesso.'
+      redirect_after_save
     else
       render :edit
     end
@@ -40,9 +40,19 @@ private
   end
 
   def set_base_polo
-    if params[:section] == 'dados-fisiograficos'
+    # helper allowed_sections
+    if view_context.allowed_sections.include? params[:section]
       @base_polo = BasePolo.find(params[:base_polo]) || @dsei.base_polos.order(:id).first
     end
+  end
+
+  def redirect_after_save
+    notice = {notice: 'Dados atualizados com sucesso.'}
+
+    args = { section: params[:section] }
+    args.merge!(base_polo: params[:base_polo]) if params[:base_polo]
+
+    redirect_to edit_pdsi_path(@pdsi, args), notice
   end
 
   # Only allow a trusted parameter "white list" through.
