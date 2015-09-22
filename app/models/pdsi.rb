@@ -87,11 +87,25 @@ class Pdsi < ActiveRecord::Base
     Capai.eager_load(capai_villages: [:village]).where(pdsi: self)
   end
 
+  def absolute_data_dseis_with_values
+    items = absolute_data_dseis
+   return items.includes(:absolute_datum) unless items.blank?
+
+    level = AbsoluteDatumLevel.find 3
+    AbsoluteDatum.where(absolute_datum_level: level).order(:id).each do |ad|
+      absolute_data_dseis << AbsoluteDataDsei.new(absolute_datum: ad, dsei: dsei, pdsi: self)
+    end
+
+    save
+
+    absolute_data_dseis.includes(:absolute_datum)
+  end
+
   def absolute_data_base_polos_with_values(base_polo)
     items = absolute_data_base_polos.where(base_polo: base_polo)
     return items.includes(:absolute_datum) unless items.blank?
 
-    level = AbsoluteDatumLevel.find(1)
+    level = AbsoluteDatumLevel.find 1
     AbsoluteDatum.where(absolute_datum_level: level).order(:id).each do |ad|
       absolute_data_base_polos << AbsoluteDataBasePolo.new(pdsi: self, base_polo: base_polo, absolute_datum: ad)
     end

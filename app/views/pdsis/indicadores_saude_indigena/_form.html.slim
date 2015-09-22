@@ -1,10 +1,10 @@
 ul.accordion-tabs-minimal
-  /i.tab-header-and-content
+  li.tab-header-and-content
     a.tab-link.is-active[href="#"]
       | DSEI
     .tab-content
 
-      p dsei
+      = render 'pdsis/indicadores_saude_indigena/form_dsei', f: f
 
   li.tab-header-and-content
     a.tab-link[href="#"]
