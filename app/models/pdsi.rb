@@ -1,6 +1,4 @@
 class Pdsi < ActiveRecord::Base
-  attr_accessor :dsei
-
   belongs_to  :user
 
   has_one :demographic_data
@@ -32,6 +30,9 @@ class Pdsi < ActiveRecord::Base
 
   has_many  :absolute_data_dseis
   accepts_nested_attributes_for :absolute_data_dseis, reject_if: :all_blank, allow_destroy: true
+
+  has_many  :absolute_data_base_polos
+  accepts_nested_attributes_for :absolute_data_base_polos, reject_if: :all_blank, allow_destroy: true
 
   has_attached_file :map, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :map, content_type: /\Aimage\/.*\Z/
@@ -84,6 +85,20 @@ class Pdsi < ActiveRecord::Base
 
   def capais_with_villages
     Capai.eager_load(capai_villages: [:village]).where(pdsi: self)
+  end
+
+  def absolute_data_base_polos_with_values(base_polo)
+    items = absolute_data_base_polos.where(base_polo: base_polo)
+    return items.includes(:absolute_datum) unless items.blank?
+
+    level = AbsoluteDatumLevel.find(1)
+    AbsoluteDatum.where(absolute_datum_level: level).order(:id).each do |ad|
+      absolute_data_base_polos << AbsoluteDataBasePolo.new(pdsi: self, base_polo: base_polo, absolute_datum: ad)
+    end
+
+    save
+
+    absolute_data_base_polos.includes(:absolute_datum)
   end
 
 private

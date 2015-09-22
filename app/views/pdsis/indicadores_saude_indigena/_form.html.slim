@@ -1,1 +1,22 @@
-| form
+ul.accordion-tabs-minimal
+  /i.tab-header-and-content
+    a.tab-link.is-active[href="#"]
+      | DSEI
+    .tab-content
+
+      p dsei
+
+  li.tab-header-and-content
+    a.tab-link[href="#"]
+      | Polos Base
+    .tab-content
+
+      == render 'pdsis/indicadores_saude_indigena/form_base_polo', f: f
+
+  li.tab-header-and-content
+    a.tab-link[href="#"]
+      | CASAIs
+    .tab-content
+
+      p casai
+

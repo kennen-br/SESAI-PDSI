@@ -1,0 +1,10 @@
+- @dsei.base_polos.order(:id).each do |base_polo|
+  fieldset
+    legend
+      | Polo base&nbsp;
+      strong = base_polo.name
+
+    = f.fields_for :absolute_data_base_polos, @pdsi.absolute_data_base_polos_with_values(base_polo) do |item|
+      .field
+        label = item.object.absolute_datum.name
+        = item.number_field :value
