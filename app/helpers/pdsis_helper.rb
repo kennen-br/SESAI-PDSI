@@ -1,5 +1,9 @@
 module PdsisHelper
 
+  def allowed_sections
+    %w"dados-fisiograficos rede-servicos"
+  end
+
   def section_path(section)
     three = [{ name: 'Caracterização do DSEI', path: pdsis_path('caracterizacao-do-dsei')}]
     bread = [{ name: section_name(section), path: pdsis_path(section: section.gsub(/_/, '-'))}]

@@ -1,53 +1,62 @@
 h1 Infraestrutura de saneamento
 
-- @dsei.base_polos_with_service_networks.each do |base_polo|
-  fieldset
-    legend
-      |Polo Base &nbsp;
-      strong = base_polo.name
+= render 'hidden_fields'
 
-    = f.fields_for :service_networks, base_polo.force_service_networks(@pdsi) do |item|
+.vertical-tabs-container
+  .vertical-tabs style="width: 30%;"
+    - @dsei.base_polos.order(:id).each do |base_polo|
+      - link_opt = [{ class: 'vertical-tab' }, {:selected_class => 'is-active'}]
+      = nav_link_to edit_pdsi_path(@pdsi, section: 'rede-servicos', base_polo: base_polo), link_opt[0], link_opt[1] do
+        = base_polo.name
+  .vertical-tab-content-container
+    .vertical-tab-content style="display: block;"
       fieldset
         legend
-          |Cidade&nbsp;
-          strong = item.object.city_name
+          |Polo Base &nbsp;
+          strong = @base_polo.name
 
-        fieldset
-          legend Estabelecimentos de saúde (Complementariedade da Atenção Básica)
+        = f.fields_for :service_networks, @base_polo.force_service_networks(@pdsi) do |item|
+          fieldset
+            legend
+              |Cidade&nbsp;
+              strong = item.object.city_name
 
-          table.table.nested-form
-            thead
-              tr
-                th Nome
-                th.destroy Apagar?
+            fieldset
+              legend Estabelecimentos de saúde (Complementariedade da Atenção Básica)
 
-            - tbody_id = "tbody_establishment_#{item.object.id}"
-            tbody id=(tbody_id)
-              = item.fields_for :health_establishments do |health_establishment|
-                = render 'pdsis/rede_servicos/health_establishment_fields', { f: health_establishment }
-            tfoot
-              tr
-                td.links.right-align colspan="2"
-                  = link_to_add_association item, :health_establishments, { data: { "association-insertion-node": "##{tbody_id}", "association-insertion-method": 'append' }, class: 'button btn-sm', partial: 'pdsis/rede_servicos/health_establishment_fields' } do
-                    = icon 'plus'
-                    | Adicionar Estabelecimento
+              table.table.nested-form
+                thead
+                  tr
+                    th Nome
+                    th.destroy Apagar?
 
-        fieldset
-          legend Estabelecimentos de saúde (Complementariedade da Atenção Básica)
+                - tbody_id = "tbody_establishment_#{item.object.id}"
+                tbody id=(tbody_id)
+                  = item.fields_for :health_establishments do |health_establishment|
+                    = render 'pdsis/rede_servicos/health_establishment_fields', { f: health_establishment }
+                tfoot
+                  tr
+                    td.links.right-align colspan="2"
+                      = link_to_add_association item, :health_establishments, { data: { "association-insertion-node": "##{tbody_id}", "association-insertion-method": 'append' }, class: 'button btn-sm', partial: 'pdsis/rede_servicos/health_establishment_fields' } do
+                        = icon 'plus'
+                        | Adicionar Estabelecimento
 
-          table.table.nested-form
-            thead
-              tr
-                th Nome
-                th.destroy Apagar?
+            fieldset
+              legend Estabelecimentos de saúde (Atenção Especializada)
 
-            - tbody_id = "tbody_specialized_#{item.object.id}"
-            tbody id=(tbody_id)
-              = item.fields_for :health_specializeds do |health_specialized|
-                = render 'pdsis/rede_servicos/health_specialized_fields', { f: health_specialized }
-            tfoot
-              tr
-                td.links.right-align colspan="2"
-                  = link_to_add_association item, :health_specializeds, { data: { "association-insertion-node": "##{tbody_id}", "association-insertion-method": 'append' }, class: 'button btn-sm', partial: 'pdsis/rede_servicos/health_establishment_fields' } do
-                    = icon 'plus'
-                    | Adicionar Estabelecimento
+              table.table.nested-form
+                thead
+                  tr
+                    th Nome
+                    th.destroy Apagar?
+
+                - tbody_id = "tbody_specialized_#{item.object.id}"
+                tbody id=(tbody_id)
+                  = item.fields_for :health_specializeds do |health_specialized|
+                    = render 'pdsis/rede_servicos/health_specialized_fields', { f: health_specialized }
+                tfoot
+                  tr
+                    td.links.right-align colspan="2"
+                      = link_to_add_association item, :health_specializeds, { data: { "association-insertion-node": "##{tbody_id}", "association-insertion-method": 'append' }, class: 'button btn-sm', partial: 'pdsis/rede_servicos/health_establishment_fields' } do
+                        = icon 'plus'
+                        | Adicionar Estabelecimento
