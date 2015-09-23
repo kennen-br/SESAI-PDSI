@@ -1,4 +1,6 @@
 class Casai < ActiveRecord::Base
+  auditable
+
   belongs_to :dsei
 
   has_many  :absolute_data_casais

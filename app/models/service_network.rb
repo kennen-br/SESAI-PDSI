@@ -1,4 +1,6 @@
 class ServiceNetwork < ActiveRecord::Base
+  auditable
+
   belongs_to :base_polo
   belongs_to :pdsi
 

@@ -1,4 +1,6 @@
 class BasePolo < ActiveRecord::Base
+  auditable
+
   attr_accessor :cities
 
   belongs_to :dsei

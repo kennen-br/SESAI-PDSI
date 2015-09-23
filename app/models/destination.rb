@@ -1,4 +1,6 @@
 class Destination < ActiveRecord::Base
+  auditable
+
   belongs_to  :pdsi
   belongs_to  :origin_village,       class_name: 'Village', foreign_key: :origin_village_id,       required: true
   belongs_to  :destination_village,  class_name: 'Village', foreign_key: :destination_village_id,  required: true

@@ -1,4 +1,6 @@
 class AbsoluteDatum < ActiveRecord::Base
+  auditable
+
   belongs_to :absolute_datum_level
 
   has_many  :absolute_data_dseis

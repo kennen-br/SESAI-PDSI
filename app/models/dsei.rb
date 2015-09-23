@@ -1,4 +1,6 @@
 class Dsei < ActiveRecord::Base
+  auditable
+
   attr_accessor :villages
 
   has_many  :base_polos

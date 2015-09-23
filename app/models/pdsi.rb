@@ -1,4 +1,6 @@
 class Pdsi < ActiveRecord::Base
+  auditable
+
   belongs_to  :user
 
   has_one :demographic_data

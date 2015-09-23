@@ -1,4 +1,6 @@
 class UserType < ActiveRecord::Base
+  auditable
+
   has_many  :users
 
   validates :name,  length: { maximum: 255 }, presence: true, uniqueness: true

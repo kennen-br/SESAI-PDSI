@@ -1,4 +1,6 @@
 class DemographicData < ActiveRecord::Base
+  auditable
+
   belongs_to :pdsi
 
   has_many  :etnias

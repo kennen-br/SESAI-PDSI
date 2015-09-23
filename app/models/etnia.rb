@@ -1,4 +1,6 @@
 class Etnia < ActiveRecord::Base
+  auditable
+
   self.table_name  = 'etnias'
 
   belongs_to :demographic_data
