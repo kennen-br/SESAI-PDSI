@@ -14,12 +14,33 @@ ul.accordion-tabs-minimal
     a.tab-link[href="#"]
       | 4.1 Indicadores da saúde indígena no DSEI
     .tab-content
-      h3 TODO
-      p Apenas para utilizar abas
 
-      .right-align
-        = link_to health_indicators_path(@pdsi, subsection: 'dsei'), class: 'button' do
-          i.fa.fa-pencil
-          | Alterar
+      ul.accordion
+        li
+          a.js-accordion-trigger[href="javascript:void(0)"]
+            | DSEI
+          .accordion-content
+            = link_to health_indicators_path(@pdsi, subsection: 'dsei'), class: 'button pull-right edit-link' do
+              i.fa.fa-pencil
+              | Alterar
+            == render 'pdsis/indicadores_saude_indigena/show_dsei'
+
+        li
+          a.js-accordion-trigger[href="javascript:void(0)"]
+            | Polos Base
+          .accordion-content
+            = link_to health_indicators_path(@pdsi, subsection: 'base-polo'), class: 'button pull-right edit-link' do
+              i.fa.fa-pencil
+              | Alterar
+            == render 'pdsis/indicadores_saude_indigena/show_base_polo'
+
+        li
+          a.js-accordion-trigger[href="javascript:void(0)"]
+            | CAPAIs
+          .accordion-content
+            = link_to health_indicators_path(@pdsi, subsection: 'casai'), class: 'button pull-right edit-link' do
+              i.fa.fa-pencil
+              | Alterar
+            == render 'pdsis/indicadores_saude_indigena/show_casai'
+
       |&nbsp;
-

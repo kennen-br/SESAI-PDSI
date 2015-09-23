@@ -1,0 +1,8 @@
+- @dsei.casais.order(:id).each do |casai|
+  fieldset
+    legend 
+      | Polo base&nbsp;
+      strong = casai.name
+
+    - @pdsi.absolute_data_casais_with_values(casai).each do |item|
+      == render 'pdsis/indicadores_saude_indigena/value', item: item
