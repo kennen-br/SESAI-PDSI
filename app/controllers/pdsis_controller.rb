@@ -17,6 +17,11 @@ class PdsisController < ApplicationController
   def health_indicators
     @subsection = params[:subsection].gsub(/-/, '_')
 
+    if @subsection == 'casai'
+      casai_id = params[:casai] || @dsei.casais.order(:id).first.id
+      @casai = Casai.find casai_id
+    end
+
     render :edit
   end
 
@@ -51,12 +56,24 @@ private
   end
 
   def redirect_after_save
+    return redirect_to_indicadores if params[:section] == 'indicadores-saude-indigena'
+
     notice = {notice: 'Dados atualizados com sucesso.'}
 
     args = { section: params[:section] }
     args.merge!(base_polo: params[:base_polo]) if params[:base_polo]
 
     redirect_to edit_pdsi_path(@pdsi, args), notice
+  end
+
+  def redirect_to_indicadores
+    notice = {notice: 'Indicadores atualizados com sucesso.'}
+
+    args = { subsection: params[:subsection] }
+    args.merge!(base_polo: params[:base_polo]) if params[:base_polo]
+    args.merge!(casai: params[:casai]) if params[:casai]
+
+    redirect_to health_indicators_path(@pdsi, args), notice
   end
 
   # Only allow a trusted parameter "white list" through.
@@ -87,7 +104,8 @@ private
       ],
       destinations_attributes: [:id, :pdsi_id, :origin_village_id, :destination_village_id, :destination_type_id, :boat_time, :road_time, :fly_time, :_destroy],
       absolute_data_base_polos_attributes: [:id, :absolute_datum_id, :base_polo_id, :pdsi_id, :value],
-      absolute_data_dseis_attributes: [:id, :absolute_datum_id, :dsei_id, :pdsi_id, :value]
+      absolute_data_dseis_attributes: [:id, :absolute_datum_id, :dsei_id, :pdsi_id, :value],
+      absolute_data_casais_attributes: [:id, :absolute_datum_id, :dsei_id, :pdsi_id, :value]
     )
   end
 end
