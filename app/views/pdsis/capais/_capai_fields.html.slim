@@ -1,34 +1,35 @@
-.field
-  = f.label       :city_name
-  = f.text_field  :city_name
-
-.field
-  = f.label   :uf
-  = select_uf f, :uf, f.object.uf
-
-.field
-  = f.label       :capai_type
-  = f.text_field  :capai_type
-
-.field
-  = f.label         :host_capacity
-  = f.number_field  :host_capacity
-
 fieldset
-  legend Aldeias Vinculadas
+  .field
+    = f.label       :city_name
+    = f.text_field  :city_name
 
-  - tbody_id = "capai_villages_#{f.object.id}"
-  table.table.nested-form
-    thead
-      tr
-        th Nome
-        th.destroy Apagar?
-    tbody id=(tbody_id)
-      = f.fields_for :capai_villages do |capai_village|
-        = render 'pdsis/capais/capai_village_fields', { f: capai_village }
-    tfoot
-      tr
-        td.links.right-align colspan="2"
-          = link_to_add_association f, :capai_villages, { data: { "association-insertion-node": "##{tbody_id}", "association-insertion-method": 'append' }, class: 'button btn-sm', partial: 'pdsis/capais/capai_village_fields' } do
-            = icon 'plus'
-            | Adicionar Capai
+  .field
+    = f.label   :uf
+    = select_uf f, :uf, f.object.uf
+
+  .field
+    = f.label       :capai_type
+    = f.text_field  :capai_type
+
+  .field
+    = f.label         :host_capacity
+    = f.number_field  :host_capacity
+
+  fieldset
+    legend Aldeias Vinculadas
+
+    - tbody_id = "capai_villages_#{f.object.id}"
+    table.table.nested-form
+      thead
+        tr
+          th Nome
+          th.destroy Apagar?
+      tbody id=(tbody_id)
+        = f.fields_for :capai_villages do |capai_village|
+          = render 'pdsis/capais/capai_village_fields', { f: capai_village }
+      tfoot
+        tr
+          td.links.right-align colspan="2"
+            = link_to_add_association f, :capai_villages, { data: { "association-insertion-node": "##{tbody_id}", "association-insertion-method": 'append' }, class: 'button btn-sm', partial: 'pdsis/capais/capai_village_fields' } do
+              = icon 'plus'
+              | Adicionar Capai
