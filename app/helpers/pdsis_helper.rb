@@ -1,7 +1,7 @@
 module PdsisHelper
 
   def allowed_sections
-    %w"dados-fisiograficos rede-servicos"
+    %w"dados-fisiograficos rede-servicos indicadores-saude-indigena"
   end
 
   def section_path(section)
@@ -26,7 +26,8 @@ module PdsisHelper
       rede_servicos: 'Rede de serviços',
       infraestrutura_edificacoes: 'Infraestrutura de saúde edificações',
       infraestrutura_saneamento:  'Infraestrutura de saúde - Saneamento',
-      analise_situacional:        'Análise Situacional'
+      analise_situacional:        'Análise situacional',
+      indicadores_saude_indigena: 'Indicadores estratégicos para a saúde indígena',
     }[section.to_sym]
   end
 end

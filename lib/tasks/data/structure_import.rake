@@ -2,7 +2,7 @@ require 'csv'
 require "#{Rails.root}/lib/debug.rb"
 
 namespace :data do
-  task import: :environment do
+  task structure_import: :environment do
     #count = 0
     first = true
     CSV.foreach("#{Rails.root}/batch/etnias.csv") do |row|

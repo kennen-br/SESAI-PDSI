@@ -11,10 +11,65 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921132335) do
+ActiveRecord::Schema.define(version: 20150922195249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "absolute_data", force: :cascade do |t|
+    t.integer  "absolute_datum_level_id"
+    t.string   "name"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.boolean  "is_specific",             default: false
+  end
+
+  add_index "absolute_data", ["absolute_datum_level_id"], name: "index_absolute_data_on_absolute_datum_level_id", using: :btree
+
+  create_table "absolute_data_base_polos", force: :cascade do |t|
+    t.integer  "absolute_datum_id"
+    t.integer  "base_polo_id"
+    t.integer  "pdsi_id"
+    t.integer  "value"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "absolute_data_base_polos", ["absolute_datum_id"], name: "index_absolute_data_base_polos_on_absolute_datum_id", using: :btree
+  add_index "absolute_data_base_polos", ["base_polo_id"], name: "index_absolute_data_base_polos_on_base_polo_id", using: :btree
+  add_index "absolute_data_base_polos", ["pdsi_id"], name: "index_absolute_data_base_polos_on_pdsi_id", using: :btree
+
+  create_table "absolute_data_casais", force: :cascade do |t|
+    t.integer  "absolute_datum_id"
+    t.integer  "casai_id"
+    t.integer  "pdsi_id"
+    t.integer  "value"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "absolute_data_casais", ["absolute_datum_id"], name: "index_absolute_data_casais_on_absolute_datum_id", using: :btree
+  add_index "absolute_data_casais", ["casai_id"], name: "index_absolute_data_casais_on_casai_id", using: :btree
+  add_index "absolute_data_casais", ["pdsi_id"], name: "index_absolute_data_casais_on_pdsi_id", using: :btree
+
+  create_table "absolute_data_dseis", force: :cascade do |t|
+    t.integer  "absolute_datum_id"
+    t.integer  "dsei_id"
+    t.integer  "pdsi_id"
+    t.integer  "value"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "absolute_data_dseis", ["absolute_datum_id"], name: "index_absolute_data_dseis_on_absolute_datum_id", using: :btree
+  add_index "absolute_data_dseis", ["dsei_id"], name: "index_absolute_data_dseis_on_dsei_id", using: :btree
+  add_index "absolute_data_dseis", ["pdsi_id"], name: "index_absolute_data_dseis_on_pdsi_id", using: :btree
+
+  create_table "absolute_datum_levels", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "base_polos", force: :cascade do |t|
     t.integer  "dsei_id"
@@ -47,6 +102,15 @@ ActiveRecord::Schema.define(version: 20150921132335) do
   end
 
   add_index "capais", ["pdsi_id"], name: "index_capais_on_pdsi_id", using: :btree
+
+  create_table "casais", force: :cascade do |t|
+    t.integer  "dsei_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "casais", ["dsei_id"], name: "index_casais_on_dsei_id", using: :btree
 
   create_table "cost_users", force: :cascade do |t|
     t.integer  "cost_id"
@@ -311,6 +375,16 @@ ActiveRecord::Schema.define(version: 20150921132335) do
   add_index "service_networks", ["base_polo_id"], name: "index_service_networks_on_base_polo_id", using: :btree
   add_index "service_networks", ["pdsi_id"], name: "index_service_networks_on_pdsi_id", using: :btree
 
+  create_table "specific_absolute_data", force: :cascade do |t|
+    t.integer  "absolute_datum_id"
+    t.integer  "dsei_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "specific_absolute_data", ["absolute_datum_id"], name: "index_specific_absolute_data_on_absolute_datum_id", using: :btree
+  add_index "specific_absolute_data", ["dsei_id"], name: "index_specific_absolute_data_on_dsei_id", using: :btree
+
   create_table "text_templates", force: :cascade do |t|
     t.text     "introducao_1"
     t.datetime "created_at",                 null: false
@@ -365,10 +439,21 @@ ActiveRecord::Schema.define(version: 20150921132335) do
 
   add_index "villages", ["base_polo_id"], name: "index_villages_on_base_polo_id", using: :btree
 
+  add_foreign_key "absolute_data", "absolute_datum_levels"
+  add_foreign_key "absolute_data_base_polos", "absolute_data"
+  add_foreign_key "absolute_data_base_polos", "base_polos"
+  add_foreign_key "absolute_data_base_polos", "pdsis"
+  add_foreign_key "absolute_data_casais", "absolute_data"
+  add_foreign_key "absolute_data_casais", "casais"
+  add_foreign_key "absolute_data_casais", "pdsis"
+  add_foreign_key "absolute_data_dseis", "absolute_data"
+  add_foreign_key "absolute_data_dseis", "dseis"
+  add_foreign_key "absolute_data_dseis", "pdsis"
   add_foreign_key "base_polos", "dseis"
   add_foreign_key "capai_villages", "capais"
   add_foreign_key "capai_villages", "villages"
   add_foreign_key "capais", "pdsis"
+  add_foreign_key "casais", "dseis"
   add_foreign_key "cost_users", "costs"
   add_foreign_key "cost_users", "users"
   add_foreign_key "demographic_datas", "pdsis"
@@ -397,6 +482,8 @@ ActiveRecord::Schema.define(version: 20150921132335) do
   add_foreign_key "profiles", "users"
   add_foreign_key "service_networks", "base_polos"
   add_foreign_key "service_networks", "pdsis"
+  add_foreign_key "specific_absolute_data", "absolute_data"
+  add_foreign_key "specific_absolute_data", "dseis"
   add_foreign_key "transportations", "demographic_datas"
   add_foreign_key "users", "dseis"
   add_foreign_key "villages", "base_polos"

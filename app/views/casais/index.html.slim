@@ -1,0 +1,25 @@
+h1
+  | CASAIs
+
+h2 = "DSEI #{current_user.dsei.name}"
+
+table
+  thead
+    tr
+      th = Casai.human_attribute_name 'name'
+      th Ações
+
+  tbody
+    - @casais.each do |casai|
+      tr
+        td = casai.name
+        td
+          = link_to edit_casai_path(casai), class: 'button' do
+            i.fa.fa-pencil
+            | Editar
+
+br
+
+= link_to new_casai_path, class: 'button' do
+  i.fa.fa-plus
+  | Cadastrar CASAI

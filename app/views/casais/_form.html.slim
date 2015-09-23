@@ -1,0 +1,12 @@
+= form_for @casai do |f|
+  - if @casai.errors.any?
+    #error_explanation.flash-error
+      h2 = "#{pluralize(@casai.errors.count, "erro")} encontrados"
+      ul
+        - @casai.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .actions = f.submit

@@ -16,3 +16,10 @@ ul.accordion-tabs-minimal
     .tab-content
       h3 TODO
       p Apenas para utilizar abas
+
+      .right-align
+        = link_to health_indicators_path(@pdsi, subsection: 'dsei'), class: 'button' do
+          i.fa.fa-pencil
+          | Alterar
+      |&nbsp;
+

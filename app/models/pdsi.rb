@@ -1,6 +1,4 @@
 class Pdsi < ActiveRecord::Base
-  attr_accessor :dsei
-
   belongs_to  :user
 
   has_one :demographic_data
@@ -29,6 +27,15 @@ class Pdsi < ActiveRecord::Base
 
   has_many  :destinations
   accepts_nested_attributes_for :destinations, reject_if: :all_blank, allow_destroy: true
+
+  has_many  :absolute_data_dseis
+  accepts_nested_attributes_for :absolute_data_dseis, reject_if: :all_blank, allow_destroy: true
+
+  has_many  :absolute_data_base_polos
+  accepts_nested_attributes_for :absolute_data_base_polos, reject_if: :all_blank, allow_destroy: true
+
+  has_many  :absolute_data_casais
+  accepts_nested_attributes_for :absolute_data_casais, reject_if: :all_blank, allow_destroy: true
 
   has_attached_file :map, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :map, content_type: /\Aimage\/.*\Z/
@@ -81,6 +88,64 @@ class Pdsi < ActiveRecord::Base
 
   def capais_with_villages
     Capai.eager_load(capai_villages: [:village]).where(pdsi: self)
+  end
+
+  def absolute_data_dseis_with_values
+    items = absolute_data_dseis
+    return items.includes(:absolute_datum) unless items.blank?
+
+    level = AbsoluteDatumLevel.find 3
+
+    AbsoluteDatum.where(absolute_datum_level: level).order(:id).each do |ad|
+      if ad.is_specific
+        item = ad.specific_absolute_data.where(dsei: dsei).first
+        next if item.nil?
+      end
+      absolute_data_dseis << AbsoluteDataDsei.new(absolute_datum: ad, dsei: dsei, pdsi: self)
+    end
+
+    save
+
+    absolute_data_dseis_with_values
+  end
+
+  #SpecificAbsoluteDatum.create absolute_datum_id: 47, dsei_id: 3
+  #SpecificAbsoluteDatum.create absolute_datum_id: 49, dsei_id: 3
+  def absolute_data_base_polos_with_values(base_polo)
+    items = absolute_data_base_polos.where(base_polo: base_polo)
+    return items.includes(:absolute_datum) unless items.blank?
+
+    level = AbsoluteDatumLevel.find 1
+    AbsoluteDatum.where(absolute_datum_level: level).order(:id).each do |ad|
+      if ad.is_specific
+        item = ad.specific_absolute_data.where(dsei: dsei).first
+        next if item.nil?
+      end
+      absolute_data_base_polos << AbsoluteDataBasePolo.new(pdsi: self, base_polo: base_polo, absolute_datum: ad)
+    end
+
+    save
+
+    absolute_data_base_polos_with_values(base_polo)
+  end
+
+  def absolute_data_casais_with_values(casai)
+    items = absolute_data_casais.where(casai: casai)
+    return items.includes(:absolute_datum) unless items.blank?
+
+    level = AbsoluteDatumLevel.find 2
+    AbsoluteDatum.where(absolute_datum_level: level).order(:id).each do |ad|
+      if ad.is_specific
+        item = ad.specific_absolute_data.where(dsei: dsei).first
+        next if item.nil?
+      end
+
+      absolute_data_casais << AbsoluteDataCasai.new(pdsi: self, casai: casai, absolute_datum: ad)
+    end
+
+    save
+
+    absolute_data_casais_with_values(casai)
   end
 
 private

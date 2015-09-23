@@ -41,7 +41,6 @@ class UsersController < ApplicationController
   end
 
   def update_password
-    debug params
     @user = User.find current_user.id
     if @user.update_with_password(user_password_params)
       # Sign in the user by passing validation in case their password changed

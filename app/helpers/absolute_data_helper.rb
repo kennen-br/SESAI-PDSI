@@ -1,0 +1,2 @@
+module AbsoluteDataHelper
+end

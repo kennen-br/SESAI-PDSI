@@ -1,0 +1,17 @@
+= form_for @absolute_datum do |f|
+  - if @absolute_datum.errors.any?
+    #error_explanation.flash-error
+      h2
+        = pluralize(@absolute_datum.errors.count, "erro")
+        = pluralize(@absolute_datum.errors.count, "encontrado")
+      ul
+        - @absolute_datum.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :absolute_datum_level
+    = f.collection_select :absolute_datum_level_id, AbsoluteDatumLevel.all, :id, :name, prompt: true
+  .field
+    = f.label :name
+    = f.text_field :name
+  .actions = f.submit

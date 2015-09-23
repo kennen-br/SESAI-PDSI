@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :casais, path_names: { new: 'cadastrar', edit: 'alterar' }
+  resources :absolute_data, path: 'dados-absolutos', path_names: { new: 'cadastrar', edit: 'alterar' }
+
   get '/pdsis/show', to: 'pdsis#show'
 
   scope '/meu-pdsi' do
@@ -10,6 +13,10 @@ Rails.application.routes.draw do
     scope '/dados-demograficos' do
       patch '/:id/alterar',  to: 'demographic_datas#update',  as: :demographic_data
       get   '/:id/alterar',  to: 'demographic_datas#edit',    as: :edit_demographic_data
+    end
+
+    scope '/indicadores-saude-indigena', defaults: { section: 'indicadores-saude-indigena' }  do
+      get '/:id/:subsection/alterar(/polo-base/:base_polo)(/casai/:casai)', to: 'pdsis#health_indicators', as: :health_indicators
     end
   end
 

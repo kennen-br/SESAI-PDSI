@@ -1,7 +1,7 @@
 class PdsisController < ApplicationController
   before_action :set_pdsi#, only: [:index, :show, :edit, :update]
-  before_action :set_section, only: [:index, :edit, :update]
-  before_action :set_base_polo, only: [:edit]
+  before_action :set_section, only: [:index, :edit, :update, :health_indicators]
+  before_action :set_base_polo, only: [:edit, :health_indicators]
 
   # GET /pdsis
   def index
@@ -14,10 +14,13 @@ class PdsisController < ApplicationController
   def edit
   end
 
-  def update
-    debug pdsi_params
-    debug params
+  def health_indicators
+    @subsection = params[:subsection].gsub(/-/, '_')
 
+    render :edit
+  end
+
+  def update
     if @pdsi.update(pdsi_params)
       redirect_after_save
     else
@@ -42,7 +45,8 @@ private
   def set_base_polo
     # helper allowed_sections
     if view_context.allowed_sections.include? params[:section]
-      @base_polo = BasePolo.find(params[:base_polo]) || @dsei.base_polos.order(:id).first
+      id = params[:base_polo] || @dsei.base_polos.order(:id).first.id
+      @base_polo = BasePolo.find id
     end
   end
 
@@ -82,6 +86,8 @@ private
         capai_villages_attributes: [:id, :capai_id, :village_id, :_destroy],
       ],
       destinations_attributes: [:id, :pdsi_id, :origin_village_id, :destination_village_id, :destination_type_id, :boat_time, :road_time, :fly_time, :_destroy],
+      absolute_data_base_polos_attributes: [:id, :absolute_datum_id, :base_polo_id, :pdsi_id, :value],
+      absolute_data_dseis_attributes: [:id, :absolute_datum_id, :dsei_id, :pdsi_id, :value]
     )
   end
 end

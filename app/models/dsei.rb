@@ -2,7 +2,10 @@ class Dsei < ActiveRecord::Base
   attr_accessor :villages
 
   has_many  :base_polos
+  has_many  :casais
   has_many  :users
+  has_many  :absolute_data_dseis
+  has_many  :specific_absolute_data
 
   validates :name, length: { maximum: 255 }, presence: true, uniqueness: true
   validates :sesai_id,  numericality: true, uniqueness: true

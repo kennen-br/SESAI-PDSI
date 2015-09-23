@@ -15115,3 +15115,62 @@ if DemographicData.count == 0
     { pdsi_id: 1, extensao_territorial: "123,45 KM2", municipio_sede: "São Jorge do Patrocínio", endereco: "Rua Hum, Quadra Dois. Número Três, Bloco Quatro, Apartamento Cinco.", email: "rodrigo@devlandia.net", numero_municipios: 1, populacao_indigena: 2, numero_polos_base: 3, numero_ubsi: 4, numero_regioes_de_saude: 5, numero_casais: 6, numero_aldeias: 7, numero_familias: 8 }
   ])
 end
+
+if AbsoluteDatumLevel.count == 0
+  AbsoluteDatumLevel.create!([
+    {name: "Polo Base"},
+    {name: "CASAI"},
+    {name: "DSEI"}
+  ])
+end
+
+if AbsoluteDatum.count == 0
+  AbsoluteDatum.create!([
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ÓBITOS MATERNOS EM 2014"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE NASCIDOS VIVOS EM 2014"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE MENORES DE 1 ANO COM ATENDIMENTO"},
+    {absolute_datum_level_id: 1, name: "POPULAÇÃO DE MENORES DE 1 ANO"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ALDEIAS QUE RECEBERAM AÇÕES DE EDUCAÇÃO EM SAÚDE"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ALDEIAS"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ÓBITOS DE MENORES DE 1 ANO INVESTIGADOS EM 2014"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ÓBITOS DE MENORES DE 1 ANO EM 2014"},
+    {absolute_datum_level_id: 1, name: "NÚMERO TOTAL DE ÓBITOS MATERNOS INVESTIGADOS EM 2014"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ENCAMINHAMENTOS PARA AS CASAI DE CASOS SENSÍVEIS À ATENÇÃO BÁSICA"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ENCAMINHAMENTOS PARA AS CASAI"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ALDEIAS COM ACESSO A ÁGUA TRATADA"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ALDEIAS COM SISTEMAS DE ABASTECIMENTO DE ÁGUA (SAA)"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ALDEIAS COM SAA COM MQAI IMPLANTADOS"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ALDEIAS COM SAA"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ALDEIAS COM SAA IMPLANTADOS"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ALDEIAS COM DESTINO ADEQUADO DE DEJETOS"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ALDEIAS COM DESTINO ADEQUADO DE RESÍDUOS SÓLIDOS"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE MÉDICOS EM EMSI, POLOS BASE E CASAIS"},
+    {absolute_datum_level_id: 1, name: "POPULAÇÃO TOTAL"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE EMSI COMPLETAS"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE EMSI"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE PROFISSIONAIS DO SASISUS EM EDUCAÇÃO PERMANENTE"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE PROFISSIONAIS DO SASISUS"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ALDEIAS DE 50 A 250 INDÍGENAS COBERTAS POR UBSI"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ALDEIAS DE 50 A 250 INDÍGENAS"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ALDEIAS DE 251 A 500 INDÍGENAS COBERTAS POR UBSI"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ALDEIAS DE 251 A 500 INDÍGENAS"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ALDEIAS COM MAIS DE 501 INDÍGENAS COBERTAS POR UBSI"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ALDEIAS COM MAIS DE 501 INDÍGENAS"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE CONSULTÓRIOS FIXOS E PORTÁTEIS EM FUNCIONAMENTO"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE CONSULTÓRIOS FIXOS E PORTÁTEIS"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ESTABELECIMENTOS QUE POSSUEM REDE LÓGICA E INTERNET EM FUNCIONAMENTO"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ESTABELECIMENTOS (SEDE, PÓLOS BASE, CASAI, UBSI)"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ESTABELECIMENTOS COM SIASI EM FUNCIONAMENTO"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ESTABELECIMENTOS COM HÓRUS EM OPERAÇÃO"},
+    {absolute_datum_level_id: 1, name: "NÚMERO DE ESTABELECIMENTOS DE SAÚDE NO CNES"},
+    {absolute_datum_level_id: 2, name: "NÚMERO DE DIAS DE PERMANÊNCIA DOS USUÁRIOS NAS CASAI EM 2014"},
+    {absolute_datum_level_id: 2, name: "NÚMERO DE USUÁRIOS DAS CASAI EM 2014"},
+    {absolute_datum_level_id: 3, name: "NÚMERO DE REUNIÕES ORDINÁRIAS DO CONDISI REALIZADAS EM 2015"},
+    {absolute_datum_level_id: 3, name: "NÚMERO DE REUNIÕES ORDINÁRIAS PROGRAMADAS EM 2015"},
+    {absolute_datum_level_id: 3, name: "NÚMERO DE REUNIÕES ORDINÁRIAS REALIZADAS NOS CONSELHOS LOCAIS EM 2015"},
+    {absolute_datum_level_id: 3, name: "NÚMERO DE CONSELHEIROS DISTRITAIS QUALIFICADOS EM 2014"},
+    {absolute_datum_level_id: 3, name: "NÚMERO DE CONSELHEIROS DISTRITAIS EM 2014"},
+    {absolute_datum_level_id: 3, name: "NÚMERO DE CONSELHEIROS LOCAIS QUALIFICADOS EM 2014"},
+    {absolute_datum_level_id: 3, name: "NÚMERO DE CONSELHEIROS LOCAIS EM 2014"}
+  ])
+end
