@@ -93,7 +93,7 @@ class Pdsi < ActiveRecord::Base
   end
 
   def absolute_data_dseis_with_values
-    items = absolute_data_dseis
+    items = absolute_data_dseis.order(:id)
     return items.includes(:absolute_datum) unless items.blank?
 
     level = AbsoluteDatumLevel.find 3
@@ -114,7 +114,7 @@ class Pdsi < ActiveRecord::Base
   #SpecificAbsoluteDatum.create absolute_datum_id: 47, dsei_id: 3
   #SpecificAbsoluteDatum.create absolute_datum_id: 49, dsei_id: 3
   def absolute_data_base_polos_with_values(base_polo)
-    items = absolute_data_base_polos.where(base_polo: base_polo)
+    items = absolute_data_base_polos.where(base_polo: base_polo).order(:id)
     return items.includes(:absolute_datum) unless items.blank?
 
     level = AbsoluteDatumLevel.find 1
@@ -132,7 +132,7 @@ class Pdsi < ActiveRecord::Base
   end
 
   def absolute_data_casais_with_values(casai)
-    items = absolute_data_casais.where(casai: casai)
+    items = absolute_data_casais.where(casai: casai).order(:id)
     return items.includes(:absolute_datum) unless items.blank?
 
     level = AbsoluteDatumLevel.find 2
