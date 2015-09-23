@@ -1,3 +1,8 @@
+- if @subsection == 'casai'
+  .flash-notice
+    | Caso esteja faltando algum CASAI, é necessário cadastrá-lo clicando&nbsp;
+    = link_to 'aqui', casais_path
+
 ul.accordion-tabs-minimal.active-links
   li.tab-header-and-content class=("default-active" if params[:subsection] == 'dsei')
     = link_to 'DSEI', health_indicators_path(@pdsi, subsection: 'dsei'), class: 'tab-link'
