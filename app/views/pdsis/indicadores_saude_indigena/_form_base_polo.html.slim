@@ -4,7 +4,7 @@
 
 .vertical-tabs-container
   .vertical-tabs style="width: 30%;"
-    - @dsei.bse_polos.order(:id).each do |base_polo|
+    - @dsei.base_polos.order(:id).each do |base_polo|
       - active = params[:base_polo].to_s == base_polo.id.to_s ? ' is-active' : ''
       = link_to  base_polo.name, health_indicators_path(@pdsi, subsection: 'base-polo', base_polo: base_polo), { class: "vertical-tab#{active}" }
   .vertical-tab-content-container style="width: 70%;"
