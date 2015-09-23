@@ -1,4 +1,6 @@
 class Village < ActiveRecord::Base
+  auditable
+
   belongs_to :base_polo
 
   has_and_belongs_to_many :ethnicities

@@ -1,6 +1,8 @@
 require "#{Rails.root}/lib/debug.rb"
 
 class User < ActiveRecord::Base
+  auditable except: [:last_sign_in_at, :current_sign_in_at, :sign_in_count]
+
   validates :username,  presence: true, uniqueness: true
   validates_with PasswordStrengthValidator
 

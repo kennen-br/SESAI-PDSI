@@ -56,6 +56,9 @@ gem 'seed_dump'
 
 gem 'whenever'
 
+# Audit activerecord
+gem 'espinita'
+
 # Host Configuration
 gem 'rack-canonical-host'
 

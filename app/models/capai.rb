@@ -1,4 +1,6 @@
 class Capai < ActiveRecord::Base
+  auditable
+
   belongs_to :pdsi
 
   has_many  :capai_villages

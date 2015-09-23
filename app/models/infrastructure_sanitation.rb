@@ -1,4 +1,6 @@
 class InfrastructureSanitation < ActiveRecord::Base
+  auditable
+
   belongs_to :pdsi
   belongs_to :village
 
