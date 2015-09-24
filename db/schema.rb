@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150924202314) do
+ActiveRecord::Schema.define(version: 20150924203735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -438,6 +438,21 @@ ActiveRecord::Schema.define(version: 20150924202314) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "results", force: :cascade do |t|
+    t.integer  "result_level_id"
+    t.integer  "result_category_id"
+    t.integer  "reference_value"
+    t.integer  "parent_id"
+    t.boolean  "is_specific"
+    t.boolean  "is_percentage"
+    t.text     "result_text"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "results", ["result_category_id"], name: "index_results_on_result_category_id", using: :btree
+  add_index "results", ["result_level_id"], name: "index_results_on_result_level_id", using: :btree
+
   create_table "service_networks", force: :cascade do |t|
     t.integer  "base_polo_id"
     t.integer  "pdsi_id"
@@ -458,6 +473,16 @@ ActiveRecord::Schema.define(version: 20150924202314) do
 
   add_index "specific_absolute_data", ["absolute_datum_id"], name: "index_specific_absolute_data_on_absolute_datum_id", using: :btree
   add_index "specific_absolute_data", ["dsei_id"], name: "index_specific_absolute_data_on_dsei_id", using: :btree
+
+  create_table "specific_results", force: :cascade do |t|
+    t.integer  "result_id"
+    t.integer  "dsei_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "specific_results", ["dsei_id"], name: "index_specific_results_on_dsei_id", using: :btree
+  add_index "specific_results", ["result_id"], name: "index_specific_results_on_result_id", using: :btree
 
   create_table "text_templates", force: :cascade do |t|
     t.text     "introducao_1"
@@ -556,10 +581,14 @@ ActiveRecord::Schema.define(version: 20150924202314) do
   add_foreign_key "physiographic_datas", "pdsis"
   add_foreign_key "physiographic_datas", "villages"
   add_foreign_key "profiles", "users"
+  add_foreign_key "results", "result_categories"
+  add_foreign_key "results", "result_levels"
   add_foreign_key "service_networks", "base_polos"
   add_foreign_key "service_networks", "pdsis"
   add_foreign_key "specific_absolute_data", "absolute_data"
   add_foreign_key "specific_absolute_data", "dseis"
+  add_foreign_key "specific_results", "dseis"
+  add_foreign_key "specific_results", "results"
   add_foreign_key "transportations", "demographic_datas"
   add_foreign_key "users", "dseis"
   add_foreign_key "villages", "base_polos"
