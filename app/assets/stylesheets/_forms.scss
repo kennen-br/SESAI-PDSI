@@ -1,4 +1,30 @@
 form {
+  fieldset {
+    .two-columns {
+      @include span-columns(12);
+    }
+
+    .one-column {
+      @include span-columns(2);
+      @include pad;
+
+      font-size: modular-scale(-1);
+
+      label {
+        font-weight: 400;
+      }
+
+      &.header {
+        text-align: center;
+      }
+      &.gray {
+        background: #e0e0e0;
+      }
+      &:nth-child(6n+2) {
+        @include omega;
+      }
+    }
+  }
   .field {
     input {
       border-radius : 1px;

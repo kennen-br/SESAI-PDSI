@@ -103,6 +103,7 @@ private
         capai_villages_attributes: [:id, :capai_id, :village_id, :_destroy],
       ],
       destinations_attributes: [:id, :pdsi_id, :origin_village_id, :destination_village_id, :destination_type_id, :boat_time, :road_time, :fly_time, :_destroy],
+      pdsi_human_resources_attributes: [:id, :human_resource_function_id, :ubsi_atual, :polo_base_tipo_1_atual, :polo_base_tipo_2, :casai_atual, :sead_atual, :selog_atual, :sesane_atual, :seofi_atual, :sgep_atual, :gabinete_atual, :diasi_atual, :sesai_dsei, :municipio, :estado, :convenio, :mais_medicos, :terceirizacao, :ubsi_necessaria, :polo_base_tipo_1_necessaria, :polo_base_tipo_2_necessaria, :casai_necessaria, :sead_necessaria, :selog_necessaria, :sesane_necessaria, :seofi_necessaria, :sgep_necessaria, :gabinete_necessaria, :diasi_necessaria],
       absolute_data_base_polos_attributes: [:id, :absolute_datum_id, :base_polo_id, :pdsi_id, :value],
       absolute_data_dseis_attributes: [:id, :absolute_datum_id, :dsei_id, :pdsi_id, :value],
       absolute_data_casais_attributes: [:id, :absolute_datum_id, :dsei_id, :pdsi_id, :value]
