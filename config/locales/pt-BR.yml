@@ -185,6 +185,7 @@ pt-BR:
       pdsi_human_resource:
         pdsi:                         PDSI
         human_resource_function:      Função
+        human_resource_function_id:   Função
         ubsi_atual:                   UBSI
         polo_base_tipo_1_atual:       Polo base tipo 1
         polo_base_tipo_2:             Polo base tipo 2
