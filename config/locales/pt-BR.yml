@@ -45,7 +45,7 @@ pt-BR:
       casai:
         name: Nome
         dsei: DSEI
-      
+
       text_template:
         introducao_1:               '1. Introdução'
         processo_construcao_pdsi_2: '2. O processo de construção do PDSI 2016-2019'
@@ -178,6 +178,41 @@ pt-BR:
         absolute_datum_level:     Nível
         absolute_datum_level_id:  Nível
         name:                     Dado absoluto
+
+      human_resource_function:
+        name: Nome
+
+      pdsi_human_resource:
+        pdsi:                         PDSI
+        human_resource_function:      Função
+        ubsi_atual:                   UBSI
+        polo_base_tipo_1_atual:       Polo base tipo 1
+        polo_base_tipo_2:             Polo base tipo 2
+        casai_atual:                  CASAI
+        sead_atual:                   SEAD
+        selog_atual:                  SELOG
+        sesane_atual:                 SESANE
+        seofi_atual:                  SEOFI
+        sgep_atual:                   SGEP
+        gabinete_atual:               Gabinete
+        diasi_atual:                  DIASI
+        sesai_dsei:                   SESAI / DSEI
+        municipio:                    Município
+        estado:                       Estado
+        convenio:                     Convênio
+        mais_medicos:                 Mais Médicos
+        terceirizacao:                Terceirização
+        ubsi_necessaria:              UBSI
+        polo_base_tipo_1_necessaria:  Polo base tipo 1
+        polo_base_tipo_2_necessaria:  Polo base tipo 2
+        casai_necessaria:             CASAI
+        sead_necessaria:              SEAD
+        selog_necessaria:             SELOG
+        sesane_necessaria:            SESANE
+        seofi_necessaria:             SEOFI
+        sgep_necessaria:              SGEP
+        gabinete_necessaria:          Gabinete
+        diasi_necessaria:             DIASI
 
       cost:
         name: 'Custeio'

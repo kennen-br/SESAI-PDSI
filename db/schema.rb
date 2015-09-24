@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150924175554) do
+ActiveRecord::Schema.define(version: 20150924181355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -331,6 +331,44 @@ ActiveRecord::Schema.define(version: 20150924175554) do
   add_index "pdsi_base_polo_data", ["base_polo_id"], name: "index_pdsi_base_polo_data_on_base_polo_id", using: :btree
   add_index "pdsi_base_polo_data", ["pdsi_id"], name: "index_pdsi_base_polo_data_on_pdsi_id", using: :btree
 
+  create_table "pdsi_human_resources", force: :cascade do |t|
+    t.integer  "pdsi_id"
+    t.integer  "human_resource_function_id"
+    t.integer  "ubsi_atual"
+    t.integer  "polo_base_tipo_1_atual"
+    t.integer  "polo_base_tipo_2"
+    t.integer  "casai_atual"
+    t.integer  "sead_atual"
+    t.integer  "selog_atual"
+    t.integer  "sesane_atual"
+    t.integer  "seofi_atual"
+    t.integer  "sgep_atual"
+    t.integer  "gabinete_atual"
+    t.integer  "diasi_atual"
+    t.integer  "sesai_dsei"
+    t.integer  "municipio"
+    t.integer  "estado"
+    t.integer  "convenio"
+    t.integer  "mais_medicos"
+    t.integer  "terceirizacao"
+    t.integer  "ubsi_necessaria"
+    t.integer  "polo_base_tipo_1_necessaria"
+    t.integer  "polo_base_tipo_2_necessaria"
+    t.integer  "casai_necessaria"
+    t.integer  "sead_necessaria"
+    t.integer  "selog_necessaria"
+    t.integer  "sesane_necessaria"
+    t.integer  "seofi_necessaria"
+    t.integer  "sgep_necessaria"
+    t.integer  "gabinete_necessaria"
+    t.integer  "diasi_necessaria"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "pdsi_human_resources", ["human_resource_function_id"], name: "index_pdsi_human_resources_on_human_resource_function_id", using: :btree
+  add_index "pdsi_human_resources", ["pdsi_id"], name: "index_pdsi_human_resources_on_pdsi_id", using: :btree
+
   create_table "pdsis", force: :cascade do |t|
     t.integer  "user_id"
     t.text     "processo_construcao_pdsi_2"
@@ -498,6 +536,8 @@ ActiveRecord::Schema.define(version: 20150924175554) do
   add_foreign_key "infrastructure_sanitations", "villages"
   add_foreign_key "pdsi_base_polo_data", "base_polos"
   add_foreign_key "pdsi_base_polo_data", "pdsis"
+  add_foreign_key "pdsi_human_resources", "human_resource_functions"
+  add_foreign_key "pdsi_human_resources", "pdsis"
   add_foreign_key "pdsis", "users"
   add_foreign_key "physiographic_data_languages", "physiographic_datas"
   add_foreign_key "physiographic_datas", "pdsis"

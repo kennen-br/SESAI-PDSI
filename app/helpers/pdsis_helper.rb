@@ -24,6 +24,7 @@ module PdsisHelper
       mapa: 'Mapa',
       dados_fisiograficos: 'Dados fisiográficos',
       destinos: 'Meios de Transporte',
+      recursos_humanos: 'Dimensionamento da força de trabalho',
       capacidade_instalada: 'Capacidade Instalada',
       rede_servicos: 'Rede de serviços',
       infraestrutura_edificacoes: 'Infraestrutura de saúde edificações',
