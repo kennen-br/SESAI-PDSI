@@ -5,9 +5,5 @@ class CreateAbsoluteDatumLevels < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-
-    AbsoluteDatumLevel.create name: 'Polo Base'
-    AbsoluteDatumLevel.create name: 'CASAI'
-    AbsoluteDatumLevel.create name: 'DSEI'
   end
 end

@@ -15207,3 +15207,12 @@ if HumanResourceFunction.count == 0
     { name: "OUTROS" }
   ])
 end
+
+if DestinationType.count == 0
+  DestinationType.create!([
+    { name: 'UBSI' },
+    { name: 'Polo Base' },
+    { name: 'CASAI' },
+    { name: 'Média e Alta Complexidade' }
+  ])
+end
