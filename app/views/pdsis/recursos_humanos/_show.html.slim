@@ -1,0 +1,60 @@
+- @pdsi.pdsi_human_resources.all.each do |hr|
+  fieldset.human-resources.show
+    legend = hr.human_resource_function.name
+
+    fieldset
+      legend LOCAL DE TRABALHO
+      table
+        thead
+          tr
+            th UBSI
+            th Polo Base Tipo 1
+            th Polo Base Tipo 2
+            th CASAI
+        tbody
+          tr
+            td #{hr.ubsi_atual} / #{hr.ubsi_necessaria}
+            td #{hr.polo_base_tipo_1_atual} / #{hr.polo_base_tipo_1_necessaria}
+            td #{hr.polo_base_tipo_2} / #{hr.polo_base_tipo_2_necessaria}
+            td #{hr.casai_atual} / #{hr.casai_necessaria}
+
+      strong.text-centered style="display: block; margin-top: 10px;" Sede do DSEI
+      table
+        thead
+          tr
+            th SEAD
+            th SELOG
+            th SESANE
+            th SEOFI
+            th SGEP
+            th Gabinete
+            th DIASI
+        tbody
+          tr
+            td #{hr.sead_atual} / #{hr.sead_necessaria}
+            td #{hr.selog_atual} / #{hr.selog_necessaria}
+            td #{hr.sesane_atual} / #{hr.sesane_necessaria}
+            td #{hr.seofi_atual} / #{hr.sead_necessaria}
+            td #{hr.sgep_atual} / #{hr.sgep_necessaria}
+            td #{hr.gabinete_atual} / #{hr.gabinete_necessaria}
+            td #{hr.diasi_atual} / #{hr.diasi_necessaria}
+    fieldset
+      legend TIPO DE VEÍCULO
+      table
+        thead
+          tr
+            th SESAI/DSEI
+            th Munícípio
+            th Estado
+            th Convênio
+            th Mais Médicos
+            th Terceirização
+        tbody
+          tr
+            td #{hr.sesai_dsei}
+            td #{hr.municipio}
+            td #{hr.estado}
+            td #{hr.convenio}
+            td #{hr.mais_medicos}
+            td #{hr.terceirizacao}
+

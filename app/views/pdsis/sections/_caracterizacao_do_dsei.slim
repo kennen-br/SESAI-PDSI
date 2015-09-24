@@ -61,6 +61,14 @@ ul.accordion-tabs-minimal
             == render 'pdsis/destinos/show'
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
+            | B) Dimensionamento da força de trabalho
+          .accordion-content
+            = link_to edit_pdsi_path(@pdsi, section: 'recursos-humanos'), class: 'button pull-right edit-link' do
+              i.fa.fa-pencil
+              | Alterar
+            == render 'pdsis/recursos_humanos/show'
+        li
+          a.js-accordion-trigger[href="javascript:void(0)"]
             | C) Capacidade Instalada
           .accordion-content
             = link_to edit_pdsi_path(@pdsi, section: 'capacidade-instalada'), class: 'button pull-right edit-link' do

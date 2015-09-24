@@ -1,0 +1,8 @@
+#pdsi_human_resources
+  = f.fields_for :pdsi_human_resources do |ib|
+    == render 'pdsis/recursos_humanos/pdsi_human_resource_fields', f: ib
+
+  .links
+    = link_to_add_association f, :pdsi_human_resources, { class: 'button btn-sm', partial: 'pdsis/recursos_humanos/pdsi_human_resource_fields' } do
+      = icon 'plus'
+      | Adicionar Recurso Humano

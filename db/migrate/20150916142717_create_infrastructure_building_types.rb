@@ -5,11 +5,5 @@ class CreateInfrastructureBuildingTypes < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-
-    InfrastructureBuildingType.create name: 'Sede do DSEI'
-    InfrastructureBuildingType.create name: 'CASAI'
-    InfrastructureBuildingType.create name: 'Sede de Polo Base Tipo 1 (Assistencial e Administrativo)'
-    InfrastructureBuildingType.create name: 'Sede de Polo Base Tipo 2 (Administrativo)'
-    InfrastructureBuildingType.create name: 'UBSI'
   end
 end

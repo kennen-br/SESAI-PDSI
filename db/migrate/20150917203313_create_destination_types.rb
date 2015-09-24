@@ -5,10 +5,5 @@ class CreateDestinationTypes < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-
-    DestinationType.create name: 'UBSI'
-    DestinationType.create name: 'Polo Base'
-    DestinationType.create name: 'CASAI'
-    DestinationType.create name: 'Média e Alta Complexidade'
   end
 end

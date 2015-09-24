@@ -12,7 +12,7 @@ ul.accordion-tabs-minimal
       |&nbsp;
   li.tab-header-and-content
     a.tab-link[href="#"]
-      | 4.1 Indicadores da saúde indígena no DSEI
+      | 4.1 Indicadores
     .tab-content
 
       ul.accordion
@@ -44,3 +44,16 @@ ul.accordion-tabs-minimal
             == render 'pdsis/indicadores_saude_indigena/show_casai'
 
       |&nbsp;
+
+  li.tab-header-and-content
+    a.tab-link[href="#"]
+      | 4.2 Principais desafios
+    .tab-content
+      == @pdsi.principais_desafios_4_2 || 'Não informado'
+
+      .right-align
+        = link_to edit_pdsi_path(@pdsi, section: 'principais-desafios'), class: 'button' do
+          i.fa.fa-pencil
+          | Alterar
+      |&nbsp;
+
