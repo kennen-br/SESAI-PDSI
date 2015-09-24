@@ -15174,3 +15174,36 @@ if AbsoluteDatum.count == 0
     {absolute_datum_level_id: 3, name: "NÚMERO DE CONSELHEIROS LOCAIS EM 2014"}
   ])
 end
+
+if HumanResourceFunction.count == 0
+  HumanResourceFunction.create!([
+    { name: "Médico" },
+    { name: "Enfermeiro" },
+    { name: "Cirurgião dentista" },
+    { name: "Assitente social" },
+    { name: "Nutricionista" },
+    { name: "Epidemiologista/ Especialista em Saúde Pública" },
+    { name: "Farmacêutico/ bioquimico" },
+    { name: "Biólogo" },
+    { name: "Quimico" },
+    { name: "Antropólogo" },
+    { name: "Educador em Saúde" },
+    { name: "Psicologo" },
+    { name: "Fisioterapeuta/Terapeita Ocupacial" },
+    { name: "Arquiteto e Urbanista" },
+    { name: "Engenheiro Civil" },
+    { name: "Engenheiro Sanitarista" },
+    { name: "Geólogo" },
+    { name: "Tecnico de enfermagem" },
+    { name: "Auxiliar de Saúde Bucal" },
+    { name: "Técnico de Laboratório/ Microscopista" },
+    { name: "Agente de Combate a Endemias" },
+    { name: "Tecnico Saneamento/ tec. Edificações/ Tec Química/ Tec. Eletrotécnico" },
+    { name: "AIS" },
+    { name: "AISAN" },
+    { name: "Serviços Gerais" },
+    { name: "Auxiliar Administrativo" },
+    { name: "Técnico em Contabilidade" },
+    { name: "OUTROS" }
+  ])
+end
