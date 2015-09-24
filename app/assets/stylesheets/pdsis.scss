@@ -1,3 +1,20 @@
 // Place all the styles related to the pdsis controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.human-resources {
+  &.show {
+    font-size: 0.8em;
+
+  }
+
+  .sede-dsei {
+    $blue: #33F;
+    label {
+      color: $blue;
+    }
+    input {
+      border-color: $blue;
+    }
+  }
+}

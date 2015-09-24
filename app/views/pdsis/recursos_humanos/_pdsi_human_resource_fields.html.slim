@@ -1,11 +1,12 @@
-fieldset
+fieldset.human-resources
   .two-columns
     .field
       = f.label :human_resource_function_id
-      = f.collection_select :human_resource_function_id, HumanResourceFunction.all, :id, :name, include_blank: true
+      = f.collection_select :human_resource_function_id, HumanResourceFunction.order(:name).all, :id, :name, include_blank: true
 
   .two-columns
     hr
+    h2.text-centered LOCAL DE TRABALHO
 
   .one-column.header
     strong Atual
@@ -27,10 +28,10 @@ fieldset
     .field
       = f.label :casai_atual
       = f.number_field :casai_atual
-    .field
+    .field.sede-dsei
       = f.label :sesane_atual
       = f.number_field :sesane_atual
-    .field
+    .field.sede-dsei
       = f.label :gabinete_atual
       = f.number_field :gabinete_atual
   .one-column.gray
@@ -40,61 +41,63 @@ fieldset
     .field
       = f.label :casai_necessaria
       = f.number_field :casai_necessaria
-    .field
+    .field.sede-dsei
       = f.label :sesane_necessaria
       = f.number_field :sesane_necessaria
-    .field
+    .field.sede-dsei
       = f.label :gabinete_necessaria
       = f.number_field :gabinete_necessaria
   .one-column
     .field
       = f.label :polo_base_tipo_1_atual
       = f.number_field :polo_base_tipo_1_atual
-    .field
+    .field.sede-dsei
       = f.label :sead_atual
       = f.number_field :sead_atual
-    .field
+    .field.sede-dsei
       = f.label :seofi_atual
       = f.number_field :seofi_atual
-    .field
+    .field.sede-dsei
       = f.label :diasi_atual
       = f.number_field :diasi_atual
   .one-column.gray
     .field
       = f.label :polo_base_tipo_1_necessaria
       = f.number_field :polo_base_tipo_1_necessaria
-    .field
+    .field.sede-dsei
       = f.label :sead_necessaria
       = f.number_field :sead_necessaria
-    .field
+    .field.sede-dsei
       = f.label :seofi_necessaria
       = f.number_field :seofi_necessaria
-    .field
+    .field.sede-dsei
       = f.label :diasi_necessaria
       = f.number_field :diasi_necessaria
   .one-column
     .field
       = f.label :polo_base_tipo_2
       = f.number_field :polo_base_tipo_2
-    .field
+    .field.sede-dsei
       = f.label :selog_atual
       = f.number_field :selog_atual
-    .field
+    .field.sede-dsei
       = f.label :sgep_atual
       = f.number_field :sgep_atual
   .one-column.gray
     .field
       = f.label :polo_base_tipo_2_necessaria
       = f.number_field :polo_base_tipo_2_necessaria
-    .field
+    .field.sede-dsei
       = f.label :selog_necessaria
       = f.number_field :selog_necessaria
-    .field
+    .field.sede-dsei
       = f.label :sgep_necessaria
       = f.number_field :sgep_necessaria
 
   .two-columns
+    strong style="margin-top: 5px; font-size: 0.75em;" * Campos em azul são para a Sede do DSEI
     hr
+    h2.text-centered TIPO DE VEÍCULO
 
   .one-column
     .field
