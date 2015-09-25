@@ -1,0 +1,14 @@
+ul.accordion-tabs-minimal
+  li.tab-header-and-content
+    a.tab-link[href=""]
+      | Explicação metodológica
+
+    .tab-content
+      | Conteúdo da tab
+
+      .right-align
+        = link_to edit_pdsi_path(@pdsi, section: 'resultados-esperados'), class: 'button' do
+          i.fa.fa-pencil
+          | Alterar
+      |&nbsp;
+

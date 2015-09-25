@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150925133703) do
+ActiveRecord::Schema.define(version: 20150925184330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -369,6 +369,17 @@ ActiveRecord::Schema.define(version: 20150925133703) do
   add_index "pdsi_human_resources", ["human_resource_function_id"], name: "index_pdsi_human_resources_on_human_resource_function_id", using: :btree
   add_index "pdsi_human_resources", ["pdsi_id"], name: "index_pdsi_human_resources_on_pdsi_id", using: :btree
 
+  create_table "pdsi_results", force: :cascade do |t|
+    t.integer  "pdsi_id"
+    t.integer  "result_id"
+    t.integer  "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "pdsi_results", ["pdsi_id"], name: "index_pdsi_results_on_pdsi_id", using: :btree
+  add_index "pdsi_results", ["result_id"], name: "index_pdsi_results_on_result_id", using: :btree
+
   create_table "pdsis", force: :cascade do |t|
     t.integer  "user_id"
     t.text     "processo_construcao_pdsi_2"
@@ -578,6 +589,8 @@ ActiveRecord::Schema.define(version: 20150925133703) do
   add_foreign_key "pdsi_base_polo_data", "pdsis"
   add_foreign_key "pdsi_human_resources", "human_resource_functions"
   add_foreign_key "pdsi_human_resources", "pdsis"
+  add_foreign_key "pdsi_results", "pdsis"
+  add_foreign_key "pdsi_results", "results"
   add_foreign_key "pdsis", "users"
   add_foreign_key "physiographic_data_languages", "physiographic_datas"
   add_foreign_key "physiographic_datas", "pdsis"

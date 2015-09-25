@@ -7,6 +7,7 @@ class Result < ActiveRecord::Base
 
   has_many  :children,  class_name: 'Result', foreign_key: :parent_id
   has_many  :specific_results
+  has_many  :pdsi_results
 
   validates :result_level,    presence: true
   validates :result_category, presence: true
