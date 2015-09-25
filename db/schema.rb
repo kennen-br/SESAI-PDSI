@@ -442,6 +442,7 @@ ActiveRecord::Schema.define(version: 20150925133703) do
   create_table "results", force: :cascade do |t|
     t.integer  "result_level_id"
     t.integer  "result_category_id"
+    t.string   "name"
     t.integer  "reference_value"
     t.integer  "parent_id"
     t.boolean  "is_specific"

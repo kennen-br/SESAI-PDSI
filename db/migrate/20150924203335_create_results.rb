@@ -3,6 +3,7 @@ class CreateResults < ActiveRecord::Migration
     create_table :results do |t|
       t.references :result_level, index: true, foreign_key: true
       t.references :result_category, index: true, foreign_key: true
+      t.string :name
       t.integer :reference_value
       t.integer :parent_id
       t.boolean :is_specific
