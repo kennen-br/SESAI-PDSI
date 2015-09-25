@@ -11,5 +11,7 @@ class CreateResults < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    add_foreign_key :results,  :results,  column: :parent_id
   end
 end

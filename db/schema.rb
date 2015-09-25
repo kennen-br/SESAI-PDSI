@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150924203735) do
+ActiveRecord::Schema.define(version: 20150925133703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -430,6 +430,7 @@ ActiveRecord::Schema.define(version: 20150924203735) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "parent_id"
   end
 
   create_table "result_levels", force: :cascade do |t|
@@ -581,8 +582,10 @@ ActiveRecord::Schema.define(version: 20150924203735) do
   add_foreign_key "physiographic_datas", "pdsis"
   add_foreign_key "physiographic_datas", "villages"
   add_foreign_key "profiles", "users"
+  add_foreign_key "result_categories", "result_categories", column: "parent_id"
   add_foreign_key "results", "result_categories"
   add_foreign_key "results", "result_levels"
+  add_foreign_key "results", "results", column: "parent_id"
   add_foreign_key "service_networks", "base_polos"
   add_foreign_key "service_networks", "pdsis"
   add_foreign_key "specific_absolute_data", "absolute_data"
