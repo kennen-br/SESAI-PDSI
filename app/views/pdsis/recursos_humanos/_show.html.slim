@@ -1,4 +1,4 @@
-- @pdsi.pdsi_human_resources.all.each do |hr|
+- @pdsi.pdsi_human_resources.includes(:human_resource_function).all.each do |hr|
   fieldset.human-resources.show
     legend = hr.human_resource_function.name
 
