@@ -1,7 +1,8 @@
 class PdsisController < ApplicationController
   before_action :set_pdsi#, only: [:index, :show, :edit, :update]
   before_action :set_section, only: [:index, :edit, :update, :health_indicators]
-  before_action :set_base_polo, only: [:edit, :health_indicators]
+  before_action :set_base_polo, only: [:edit, :health_indicators, :update]
+  before_action :set_subsection,  only: [:edit, :health_indicators, :update]
 
   # GET /pdsis
   def index
@@ -15,8 +16,6 @@ class PdsisController < ApplicationController
   end
 
   def health_indicators
-    @subsection = params[:subsection].gsub(/-/, '_')
-
     if @subsection == 'casai'
       casai_id = params[:casai] || @dsei.casais.order(:id).first.id
       @casai = Casai.find casai_id
@@ -45,6 +44,10 @@ private
     section = params[:section] || 'introducao'
     @section_url  = section.gsub(/_/, '-')
     @section      = section.gsub(/-/, '_')
+  end
+
+  def set_subsection
+    @subsection = params[:subsection].gsub(/-/, '_') if params.key?(:subsection)
   end
 
   def set_base_polo

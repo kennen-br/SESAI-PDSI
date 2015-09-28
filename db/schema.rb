@@ -437,11 +437,11 @@ ActiveRecord::Schema.define(version: 20150925184330) do
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
-  create_table "result_categories", force: :cascade do |t|
+  create_table "result_axes", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "parent_id"
+    t.string   "section_name"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "result_levels", force: :cascade do |t|
@@ -450,9 +450,18 @@ ActiveRecord::Schema.define(version: 20150925184330) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "result_strategies", force: :cascade do |t|
+    t.integer  "result_axis_id"
+    t.string   "name"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "result_strategies", ["result_axis_id"], name: "index_result_strategies_on_result_axis_id", using: :btree
+
   create_table "results", force: :cascade do |t|
     t.integer  "result_level_id"
-    t.integer  "result_category_id"
+    t.integer  "result_strategy_id"
     t.string   "name"
     t.integer  "reference_value"
     t.integer  "parent_id"
@@ -463,8 +472,8 @@ ActiveRecord::Schema.define(version: 20150925184330) do
     t.datetime "updated_at",         null: false
   end
 
-  add_index "results", ["result_category_id"], name: "index_results_on_result_category_id", using: :btree
   add_index "results", ["result_level_id"], name: "index_results_on_result_level_id", using: :btree
+  add_index "results", ["result_strategy_id"], name: "index_results_on_result_strategy_id", using: :btree
 
   create_table "service_networks", force: :cascade do |t|
     t.integer  "base_polo_id"
@@ -596,9 +605,9 @@ ActiveRecord::Schema.define(version: 20150925184330) do
   add_foreign_key "physiographic_datas", "pdsis"
   add_foreign_key "physiographic_datas", "villages"
   add_foreign_key "profiles", "users"
-  add_foreign_key "result_categories", "result_categories", column: "parent_id"
-  add_foreign_key "results", "result_categories"
+  add_foreign_key "result_strategies", "result_axes"
   add_foreign_key "results", "result_levels"
+  add_foreign_key "results", "result_strategies"
   add_foreign_key "results", "results", column: "parent_id"
   add_foreign_key "service_networks", "base_polos"
   add_foreign_key "service_networks", "pdsis"

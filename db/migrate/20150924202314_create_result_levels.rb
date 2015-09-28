@@ -5,8 +5,5 @@ class CreateResultLevels < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-
-    ResultLevel.create name: 'Nacional'
-    ResultLevel.create name: 'Dsei'
   end
 end

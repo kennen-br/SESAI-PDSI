@@ -7,7 +7,7 @@ ul.accordion-tabs-minimal
       | Conteúdo da tab
 
       .right-align
-        = link_to edit_pdsi_path(@pdsi, section: 'resultados-esperados'), class: 'button' do
+        = link_to edit_pdsi_path(@pdsi, section: 'resultados-esperados', subsection: ResultCategory.base_categories.first.section_name), class: 'button' do
           i.fa.fa-pencil
           | Alterar
       |&nbsp;

@@ -2,7 +2,7 @@ class CreateResults < ActiveRecord::Migration
   def change
     create_table :results do |t|
       t.references :result_level, index: true, foreign_key: true
-      t.references :result_category, index: true, foreign_key: true
+      t.references :result_strategy, index: true, foreign_key: true
       t.string :name
       t.integer :reference_value
       t.integer :parent_id

@@ -1,0 +1,6 @@
+ul.accordion-tabs-minimal.active-links
+  - ResultAxis.order(:id).each do |axis|
+    li.tab-header-and-content class=("default-active" if params[:subsection] == axis.section_name)
+      = link_to axis.name, edit_pdsi_path(@pdsi, section: 'resultados-esperados', subsection: axis.section_name), class: 'tab-link'
+
+= render "pdsis/resultados_esperados/form_#{@subsection}", f: f

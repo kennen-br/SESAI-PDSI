@@ -156,6 +156,20 @@ class Pdsi < ActiveRecord::Base
     absolute_data_casais_with_values(casai)
   end
 
+  def pdsi_results_to_section_with_values(section_name)
+    items = pdsi_results.joins(result: [result_strategy: [:result_axis]]).where('result_axes.section_name = ?', section_name)
+    return items.order(['result_axes.id', 'result_strategies.id', 'results.id']) unless items.blank?
+
+    ResultAxis.find_by_section_name(section_name).result_strategies.each do |strategy|
+      strategy.results.each do |result|
+        pdsi_results << PdsiResult.new(pdsi: self, result: result)
+      end
+    end
+
+    save
+    pdsi_results_to_section_with_values section_name
+  end
+
 private
   def compose_item(sample_attr, key, value)
     default = sample(sample_attr)

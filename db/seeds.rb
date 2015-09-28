@@ -15216,3 +15216,100 @@ if DestinationType.count == 0
     { name: 'Média e Alta Complexidade' }
   ])
 end
+
+if ResultLevel.count == 0
+  ResultLevel.create!([
+    { name: 'Nacional' },
+    { name: 'DSEI' },
+  ])
+end
+
+if ResultAxis.count == 0
+  ResultAxis.create!([
+    { name: 'ATENÇÃO À SAÚDE' },
+    { name: 'SANEAMENTO AMBIENTAL' },
+    { name: 'LOGÍSTICA E INFRAESTRUTURA' },
+    { name: 'MODELO DE GESTÃO' },
+    { name: 'PLANEJAMENTO E GESTÃO DA INFORMAÇÃO' },
+    { name: 'QUALIFICAÇÃO DO GASTO PÚBLICO' },
+    { name: 'COMUNICAÇÃO' },
+    { name: 'ARTICULAÇÃO INTERFEDERATIVA' },
+    { name: 'CONTROLE SOCIAL' },
+  ])
+end
+
+if ResultStrategy.count == 0
+  ResultStrategy.create!([
+    { name: 'Qualificação das Ações e Equipes de Saúde indígena that atuam nsa DSEI / Sesai', result_axis_id: 1 },
+    { name: 'Qualificação de Serviços de Saneamento Ambiental ofertados', result_axis_id: 2 },
+    { name: 'Provimento de Infraestrutura, Equipamentos, insumos e logística adequados à Execuções das Ações de Saúde indígena Pelos DSEIs', result_axis_id: 3 },
+    { name: 'Aprimoramento do modelo de Gestão do Subsistema de Atenção à Saúde Indígena do SUS', result_axis_id: 4 },
+    { name: 'Estruturação e fortalecimento da cultura de Planejamento e Gestão da Informação', result_axis_id: 5 },
+    { name: 'Ampliação da Qualificação do gasto Público com ganhos de Eficiência fazer Uso de Recursos e efetividade das Ações em Saúde', result_axis_id: 6 },
+    { name: 'Reestruturação do modelo de Comunicação e AMPLIAÇÃO da SUA CAPACIDADE Produtiva, respeitando especificidades como dos Povos Indígenas', result_axis_id: 7 },
+    { name: 'Ampliação das Articulações interfederativa e intersetoriais com vistas à integralidade das Ações de Atenção à Saúde Indígena', result_axis_id: 8 },
+    { name: 'Ampliação da efetividade do Controle Social em acompanhar e fiscalizar a PNASPI', result_axis_id: 9 },
+  ])
+end
+
+if Result.count == 0
+  Result.create!([
+    { result_strategy_id: 1, name: '1 Ações de atenção à saúde da mulher e da criança indígenas qualificadas nos 34 DSEI (2019)', reference_value: 1, is_specific: false, is_percentage: false, result_text: 'Ações de atenção à saúde da mulher e da criança indígenas qualificadas nos 34 DSEI (2019)', result_level_id: 1 },
+    { result_strategy_id: 1, name: '1.1 75% das gestantes e crianças menores de 5 anos com acompanhamento alimentar e nutricional realizado', reference_value: 75 , is_specific: false, is_percentage: false, result_text: ' [VALUE]% % das gestantes e crianças menores de 5 anos com acompanhamento alimentar e nutricional realizado', result_level_id: 1 },
+    { result_strategy_id: 1, name: '1.2 14.250 gestantes e 65.250 crianças menores de 5 anos com acompanhamento alimentar e nutricional realizado. ', reference_value: 1, is_specific: false, is_percentage: false, result_text: '14.250 gestantes e 65.250 crianças menores de 5 anos com acompanhamento alimentar e nutricional realizado. ', result_level_id: 1 },
+    { result_strategy_id: 1, name: '1.3 Estratégia de AIDIPI neonatal implementada em 03 DSEI. ', reference_value: 3, is_specific: false, is_percentage: false, result_text: 'Estratégia de AIDIPI neonatal implementada em  [VALUE]% DSEI. ', result_level_id: 1 },
+    { result_strategy_id: 1, name: '1.4 Plano de contingência de DDA e IRA implementado EM 9 DSEI com maior incidência de mortalidade infantil.  ', reference_value: 9, is_specific: false, is_percentage: false, result_text: 'Plano de contingência de DDA e IRA implementado EM  [VALUE]% DSEI com maior incidência de mortalidade infantil.  ', result_level_id: 1 },
+    { result_strategy_id: 1, name: '1.5 34 DSEIs inseridos nos componentes da rede cegonha.  ', reference_value: 34 , is_specific: false, is_percentage: false, result_text: ' [VALUE]% DSEIs inseridos nos componentes da rede cegonha. ', result_level_id: 1 },
+    { result_strategy_id: 1, name: '1.6 Acesso ao pré-natal, parto e puerpério qualificado e ampliado de 4.300 gestantes para 5.160 gestantes. ', reference_value: 5160 , is_specific: false, is_percentage: false, result_text: 'Acesso ao pré-natal, parto e puerpério qualificado e ampliado de 4.300 gestantes para  [VALUE]% gestantes. ', result_level_id: 1 },
+    { result_strategy_id: 1, name: '1.7 240 Profissionais de saúde capacitados em saúde  da mulher indígena. ', reference_value: 240, is_specific: false, is_percentage: false, result_text: ' [VALUE]% Profissionais de saúde capacitados em saúde  da mulher indígena. ', result_level_id: 1 },
+    { result_strategy_id: 1, name: '1.8 90% dos óbitos materno, infantil e fetal, mulheres em idade fértil investigados. ', reference_value: 90 , is_specific: false, is_percentage: false, result_text: ' [VALUE]% %dos óbitos materno, infantil e fetal, mulheres em idade fértil investigados. ', result_level_id: 1 },
+    { result_strategy_id: 1, name: '2 Ampliar de 76% para 85% as crianças menores de 5 anos com esquema vacinal completo, de acordo com o calendário indígena de vacinação.', reference_value: 85 , is_specific: false, is_percentage: false, result_text: 'Ampliar de 76% para  [VALUE]% % as crianças menores de 5 anos com esquema vacinal completo, de acordo com o calendário indígena de vacinação.', result_level_id: 1 },
+    { result_strategy_id: 1, name: '3 (2019) Trabalhadores da saúde indígena dos 34 DSEIs qualificados para atuação em contexto intercultural de acordo com o perfil epidemiológico do território', reference_value: 1, is_specific: false, is_percentage: false, result_text: '(2019) Trabalhadores da saúde indígena dos 34 DSEIs qualificados para atuação em contexto intercultural de acordo com o perfil epidemiológico do território', result_level_id: 1 },
+    { result_strategy_id: 1, name: '4 Normas, protocolos, manuais e diretrizes da saúde indígena publicados. ', reference_value: 1, is_specific: false, is_percentage: false, result_text: 'Normas, protocolos, manuais e diretrizes da saúde indígena publicados.', result_level_id: 1 },
+    { result_strategy_id: 1, name: '5 Ações de atenção psicossocial nos DSEI com maior incidência de suicídio e agravos de saúde mental implementadas e qualificadas.', reference_value: 1, is_specific: false, is_percentage: false, result_text: 'Ações de atenção psicossocial nos DSEI com maior incidência de suicídio e agravos de saúde mental implementadas e qualificadas.', result_level_id: 1 },
+    { result_strategy_id: 1, name: '6 Acesso ampliado e ações de saúde bucal qualificadas', reference_value: 1, is_specific: false, is_percentage: false, result_text: 'Acesso ampliado e ações de saúde bucal qualificadas', result_level_id: 1 },
+    { result_strategy_id: 1, name: '7 Morbidade por malária, tuberculose e doença em eliminação reduzidas', reference_value: 1, is_specific: false, is_percentage: false, result_text: 'Morbidade por malária, tuberculose e doença em eliminação reduzidas', result_level_id: 1 },
+    { result_strategy_id: 1, name: '7.1 Incidência parasitária anual de malária reduzida para menos do que 10 por mil habitantes ', reference_value: 10 , is_specific: false, is_percentage: false, result_text: 'Incidência parasitária anual de malária reduzida para menos do que  [VALUE]% por mil habitantes', result_level_id: 1 },
+    { result_strategy_id: 1, name: '7.2 Taxa de incidência de tuberculose reduzida para menos do que 50 por 100 mil habitantres', reference_value: 50 , is_specific: false, is_percentage: false, result_text: 'Taxa de incidência de tuberculose reduzida para menos do que  [VALUE]% por 100 mil habitantres', result_level_id: 1 },
+    { result_strategy_id: 1, name: '8 Projetos para a atuação no contexto intercultural implementados. Protagonismo indígena na promoção, prevenção e cuidado em saúde e práticas tradicionais valorizadas.', reference_value: 1, is_specific: false, is_percentage: false, result_text: 'Projetos para a atuação no contexto intercultural implementados. Protagonismo indígena na promoção, prevenção e cuidado em saúde e práticas tradicionais valorizadas.', result_level_id: 1 },
+    { result_strategy_id: 2, name: '1 250 sistemas de abastecimento de água reformados/ampliados.', reference_value: 1, is_specific: false, is_percentage: false, result_text: 'excluir do Plano. Está contemplado no Resultado Esperado', result_level_id: 1 },
+    { result_strategy_id: 2, name: '2 281 sistemas de abastecimento de água implantados. ', reference_value: 90 , is_specific: false, is_percentage: false, result_text: ' [VALUE]% % das aldeias com população superior a 50 habitantes contam com Sistemas de Abastacemiento de Água em funcionamento (linha de base de 2015: 58%)', result_level_id: 1 },
+    { result_strategy_id: 2, name: '2.1 X% (40%?) ou mais das aldeias com população inferior a 50 habitantes contam com Sistemas de Abastacemiento de Água em funcionamento (linha de base de 2015:X%) ', reference_value: 40 , is_specific: false, is_percentage: false, result_text: ' [VALUE]% % ou mais das aldeias com população inferior a 50 habitantes contam com Sistemas de Abastacemiento de Água em funcionamento (linha de base de 2015:X%)', result_level_id: 1 },
+    { result_strategy_id: 2, name: '3 Implantar em 148 aldeias a destinação final dos dejetos adequada. (banheiro com tratamento de esgoto…) ', reference_value: 70 , is_specific: false, is_percentage: false, result_text: '" [VALUE]% % ou mais das aldeias contam com destinação adequada de dejetos (linha de base 2015: x%)', result_level_id: 1 },
+    { result_strategy_id: 2, name: '4 Reformar/ampliar 26 Casas de Saúde Indígena (CASAI). ', reference_value: 26 , is_specific: false, is_percentage: false, result_text: 'Reformar/ampliar  [VALUE]% Casas de Saúde Indígena (CASAI).', result_level_id: 1 },
+    { result_strategy_id: 2, name: '5 Planos de monitoramento de qualidade de água implementados nos 34 DSEIs. ', reference_value: 1, is_specific: false, is_percentage: false, result_text: 'Qualidade da água monitorada em pelo menos 80% das aldeias com SAA implementado', result_level_id: 1 },
+    { result_strategy_id: 2, name: '6 Plano de Gerenciamento de resíduos sólidos elaborado e implementado nos 34 DSEIs.', reference_value: 70 , is_specific: false, is_percentage: false, result_text: ' [VALUE]% % ou mais de aldeias contam com destino adequado de resíduos sólidos', result_level_id: 1 },
+    { result_strategy_id: 3, name: '1 34 DSEIs contam com Rede de lógica e internet funcionando adequadamente. ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 3, name: '2 Equipes dos DSEI providas com os insumos necessários para executar suas ações. ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 3, name: '3 Equipes do DSEI/SESAI equipadas para execução das ações. ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 3, name: '4 Os 34 DSEIs contam com logística adequada para execução das ações. ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 3, name: '5 Infraestrutura física dos estabelecimentos de saúde da Rede SASISUS pactuados e reestruturados.', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 4, name: '1 Competências da SESAI revisadas e implementadas. ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 5, name: '1 DSEIs com informações precisas, confiáveis e tempestivas sobre saúde indígena e sobre gestão administrativa de cada DSEI e órgão central disponibilizadas. ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 5, name: '1.1 100% dos DSEI com SIASI implementado.  ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 5, name: '1.2 33% do GEOSI desenvolvido com painel de controle funcionando.  ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 5, name: '1.3 70 Polos Base e 68 CASAI com HÓRUS implantado. ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 5, name: '1.4 Sistema de gestão de contratos (SIASI Contratos) desenvolvido e em utilização pelo nível central.  ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 5, name: '1.5 Salas de videoconferência implatada na SESAI-DF,  nos DSEI Manaus e Pernambuco.  ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 5, name: '2 Ações estratégicas do plano estratégicos do PDSI da SESAI central e dos DSEI monitorados.', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 5, name: '2.1 Mapa de indicadores estratégicos implementado. ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 5, name: '2.2 Modelo de distribuição de recursos orçamentários implantados nos 34 DSEIs. ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 5, name: '2.3 PDSI 2016 / 2019 elaborados nos 34 DSEI. ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 5, name: '2.4 Identificados os DSEIs com situação mais crítica para priorização das ações de atenção, saneamento e edificações.  ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 6, name: '1 Qualificação do gasto público com ganho de eficiência do uso de recurso e efetividade das ações em saúde.', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 6, name: '2 SESAI conseguir obter melhor relação no custo x efetividade das ações de saúde.', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 7, name: '1 Imagem institucional da SESAI fortalecida. ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 8, name: '1 Articulação intersetorial efetiva para melhoria dos determinantes sociais da saúde indígena. ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 8, name: '2 Os 34 DSEIs inseridos no processo de regulação municipal, regional e estadual. ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 8, name: '3 Participação da SESAI no projeto de apoio do Ministério da Saúde.', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 8, name: '4 Observatório de saúde indígena implementado em parceria com NESP/UNB ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 8, name: '5 Ampliar de 35 CASAIs para 66 CASAIs inseridas no fluxo de regulação de estados e municípios alcançando 100% das CASAIs.', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 9, name: '1 6ª CNSI realizada. ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 9, name: '2 Instâncias de controle social fortalecidas.', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 9, name: '3 Ouvidorias implantadas em todos os DSEI. ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+    { result_strategy_id: 9, name: '4 PNASPI revisada e publicada. ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 },
+
+    { result_strategy_id: 1, name: '1.2.1 14.250 gestantes e 65.250 crianças menores de 5 anos com acompanhamento alimentar e nutricional realizado. ', reference_value: 14250, is_specific: false, is_percentage: false, result_text: ' [VALUE]% gestantes e 65.250 crianças menores de 5 anos com acompanhamento alimentar e nutricional realizado. ', parent_id: 3, result_level_id: 1 },
+    { result_strategy_id: 1, name: '1.2.2 14.250 gestantes e 65.250 crianças menores de 5 anos com acompanhamento alimentar e nutricional realizado. ', reference_value: 65250, is_specific: false, is_percentage: false, result_text: '14.250 gestantes e  [VALUE]% crianças menores de 5 anos com acompanhamento alimentar e nutricional realizado. ', parent_id: 3, result_level_id: 1 },
+  ])
+end
