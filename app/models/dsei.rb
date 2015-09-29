@@ -9,6 +9,7 @@ class Dsei < ActiveRecord::Base
   has_many  :absolute_data_dseis
   has_many  :specific_absolute_data
   has_many  :specific_results
+  has_one   :pdsi
 
   validates :name, length: { maximum: 255 }, presence: true, uniqueness: true
   validates :sesai_id,  numericality: true, uniqueness: true
@@ -42,5 +43,13 @@ class Dsei < ActiveRecord::Base
     end
 
     @villages
+  end
+
+  def pdsi
+    return @pdsi unless @pdsi.nil?
+
+    @pdsi = Pdsi.where(dsei: self).first_or_create
+
+    @pdsi
   end
 end

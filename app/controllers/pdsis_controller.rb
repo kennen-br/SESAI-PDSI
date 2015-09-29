@@ -1,8 +1,8 @@
 class PdsisController < ApplicationController
-  before_action :set_pdsi#, only: [:index, :show, :edit, :update]
-  before_action :set_section, only: [:index, :edit, :update, :health_indicators]
-  before_action :set_base_polo, only: [:edit, :health_indicators, :update]
-  before_action :set_subsection,  only: [:edit, :health_indicators, :update]
+  before_action :set_section,     only: [:index, :edit, :edit_category_budgets, :update, :health_indicators]
+  before_action :set_pdsi
+  before_action :set_base_polo,   only: [:edit, :health_indicators, :update]
+  before_action :set_subsection,  only: [:edit, :edit_category_budgets, :health_indicators, :update]
 
   # GET /pdsis
   def index
@@ -13,6 +13,10 @@ class PdsisController < ApplicationController
   end
 
   def edit
+  end
+
+  def edit_category_budgets
+    render :edit
   end
 
   def health_indicators
@@ -35,7 +39,11 @@ class PdsisController < ApplicationController
 private
   # Use callbacks to share common setup or constraints between actions.
   def set_pdsi
-    @pdsi             = current_user.pdsi
+    if @section == 'dotacao_orcamentaria'
+      @pdsi = Pdsi.find params[:id]
+    else
+      @pdsi = current_user.pdsi
+    end
     @demographic_data = @pdsi.demographic_data
     @dsei             = current_user.dsei
   end
@@ -111,7 +119,15 @@ private
       absolute_data_base_polos_attributes: [:id, :absolute_datum_id, :base_polo_id, :pdsi_id, :value],
       absolute_data_dseis_attributes: [:id, :absolute_datum_id, :dsei_id, :pdsi_id, :value],
       absolute_data_casais_attributes: [:id, :absolute_datum_id, :dsei_id, :pdsi_id, :value],
-      pdsi_results_attributes: [:id, :value]
+      pdsi_results_attributes: [:id, :value],
+      category_budgets_attributes: [:id, :projection_budget_category_id, :value_2016, :value_2017, :value_2018, :value_2019],
+      projection_budgets_attributes: [
+        :id, :quantidade_atual,
+        projection_budget_years_attributes: [
+          :id, :year, :quantidade_estimada, :valor_unitario,
+          projection_budget_structures_attributes: [:id, :name, :_destroy]
+        ],
+      ],
     )
   end
 end

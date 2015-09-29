@@ -19,6 +19,7 @@ pt-BR:
       destination:                  Destino
       absolute_datum_level:         Nível do dado absoluto
       absolute_datum:               Dado absoluto
+      category_budgets:             Dotação orçamentária
     attributes:
       user:
         username:               Usuário
@@ -214,6 +215,25 @@ pt-BR:
         sgep_necessaria:              SGEP
         gabinete_necessaria:          Gabinete
         diasi_necessaria:             DIASI
+
+      projection_budget_category:
+        name: Nome
+
+      projection_budget:
+        quantidade_atual:         Quantidade existente em 2015
+
+      projection_budget_year:
+        year:                 Ano
+        quantidade_estimada:  Quantidade estimada
+        valor_estimado:       Valor unitário médio
+
+      category_budget:
+        projection_budget_category: Categoria
+        pdsi:                       PDSI
+        value_2016:                 Valor para 2016
+        value_2017:                 Valor para 2017
+        value_2018:                 Valor para 2018
+        value_2019:                 Valor para 2019
 
       cost:
         name: 'Custeio'

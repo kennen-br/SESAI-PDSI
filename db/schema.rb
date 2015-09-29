@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001141633) do
-
+ActiveRecord::Schema.define(version: 20151001192043) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -111,6 +110,20 @@ ActiveRecord::Schema.define(version: 20151001141633) do
   end
 
   add_index "casais", ["dsei_id"], name: "index_casais_on_dsei_id", using: :btree
+
+  create_table "category_budgets", force: :cascade do |t|
+    t.integer  "projection_budget_category_id"
+    t.integer  "pdsi_id"
+    t.decimal  "value_2016"
+    t.decimal  "value_2017"
+    t.decimal  "value_2018"
+    t.decimal  "value_2019"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "category_budgets", ["pdsi_id"], name: "index_category_budgets_on_pdsi_id", using: :btree
+  add_index "category_budgets", ["projection_budget_category_id"], name: "index_category_budgets_on_projection_budget_category_id", using: :btree
 
   create_table "cost_users", force: :cascade do |t|
     t.integer  "cost_id"
@@ -392,8 +405,10 @@ ActiveRecord::Schema.define(version: 20151001141633) do
     t.datetime "map_updated_at"
     t.text     "analise_situacional_4"
     t.text     "principais_desafios_4_2"
+    t.integer  "dsei_id"
   end
 
+  add_index "pdsis", ["dsei_id"], name: "index_pdsis_on_dsei_id", using: :btree
   add_index "pdsis", ["user_id"], name: "index_pdsis_on_user_id", using: :btree
 
   create_table "physiographic_data_languages", force: :cascade do |t|
@@ -436,6 +451,79 @@ ActiveRecord::Schema.define(version: 20151001141633) do
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
+
+  create_table "projection_budget_categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "projection_budget_items", force: :cascade do |t|
+    t.integer  "projection_budget_category_id"
+    t.string   "name"
+    t.decimal  "unit_value"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "projection_budget_items", ["projection_budget_category_id"], name: "index_projection_budget_items_on_projection_budget_category_id", using: :btree
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0258f2f... Refactory na estrutura
+  create_table "projection_budget_structures", force: :cascade do |t|
+    t.integer  "projection_budget_year_id"
+    t.integer  "type"
+    t.string   "name"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "projection_budget_structures", ["projection_budget_year_id"], name: "index_projection_budget_structures_on_projection_budget_year_id", using: :btree
+
+  create_table "projection_budget_years", force: :cascade do |t|
+    t.integer  "projection_budget_id"
+    t.integer  "year"
+    t.integer  "quantidade_estimada"
+    t.decimal  "valor_unitario"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "projection_budget_years", ["projection_budget_id"], name: "index_projection_budget_years_on_projection_budget_id", using: :btree
+
+<<<<<<< HEAD
+=======
+>>>>>>> c5b8601... ProjectionBudget model
+=======
+>>>>>>> 0258f2f... Refactory na estrutura
+  create_table "projection_budgets", force: :cascade do |t|
+    t.integer  "projection_budget_item_id"
+    t.integer  "pdsi_id"
+    t.integer  "quantidade_atual"
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    t.integer  "quantidade_necessaria"
+    t.decimal  "valor_estimado"
+    t.integer  "quantidade_estimada_2015"
+    t.decimal  "valor_unitario_2016"
+    t.integer  "quantidade_estimada_2017"
+    t.decimal  "valor_unitario_2017"
+    t.integer  "quantidade_estimada_2018"
+    t.decimal  "valor_unitario_2018"
+    t.integer  "quantidade_estimada_2019"
+    t.decimal  "valor_unitario_2019"
+>>>>>>> c5b8601... ProjectionBudget model
+=======
+>>>>>>> 0258f2f... Refactory na estrutura
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "projection_budgets", ["pdsi_id"], name: "index_projection_budgets_on_pdsi_id", using: :btree
+  add_index "projection_budgets", ["projection_budget_item_id"], name: "index_projection_budgets_on_projection_budget_item_id", using: :btree
 
   create_table "result_axes", force: :cascade do |t|
     t.string   "name"
@@ -576,6 +664,8 @@ ActiveRecord::Schema.define(version: 20151001141633) do
   add_foreign_key "capai_villages", "villages"
   add_foreign_key "capais", "pdsis"
   add_foreign_key "casais", "dseis"
+  add_foreign_key "category_budgets", "pdsis"
+  add_foreign_key "category_budgets", "projection_budget_categories"
   add_foreign_key "cost_users", "costs"
   add_foreign_key "cost_users", "users"
   add_foreign_key "demographic_datas", "pdsis"
@@ -601,11 +691,25 @@ ActiveRecord::Schema.define(version: 20151001141633) do
   add_foreign_key "pdsi_human_resources", "pdsis"
   add_foreign_key "pdsi_results", "pdsis"
   add_foreign_key "pdsi_results", "results"
+  add_foreign_key "pdsis", "dseis"
   add_foreign_key "pdsis", "users"
   add_foreign_key "physiographic_data_languages", "physiographic_datas"
   add_foreign_key "physiographic_datas", "pdsis"
   add_foreign_key "physiographic_datas", "villages"
   add_foreign_key "profiles", "users"
+  add_foreign_key "projection_budget_items", "projection_budget_categories"
+<<<<<<< HEAD
+<<<<<<< HEAD
+  add_foreign_key "projection_budget_structures", "projection_budget_years"
+  add_foreign_key "projection_budget_years", "projection_budgets"
+=======
+>>>>>>> c5b8601... ProjectionBudget model
+=======
+  add_foreign_key "projection_budget_structures", "projection_budget_years"
+  add_foreign_key "projection_budget_years", "projection_budgets"
+>>>>>>> 0258f2f... Refactory na estrutura
+  add_foreign_key "projection_budgets", "pdsis"
+  add_foreign_key "projection_budgets", "projection_budget_items"
   add_foreign_key "result_strategies", "result_axes"
   add_foreign_key "results", "result_levels"
   add_foreign_key "results", "result_strategies"

@@ -1,0 +1,9 @@
+.field
+  label Quantidade necessária para atender adequadamente o DSEI (considerada a população indígena de 2015)
+  = f.number_field  :quantidade_estimada
+
+.field
+  label Valor unitário médio (em R$ / projeção 2016)
+  = f.number_field  :valor_unitario
+
+== render 'pdsis/projecao_orcamentaria/form_budget_structures', f: f
