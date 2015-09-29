@@ -92,4 +92,16 @@ form {
 
     border-top: 1px solid #ccc;
   }
+
+  .parent-block {
+    .child {
+      @include padding(10px 10px 10px 20px);
+      border: 1px solid #CCC;
+      border-bottom: 0;
+
+      &:last-child {
+        border-bottom: 1px solid #CCC;
+      }
+    }
+  }
 }

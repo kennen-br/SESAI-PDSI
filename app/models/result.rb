@@ -14,4 +14,8 @@ class Result < ActiveRecord::Base
   validates :name,            length: { maximum: 255 }, presence: true, uniqueness: true
 
   scope :base_results,  -> { where(parent_id: nil).order(:id) }
+
+  def has_children?
+    !children.empty?
+  end
 end

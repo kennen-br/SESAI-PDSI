@@ -1,0 +1,12 @@
+.child
+  - if result.has_children?
+    strong #{index} - #{result.result_text}
+    - result.children.each_with_index do |child, j|
+      = render "pdsis/resultados_esperados/children", { index: "#{index}.#{j+1}", result: child, f: f }
+  - else
+    = f.fields_for :pdsi_results, result.pdsi_results do |f_pdsi_result|
+      .field
+        p
+          strong #{index} - #{f_pdsi_result.object.result.result_text}
+          br
+          = f_pdsi_result.number_field :value
