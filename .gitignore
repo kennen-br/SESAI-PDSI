@@ -27,3 +27,4 @@ home.html.slim
 _line.html.slim
 
 .vagrant
+.env

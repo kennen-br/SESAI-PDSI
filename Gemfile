@@ -66,6 +66,12 @@ group :development do
   gem 'bullet'
   gem 'rails-erd'
   gem 'railroady'
+
+  gem 'mina',             require: false
+  gem 'mina-multistage',  require: false
+  gem 'mina-unicorn',     require: false
+  gem 'mina-hooks',       require: false
+  gem 'mina-nginx',       require: false
 end
 
 group :development, :test do
@@ -89,12 +95,6 @@ group :development, :test do
   gem 'capybara'
 
   gem 'racksh'
-
-  gem 'mina'
-  gem 'mina-multistage',  require: false
-  gem 'mina-unicorn',     require: false
-  gem 'mina-hooks',       require: false
-  gem 'mina-nginx',       require: false
 end
 
 group :production, :staging do
