@@ -1,12 +1,23 @@
 .child
   - if result.has_children?
-    strong #{index} - #{result.result_text}
+    strong #{result.name}
     - result.children.each_with_index do |child, j|
       = render "pdsis/resultados_esperados/children", { index: "#{index}.#{j+1}", result: child, f: f }
   - else
     = f.fields_for :pdsi_results, result.pdsi_results do |f_pdsi_result|
       .field
         p
-          strong #{index} - #{f_pdsi_result.object.result.result_text}
-          br
-          = f_pdsi_result.number_field :value
+          - if f_pdsi_result.object.result.is_boolean
+            strong #{f_pdsi_result.object.result.name}
+            br
+            .child.switch-text style="border: 0;"
+              label.label-switch
+                == f_pdsi_result.check_box(:value)
+                .checkbox
+              .text-switch = f_pdsi_result.object.result.result_text
+          - else
+            | #{index} -&nbsp;
+            == f_pdsi_result.object.result.result_text.gsub /\[VALUE\]/, f_pdsi_result.number_field(:value, class: 'number-field expected-result', data: { expected: f_pdsi_result.object.result.reference_value } )
+            strong.reference_value
+              | &nbsp;(Esperado: #{f_pdsi_result.object.result.reference_value})
+
