@@ -5,4 +5,5 @@
       = link_to axis.name, edit_pdsi_path(@pdsi, section: 'resultados-esperados', subsection: axis.section_name), class: "vertical-tab#{active}"
   .vertical-tab-content-container style='width: 71%;'
     .vertical-tab-content style="display: block;"
+      = render 'hidden_fields'
       = render "pdsis/resultados_esperados/form_#{@subsection}", f: f
