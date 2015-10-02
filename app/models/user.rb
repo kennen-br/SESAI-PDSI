@@ -46,7 +46,9 @@ class User < ActiveRecord::Base
   def pdsi
     return @pdsi unless @pdsi.nil?
 
-    @pdsi = Pdsi.first_or_create user: self
+    fail 'Usuário não está vinculado a um DSEI' if dsei.nil?
+
+    @pdsi = Pdsi.first_or_create user: self, dsei: dsei
   end
 
   def recover_values_to_cost(cost)

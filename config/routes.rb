@@ -1,11 +1,22 @@
 Rails.application.routes.draw do
 
+  get 'category_budgets/index'
+
+  get 'category_budget/index'
+
   resources :casais, path_names: { new: 'cadastrar', edit: 'alterar' }
   resources :absolute_data, path: 'dados-absolutos', path_names: { new: 'cadastrar', edit: 'alterar' }
 
   get '/pdsis/show', to: 'pdsis#show'
 
+  #resources :category_budgets, path: 'dotacao-orcamentaria', path_names: { new: 'cadastrar', edit: 'alterar' }
+  scope '/dotacao-orcamentaria' do
+    get '/',                  to: 'category_budgets#index',       as: :category_budgets
+    get '/alterar/:id',       to: 'pdsis#edit_category_budgets',  as: :edit_category_budget, defaults: { section: 'dotacao_orcamentaria' }
+  end
+
   scope '/meu-pdsi' do
+    get '/:id/alterar/projecao-orcamentaria/:subsection', defaults: { section: 'projecao-orcamentaria'}, to: 'pdsis#edit',  as: :edit_budget_projection
     get   '/(ver/:section)',                    to: 'pdsis#index',  as: :pdsis
     patch '/:id/alterar/:section',              to: 'pdsis#update', as: :pdsi
     get   '/:id/alterar/:section(/:base_polo)', to: 'pdsis#edit',   as: :edit_pdsi

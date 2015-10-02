@@ -15312,3 +15312,35 @@ if Result.count == 0
     { id: 56, result_strategy_id: 9, name: '4 PNASPI revisada e publicada. ', reference_value: nil, is_specific: false, is_percentage: false, result_text: '', result_level_id: 1 }
   ])
 end
+
+if ProjectionBudgetCategory.count == 0
+  ProjectionBudgetCategory.create!([
+    { name: 'Obras de Edificações' },
+    { name: 'Obras de Saneamento' },
+    { name: 'Equipamentos' },
+  ])
+end
+
+if ProjectionBudgetItem.count == 0
+  ProjectionBudgetItem.create!([
+    { projection_budget_category_id: 1, name: 'CASAI' },
+    { projection_budget_category_id: 1, name: 'UNIDADE BÁSICA DE SAÚDE INDÍGENA (UBSI) - Tipo I' },
+    { projection_budget_category_id: 1, name: 'UNIDADE BÁSICA DE SAÚDE INDÍGENA (UBSI) - Tipo II' },
+    { projection_budget_category_id: 1, name: 'UNIDADE BÁSICA DE SAÚDE INDÍGENA (UBSI) - Tipo III' },
+    { projection_budget_category_id: 1, name: 'SEDE DO NÚCLEO DISTRITAL DA SESAI' },
+    { projection_budget_category_id: 1, name: 'PÓLO-BASE' },
+    { projection_budget_category_id: 1, name: 'REFORMAS' },
+
+    { projection_budget_category_id: 2, name: 'SISTEMA DE ABASTECIMENTO DE ÁGUA (SAA)' },
+    { projection_budget_category_id: 2, name: 'MELHORIAS SANITÁRIAS DOMICILIARES (MSD)' },
+    { projection_budget_category_id: 2, name: 'ESGOTAMENTO SANITÁRIO' },
+
+    { projection_budget_category_id: 3, name: 'VEÍCULOS' },
+    { projection_budget_category_id: 3, name: 'BARCOS' },
+    { projection_budget_category_id: 3, name: 'MOTORES DE BARCO' },
+    { projection_budget_category_id: 3, name: 'GERADORES' },
+    { projection_budget_category_id: 3, name: 'EQUIPAMENTOS MÉDICO-HOSPITALARES (EMH)' },
+    { projection_budget_category_id: 3, name: 'EQUIPAMENTOS DE SANEAMENTO' },
+    { projection_budget_category_id: 3, name: 'MOBILIÁRIO' },
+  ])
+end

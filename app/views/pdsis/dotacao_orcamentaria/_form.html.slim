@@ -1,0 +1,22 @@
+h1 = @pdsi.dsei.name
+
+= f.fields_for :category_budgets, @pdsi.category_budgets_with_values do |item|
+
+  fieldset
+    legend = item.object.projection_budget_category.name
+
+    .field
+      = item.label         :value_2016
+      = item.number_field  :value_2016
+
+    .field
+      = item.label         :value_2017
+      = item.number_field  :value_2017
+
+    .field
+      = item.label         :value_2018
+      = item.number_field  :value_2018
+
+    .field
+      = item.label         :value_2019
+      = item.number_field  :value_2019

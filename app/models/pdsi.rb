@@ -2,6 +2,7 @@ class Pdsi < ActiveRecord::Base
   auditable
 
   belongs_to  :user
+  belongs_to  :dsei
 
   has_one :demographic_data
   accepts_nested_attributes_for :demographic_data
@@ -45,16 +46,16 @@ class Pdsi < ActiveRecord::Base
   has_many  :pdsi_results
   accepts_nested_attributes_for :pdsi_results, reject_if: :all_blank, allow_destroy: true
 
+  has_many  :projection_budgets
+  accepts_nested_attributes_for :projection_budgets, reject_if: :all_blank, allow_destroy: true
+
+  has_many  :category_budgets
+  accepts_nested_attributes_for :category_budgets, reject_if: :all_blank, allow_destroy: true
+
   has_attached_file :map, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :map, content_type: /\Aimage\/.*\Z/
 
   attr_accessor :text_template
-
-  def dsei
-    return @dsei unless @dsei.nil?
-
-    @dsei = user.dsei
-  end
 
   def text_template
     return @text_template unless @text_template.nil?
@@ -168,6 +169,34 @@ class Pdsi < ActiveRecord::Base
 
     save
     pdsi_results_to_section_with_values section_name
+  end
+
+  def category_budgets_with_values
+    items = category_budgets
+    return items.includes(:projection_budget_category) unless items.blank?
+
+    ProjectionBudgetCategory.order(:id).each do |category|
+      category_budgets << CategoryBudget.new(projection_budget_category: category, pdsi: self)
+    end
+
+    save
+    category_budgets_with_values
+  end
+
+  def budgets_with_values(category)
+    items = projection_budgets.joins(:projection_budget_item)
+                              .where('projection_budget_items.projection_budget_category_id = ?', category.id)
+    return items.includes(:projection_budget_item, :projection_budget_years)
+                .order([:id, 'projection_budget_years.year']) unless items.blank?
+
+    category.projection_budget_items.each do |pbi|
+      item  = ProjectionBudget.new projection_budget_item: pbi
+      (2015..2019).each { |year| item.projection_budget_years << ProjectionBudgetYear.new(year: year) }
+
+      projection_budgets << item
+    end
+
+    budgets_with_values category
   end
 
 private

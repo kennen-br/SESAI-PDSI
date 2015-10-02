@@ -1,0 +1,26 @@
+ul.accordion-tabs-minimal
+  li.tab-header-and-content
+    a.tab-link[href=""]
+      | Investimento
+
+    .tab-content
+      | Conteúdo da tab
+
+      .right-align
+        = link_to edit_budget_projection_path(@pdsi, subsection: 'investimento'), class: 'button' do
+          i.fa.fa-pencil
+          | Alterar
+      |&nbsp;
+  li.tab-header-and-content
+    a.tab-link[href=""]
+      | Investimento
+
+    .tab-content
+      | Conteúdo da tab
+
+      .right-align
+        = link_to edit_budget_projection_path(@pdsi, subsection: 'custeio'), class: 'button' do
+          i.fa.fa-pencil
+          | Alterar
+      |&nbsp;
+
