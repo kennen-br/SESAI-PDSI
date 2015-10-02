@@ -2,6 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.section-title {
+  font-weight: 400;
+}
+.section-description {
+  @include padding(null null null 20px);
+
+  font-size: modular-scale(-1);
+}
+
 .human-resources {
   &.show {
     font-size: 0.8em;
@@ -15,6 +24,22 @@
     }
     input {
       border-color: $blue;
+    }
+  }
+}
+
+.expected-results-show {
+  .expected-result-parent {
+    strong {
+      @include margin(null null 10px);
+
+      display         : block;
+      font-weight     : 400;
+      text-decoration : underline;
+    }
+
+    p.child {
+      @include padding(null null null 20px);
     }
   }
 }

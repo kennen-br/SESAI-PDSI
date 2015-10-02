@@ -18,4 +18,18 @@ class Result < ActiveRecord::Base
   def has_children?
     !children.empty?
   end
+
+  def text
+    result_text.blank? ? name : result_text
+  end
+
+  def text_no_index
+    name.gsub /^\d\.?\d?\s/, ''
+  end
+
+  def css
+    puts "="*300, id, "="*300
+    return '' if pdsi_results.first.value.nil?
+    pdsi_results.first.value >= reference_value ? 'green' : 'red'
+  end
 end
