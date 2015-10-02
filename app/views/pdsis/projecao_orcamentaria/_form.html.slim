@@ -1,40 +1,7 @@
-- @pdsi.category_budgets.includes(:projection_budget_category).each do |category_budget|
-  - category = category_budget.projection_budget_category
+.vertical-tabs-container
+  .vertical-tabs
+    == render "pdsis/projecao_orcamentaria/tab_#{current_user.user_type.menu_name}"
 
-  fieldset
-    legend
-      strong = category.name
-
-    fieldset
-      legend
-        Strong Dotação orçamentária
-
-      .dotacao_orcamentaria_investimento
-        .center.header
-          .cell 2016
-          .cell 2017
-          .cell 2018
-          .cell 2019
-        .right
-      .dotacao_orcamentaria_investimento
-        .center
-          .cell = number_to_currency category_budget.value_2016
-          .cell = number_to_currency category_budget.value_2017
-          .cell = number_to_currency category_budget.value_2018
-          .cell = number_to_currency category_budget.value_2019
-        .right
-
-    = f.fields_for :projection_budgets, @pdsi.budgets_with_values(category) do |item|
-      fieldset
-        legend
-          strong = item.object.projection_budget_item.name
-
-        .field
-          = item.label :quantidade_atual
-          = item.number_field :quantidade_atual
-
-        = item.fields_for :projection_budget_years do |year|
-          - if year.object.year == 2015
-            = render 'pdsis/projecao_orcamentaria/form_projection_budget_2015', f: year
-          - else
-            = render 'pdsis/projecao_orcamentaria/form_projection_budget', f: year, year: year.object.year
+  .vertical-tab-content-container
+    .vertical-tab-content style="display: block;"
+      = render "pdsis/projecao_orcamentaria/form_#{@subsection}", f: f

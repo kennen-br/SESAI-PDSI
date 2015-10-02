@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001192043) do
+ActiveRecord::Schema.define(version: 20151002201957) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -147,6 +147,7 @@ ActiveRecord::Schema.define(version: 20151001192043) do
     t.string   "data_type",                       null: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.integer  "parent_id"
   end
 
   create_table "demographic_datas", force: :cascade do |t|
@@ -344,6 +345,19 @@ ActiveRecord::Schema.define(version: 20151001192043) do
 
   add_index "pdsi_base_polo_data", ["base_polo_id"], name: "index_pdsi_base_polo_data_on_base_polo_id", using: :btree
   add_index "pdsi_base_polo_data", ["pdsi_id"], name: "index_pdsi_base_polo_data_on_pdsi_id", using: :btree
+
+  create_table "pdsi_costs", force: :cascade do |t|
+    t.integer  "pdsi_id"
+    t.integer  "cost_id"
+    t.decimal  "previsao_orcamentaria_2015"
+    t.decimal  "orcamento_necessario"
+    t.decimal  "dotacao_orcamentaria_inicial"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "pdsi_costs", ["cost_id"], name: "index_pdsi_costs_on_cost_id", using: :btree
+  add_index "pdsi_costs", ["pdsi_id"], name: "index_pdsi_costs_on_pdsi_id", using: :btree
 
   create_table "pdsi_human_resources", force: :cascade do |t|
     t.integer  "pdsi_id"
@@ -644,6 +658,7 @@ ActiveRecord::Schema.define(version: 20151001192043) do
   add_foreign_key "category_budgets", "projection_budget_categories"
   add_foreign_key "cost_users", "costs"
   add_foreign_key "cost_users", "users"
+  add_foreign_key "costs", "costs", column: "parent_id"
   add_foreign_key "demographic_datas", "pdsis"
   add_foreign_key "destinations", "destination_types"
   add_foreign_key "destinations", "pdsis"
@@ -663,6 +678,8 @@ ActiveRecord::Schema.define(version: 20151001192043) do
   add_foreign_key "infrastructure_sanitations", "villages"
   add_foreign_key "pdsi_base_polo_data", "base_polos"
   add_foreign_key "pdsi_base_polo_data", "pdsis"
+  add_foreign_key "pdsi_costs", "costs"
+  add_foreign_key "pdsi_costs", "pdsis"
   add_foreign_key "pdsi_human_resources", "human_resource_functions"
   add_foreign_key "pdsi_human_resources", "pdsis"
   add_foreign_key "pdsi_results", "pdsis"
