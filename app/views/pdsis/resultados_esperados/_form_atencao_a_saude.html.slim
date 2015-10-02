@@ -1,6 +1,9 @@
-= f.fields_for :pdsi_results, @pdsi.pdsi_results_to_section_with_values('atencao_a_saude') do |pdsi_result|
-  .field
-    p
-      strong = pdsi_result.object.result.name
-      br
-      = pdsi_result.number_field :value
+.parent-block
+  - @pdsi.pdsi_results_to_section_with_values('atencao_a_saude').includes(:result).where('results.parent_id IS NULL').each_with_index do |pdsi_result, index|
+    = render "pdsis/resultados_esperados/children", { index: index+1, result: pdsi_result.result, f: f }
+  / = f.fields_for :pdsi_results, @pdsi.pdsi_results_to_section_with_values('atencao_a_saude') do |pdsi_result|
+  /   .field
+  /     p
+  /       strong = pdsi_result.object.result.name
+  /       br
+  /       = pdsi_result.number_field :value

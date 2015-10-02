@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150925184330) do
+ActiveRecord::Schema.define(version: 20151001141633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -468,8 +468,9 @@ ActiveRecord::Schema.define(version: 20150925184330) do
     t.boolean  "is_specific"
     t.boolean  "is_percentage"
     t.text     "result_text"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.boolean  "is_boolean",         default: false
   end
 
   add_index "results", ["result_level_id"], name: "index_results_on_result_level_id", using: :btree

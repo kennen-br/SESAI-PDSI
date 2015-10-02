@@ -1,0 +1,25 @@
+.child
+  - if result.has_children?
+    strong #{result.name}
+    - result.children.each_with_index do |child, j|
+      = render "pdsis/resultados_esperados/children", { index: "#{index}.#{j+1}", result: child, f: f }
+  - else
+    = f.fields_for :pdsi_results, result.pdsi_results do |f_pdsi_result|
+      - object = f_pdsi_result.object.result
+      .field
+        p
+          - if object.is_boolean
+            strong #{object.name}
+            br
+            .child.switch-text style="border: 0;"
+              label.label-switch
+                == f_pdsi_result.check_box(:value)
+                .checkbox
+              .text-switch = object.text
+          - else
+            - unless object.result_text.blank?
+              | #{index} -&nbsp;
+            == object.text.gsub /\[VALUE\]/, f_pdsi_result.number_field(:value, class: "number-field expected-result #{object.css}", data: { expected: object.reference_value } )
+            strong.reference_value
+              | &nbsp;(Esperado: #{object.reference_value})
+
