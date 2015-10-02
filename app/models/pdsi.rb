@@ -42,6 +42,9 @@ class Pdsi < ActiveRecord::Base
   has_many  :pdsi_human_resources
   accepts_nested_attributes_for :pdsi_human_resources, reject_if: :all_blank, allow_destroy: true
 
+  has_many  :pdsi_results
+  accepts_nested_attributes_for :pdsi_results, reject_if: :all_blank, allow_destroy: true
+
   has_attached_file :map, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :map, content_type: /\Aimage\/.*\Z/
 
@@ -151,6 +154,20 @@ class Pdsi < ActiveRecord::Base
     save
 
     absolute_data_casais_with_values(casai)
+  end
+
+  def pdsi_results_to_section_with_values(section_name)
+    items = pdsi_results.joins(result: [result_strategy: [:result_axis]]).where('result_axes.section_name = ?', section_name)
+    return items.order(['result_axes.id', 'result_strategies.id', 'results.id']) unless items.blank?
+
+    ResultAxis.includes(:result_strategies).find_by_section_name(section_name).result_strategies.each do |strategy|
+      strategy.results.each do |result|
+        pdsi_results << PdsiResult.new(pdsi: self, result: result)
+      end
+    end
+
+    save
+    pdsi_results_to_section_with_values section_name
   end
 
 private

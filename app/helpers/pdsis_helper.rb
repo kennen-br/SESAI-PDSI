@@ -34,6 +34,8 @@ module PdsisHelper
       analise_situacional:        'Análise situacional',
       indicadores_saude_indigena: 'Indicadores estratégicos para a saúde indígena',
       principais_desafios:        'Principais desafios a serem enfrentados em 2016-2019',
+      # 5
+      resultados_esperados: 'Resultados esperados',
     }[section.to_sym]
   end
 end

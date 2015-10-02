@@ -1,0 +1,21 @@
+.pull-right
+  = link_to edit_pdsi_path(@pdsi, section: 'resultados-esperados', subsection: ResultAxis.first.section_name), class: 'button' do
+    i.fa.fa-pencil
+    | Coletar dados
+h2.section-title CATEGORIAS DE PLANEJAMENTO
+.section-description
+  p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio fuga laboriosam, doloribus quo magni corrupti dolorum, quas ipsam incidunt molestiae nisi debitis, ullam nulla! Quibusdam nobis dolore ipsum est, sed error expedita esse veritatis doloremque deleniti quisquam ut, aperiam distinctio reiciendis officiis sapiente voluptas accusamus. Veniam voluptates nemo, illum ea, neque dignissimos! Autem fuga quisquam unde corporis expedita perferendis sed ratione porro quae culpa consequuntur, accusantium perspiciatis maiores debitis fugit eos ad provident dolorem! Alias reprehenderit ipsum quasi sint non magni consequatur, voluptatum nisi fugiat, sed quis adipisci, voluptates nihil hic quos ducimus veritatis nostrum eaque odit assumenda incidunt laboriosam.
+  p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore non, officia ut error totam qui. Rerum libero repellat blanditiis repellendus iusto assumenda, ipsa corporis, laudantium voluptatem, odio impedit a. Id voluptate cum, magni odio numquam commodi accusamus eaque qui ipsum culpa atque quam sint odit pariatur earum quae vero perspiciatis eos vitae eum dicta. Asperiores consectetur, id. Labore, maiores, porro?
+
+  h2.section-title RESULTADOS ESPERADOS 2016-2019
+
+  ul.accordion
+    - ResultAxis.all.order(:id).each_with_index do |axis, index|
+      li
+        a.js-accordion-trigger[href="javascript:void(0)"]
+          | #{index+1}. #{axis.name}
+        .accordion-content style="padding: 10px 20px;"
+          = link_to edit_pdsi_path(@pdsi, section: 'resultados-esperados', subsection: axis.name.parameterize.gsub(/\-/, '_')), class: 'button pull-right edit-link' do
+            i.fa.fa-pencil
+            | Coletar Dados
+          == render 'pdsis/resultados_esperados/show_subsection', { axis: axis }

@@ -65,6 +65,12 @@ form {
     }
   }
 
+  .number-field {
+    display: inline;
+    width: 72px;
+    padding: 5px;
+  }
+
   input[type=submit] {
     @include padding(12px 40px);
 
@@ -91,5 +97,55 @@ form {
     @include padding(10px null null);
 
     border-top: 1px solid #ccc;
+  }
+
+  .parent-block {
+    .child {
+      @include padding(10px 10px 10px 20px);
+      border: 1px solid #CCC;
+      border-bottom: 0;
+
+      &:last-child {
+        border-bottom: 1px solid #CCC;
+      }
+    }
+  }
+
+  .switch-text {
+    @include clearfix;
+
+    .label-switch {
+      @include margin(0);
+      @include transform(scale(0.75));
+
+      float: left;
+      .checkbox {
+        display: inline-block;
+      }
+    }
+    .text-switch {
+      display : inline;
+      float   : left;
+      width   : 90%;
+    }
+  }
+
+  .reference_value {
+    font-size: modular-scale(-1);
+  }
+
+  .expected-result {
+
+    &.green {
+      border-color: #30BF16;
+      box-shadow: inset 0 0px 3px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(48, 191, 22, 0.7);
+      outline: none;
+    }
+
+    &.red {
+      border-color: #DC1A1A;
+      box-shadow: inset 0 0px 3px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(220, 26, 26, 0.7);
+      outline: none;
+    }
   }
 }

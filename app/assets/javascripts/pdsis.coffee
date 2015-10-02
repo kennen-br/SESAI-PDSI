@@ -8,6 +8,21 @@ manage_element = (element) ->
 
 $(document).ready ->
 
+  # Mark input for PDSI Results as red or green
+  $(document).on 'blur', '.expected-result', (e) ->
+    $this    = $(this)
+    expected = $this.data 'expected'
+    value    = $this.val()
+
+    $this.removeClass 'red green'
+
+    if value >= expected
+      $this.addClass 'green'
+    else
+      $this.addClass 'red'
+
+    return
+
   # Generate a Default name for all new created EMSI on Capacidade Instalada form
   $('.base-polo-emsi .add_fields').click (e) ->
     console.log 'new emsi'

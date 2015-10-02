@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150924190413) do
+ActiveRecord::Schema.define(version: 20151001141633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -369,6 +369,17 @@ ActiveRecord::Schema.define(version: 20150924190413) do
   add_index "pdsi_human_resources", ["human_resource_function_id"], name: "index_pdsi_human_resources_on_human_resource_function_id", using: :btree
   add_index "pdsi_human_resources", ["pdsi_id"], name: "index_pdsi_human_resources_on_pdsi_id", using: :btree
 
+  create_table "pdsi_results", force: :cascade do |t|
+    t.integer  "pdsi_id"
+    t.integer  "result_id"
+    t.integer  "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "pdsi_results", ["pdsi_id"], name: "index_pdsi_results_on_pdsi_id", using: :btree
+  add_index "pdsi_results", ["result_id"], name: "index_pdsi_results_on_result_id", using: :btree
+
   create_table "pdsis", force: :cascade do |t|
     t.integer  "user_id"
     t.text     "processo_construcao_pdsi_2"
@@ -426,6 +437,45 @@ ActiveRecord::Schema.define(version: 20150924190413) do
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
+  create_table "result_axes", force: :cascade do |t|
+    t.string   "name"
+    t.string   "section_name"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "result_levels", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "result_strategies", force: :cascade do |t|
+    t.integer  "result_axis_id"
+    t.string   "name"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "result_strategies", ["result_axis_id"], name: "index_result_strategies_on_result_axis_id", using: :btree
+
+  create_table "results", force: :cascade do |t|
+    t.integer  "result_level_id"
+    t.integer  "result_strategy_id"
+    t.string   "name"
+    t.integer  "reference_value"
+    t.integer  "parent_id"
+    t.boolean  "is_specific"
+    t.boolean  "is_percentage"
+    t.text     "result_text"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.boolean  "is_boolean",         default: false
+  end
+
+  add_index "results", ["result_level_id"], name: "index_results_on_result_level_id", using: :btree
+  add_index "results", ["result_strategy_id"], name: "index_results_on_result_strategy_id", using: :btree
+
   create_table "service_networks", force: :cascade do |t|
     t.integer  "base_polo_id"
     t.integer  "pdsi_id"
@@ -446,6 +496,16 @@ ActiveRecord::Schema.define(version: 20150924190413) do
 
   add_index "specific_absolute_data", ["absolute_datum_id"], name: "index_specific_absolute_data_on_absolute_datum_id", using: :btree
   add_index "specific_absolute_data", ["dsei_id"], name: "index_specific_absolute_data_on_dsei_id", using: :btree
+
+  create_table "specific_results", force: :cascade do |t|
+    t.integer  "result_id"
+    t.integer  "dsei_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "specific_results", ["dsei_id"], name: "index_specific_results_on_dsei_id", using: :btree
+  add_index "specific_results", ["result_id"], name: "index_specific_results_on_result_id", using: :btree
 
   create_table "text_templates", force: :cascade do |t|
     t.text     "introducao_1"
@@ -539,15 +599,23 @@ ActiveRecord::Schema.define(version: 20150924190413) do
   add_foreign_key "pdsi_base_polo_data", "pdsis"
   add_foreign_key "pdsi_human_resources", "human_resource_functions"
   add_foreign_key "pdsi_human_resources", "pdsis"
+  add_foreign_key "pdsi_results", "pdsis"
+  add_foreign_key "pdsi_results", "results"
   add_foreign_key "pdsis", "users"
   add_foreign_key "physiographic_data_languages", "physiographic_datas"
   add_foreign_key "physiographic_datas", "pdsis"
   add_foreign_key "physiographic_datas", "villages"
   add_foreign_key "profiles", "users"
+  add_foreign_key "result_strategies", "result_axes"
+  add_foreign_key "results", "result_levels"
+  add_foreign_key "results", "result_strategies"
+  add_foreign_key "results", "results", column: "parent_id"
   add_foreign_key "service_networks", "base_polos"
   add_foreign_key "service_networks", "pdsis"
   add_foreign_key "specific_absolute_data", "absolute_data"
   add_foreign_key "specific_absolute_data", "dseis"
+  add_foreign_key "specific_results", "dseis"
+  add_foreign_key "specific_results", "results"
   add_foreign_key "transportations", "demographic_datas"
   add_foreign_key "users", "dseis"
   add_foreign_key "villages", "base_polos"

@@ -20,4 +20,5 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'physiographic_data', 'physiographic_datas'
   inflect.irregular 'emsi',               'emsis'
   inflect.irregular 'capai',              'capais'
+  inflect.irregular 'axis',               'axes'
 end

@@ -1,0 +1,3 @@
+.parent-block
+  - @pdsi.pdsi_results_to_section_with_values('saneamento_ambiental').includes(:result).where('results.parent_id IS NULL').each_with_index do |pdsi_result, index|
+    = render "pdsis/resultados_esperados/children", { index: index+1, result: pdsi_result.result, f: f }
