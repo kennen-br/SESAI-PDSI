@@ -12,6 +12,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20151001192043) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -468,10 +469,6 @@ ActiveRecord::Schema.define(version: 20151001192043) do
 
   add_index "projection_budget_items", ["projection_budget_category_id"], name: "index_projection_budget_items_on_projection_budget_category_id", using: :btree
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 0258f2f... Refactory na estrutura
   create_table "projection_budget_structures", force: :cascade do |t|
     t.integer  "projection_budget_year_id"
     t.integer  "type"
@@ -493,31 +490,10 @@ ActiveRecord::Schema.define(version: 20151001192043) do
 
   add_index "projection_budget_years", ["projection_budget_id"], name: "index_projection_budget_years_on_projection_budget_id", using: :btree
 
-<<<<<<< HEAD
-=======
->>>>>>> c5b8601... ProjectionBudget model
-=======
->>>>>>> 0258f2f... Refactory na estrutura
   create_table "projection_budgets", force: :cascade do |t|
     t.integer  "projection_budget_item_id"
     t.integer  "pdsi_id"
     t.integer  "quantidade_atual"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    t.integer  "quantidade_necessaria"
-    t.decimal  "valor_estimado"
-    t.integer  "quantidade_estimada_2015"
-    t.decimal  "valor_unitario_2016"
-    t.integer  "quantidade_estimada_2017"
-    t.decimal  "valor_unitario_2017"
-    t.integer  "quantidade_estimada_2018"
-    t.decimal  "valor_unitario_2018"
-    t.integer  "quantidade_estimada_2019"
-    t.decimal  "valor_unitario_2019"
->>>>>>> c5b8601... ProjectionBudget model
-=======
->>>>>>> 0258f2f... Refactory na estrutura
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
@@ -698,16 +674,8 @@ ActiveRecord::Schema.define(version: 20151001192043) do
   add_foreign_key "physiographic_datas", "villages"
   add_foreign_key "profiles", "users"
   add_foreign_key "projection_budget_items", "projection_budget_categories"
-<<<<<<< HEAD
-<<<<<<< HEAD
   add_foreign_key "projection_budget_structures", "projection_budget_years"
   add_foreign_key "projection_budget_years", "projection_budgets"
-=======
->>>>>>> c5b8601... ProjectionBudget model
-=======
-  add_foreign_key "projection_budget_structures", "projection_budget_years"
-  add_foreign_key "projection_budget_years", "projection_budgets"
->>>>>>> 0258f2f... Refactory na estrutura
   add_foreign_key "projection_budgets", "pdsis"
   add_foreign_key "projection_budgets", "projection_budget_items"
   add_foreign_key "result_strategies", "result_axes"
