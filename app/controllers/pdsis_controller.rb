@@ -29,6 +29,10 @@ class PdsisController < ApplicationController
   end
 
   def update
+    debug params[:pdsi]
+
+    debug params
+
     if @pdsi.update(pdsi_params)
       redirect_after_save
     else
@@ -128,6 +132,9 @@ private
           projection_budget_structures_attributes: [:id, :name, :_destroy]
         ],
       ],
+      pdsi_costs_attributes: [
+        :id, :cost_id, :previsao_orcamentaria_2015, :orcamento_necessario, :dotacao_orcamentaria_inicial
+      ]
     )
   end
 end

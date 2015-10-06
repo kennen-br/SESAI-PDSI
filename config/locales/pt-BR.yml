@@ -236,7 +236,14 @@ pt-BR:
         value_2019:                 Valor para 2019
 
       cost:
-        name: 'Custeio'
+        name: Custeio
+
+      pdsi_cost:
+        pdsi:                         PDSI
+        cost:                         Custo
+        previsao_orcamentaria_2015:   PREVISÃO ORÇAMENTÁRIA DE REFRÊNCIA 2015 (em R$)
+        orcamento_necessario:         ESTIMATIVA DO ORÇAMENTO NECESSÁRIO PARA O ADEQUADO FUNCIONAMENTO DO DSEI, NO CENÁRIO DE PLENO ATENDIMENTO DOS INVESTIMENTOS SOLICITADOS
+        dotacao_orcamentaria_inicial: DOTAÇÃO ORÇAMENTÁRIA INICIAL (PLOA 2016) (em R$)
 
       cost_user:
         cost:         'Custeio'

@@ -1,5 +1,5 @@
 class ResultStrategy < ActiveRecord::Base
-  auditable
+  extend ActiveSupport::Concern
 
   belongs_to  :parent,  class_name: 'ResultStrategy'
   belongs_to  :result_axis

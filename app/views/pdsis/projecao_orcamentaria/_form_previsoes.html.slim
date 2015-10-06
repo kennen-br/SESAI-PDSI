@@ -1,0 +1,16 @@
+= f.fields_for :pdsi_costs, @pdsi.costs_with_values do |item|
+  fieldset
+    legend
+      strong = item.object.cost.name
+
+    .field
+      = item.label        :previsao_orcamentaria_2015
+      = item.number_field :previsao_orcamentaria_2015
+
+    .field
+      = item.label        :orcamento_necessario
+      p = item.object.orcamento_necessario || 'Não informado'
+
+    .field
+      = item.label        :dotacao_orcamentaria_inicial
+      = item.number_field :dotacao_orcamentaria_inicial

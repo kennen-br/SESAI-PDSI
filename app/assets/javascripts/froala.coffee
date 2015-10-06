@@ -13,5 +13,4 @@ $(document).ready ->
     imageUploadURL: '/image-upload'
     imageUploadParams: { authenticity_token: $('input[name=authenticity_token]').val() }
 
-
   return

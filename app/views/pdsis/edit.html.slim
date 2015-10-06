@@ -15,6 +15,7 @@ h1.page-title
 
   .actions
     = hidden_field_tag :section, @section
+    = hidden_field_tag :subsection, @subsection if @subsection
 
     a.button href="javascript:void(0)" onclick="$(this).closest('form').submit()"
       i.fa.fa-save

@@ -1,4 +1,5 @@
 class Result < ActiveRecord::Base
+  include Parentable
   auditable
 
   belongs_to  :result_level
@@ -13,7 +14,6 @@ class Result < ActiveRecord::Base
   validates :result_strategy, presence: true
   validates :name,            length: { maximum: 255 }, presence: true, uniqueness: true
 
-  scope :base_results,  -> { where(parent_id: nil).order(:id) }
 
   def has_children?
     !children.empty?
