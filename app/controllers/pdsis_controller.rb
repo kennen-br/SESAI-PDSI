@@ -95,7 +95,7 @@ private
   # Only allow a trusted parameter "white list" through.
   def pdsi_params
     params.require(:pdsi).permit(
-      :user_id, :processo_construcao_pdsi_2, :caracterizacao_do_dsei_3, :map, :analise_situacional_4, :principais_desafios_4_2,
+      :user_id, :processo_construcao_pdsi_2, :caracterizacao_do_dsei_3, :map, :analise_situacional_4, :principais_desafios_4_2, :resultados_esperados_introducao_5,
 
       pdsi_base_polo_data_attributes: [:id, :base_polo_id, :city_name],
       physiographic_datas_attributes: [
