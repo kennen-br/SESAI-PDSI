@@ -149,3 +149,6 @@ form {
     }
   }
 }
+.froala-wrapper + div {
+  display: none;
+}
