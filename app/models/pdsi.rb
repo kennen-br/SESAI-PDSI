@@ -94,6 +94,10 @@ class Pdsi < ActiveRecord::Base
     analise_situacional_4
   end
 
+  def compose_item_5
+    resultados_esperados_introducao_5
+  end
+
   def destinations_with_villages
     DestinationType.eager_load(destinations: [:origin_village, :destination_village]).where('destinations.pdsi_id = ?', id)
   end
