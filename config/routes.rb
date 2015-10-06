@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  post '/image-upload', to: 'application#image_upload', as: :image_upload
+
   get 'category_budgets/index'
 
   get 'category_budget/index'

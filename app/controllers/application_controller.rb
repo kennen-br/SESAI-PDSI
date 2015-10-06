@@ -13,6 +13,14 @@ class ApplicationController < ActionController::Base
     render text: "I'm OK"
   end
 
+  def image_upload
+    file = File.join('public', 'images', params[:image].original_filename)
+    tmp  = params[:image].tempfile
+    FileUtils.cp tmp, file
+
+    render json: { link: "/images/#{params[:image].original_filename}" }
+  end
+
   def check_admin_actions
     unless current_user.admin?
       redirect_to root_path, flash: { error: 'Este usuário não possui privilégios suficientes para esta ação. Esta tentativa foi logada.' }

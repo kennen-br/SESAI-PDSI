@@ -22,6 +22,7 @@ batch/
 
 # Paperclip uploads
 public/system
+public/images
 
 home.html.slim
 _line.html.slim
