@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151006200829) do
+ActiveRecord::Schema.define(version: 20151007182625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -427,6 +427,15 @@ ActiveRecord::Schema.define(version: 20151006200829) do
   add_index "pdsis", ["dsei_id"], name: "index_pdsis_on_dsei_id", using: :btree
   add_index "pdsis", ["user_id"], name: "index_pdsis_on_user_id", using: :btree
 
+  create_table "people", force: :cascade do |t|
+    t.integer  "dsei_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "people", ["dsei_id"], name: "index_people_on_dsei_id", using: :btree
+
   create_table "physiographic_data_languages", force: :cascade do |t|
     t.integer  "physiographic_data_id"
     t.string   "language"
@@ -687,6 +696,7 @@ ActiveRecord::Schema.define(version: 20151006200829) do
   add_foreign_key "pdsi_results", "results"
   add_foreign_key "pdsis", "dseis"
   add_foreign_key "pdsis", "users"
+  add_foreign_key "people", "dseis"
   add_foreign_key "physiographic_data_languages", "physiographic_datas"
   add_foreign_key "physiographic_datas", "pdsis"
   add_foreign_key "physiographic_datas", "villages"

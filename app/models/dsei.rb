@@ -9,6 +9,7 @@ class Dsei < ActiveRecord::Base
   has_many  :absolute_data_dseis
   has_many  :specific_absolute_data
   has_many  :specific_results
+  has_many  :people
   has_one   :pdsi
 
   validates :name, length: { maximum: 255 }, presence: true, uniqueness: true
