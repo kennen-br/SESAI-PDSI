@@ -4,7 +4,6 @@ class Result < ActiveRecord::Base
 
   belongs_to  :result_level
   belongs_to  :result_strategy
-  belongs_to  :parent,  class_name: 'Result'
 
   has_many  :children,  class_name: 'Result', foreign_key: :parent_id
   has_many  :specific_results
