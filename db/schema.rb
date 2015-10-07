@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151007183214) do
+ActiveRecord::Schema.define(version: 20151007190803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,16 @@ ActiveRecord::Schema.define(version: 20151007183214) do
 
   add_index "category_budgets", ["pdsi_id"], name: "index_category_budgets_on_pdsi_id", using: :btree
   add_index "category_budgets", ["projection_budget_category_id"], name: "index_category_budgets_on_projection_budget_category_id", using: :btree
+
+  create_table "corresponsabilities", force: :cascade do |t|
+    t.integer  "responsability_id"
+    t.integer  "person_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "corresponsabilities", ["person_id"], name: "index_corresponsabilities_on_person_id", using: :btree
+  add_index "corresponsabilities", ["responsability_id"], name: "index_corresponsabilities_on_responsability_id", using: :btree
 
   create_table "cost_users", force: :cascade do |t|
     t.integer  "cost_id"
@@ -690,6 +700,8 @@ ActiveRecord::Schema.define(version: 20151007183214) do
   add_foreign_key "casais", "dseis"
   add_foreign_key "category_budgets", "pdsis"
   add_foreign_key "category_budgets", "projection_budget_categories"
+  add_foreign_key "corresponsabilities", "people"
+  add_foreign_key "corresponsabilities", "responsabilities"
   add_foreign_key "cost_users", "costs"
   add_foreign_key "cost_users", "users"
   add_foreign_key "costs", "costs", column: "parent_id"

@@ -6,4 +6,6 @@ class Responsability < ActiveRecord::Base
   belongs_to :result
   belongs_to :person
   belongs_to :responsability_level
+
+  has_many  :corresponsibles
 end
