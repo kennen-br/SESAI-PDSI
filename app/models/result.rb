@@ -5,18 +5,12 @@ class Result < ActiveRecord::Base
   belongs_to  :result_level
   belongs_to  :result_strategy
 
-  has_many  :children,  class_name: 'Result', foreign_key: :parent_id
   has_many  :specific_results
   has_many  :pdsi_results
 
   validates :result_level,    presence: true
   validates :result_strategy, presence: true
   validates :name,            length: { maximum: 255 }, presence: true, uniqueness: true
-
-
-  def has_children?
-    !children.empty?
-  end
 
   def text
     result_text.blank? ? name : result_text

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151007182806) do
+ActiveRecord::Schema.define(version: 20151007183214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -525,6 +525,24 @@ ActiveRecord::Schema.define(version: 20151007182806) do
   add_index "projection_budgets", ["pdsi_id"], name: "index_projection_budgets_on_pdsi_id", using: :btree
   add_index "projection_budgets", ["projection_budget_item_id"], name: "index_projection_budgets_on_projection_budget_item_id", using: :btree
 
+  create_table "responsabilities", force: :cascade do |t|
+    t.integer  "pdsi_id"
+    t.integer  "result_id"
+    t.integer  "parent_id"
+    t.integer  "person_id"
+    t.integer  "responsability_level_id"
+    t.date     "deadline"
+    t.text     "external_actors"
+    t.text     "comments"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "responsabilities", ["pdsi_id"], name: "index_responsabilities_on_pdsi_id", using: :btree
+  add_index "responsabilities", ["person_id"], name: "index_responsabilities_on_person_id", using: :btree
+  add_index "responsabilities", ["responsability_level_id"], name: "index_responsabilities_on_responsability_level_id", using: :btree
+  add_index "responsabilities", ["result_id"], name: "index_responsabilities_on_result_id", using: :btree
+
   create_table "responsability_levels", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -712,6 +730,11 @@ ActiveRecord::Schema.define(version: 20151007182806) do
   add_foreign_key "projection_budget_years", "projection_budgets"
   add_foreign_key "projection_budgets", "pdsis"
   add_foreign_key "projection_budgets", "projection_budget_items"
+  add_foreign_key "responsabilities", "pdsis"
+  add_foreign_key "responsabilities", "people"
+  add_foreign_key "responsabilities", "responsabilities", column: "parent_id"
+  add_foreign_key "responsabilities", "responsability_levels"
+  add_foreign_key "responsabilities", "results"
   add_foreign_key "result_strategies", "result_axes"
   add_foreign_key "results", "result_levels"
   add_foreign_key "results", "result_strategies"
