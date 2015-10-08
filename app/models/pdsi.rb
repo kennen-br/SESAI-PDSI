@@ -220,7 +220,7 @@ class Pdsi < ActiveRecord::Base
 
   def responsabilities_with_values(axis)
     items = responsabilities.joins(result: [:result_strategy]).where('result_strategies.result_axis_id = ?', axis.id)
-    return items.includes(:person, result: [:result_strategy]).order(:id) unless items.blank?
+    return items.includes(:person, :result, corresponsabilities: [:person]).order(:id) unless items.blank?
 
     level = ResponsabilityLevel.find_by_name 'Resultado'
     axis.result_strategies.each do |result_strategy|

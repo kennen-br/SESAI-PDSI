@@ -12,14 +12,15 @@ fieldset
         th Pessoa
         th.destroy Apagar?
 
-    - tbody_id = "tbody_corresponsability_#{f.object.id}"
+    - tbody_id      = "tbody_corresponsability_#{f.object.id}"
+    - partial_name  = 'pdsis/resultados_esperados/responsabilidades/corresponsability_fields'
     tbody id=(tbody_id)
       = f.fields_for :corresponsabilities do |corresponsability|
-        = render 'pdsis/resultados_esperados/responsabilidades/corresponsability_fields', { f: corresponsability }
+        = render partial_name, { f: corresponsability }
     tfoot
       tr
         td.links.right-align colspan="2"
-          = link_to_add_association f, :corresponsabilities, { data: { "association-insertion-node": "##{tbody_id}", "association-insertion-method": 'append' }, class: 'button btn-sm', partial: 'pdsis/resultados_esperados/responsabilidades/corresponsability_fields' } do
+          = link_to_add_association f, :corresponsabilities, { data: { "association-insertion-node": "##{tbody_id}", "association-insertion-method": 'append' }, class: 'button btn-sm', partial: partial_name } do
             = icon 'plus'
             | Adicionar Corresponsável
 

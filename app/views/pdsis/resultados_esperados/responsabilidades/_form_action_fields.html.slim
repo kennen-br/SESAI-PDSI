@@ -1,0 +1,7 @@
+fieldset
+  = render 'pdsis/resultados_esperados/responsabilidades/base_fields', f: f
+
+  .field
+    label Apagar?
+    p = f.check_box :_destroy
+
