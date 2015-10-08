@@ -1,0 +1,5 @@
+tr.nested-fields
+  td.field
+    = select_person_from_dsei f, @dsei, :person_id, f.object.person
+  td.field.destroy
+    = f.check_box :_destroy

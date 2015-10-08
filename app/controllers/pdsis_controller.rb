@@ -143,6 +143,7 @@ private
       ],
       responsabilities_attributes: [
         :id, :result_id, :person_id, :deadline, :external_actors, :comments, :_destroy,
+        corresponsabilities_attributes: [:id, :person_id, :_destroy],
       ],
     )
   end

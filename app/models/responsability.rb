@@ -7,5 +7,6 @@ class Responsability < ActiveRecord::Base
   belongs_to :person
   belongs_to :responsability_level
 
-  has_many  :corresponsibles
+  has_many  :corresponsabilities
+  accepts_nested_attributes_for :corresponsabilities, reject_if: :all_blank, allow_destroy: true
 end
