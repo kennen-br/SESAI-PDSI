@@ -2,39 +2,4 @@ fieldset
   legend
     strong  = f.object.result.text_no_index
 
-  .field
-    = f.label   :person
-    = select_person_from_dsei f, @dsei, :person_id, f.object.person
-
-  fieldset
-    legend
-      strong Corresponsáveis
-
-    table.table.nested-form
-      thead
-        tr
-          th Pessoa
-          th.destroy Apagar?
-
-      - tbody_id = "tbody_corresponsability_#{f.object.id}"
-      tbody id=(tbody_id)
-        = f.fields_for :corresponsabilities do |corresponsability|
-          = render 'pdsis/resultados_esperados/responsabilidades/corresponsability_fields', { f: corresponsability }
-      tfoot
-        tr
-          td.links.right-align colspan="2"
-            = link_to_add_association f, :corresponsabilities, { data: { "association-insertion-node": "##{tbody_id}", "association-insertion-method": 'append' }, class: 'button btn-sm', partial: 'pdsis/resultados_esperados/responsabilidades/corresponsability_fields' } do
-              = icon 'plus'
-              | Adicionar Corresponsável
-
-  .field
-    = f.label       :deadline
-    = f.date_field  :deadline
-
-  .field
-    = f.label     :external_actors
-    = f.text_area :external_actors
-
-  .field
-    = f.label     :comments
-    = f.text_area :comments
+  = render 'pdsis/resultados_esperados/responsabilidades/base_fields', f: f
