@@ -1,0 +1,13 @@
+- current = nil
+.vertical-tabs-container
+  .vertical-tabs style='width: 29%;'
+    - ResultAxis.order(:id).each do |axis|
+      - if params[:subsection] == axis.section_link
+        - active  = ' is-active'
+        - current = axis
+      = link_to axis.name, edit_responsabilities_path(@pdsi, subsection: axis.section_link), class: "vertical-tab#{active}"
+  .vertical-tab-content-container style='width: 71%;'
+    .vertical-tab-content style="display: block;"
+      .parent-block
+       = f.fields_for :responsabilities, @pdsi.responsabilities_with_values(current) do |item|
+         = render 'pdsis/resultados_esperados/responsabilidades/form_responsabilities', f: item

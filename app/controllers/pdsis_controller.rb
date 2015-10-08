@@ -65,6 +65,7 @@ private
 
   def set_subsection
     @subsection = params[:subsection].gsub(/-/, '_') if params.key?(:subsection)
+    @tab        = params[:tab].gsub(/-/, '_') if params.key?(:tab)
   end
 
   def set_base_polo
@@ -139,7 +140,10 @@ private
       ],
       pdsi_costs_attributes: [
         :id, :cost_id, :previsao_orcamentaria_2015, :orcamento_necessario, :dotacao_orcamentaria_inicial
-      ]
+      ],
+      responsabilities_attributes: [
+        :id, :result_id, :person_id, :deadline, :external_actors, :comments, :_destroy,
+      ],
     )
   end
 end

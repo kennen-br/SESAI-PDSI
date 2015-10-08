@@ -1,0 +1,23 @@
+fieldset
+  legend
+    strong  = f.object.result.text_no_index
+
+  .field
+    = f.label   :person_id
+    = select_person_from_dsei f, @dsei, :person_id, f.object.person
+
+  fieldset
+    legend
+      strong Corresponsáveis
+
+  .field
+    = f.label       :deadline
+    = f.date_field  :deadline
+
+  .field
+    = f.label     :external_actors
+    = f.text_area :external_actors
+
+  .field
+    = f.label     :comments
+    = f.text_area :comments

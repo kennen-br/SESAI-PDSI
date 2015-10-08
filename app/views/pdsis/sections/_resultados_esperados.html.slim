@@ -1,26 +1,41 @@
-.pull-right
-  = link_to edit_pdsi_path(@pdsi, section: 'resultados-esperados-introducao'), class: 'button' do
-    i.fa.fa-pencil
-    | Definir texto
+ul.accordion-tabs-minimal
+  li.tab-header-and-content
+    a.tab-link.is-active[href="#"]
+      | Responsabilidades
+    .tab-content
+      .pull-right
+        = link_to edit_responsabilities_path(@pdsi, subsection: ResultAxis.first.section_link), class: 'button' do
+          i.fa.fa-pencil
+          | Coletar dados
 
-h2.section-title CATEGORIAS DE PLANEJAMENTO
-.section-description
-  == @pdsi.compose_item_5 || 'Não informado'
 
-  .pull-right
-    = link_to edit_pdsi_path(@pdsi, section: 'resultados-esperados', subsection: ResultAxis.first.section_name), class: 'button' do
-      i.fa.fa-pencil
-      | Coletar dados
+  li.tab-header-and-content
+    a.tab-link[href="#"]
+      | Old content
+    .tab-content
+      .pull-right
+        = link_to edit_pdsi_path(@pdsi, section: 'resultados-esperados-introducao'), class: 'button' do
+          i.fa.fa-pencil
+          | Definir texto
 
-  h2.section-title RESULTADOS ESPERADOS 2016-2019
+      h2.section-title CATEGORIAS DE PLANEJAMENTO
+      .section-description
+        == @pdsi.compose_item_5 || 'Não informado'
 
-  ul.accordion
-    - ResultAxis.all.order(:id).each_with_index do |axis, index|
-      li
-        a.js-accordion-trigger[href="javascript:void(0)"]
-          | #{index+1}. #{axis.name}
-        .accordion-content style="padding: 10px 20px;"
-          = link_to edit_pdsi_path(@pdsi, section: 'resultados-esperados', subsection: axis.name.parameterize.gsub(/\-/, '_')), class: 'button pull-right edit-link' do
+        .pull-right
+          = link_to edit_results_path(@pdsi, subsection: ResultAxis.first.section_link), class: 'button' do
             i.fa.fa-pencil
-            | Coletar Dados
-          == render 'pdsis/resultados_esperados/show_subsection', { axis: axis }
+            | Coletar dados
+
+        h2.section-title RESULTADOS ESPERADOS 2016-2019
+
+        ul.accordion
+          - ResultAxis.all.order(:id).each_with_index do |axis, index|
+            li
+              a.js-accordion-trigger[href="javascript:void(0)"]
+                | #{index+1}. #{axis.name}
+              .accordion-content style="padding: 10px 20px;"
+                = link_to edit_results_path(@pdsi, subsection: axis.section_link), class: 'button pull-right edit-link' do
+                  i.fa.fa-pencil
+                  | Coletar Dados
+                == render 'pdsis/resultados_esperados/show_subsection', { axis: axis }

@@ -218,6 +218,21 @@ class Pdsi < ActiveRecord::Base
     costs_with_values
   end
 
+  def responsabilities_with_values(axis)
+    items = responsabilities.joins(result: [:result_strategy]).where('result_strategies.result_axis_id = ?', axis.id)
+    return items.includes(:person, result: [:result_strategy]).order(:id) unless items.blank?
+
+    level = ResponsabilityLevel.find_by_name 'Resultado'
+    axis.result_strategies.each do |result_strategy|
+      result_strategy.results.each do |result|
+        next unless result.parent_id.nil?
+        responsabilities << Responsability.new(result_id: result.id)
+      end
+    end
+
+    responsabilities_with_values axis
+  end
+
 private
   def compose_item(sample_attr, key, value)
     default = sample(sample_attr)

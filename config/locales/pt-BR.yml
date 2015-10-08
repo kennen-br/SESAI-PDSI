@@ -245,6 +245,15 @@ pt-BR:
         orcamento_necessario:         ESTIMATIVA DO ORÇAMENTO NECESSÁRIO PARA O ADEQUADO FUNCIONAMENTO DO DSEI, NO CENÁRIO DE PLENO ATENDIMENTO DOS INVESTIMENTOS SOLICITADOS
         dotacao_orcamentaria_inicial: DOTAÇÃO ORÇAMENTÁRIA INICIAL (PLOA 2016) (em R$)
 
+      responsability:
+        pdsi:             PDSI
+        result:           Resultado
+        parent:           Resultado pai
+        person:           Responsável
+        deadline:         Prazo
+        external_actors:  Atores externos
+        comments:         Comentários
+
       cost_user:
         cost:         'Custeio'
         user:         'Usuário'
