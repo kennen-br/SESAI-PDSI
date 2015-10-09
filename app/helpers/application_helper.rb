@@ -39,4 +39,8 @@ module ApplicationHelper
   def current_pdsi
     Pdsi.find session[:pdsi]
   end
+
+  def unique_id
+    Time.new.to_f.to_s.gsub(/\./, '')
+  end
 end
