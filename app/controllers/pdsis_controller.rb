@@ -33,10 +33,6 @@ class PdsisController < ApplicationController
   end
 
   def update
-    debug params[:pdsi]
-
-    debug params
-
     if @pdsi.update(pdsi_params)
       redirect_after_save
     else

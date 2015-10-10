@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  scope 'pessoas' do
+    post '/cadastrar', to: 'people#create',  as: :people_create
+  end
+
   post '/image-upload', to: 'application#image_upload', as: :image_upload
 
   get 'category_budgets/index'

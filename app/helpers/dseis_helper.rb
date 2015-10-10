@@ -5,7 +5,14 @@ module DseisHelper
   end
 
   def select_person_from_dsei(f, dsei, field_name, field_value)
-    f.collection_select(field_name, dsei.people.order(:name), :id, :name, {prompt: true})
+    response   = "<div>"
+    response  += "  <a class='add_person button pull-right' href='#' onclick='return false;'>"
+    response  += icon('plus')
+    response  += "  </a>"
+    response  += f.collection_select(field_name, dsei.people.order(:name), :id, :name, { prompt: true }, { class: 'select-dsei-person' })
+    response  += "</div>"
+
+    return response.html_safe
   end
 
   def select_village_opts(dsei, field_value)

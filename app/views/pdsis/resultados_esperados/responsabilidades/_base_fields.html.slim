@@ -1,6 +1,6 @@
 .field
   = f.label   :person
-  = select_person_from_dsei f, @dsei, :person_id, f.object.person
+  == select_person_from_dsei f, @dsei, :person_id, f.object.person
 
 fieldset
   legend
