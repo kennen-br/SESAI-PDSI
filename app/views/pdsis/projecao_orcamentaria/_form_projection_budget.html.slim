@@ -1,13 +1,15 @@
-fieldset
+fieldset.projection-year
   legend
     strong = year
 
   .field
     label = "Quantidade estimada para #{year}"
-    = f.number_field  :quantidade_estimada
+    = f.number_field  :quantidade_estimada, class: 'structure-qty'
 
   .field
     label = "Valor unitário estimado (R$ em #{year})"
-    = f.number_field  :valor_unitario
+    .currency-field
+      = f.hidden_field  :valor_unitario
+      = text_field_tag '', f.object.valor_unitario || 0, class: 'currency-input'
 
-== render 'pdsis/projecao_orcamentaria/form_budget_structures', f: f
+  == render 'pdsis/projecao_orcamentaria/form_budget_structures', f: f

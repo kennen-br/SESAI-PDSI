@@ -8,6 +8,41 @@ manage_element = (element) ->
 
 $(document).ready ->
 
+  # Projeção Orçamentária
+  $('.projection-structure-type').each ->
+    $type = $(this)
+    type = $type.find('> legend').text()
+
+    # Years 2015-2019
+    $type.find('.projection-year').each ->
+      $year = $(this)
+      $year.find('.structure-qty').on 'change', ->
+        value = $(this).val()
+
+        if $year.find('> legend').text() == '2015'
+          console.log '2015'
+          needed = value - ($type.find('.initial-value').val() || 0)
+        else
+          needed = value
+
+        $year.find('table tr.new-object').each ->
+          $(this).remove() if $(this).find(':text').val() == ''
+          return
+        needed -= $year.find('table tbody tr').length
+
+        if needed > 0
+          $year.find('.new-structures').show()
+        else if $year.find('table tbody tr').length == 0
+          $year.find('.new-structures').hide()
+
+        for i in [1..needed] by 1
+          $year.find('.add_fields').click()
+        return
+      return
+
+
+    return
+
   # Mark input for PDSI Results as red or green
   $(document).on 'blur', '.expected-result', (e) ->
     $this    = $(this)
