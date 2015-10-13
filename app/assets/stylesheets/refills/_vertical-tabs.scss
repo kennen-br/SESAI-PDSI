@@ -44,7 +44,7 @@
       background-color: $tab-inactive-color;
       display: inline;
       float: left;
-      width: 35%;
+      width: 28%;
     }
   }
 
@@ -89,7 +89,7 @@
     @include media($vertical-tab-mode) {
       background-color: $tab-content-background;
       display: inline-block;
-      width: 65%;
+      width: 72%;
     }
   }
 

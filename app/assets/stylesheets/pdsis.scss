@@ -60,3 +60,32 @@
     }
   }
 }
+
+.budget-table {
+  font-size: 0.7em;
+
+  tbody, tfoot {
+    tr {
+      td {
+        text-align: right;
+
+        &:first-child {
+          text-align: left;
+        }
+      }
+
+      &.child {
+        td:first-child {
+          text-align: right;
+        }
+      }
+    }
+  }
+  tfoot {
+    tr {
+      td:first-child {
+        text-align: right;
+      }
+    }
+  }
+}
