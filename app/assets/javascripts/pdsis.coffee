@@ -50,10 +50,14 @@ $(document).ready ->
 
         $option = $('<option></option>').html(data.name).attr('value', data.id)
 
+        # $select.append $option
+        $('select.select-dsei-person').append $option
+
         # Add new option to all selects
-        $('select.select-dsei-person').each (index) ->
-          $(this).append $option
-          return
+        # $('select.select-dsei-person').each (index) ->
+        #   console.log index
+        #   $(this).append $option
+        #   return
 
         # Just to current select, set val as new value
         $select.val data.id
