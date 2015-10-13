@@ -9,9 +9,9 @@ class UserType < ActiveRecord::Base
     case name
     when 'Administrador'
       'admin'
-    when 'Operador DSEI'
+    when /DSEI/
       'dsei'
-    when 'Usuário SESAI Central'
+    when /SESAI Central/
       'sesai_central'
     end
   end

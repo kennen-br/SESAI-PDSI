@@ -22,7 +22,7 @@ class DemographicDatasController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_demographic_data
-      @demographic_data = current_user.pdsi.demographic_data
+      @demographic_data = current_pdsi.demographic_data
     end
 
     # Only allow a trusted parameter "white list" through.

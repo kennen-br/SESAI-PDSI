@@ -21,8 +21,12 @@ class PdsisController < ApplicationController
 
   def health_indicators
     if @subsection == 'casai'
-      casai_id = params[:casai] || @dsei.casais.order(:id).first.id
-      @casai = Casai.find casai_id
+      if params.key?(:casai)
+        @casai  = Casai.find params[:casai]
+      else
+        @casai  = @dsei.casais.order(:id).first
+        @casai  = Casai.new(dsei: @dsei) if @casai.nil?
+      end
     end
 
     render :edit
@@ -46,10 +50,11 @@ private
     if @section == 'dotacao_orcamentaria'
       @pdsi = Pdsi.find params[:id]
     else
-      @pdsi = current_user.pdsi
+      debug current_dsei
+      @pdsi = current_dsei.pdsi
     end
     @demographic_data = @pdsi.demographic_data
-    @dsei             = current_user.dsei
+    @dsei             = current_dsei
   end
 
   def set_section
