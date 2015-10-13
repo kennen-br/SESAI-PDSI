@@ -2,3 +2,6 @@ li
   = link_to 'Modelos de textos', text_templates_path
   = link_to 'Dados absolutos',        absolute_data_path
   = link_to 'Dotações orçamentárias', category_budgets_path
+
+- if current_user.sesai_central? and session[:dsei]
+  = render 'menu_dsei'

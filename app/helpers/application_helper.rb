@@ -17,6 +17,26 @@ module ApplicationHelper
   end
 
   def select_uf(f, field_name, field_value)
-    return f.select field_name, options_for_select(%w{ AC AL AM AP BA CE DF ES GO MA MG MS MT PA PB PE PI PR RJ RN RO RR RS SC SE SP TO }, field_value), include_blank: true
+    f.select field_name, options_for_select(%w{ AC AL AM AP BA CE DF ES GO MA MG MS MT PA PB PE PI PR RJ RN RO RR RS SC SE SP TO }, field_value), include_blank: true
+  end
+
+  def select_dsei
+    collection_select(
+      'session',
+      'dsei_id',
+      Dsei.order(:name),
+      :id,
+      :name,
+      { prompt: true, selected: current_dsei }
+    )
+  end
+
+  def current_dsei
+    return unless session[:dsei]
+    Dsei.find session[:dsei]
+  end
+
+  def current_pdsi
+    Pdsi.find session[:pdsi]
   end
 end

@@ -3,7 +3,8 @@ class CasaisController < ApplicationController
 
   # GET /casais
   def index
-    @casais = Casai.where(dsei: current_user.dsei).order(:name)
+    @dsei   = current_dsei
+    @casais = Casai.where(dsei: @dsei).order(:name)
   end
 
   # GET /casais/new
@@ -18,7 +19,7 @@ class CasaisController < ApplicationController
   # POST /casais
   def create
     @casai      = Casai.new(casai_params)
-    @casai.dsei = current_user.dsei
+    @casai.dsei = current_dsei
 
     if @casai.save
       redirect_to casais_path, notice: 'Dados armazenados com sucesso.'

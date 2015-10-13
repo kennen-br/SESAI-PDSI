@@ -21,6 +21,15 @@ body{
   font-family : 'Open Sans', sans-serif;
 }
 
+#select_dsei_menu{
+  padding     : 10px;
+
+  select{
+    display     : inline;
+    margin-left : 10px;
+  }
+}
+
 .container{
   @include outer-container;
 }

@@ -77,7 +77,7 @@ class Pdsi < ActiveRecord::Base
   end
 
   def introducao_1
-    compose_item :introducao_1, '[NOME_DSEI]', user.profile.name
+    compose_item :introducao_1, '[NOME_DSEI]', dsei.name
   end
 
   def compose_item_2

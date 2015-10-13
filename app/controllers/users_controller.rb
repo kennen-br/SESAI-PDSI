@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users  = User.all.includes(:profile, :user_type)
+    @users  = User.all.includes(:profile, :user_type).order(:username)
   end
 
   def new

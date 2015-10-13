@@ -40,7 +40,11 @@ class User < ActiveRecord::Base
   end
 
   def sesai_central?
-    user_type.name == 'Usuário SESAI Central'
+    !user_type.name.scan(/SESAI Central/).blank?
+  end
+
+  def dsei?
+    !user_type.name.scan(/DSEI/).blank?
   end
 
   def pdsi
@@ -48,7 +52,7 @@ class User < ActiveRecord::Base
 
     fail 'Usuário não está vinculado a um DSEI' if dsei.nil?
 
-    @pdsi = Pdsi.first_or_create user: self, dsei: dsei
+    @pdsi = Pdsi.first_or_create dsei: dsei
   end
 
   def recover_values_to_cost(cost)
