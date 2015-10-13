@@ -1,7 +1,7 @@
 $base-accent-color: #477dca !default;
 
 .animated {
-  @include animation-duration(1s);
+  @include animation-duration(0.5s);
   @include animation-fill-mode(both);
 
   &.infinite {
