@@ -57,6 +57,7 @@
       background-color: $table-header-background;
       border-bottom: 0px;
       padding: $table-padding;
+      white-space: normal;
     }
   }
 
@@ -67,6 +68,7 @@
       border-bottom: 0px;
       border-top: 1px solid $table-border-color;
       padding: $table-padding;
+      white-space: normal;
 
       button {
         @include button(flat, $base-accent-color);

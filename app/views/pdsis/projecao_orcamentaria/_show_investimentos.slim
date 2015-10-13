@@ -1,0 +1,62 @@
+= link_to edit_budget_projection_path(@pdsi, subsection: 'investimento'), class: 'button pull-right edit-link' do
+  i.fa.fa-pencil
+  | Coletar dados
+.carousel-nav
+  .carousel-arrows
+    a.pull-left href="javascript:void(0)"
+      = icon 'angle-left'
+    a.pull-right href="javascript:void(0)"
+      = icon 'angle-right'
+  .carousel-list
+    .slider
+      a.is-active href="javascript:void(0)" data-index="0"
+        | PREVISÃO ORÇAMENTÁRIA 2016
+      a href="javascript:void(0)" data-index="1"
+        | PREVISÃO ORÇAMENTÁRIA 2017
+      a href="javascript:void(0)" data-index="2"
+        | PREVISÃO ORÇAMENTÁRIA 2018
+      a href="javascript:void(0)" data-index="3"
+        | PREVISÃO ORÇAMENTÁRIA 2019
+      a href="javascript:void(0)" data-index="4"
+        | PREVISÃO ORÇAMENTÁRIA PDSI 2015-2019
+  .carousel-items
+      - (2016..2019).map.with_index do |year, i|
+        .item-content.animated data-index="#{i}" class=('is-active' if i == 0)
+          table.table-minimal.budget-table.investiment
+            thead
+              tr
+                th
+                th Quantidade estimada para #{year}
+                th Valor unitário estimado (R$ em #{year})
+                th Dotação orçamentária inicial (PLOA #{year})
+            tbody
+              - @pdsi.category_budgets.includes(:projection_budget_category).each do |category_budget|
+                - category = category_budget.projection_budget_category
+                tr.category data-category=(category.id)
+                  td = category.name
+                  td &nbsp;
+                  td &nbsp;
+                  td = number_to_currency(category_budget.send("value_#{year}"))
+                - @pdsi.budgets_with_values(category).each_with_index do |item, index|
+                  - item_year = item.projection_budget_years.where(year: year).first
+                  tr.item data-category=(category.id) data-index=("#{category.id}-#{index}")
+                    td
+                      = icon 'plus-square-o', class: 'toggle-structures'
+                      | &nbsp;#{item.projection_budget_item.name}
+                    td = item_year.quantidade_estimada
+                    td = number_to_currency item_year.valor_unitario
+                    td = number_to_currency (item_year.valor_unitario.to_f) * (item_year.quantidade_estimada.to_i)
+                  - item_year.projection_budget_structures.order(:id).each do |structure|
+                    tr.structure data-index=("#{category.id}-#{index}")
+                      td = structure.name
+                      td -
+                      td -
+                      td -
+      .item-content.animated data-index="4"
+        table.table-minimal.budget-table.investiment.total
+          thead
+            tr
+              th
+              th Quantidade estimada 2016-2019
+              th PREVISÃO ORÇAMENTÁRIA DOS 4 ANOS (2016-2019)
+          tbody

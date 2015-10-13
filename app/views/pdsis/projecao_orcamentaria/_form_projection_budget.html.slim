@@ -9,7 +9,7 @@ fieldset.projection-year
   .field
     label = "Valor unitário estimado (R$ em #{year})"
     .currency-field
-      = f.hidden_field  :valor_unitario
-      = text_field_tag '', f.object.valor_unitario || 0, class: 'currency-input'
+      = f.hidden_field  :valor_unitario, value: (number_with_precision(f.object.valor_unitario, :precision => 2, separator: '.', delimiter: '') || 0)
+      = text_field_tag '', number_with_precision(f.object.valor_unitario, precision: 2) || 0, class: 'currency-input'
 
   == render 'pdsis/projecao_orcamentaria/form_budget_structures', f: f

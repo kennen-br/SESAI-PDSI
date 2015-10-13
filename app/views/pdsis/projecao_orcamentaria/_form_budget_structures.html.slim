@@ -10,7 +10,7 @@ fieldset.new-structures style=("display: none;" if f.object.projection_budget_st
     - tbody_id  = "projection_budget_year_#{f.object.id}"
     - partial   = 'pdsis/projecao_orcamentaria/form_projection_budget_new_structure_fields'
     tbody id=(tbody_id)
-      = f.fields_for :projection_budget_structures do |projection_budget_structure|
+      = f.fields_for :projection_budget_structures, f.object.projection_budget_structures.order(:id) do |projection_budget_structure|
         = render partial, { f: projection_budget_structure }
 
   .hidden
