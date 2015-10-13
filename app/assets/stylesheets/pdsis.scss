@@ -60,3 +60,85 @@
     }
   }
 }
+
+.budget-table {
+  font-size: 0.7em;
+
+  tbody, tfoot {
+    tr {
+      td {
+        text-align: right;
+
+        &:first-child {
+          text-align: left;
+        }
+      }
+
+      &.child {
+        td:first-child {
+          text-align: right;
+        }
+      }
+    }
+  }
+  tfoot {
+    tr {
+      td:first-child {
+        text-align: right;
+      }
+    }
+  }
+
+  &.investiment {
+    thead {
+      tr {
+        th {
+          text-align: center;
+
+          &:first-child {
+            width: 22%;
+          }
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          text-align: center;
+
+          &:first-child {
+            text-align: left;
+          }
+        }
+        &.category {
+          background: #e6e6e6;
+
+          td {
+            text-transform: uppercase;
+          }
+        }
+        &.structure {
+          td:first-child {
+            text-align: right;
+          }
+        }
+      }
+      tr.item {
+        .toggle-structures {
+          cursor: pointer;
+
+          &:hover {
+            color: #000;
+            font-weight: 900;
+          }
+        }
+      }
+      tr.item + tr.structure {
+        td {
+          border-top: 2px solid #ccc;
+        }
+      }
+    }
+  }
+}

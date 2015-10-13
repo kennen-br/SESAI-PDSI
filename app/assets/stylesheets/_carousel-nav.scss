@@ -1,0 +1,75 @@
+$gray: #999;
+$blue: #66C;
+
+.carousel-nav {
+  @include margin(0);
+  @include position(relative);
+
+  .carousel-arrows {
+    @include position(absolute, 0 0 null null);
+    @include size(100% null);
+
+    a {
+      line-height: 1em;
+
+      &.pull-left {
+        @include margin(null null null -10px);
+      }
+      &.pull-right {
+        @include margin(null -10px null null);
+      }
+    }
+  }
+
+  .slider {
+    @include clearfix;
+    @include position(relative);
+    @include transition(all 1.0s ease-in-out);
+
+    width: 2000em;
+  }
+
+  .carousel-list,
+  .carousel-items {
+    overflow    : hidden;
+    white-space : nowrap;
+    width       : 100%;
+  }
+
+  .carousel-list {
+    a {
+      @include margin(null 10px null null);
+
+      border-bottom : 2px solid transparent;
+      color         : $gray;
+      float         : left;
+      font-size     : modular-scale(-1);
+
+      &.is-active {
+        border-bottom : 2px solid $blue;
+        color         : $blue;
+      }
+
+      &:last-child {
+        @include margin(0);
+      }
+    }
+  }
+
+  .carousel-items {
+    @include position(relative);
+
+    .item-content {
+      display: none;
+
+      &.is-active {
+        display: block;
+      }
+
+      &.fadeInRight, &.fadeInLeft {
+        position : absolute;
+        top      : 0;
+      }
+    }
+  }
+}

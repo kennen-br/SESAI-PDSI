@@ -17,5 +17,6 @@
 //= require pace/pace
 //= require froala_editor.min.js
 //= require jquery.numeric.min.js
+//= require jquery.maskMoney.min.js
 //= require_tree .
 //= require turbolinks

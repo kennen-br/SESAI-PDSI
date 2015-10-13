@@ -1,4 +1,4 @@
-fieldset
+fieldset.new-structures style=("display: none;" if f.object.projection_budget_structures.empty?)
   legend Novas estruturas
 
   table.table.nested-form
@@ -10,11 +10,10 @@ fieldset
     - tbody_id  = "projection_budget_year_#{f.object.id}"
     - partial   = 'pdsis/projecao_orcamentaria/form_projection_budget_new_structure_fields'
     tbody id=(tbody_id)
-      = f.fields_for :projection_budget_structures do |projection_budget_structure|
+      = f.fields_for :projection_budget_structures, f.object.projection_budget_structures.order(:id) do |projection_budget_structure|
         = render partial, { f: projection_budget_structure }
-    tfoot
-      tr
-        td.links.right-align colspan="2"
-          = link_to_add_association f, :projection_budget_structures, { data: { "association-insertion-node": "##{tbody_id}", "association-insertion-method": 'append' }, class: 'button btn-sm', partial: partial } do
-            = icon 'plus'
-            | Adicionar nova estrutura
+
+  .hidden
+    = link_to_add_association f, :projection_budget_structures, { data: { "association-insertion-node": "##{tbody_id}", "association-insertion-method": 'append' }, class: 'button btn-sm', partial: partial } do
+      = icon 'plus'
+      | Adicionar nova estrutura

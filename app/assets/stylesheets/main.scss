@@ -38,6 +38,8 @@ body{
   @include span-columns(12);
 }
 
+.hidden { display: none; }
+
 span.white_color{
   color : white;
 }

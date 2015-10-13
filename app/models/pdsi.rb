@@ -193,7 +193,7 @@ class Pdsi < ActiveRecord::Base
   def budgets_with_values(category)
     items = projection_budgets.joins(:projection_budget_item)
                               .where('projection_budget_items.projection_budget_category_id = ?', category.id)
-    return items.includes(:projection_budget_item, :projection_budget_years)
+    return items.includes(:projection_budget_item, projection_budget_years: [:projection_budget_structures])
                 .order([:id, 'projection_budget_years.year']) unless items.blank?
 
     category.projection_budget_items.each do |pbi|

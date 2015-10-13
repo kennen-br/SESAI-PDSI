@@ -8,6 +8,101 @@ manage_element = (element) ->
 
 $(document).ready ->
 
+  # Toggle Structures on Projeção Orçamentária show
+  $('.budget-table.investiment .toggle-structures').click ->
+    $(this).toggleClass('fa-plus-square-o').toggleClass 'fa-minus-square-o'
+    index = $(this).parents('tr.item').data 'index'
+    $(".budget-table.investiment .structure[data-index='#{index}']").toggle()
+    return
+
+  # Sum up all investiments to years 2016-2019 on a final table
+  $('.budget-table.investiment.total').each ->
+    $total    = $(this)
+    $carousel = $total.parent()
+
+    # Categories
+    $categories = $carousel.prev().find('.category').clone()
+    $categories.each ->
+      id = $(this).data 'category'
+      total = 0
+      $carousel.prevAll().each ->
+        value = $(this).find(".category[data-category='#{id}'] td:last-child").text() || '0'
+        value = value.replace('R$', '')
+        value = value.replace('.', '')
+        value = value.replace(',', '.')
+
+        total += (value*1)
+        return
+
+      $(this).find('td').eq(1).remove()
+      $(this).find('td:last-child').text("R$ " + total.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.'))
+      return
+
+    $total.find('tbody').append $categories
+
+    # Items
+    $items = $carousel.prev().find('.item').clone()
+    $items.find('td:eq(2), .toggle-structures').remove()
+
+    $items.each ->
+      index = $(this).data 'index'
+      unidades = 0
+      total = 0
+      $carousel.prevAll().each ->
+        value = $(this).find(".item[data-index='#{index}'] td:last-child").text() || '0'
+        value = value.replace('R$', '')
+        value = value.replace('.', '')
+        value = value.replace(',', '.')
+        total += (value*1)
+
+        uni = $(this).find(".item[data-index='#{index}'] td:eq(1)").text() || '0'
+        unidades += (uni*1)
+        return
+      $(this).find('td:eq(1)').text unidades
+      $(this).find('td:last-child').text("R$ " + total.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.'))
+      return
+
+    $total.find('.category').each ->
+      id = $(this).data 'category'
+      $(this).after($items.filter("[data-category='#{id}']"))
+      return
+    return
+
+  # Projeção Orçamentária
+  $('.projection-structure-type').each ->
+    $type = $(this)
+    type = $type.find('> legend').text()
+
+    # Years 2015-2019
+    $type.find('.projection-year').each ->
+      $year = $(this)
+      $year.find('.structure-qty').on 'change', ->
+        value = $(this).val()
+
+        if $year.find('> legend').text() == '2015'
+          console.log '2015'
+          needed = value - ($type.find('.initial-value').val() || 0)
+        else
+          needed = value
+
+        $year.find('table tr.new-object').each ->
+          $(this).remove() if $(this).find(':text').val() == ''
+          return
+        needed -= $year.find('table tbody tr').length
+
+        if needed > 0
+          $year.find('.new-structures').show()
+        else if $year.find('table tbody tr').length == 0
+          $year.find('.new-structures').hide()
+
+        for i in [1..needed] by 1
+          $year.find('.add_fields').click()
+        return
+      return
+
+
+    return
+
   # Mark input for PDSI Results as red or green
   $(document).on 'blur', '.expected-result', (e) ->
     $this    = $(this)

@@ -1,40 +1,20 @@
-ul.accordion-tabs-minimal
-  li.tab-header-and-content
-    a.tab-link[href=""]
-      | Investimento
+ul.accordion
+  li
+    a.js-accordion-trigger[href="javascript:void(0)"]
+      | SÍNTESE ORÇAMENTÁRIA
+    .accordion-content style="padding: 10px 20px;"
+      = render 'pdsis/projecao_orcamentaria/show_sintese'
 
-    .tab-content
-      h3 ATENÇÃO:
-      P Os links devem ser exibidos de acordo com a permissão do usuário.
-      p se ele for um usuário DSEI, apenas o primeiro link aparece.
-      p se ele for um usuário SESAI Central, apenas o segundo link aparece.
+  li
+    a.js-accordion-trigger[href="javascript:void(0)"]
+      | INVESTIMENTOS
+    .accordion-content style="padding: 10px 20px;"
+      = render 'pdsis/projecao_orcamentaria/show_investimentos', {  }
 
-      .right-align
-        = link_to edit_budget_projection_path(@pdsi, subsection: 'investimento'), class: 'button' do
-          i.fa.fa-pencil
-          | Alterar investimentos
-      .right-align
-        = link_to edit_category_budget_path(@pdsi), class: 'button' do
-          i.fa.fa-pencil
-          | Alterar dotação orçamentária
-      |&nbsp;
-  li.tab-header-and-content
-    a.tab-link[href=""]
-      | Custeio
-
-    .tab-content
-      h3 ATENÇÃO:
-      P Os links devem ser exibidos de acordo com a permissão do usuário.
-      p se ele for um usuário DSEI, apenas o primeiro link aparece.
-      p se ele for um usuário SESAI Central, apenas o segundo link aparece.
-
-      .right-align
-        = link_to edit_budget_projection_path(@pdsi, subsection: 'custos'), class: 'button' do
-          i.fa.fa-pencil
-          | Alterar custos
-        = link_to edit_budget_projection_path(@pdsi, subsection: 'previsoes'), class: 'button' do
-          i.fa.fa-pencil
-          | Alterar previsões
-
-      |&nbsp;
-
+  li
+    a.js-accordion-trigger[href="javascript:void(0)"]
+      | CUSTEIO
+    .accordion-content style="padding: 10px 20px;"
+      = link_to edit_budget_projection_path(@pdsi, subsection: 'custeio'), class: 'button pull-right edit-link' do
+        i.fa.fa-pencil
+        | Coletar dados
