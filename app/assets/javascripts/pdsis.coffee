@@ -6,63 +6,85 @@ manage_element = (element) ->
   element.parents('.destiny-transport').find('fieldset').toggle()
   return
 
-$(document).ready ->
-  $(document).on 'click', '.add_person', (e) ->
-    $this       = $(this)
-    $parent     = $(this).parent()
-    $select     = $parent.children 'select'
-    $add_button = $parent.children 'a'
-    $id         = $select.attr 'id'
+$(document).on 'click', '.add_person', (e) ->
+  $this       = $(this)
+  $parent     = $(this).parent()
+  $select     = $parent.children 'select'
+  $add_button = $parent.children 'a'
+  $id         = $select.attr 'id'
 
-    $select.hide()
-    $add_button.hide()
+  $select.hide()
+  $add_button.hide()
 
-    $new_div        = $('<fieldset><legend>Cadastrar pessoa</legend></fieldset>')
-    $field          = $('<input type="text" />')
-    $cancel_button  = $('<button id="cancel_person_button" class="button btn-sm pull-right">Cancelar</button>')
-    $save_button    = $('<button id="save_person_button" class="button btn-sm pull-right">Salvar</button>')
+  $new_div        = $('<fieldset><legend>Cadastrar pessoa</legend></fieldset>')
+  $field          = $('<input type="text" />')
+  $cancel_button  = $('<button id="cancel_person_button" class="button btn-sm pull-right cancel-button">Cancelar</button>')
+  $save_button    = $('<button id="save_person_button" class="button btn-sm pull-right">Salvar</button>')
 
-    $new_div.append($('<label>Nome da pessoa</label>'))
-    $new_div.append $field
-    $new_div.append $save_button
-    $new_div.append $cancel_button
-    $parent.append $new_div
+  $new_div.append($('<label>Nome da pessoa</label>'))
+  $new_div.append $field
+  $new_div.append $save_button
+  $new_div.append $cancel_button
+  $parent.append $new_div
 
-    $cancel_button.click ->
+  $cancel_button.click ->
+    # TODO: Functionalize this
+    $select.show()
+    $add_button.show()
+    $new_div.remove()
+    return false
+
+  $save_button.click ->
+    $.post('/pessoas/cadastrar', { "name" : $field.val() }).done (data) ->
+      # Validate response status, return false
+      if !data.status
+        alert data.message
+        $field.css('border', 'solid 1px #c00')
+        return
+
       # TODO: Functionalize this
       $select.show()
       $add_button.show()
       $new_div.remove()
-      return false
 
-    $save_button.click ->
-      $.post('/pessoas/cadastrar', { "name" : $field.val() }).done (data) ->
-        # Validate response status, return false
-        if !data.status
-          alert data.message
-          $field.css('border', 'solid 1px #c00')
-          return
+      $option = $('<option></option>').html(data.name).attr('value', data.id)
 
-        # TODO: Functionalize this
-        $select.show()
-        $add_button.show()
-        $new_div.remove()
+      # $select.append $option
+      $('select.select-dsei-person').append $option
 
-        $option = $('<option></option>').html(data.name).attr('value', data.id)
+      # Add new option to all selects
+      # $('select.select-dsei-person').each (index) ->
+      #   console.log index
+      #   $(this).append $option
+      #   return
 
-        # $select.append $option
-        $('select.select-dsei-person').append $option
+      # Just to current select, set val as new value
+      $select.val data.id
+    return false
 
-        # Add new option to all selects
-        # $('select.select-dsei-person').each (index) ->
-        #   console.log index
-        #   $(this).append $option
-        #   return
+  return
+$(document).ready ->
 
-        # Just to current select, set val as new value
-        $select.val data.id
-      return false
+  # Add new behavior to cocoon add_fields button
+  $('.expected-result.responsabilities').each  ->
+    $fieldset = $(this)
+    $original = $fieldset.find('.select-dsei-person:first')
 
+    $fieldset.on 'click', '.add_fields', (e) ->
+      $this = $(this)
+
+      method = $this.data('association-insertion-method') || 'before'
+      setTimeout( ->
+        if method == 'append'
+          $node = $this.parent().find('> :last-child')
+        else
+          $node = $this.parent().prev()
+
+        if $node.find('.select-dsei-person').find('option').length != $original.find('option').length
+          $node.find('.select-dsei-person').empty().html($original.html())
+        return
+      , 100)
+      return
     return
 
   # Toggle Structures on Projeção Orçamentária show
@@ -161,7 +183,7 @@ $(document).ready ->
     return
 
   # Mark input for PDSI Results as red or green
-  $(document).on 'blur', '.expected-result', (e) ->
+  $(document).on 'blur', '.expected-result-field', (e) ->
     $this    = $(this)
     expected = $this.data 'expected'
     value    = $this.val()

@@ -19,7 +19,7 @@
           - else
             - unless object.result_text.blank?
               | #{index} -&nbsp;
-            == object.text.gsub /\[VALUE\]/, f_pdsi_result.number_field(:value, class: "number-field expected-result #{object.css}", data: { expected: object.reference_value } )
+            == object.text.gsub /\[VALUE\]/, f_pdsi_result.number_field(:value, class: "number-field expected-result-field #{object.css}", data: { expected: object.reference_value } )
             strong.reference_value
               | &nbsp;(Esperado: #{object.reference_value})
 

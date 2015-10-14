@@ -134,7 +134,7 @@ form {
     font-size: modular-scale(-1);
   }
 
-  .expected-result {
+  .expected-result-field {
 
     &.green {
       border-color: #30BF16;
@@ -151,4 +151,8 @@ form {
 }
 .froala-wrapper + div {
   display: none;
+}
+
+.cancel-button {
+  margin: 0 5px;
 }
