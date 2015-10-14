@@ -11,7 +11,7 @@ ul.accordion-tabs-minimal
     .tab-content
       H2 TODO: Descomentar este código em app/views/pdsis/resultados_esperados/_form.html.slim
       h2 Tem uma variável @tab para definir a aba ativa.
-      /.vertical-tabs-container
+      .vertical-tabs-container
         .vertical-tabs style='width: 29%;'
           - ResultAxis.order(:id).each do |axis|
             - active = params[:subsection] == axis.section_name ? ' is-active' : ''

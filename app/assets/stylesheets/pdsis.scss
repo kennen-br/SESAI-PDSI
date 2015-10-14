@@ -6,7 +6,9 @@
   @include clearfix;
 }
 .section-title {
-  font-weight: 400;
+  border-bottom : 2px solid #999;
+  font-weight   : 400;
+  line-height   : 1.8em;
 }
 .section-description {
   @include padding(null null null 20px);
@@ -57,6 +59,43 @@
 
     p.child {
       @include padding(null null null 20px);
+    }
+  }
+  .axis {
+    @include margin(null null 20px);
+
+    h3 {
+      border-bottom  : 1px solid #999;
+      color          : #666;
+      font-weight    : 400;
+      line-height    : 1.7em;
+      text-transform : uppercase;
+    }
+
+    .strategy {
+      .strategy-title {
+        @include padding(10px);
+
+        background  : #999;
+        color       : #FFF;
+        font-weight : 600;
+      }
+      .product {
+        font-size: 0.8em;
+
+        thead {
+          tr {
+            th {
+              @include padding(null 0);
+
+              background     : #999;
+              color          : #FFF;
+              text-align     : center;
+              text-transform : uppercase;
+            }
+          }
+        }
+      }
     }
   }
 }
