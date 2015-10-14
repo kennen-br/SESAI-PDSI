@@ -18,10 +18,4 @@ class Result < ActiveRecord::Base
   def text_no_index
     name.gsub /^\d\.?\d?\s/, ''
   end
-
-  def css
-    return 'green'
-    return '' if pdsi_results.first.value.nil?
-    pdsi_results.first.value >= reference_value ? 'green' : 'red'
-  end
 end

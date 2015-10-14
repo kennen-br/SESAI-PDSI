@@ -18,7 +18,7 @@ ul.accordion-tabs-minimal
       h2.section-title RESULTADOS ESPERADOS 2016-2019 (#{@dsei.name})
       .section-description
         .expected-results-show
-          - ResultAxis.order(:id).each_with_index do |axis, index|
+          - ResultAxis.includes(:result_strategies).order(:id).each_with_index do |axis, index|
             - i = index+1
             .axis
               .pull-right
@@ -31,7 +31,7 @@ ul.accordion-tabs-minimal
                 .strategy
                   .strategy-title Estratégia #{i}: #{strategy.name}
 
-                  - @pdsi.pdsi_results_to_section_with_values(axis.section_name).each do |result|
+                  - strategy.results.each do |result|
                     table.tables.product
                       thead
                         th RESULTADO

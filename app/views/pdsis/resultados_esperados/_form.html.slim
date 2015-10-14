@@ -1,5 +1,6 @@
+- current = nil
 ul.accordion-tabs-minimal
-  li.tab-header-and-content
+  /.li.tab-header-and-content
     a.tab-link.is-active[href="#"]
       | Responsabilidades
     .tab-content
@@ -7,18 +8,41 @@ ul.accordion-tabs-minimal
 
   li.tab-header-and-content
     a.tab-link[href="#"]
-      | Old content
+      | Metas
     .tab-content
-      H2 TODO: Descomentar este código em app/views/pdsis/resultados_esperados/_form.html.slim
-      h2 Tem uma variável @tab para definir a aba ativa.
       .vertical-tabs-container
         .vertical-tabs style='width: 29%;'
-          - ResultAxis.order(:id).each do |axis|
-            - active = params[:subsection] == axis.section_name ? ' is-active' : ''
+          - ResultAxis.order(:id).each_with_index do |axis, index|
+            - if params[:subsection] == axis.section_link
+              - active  = ' is-active'
+              - current = { axis: axis, index: index+1 }
             = link_to axis.name, edit_results_path(@pdsi, subsection: axis.section_link), class: "vertical-tab#{active}"
         .vertical-tab-content-container style='width: 71%;'
           .vertical-tab-content style="display: block;"
-            .parent-block
-              = render 'hidden_fields'
-              - @pdsi.pdsi_results_to_section_with_values(@subsection).includes(:result).where('results.parent_id IS NULL').each_with_index do |pdsi_result, index|
-                = render "pdsis/resultados_esperados/children", { index: index+1, result: pdsi_result.result, f: f }
+            fieldset
+              legend Estratégia #{current[:index]}: #{current[:axis].result_strategies.first.name}
+              = f.fields_for :pdsi_results, @pdsi.pdsi_results_to_section_with_values(current[:axis].section_name) do |f_pdsi_result|
+                - object = f_pdsi_result.object.result
+                fieldset
+                  legend = object.name
+                  table.tables
+                    thead
+                      tr
+                        th 2016
+                        th 2017
+                        th 2018
+                        th 2019
+                    tbody
+                      tr
+                        td = object.value_2016
+                        td = object.value_2017
+                        td = object.value_2018
+                        td = object.value_2019
+                      tr
+                        td = f_pdsi_result.number_field(:value_2016, class: "number-field expected-result-field #{f_pdsi_result.object.css('2016')}", data: { expected: object.value_2016 } )
+                        td = f_pdsi_result.number_field(:value_2017, class: "number-field expected-result-field #{f_pdsi_result.object.css('2017')}", data: { expected: object.value_2017 } )
+                        td = f_pdsi_result.number_field(:value_2018, class: "number-field expected-result-field #{f_pdsi_result.object.css('2018')}", data: { expected: object.value_2018 } )
+                        td = f_pdsi_result.number_field(:value_2019, class: "number-field expected-result-field #{f_pdsi_result.object.css('2019')}", data: { expected: object.value_2019 } )
+
+
+
