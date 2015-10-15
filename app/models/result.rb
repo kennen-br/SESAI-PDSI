@@ -1,5 +1,4 @@
 class Result < ActiveRecord::Base
-  include Parentable
   auditable
 
   belongs_to  :result_level
@@ -21,7 +20,7 @@ class Result < ActiveRecord::Base
   end
 
   def css
-    puts "="*300, id, "="*300
+    return 'green'
     return '' if pdsi_results.first.value.nil?
     pdsi_results.first.value >= reference_value ? 'green' : 'red'
   end

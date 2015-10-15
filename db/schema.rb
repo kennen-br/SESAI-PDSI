@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151007190803) do
+ActiveRecord::Schema.define(version: 20151014193422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -410,9 +410,12 @@ ActiveRecord::Schema.define(version: 20151007190803) do
   create_table "pdsi_results", force: :cascade do |t|
     t.integer  "pdsi_id"
     t.integer  "result_id"
-    t.integer  "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "value_2016"
+    t.integer  "value_2017"
+    t.integer  "value_2018"
+    t.integer  "value_2019"
   end
 
   add_index "pdsi_results", ["pdsi_id"], name: "index_pdsi_results_on_pdsi_id", using: :btree
@@ -585,14 +588,18 @@ ActiveRecord::Schema.define(version: 20151007190803) do
     t.integer  "result_level_id"
     t.integer  "result_strategy_id"
     t.string   "name"
-    t.integer  "reference_value"
-    t.integer  "parent_id"
     t.boolean  "is_specific"
     t.boolean  "is_percentage"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.boolean  "is_boolean",          default: false
     t.text     "result_text"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.boolean  "is_boolean",         default: false
+    t.integer  "value_2016"
+    t.integer  "value_2017"
+    t.integer  "value_2018"
+    t.integer  "value_2019"
+    t.text     "orientacoes_dsei"
+    t.text     "orientacoes_sistema"
   end
 
   add_index "results", ["result_level_id"], name: "index_results_on_result_level_id", using: :btree
@@ -750,7 +757,6 @@ ActiveRecord::Schema.define(version: 20151007190803) do
   add_foreign_key "result_strategies", "result_axes"
   add_foreign_key "results", "result_levels"
   add_foreign_key "results", "result_strategies"
-  add_foreign_key "results", "results", column: "parent_id"
   add_foreign_key "service_networks", "base_polos"
   add_foreign_key "service_networks", "pdsis"
   add_foreign_key "specific_absolute_data", "absolute_data"
