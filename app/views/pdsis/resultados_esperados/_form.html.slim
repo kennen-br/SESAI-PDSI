@@ -1,11 +1,5 @@
-.vertical-tabs-container
-  .vertical-tabs style='width: 29%;'
-    - ResultAxis.order(:id).each do |axis|
-      - active = params[:subsection] == axis.section_name ? ' is-active' : ''
-      = link_to axis.name, edit_pdsi_path(@pdsi, section: 'resultados-esperados', subsection: axis.section_name), class: "vertical-tab#{active}"
-  .vertical-tab-content-container style='width: 71%;'
-    .vertical-tab-content style="display: block;"
-      .parent-block
-        = render 'hidden_fields'
-        - @pdsi.pdsi_results_to_section_with_values(@subsection).includes(:result).where('results.parent_id IS NULL').each_with_index do |pdsi_result, index|
-          = render "pdsis/resultados_esperados/children", { index: index+1, result: pdsi_result.result, f: f }
+= render 'hidden_fields'
+- if params[:tab] == 'responsabilidades'
+  = render 'pdsis/resultados_esperados/responsabilidades/form', f: f
+- else
+  = render 'pdsis/resultados_esperados/metas/form', f: f

@@ -9,4 +9,8 @@ class ResultAxis < ActiveRecord::Base
   def set_section_name
     self.section_name  = I18n.transliterate(name.split(/\d\.\s/).last).gsub(/\s/, '_').downcase
   end
+
+  def section_link
+    section_name.gsub /_/, '-'
+  end
 end

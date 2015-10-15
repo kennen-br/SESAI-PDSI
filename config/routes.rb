@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  scope 'pessoas' do
+    post '/cadastrar', to: 'people#create',  as: :people_create
+  end
+
   post '/image-upload', to: 'application#image_upload', as: :image_upload
 
   get 'category_budgets/index'
@@ -15,7 +19,9 @@ Rails.application.routes.draw do
   end
 
   scope '/meu-pdsi' do
-    get '/:id/alterar/projecao-orcamentaria/:subsection', defaults: { section: 'projecao-orcamentaria' }, to: 'pdsis#edit',  as: :edit_budget_projection
+    get '/:id/alterar/projecao-orcamentaria/:subsection',                   defaults: { section: 'projecao-orcamentaria' }, to: 'pdsis#edit',         as: :edit_budget_projection
+    get '/:id/alterar/resultados-esperados/:subsection',                    defaults: { section: 'resultados-esperados', tab: 'resultados' },         to: 'pdsis#edit',  as: :edit_results
+    get '/:id/alterar/resultados-esperados/responsabilidades/:subsection',  defaults: { section: 'resultados-esperados', tab: 'responsabilidades' },  to: 'pdsis#edit',  as: :edit_responsabilities
     get   '/(ver/:section)',                    to: 'pdsis#index',  as: :pdsis
     patch '/:id/alterar/:section',              to: 'pdsis#update', as: :pdsi
     get   '/:id/alterar/:section(/:base_polo)', to: 'pdsis#edit',   as: :edit_pdsi

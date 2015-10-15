@@ -4,7 +4,6 @@ class Cost < ActiveRecord::Base
 
   belongs_to  :parent,  class_name: 'Cost'
 
-  has_many  :children,  class_name: 'Cost', foreign_key: :parent_id
   has_many  :pdsi_costs
 
   # Todo: Remove this

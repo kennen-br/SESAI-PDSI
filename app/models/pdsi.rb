@@ -55,6 +55,9 @@ class Pdsi < ActiveRecord::Base
   has_many  :pdsi_costs
   accepts_nested_attributes_for :pdsi_costs, reject_if: :all_blank, allow_destroy: true
 
+  has_many  :responsabilities
+  accepts_nested_attributes_for :responsabilities, reject_if: :all_blank, allow_destroy: true
+
   has_attached_file :map, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :map, content_type: /\Aimage\/.*\Z/
 
@@ -166,11 +169,12 @@ class Pdsi < ActiveRecord::Base
 
   def pdsi_results_to_section_with_values(section_name)
     items = pdsi_results.joins(result: [result_strategy: [:result_axis]]).where('result_axes.section_name = ?', section_name)
-    return items.order(['result_axes.id', 'result_strategies.id', 'results.id']) unless items.blank?
+    return items.includes(:result).order(['result_axes.id', 'result_strategies.id', 'results.id']) unless items.blank?
 
     ResultAxis.includes(:result_strategies).find_by_section_name(section_name).result_strategies.each do |strategy|
+      return items if strategy.results.blank?
       strategy.results.each do |result|
-        pdsi_results << PdsiResult.new(pdsi: self, result: result)
+        pdsi_results << PdsiResult.new(pdsi: self, result: result, value_2016: result.value_2016, value_2017: result.value_2017, value_2018: result.value_2018, value_2019: result.value_2019)
       end
     end
 
@@ -213,6 +217,21 @@ class Pdsi < ActiveRecord::Base
     Cost.all.each { |cost| pdsi_costs << PdsiCost.new(cost: cost) }
 
     costs_with_values
+  end
+
+  def responsabilities_with_values(axis)
+    items = responsabilities.joins(result: [:result_strategy]).where('result_strategies.result_axis_id = ?', axis.id)
+    return items.includes(:children, :person, :result, :corresponsabilities).order(:id) unless items.blank?
+
+    level = ResponsabilityLevel.find_by_name 'Resultado'
+    axis.result_strategies.each do |result_strategy|
+      result_strategy.results.each do |result|
+        # next unless result.parent_id.nil?
+        responsabilities << Responsability.new(result_id: result.id)
+      end
+    end
+
+    responsabilities_with_values axis
   end
 
 private

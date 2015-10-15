@@ -20,6 +20,7 @@ pt-BR:
       absolute_datum_level:         Nível do dado absoluto
       absolute_datum:               Dado absoluto
       category_budgets:             Dotação orçamentária
+      pdsi_result:                  Resultados
     attributes:
       user:
         username:               Usuário
@@ -244,6 +245,21 @@ pt-BR:
         previsao_orcamentaria_2015:   PREVISÃO ORÇAMENTÁRIA DE REFRÊNCIA 2015 (em R$)
         orcamento_necessario:         ESTIMATIVA DO ORÇAMENTO NECESSÁRIO PARA O ADEQUADO FUNCIONAMENTO DO DSEI, NO CENÁRIO DE PLENO ATENDIMENTO DOS INVESTIMENTOS SOLICITADOS
         dotacao_orcamentaria_inicial: DOTAÇÃO ORÇAMENTÁRIA INICIAL (PLOA 2016) (em R$)
+
+      pdsi_result:
+        value_2016  : Valor para 2016
+        value_2017  : Valor para 2017
+        value_2018  : Valor para 2018
+        value_2019  : Valor para 2019
+
+      responsability:
+        pdsi:             PDSI
+        result:           Resultado
+        name:             Nome
+        person:           Responsável
+        deadline:         Prazo
+        external_actors:  Atores externos
+        comments:         Comentários
 
       cost_user:
         cost:         'Custeio'

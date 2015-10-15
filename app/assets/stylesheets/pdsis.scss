@@ -6,11 +6,11 @@
   @include clearfix;
 }
 .section-title {
-  font-weight: 400;
+  border-bottom : 2px solid #999;
+  font-weight   : 400;
+  line-height   : 1.8em;
 }
 .section-description {
-  @include padding(null null null 20px);
-
   font-size: modular-scale(-1);
 }
 
@@ -59,8 +59,46 @@
       @include padding(null null null 20px);
     }
   }
+  .axis {
+    @include margin(null null 20px);
+
+    h3 {
+      border-bottom  : 1px solid #999;
+      color          : #666;
+      font-weight    : 400;
+      line-height    : 1.7em;
+      text-transform : uppercase;
+    }
+
+    .strategy {
+      .strategy-title {
+        @include padding(10px);
+
+        background  : #999;
+        color       : #FFF;
+        font-weight : 600;
+      }
+      .product {
+        font-size: 0.8em;
+
+        thead {
+          tr {
+            th {
+              @include padding(null 0);
+
+              background     : #999;
+              color          : #FFF;
+              text-align     : center;
+              text-transform : uppercase;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
+<<<<<<< HEAD
 .budget-table {
   font-size: 0.7em;
 
@@ -140,5 +178,78 @@
         }
       }
     }
+  }
+}
+
+.person-list {
+  @include position(relative);
+  @include padding(null null 30px null);
+  @include margin(null null 30px null);
+
+  border-bottom: 2px solid #CCC;
+
+  .person {
+    @include clearfix;
+    @include padding(10px null);
+
+    border-bottom: 1px solid #CCC;
+
+    .name, .destroy {
+      float: left;
+    }
+    .name {
+      width: 95%;
+    }
+    .destroy {
+      width: 5%;
+    }
+
+    select {
+      margin: 0;
+    }
+
+    &:last-child {
+      border: 0;
+    }
+  }
+
+  .parent-cocoon {
+    @include position(absolute, null 0 -30px null);
+  }
+
+  &.head {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+
+    .person {
+      .name { width: 88%; }
+      .destroy { width: 12%; }
+    }
+  }
+}
+
+.cocoon-link {
+  @include clearfix;
+  @include padding(10px null null null);
+
+  border-top: 2px solid #CCC;
+
+  a {
+    float: right;
+  }
+}
+
+fieldset.expected-result {
+  background: #efefef;
+  margin-bottom: 50px;
+
+  &.odd {
+    background: #FFF;
+  }
+
+  &:last-child {
+    margin: 0;
   }
 }

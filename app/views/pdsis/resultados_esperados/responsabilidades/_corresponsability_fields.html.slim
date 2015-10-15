@@ -1,0 +1,5 @@
+.person
+  .name
+    = select_person_from_dsei f, @dsei, :person_id, f.object.person
+  .destroy
+    = f.check_box :_destroy

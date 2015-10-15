@@ -33,10 +33,6 @@ class PdsisController < ApplicationController
   end
 
   def update
-    debug params[:pdsi]
-
-    debug params
-
     if @pdsi.update(pdsi_params)
       redirect_after_save
     else
@@ -65,6 +61,7 @@ private
 
   def set_subsection
     @subsection = params[:subsection].gsub(/-/, '_') if params.key?(:subsection)
+    @tab        = params[:tab].gsub(/-/, '_') if params.key?(:tab)
   end
 
   def set_base_polo
@@ -83,6 +80,7 @@ private
     args = { section: params[:section] }
     args.merge!(base_polo: params[:base_polo]) if params[:base_polo]
     args.merge!(subsection: params[:subsection]) if params[:subsection]
+    args.merge!(tab: params[:tab]) if params[:tab]
 
     redirect_to edit_pdsi_path(@pdsi, args), notice
   end
@@ -128,7 +126,7 @@ private
       absolute_data_base_polos_attributes: [:id, :absolute_datum_id, :base_polo_id, :pdsi_id, :value],
       absolute_data_dseis_attributes: [:id, :absolute_datum_id, :dsei_id, :pdsi_id, :value],
       absolute_data_casais_attributes: [:id, :absolute_datum_id, :dsei_id, :pdsi_id, :value],
-      pdsi_results_attributes: [:id, :value],
+      pdsi_results_attributes: [:id, :value_2016, :value_2017, :value_2018, :value_2019],
       category_budgets_attributes: [:id, :projection_budget_category_id, :value_2016, :value_2017, :value_2018, :value_2019],
       projection_budgets_attributes: [
         :id, :quantidade_atual,
@@ -139,7 +137,19 @@ private
       ],
       pdsi_costs_attributes: [
         :id, :cost_id, :previsao_orcamentaria_2015, :orcamento_necessario, :dotacao_orcamentaria_inicial
-      ]
+      ],
+      responsabilities_attributes: [
+        :id, :result_id, :person_id, :deadline, :external_actors, :comments, :_destroy,
+        corresponsabilities_attributes: [:id, :person_id, :_destroy],
+        children_attributes: [
+          :id, :result_id, :name, :person_id, :deadline, :external_actors, :comments, :_destroy,
+          corresponsabilities_attributes: [:id, :person_id, :_destroy],
+            children_attributes: [
+              :id, :result_id, :name, :person_id, :deadline, :external_actors, :comments, :_destroy,
+              corresponsabilities_attributes: [:id, :person_id, :_destroy],
+            ],
+        ],
+      ],
     )
   end
 end

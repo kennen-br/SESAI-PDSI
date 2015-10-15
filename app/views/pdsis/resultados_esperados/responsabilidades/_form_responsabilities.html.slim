@@ -1,0 +1,20 @@
+fieldset.expected-result.responsabilities class=('odd' if i % 2 == 0)
+  legend
+    strong  = f.object.result.text_no_index
+
+  = render 'pdsis/resultados_esperados/responsabilidades/base_fields', f: f
+
+  fieldset
+    legend
+      strong Produtos
+
+    - partial_name = 'pdsis/resultados_esperados/responsabilidades/form_product_fields'
+    div.responsabilities
+      = f.fields_for :children do |children|
+        == render partial_name, f: children
+      .cocoon-link
+        = link_to_add_association f, :children, { class: 'button btn-sm', partial: partial_name } do
+          = icon 'plus'
+          | Adicionar Produto
+
+hr

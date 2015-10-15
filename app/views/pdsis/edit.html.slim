@@ -5,7 +5,7 @@ h1.page-title
 = form_for @pdsi, url: pdsi_path(@pdsi, section: @section_url), html: { multipart: true } do |f|
   - if @pdsi.errors.any?
     #error_explanation.flash-error
-      h2 = "#{pluralize(@pdsi.errors.count, "error")} encontrados:"
+      h2 = "#{pluralize(@pdsi.errors.count, "erro")} encontrados:"
       ul
         - @pdsi.errors.full_messages.each do |message|
           li = message
@@ -15,7 +15,7 @@ h1.page-title
 
   .actions
     = hidden_field_tag :section, @section
-    = hidden_field_tag :subsection, @subsection if @subsection
+    = hidden_field_tag :subsection, @subsection.gsub(/-/, '_') if @subsection
 
     a.button href="javascript:void(0)" onclick="$(this).closest('form').submit()"
       i.fa.fa-save

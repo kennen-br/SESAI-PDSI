@@ -1,0 +1,34 @@
+.field
+  = f.label   :person
+  == select_person_from_dsei f, @dsei, :person_id, f.object.person
+
+fieldset
+  legend
+    strong Corresponsáveis
+
+  - partial_name  = 'pdsis/resultados_esperados/responsabilidades/corresponsability_fields'
+  .person-list.head
+    .person
+      .name
+        | Pessoa
+      .destroy
+        | Apagar?
+  .person-list
+    = f.fields_for :corresponsabilities do |corresponsability|
+      = render partial_name, { f: corresponsability }
+
+    = link_to_add_association f, :corresponsabilities, { data: { "association-insertion-method": 'append' }, class: 'button btn-sm parent-cocoon', partial: partial_name } do
+      = icon 'plus'
+      | Adicionar Corresponsável
+
+.field
+  = f.label       :deadline
+  = f.date_field  :deadline
+
+.field
+  = f.label     :external_actors
+  = f.text_area :external_actors
+
+.field
+  = f.label     :comments
+  = f.text_area :comments
