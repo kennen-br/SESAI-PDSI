@@ -95,7 +95,7 @@
 
   .vertical-tab-content {
     background-color: $tab-content-background;
-    padding: 1em 0.1em;
+    padding: 1em 0.3em;
 
     @include media($vertical-tab-mode) {
       border: none;
