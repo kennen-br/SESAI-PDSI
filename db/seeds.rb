@@ -15337,3 +15337,11 @@ end
 if TextTemplate.count == 0
   TextTemplate.create!([{ introducao_1: nil }])
 end
+
+if ResponsabilityLevel.count == 0
+  ResponsabilityLevel.create!([
+    { name: 'Resultado' },
+    { name: 'Produto' },
+    { name: 'Ação' },
+  ])
+end
