@@ -590,10 +590,10 @@ ActiveRecord::Schema.define(version: 20151014193422) do
     t.string   "name"
     t.boolean  "is_specific"
     t.boolean  "is_percentage"
+    t.text     "result_text"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.boolean  "is_boolean",          default: false
-    t.text     "result_text"
     t.integer  "value_2016"
     t.integer  "value_2017"
     t.integer  "value_2018"

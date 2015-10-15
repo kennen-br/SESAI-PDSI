@@ -1,4 +1,5 @@
 - current = nil
+
 ul.accordion-tabs-minimal
   /.li.tab-header-and-content
     a.tab-link.is-active[href="#"]
@@ -13,7 +14,7 @@ ul.accordion-tabs-minimal
       .vertical-tabs-container
         .vertical-tabs style='width: 29%;'
           - ResultAxis.order(:id).each_with_index do |axis, index|
-            - if params[:subsection] == axis.section_link
+            - if @subsection == axis.section_name
               - active  = ' is-active'
               - current = { axis: axis, index: index+1 }
             = link_to axis.name, edit_results_path(@pdsi, subsection: axis.section_link), class: "vertical-tab#{active}"
@@ -28,17 +29,22 @@ ul.accordion-tabs-minimal
                   table.tables
                     thead
                       tr
+                        th Valores para
                         th 2016
                         th 2017
                         th 2018
                         th 2019
                     tbody
                       tr
+                        td
+                          strong Valores referência
                         td = object.value_2016
                         td = object.value_2017
                         td = object.value_2018
                         td = object.value_2019
                       tr
+                        td
+                          strong Seus valores
                         td = f_pdsi_result.number_field(:value_2016, class: "number-field expected-result-field #{f_pdsi_result.object.css('2016')}", data: { expected: object.value_2016 } )
                         td = f_pdsi_result.number_field(:value_2017, class: "number-field expected-result-field #{f_pdsi_result.object.css('2017')}", data: { expected: object.value_2017 } )
                         td = f_pdsi_result.number_field(:value_2018, class: "number-field expected-result-field #{f_pdsi_result.object.css('2018')}", data: { expected: object.value_2018 } )
