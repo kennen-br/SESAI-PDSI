@@ -11,8 +11,6 @@
   line-height   : 1.8em;
 }
 .section-description {
-  @include padding(null null null 20px);
-
   font-size: modular-scale(-1);
 }
 

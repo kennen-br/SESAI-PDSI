@@ -172,6 +172,7 @@ class Pdsi < ActiveRecord::Base
     return items.includes(:result).order(['result_axes.id', 'result_strategies.id', 'results.id']) unless items.blank?
 
     ResultAxis.includes(:result_strategies).find_by_section_name(section_name).result_strategies.each do |strategy|
+      return items if strategy.results.blank?
       strategy.results.each do |result|
         pdsi_results << PdsiResult.new(pdsi: self, result: result, value_2016: result.value_2016, value_2017: result.value_2017, value_2018: result.value_2018, value_2019: result.value_2019)
       end

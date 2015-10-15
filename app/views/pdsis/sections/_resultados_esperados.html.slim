@@ -31,22 +31,40 @@ ul.accordion-tabs-minimal
                 .strategy
                   .strategy-title Estratégia #{i}: #{strategy.name}
 
-                  - strategy.results.each do |result|
-                    table.tables.product
+                  - @pdsi.pdsi_results_to_section_with_values(axis.section_name).each do |pdsi_result|
+                    table.tables.pdsi-result-table
                       thead
-                        th RESULTADO
-                        th RESPONSÁVEL
-                        th CORRESPONSÁVEIS
-                        th PRAZO
-                        th ATORES EXTERNOS
-                        th COMENTÁRIOS
+                        th TEXTO DO RESULTADO DO PDSI (2016-2019)
+                        th 2016
+                        th 2017
+                        th 2018
+                        th 2019
+                        th ORIENTAÇÕES PARA DSEIs
+                        th ORIENTAÇÕES PARA O SISTEMA
                       tbody
-                        td -
-                        td -
-                        td -
-                        td -
-                        td -
-                        td -
+                        td = pdsi_result.result.name
+                        td = pdsi_result.compose_value 2016
+                        td = pdsi_result.compose_value 2017
+                        td = pdsi_result.compose_value 2018
+                        td = pdsi_result.compose_value 2019
+                        td = pdsi_result.result.orientacoes_dsei
+                        td = pdsi_result.result.orientacoes_sistema
+                  br
+                  table.tables.product
+                    thead
+                      th RESULTADO
+                      th RESPONSÁVEL
+                      th CORRESPONSÁVEIS
+                      th PRAZO
+                      th ATORES EXTERNOS
+                      th COMENTÁRIOS
+                    tbody
+                      td -
+                      td -
+                      td -
+                      td -
+                      td -
+                      td -
 
 /.
   li.tab-header-and-content

@@ -6,6 +6,10 @@ class PdsiResult < ActiveRecord::Base
 
   validates_with PdsiResultValueValidator
 
+  def compose_value(year)
+    result.result_text.gsub(/\[VALUE\]/, send("value_#{year.to_s}").to_s)
+  end
+
   def css(year)
     value = send("value_#{year}")
     return '' if value.blank?
