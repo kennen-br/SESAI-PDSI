@@ -255,7 +255,7 @@ pt-BR:
       responsability:
         pdsi:             PDSI
         result:           Resultado
-        parent:           Resultado pai
+        name:             Nome
         person:           Responsável
         deadline:         Prazo
         external_actors:  Atores externos

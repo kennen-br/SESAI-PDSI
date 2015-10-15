@@ -80,6 +80,7 @@ private
     args = { section: params[:section] }
     args.merge!(base_polo: params[:base_polo]) if params[:base_polo]
     args.merge!(subsection: params[:subsection]) if params[:subsection]
+    args.merge!(tab: params[:tab]) if params[:tab]
 
     redirect_to edit_pdsi_path(@pdsi, args), notice
   end
@@ -141,10 +142,10 @@ private
         :id, :result_id, :person_id, :deadline, :external_actors, :comments, :_destroy,
         corresponsabilities_attributes: [:id, :person_id, :_destroy],
         children_attributes: [
-          :id, :result_id, :person_id, :deadline, :external_actors, :comments, :_destroy,
+          :id, :result_id, :name, :person_id, :deadline, :external_actors, :comments, :_destroy,
           corresponsabilities_attributes: [:id, :person_id, :_destroy],
             children_attributes: [
-              :id, :result_id, :person_id, :deadline, :external_actors, :comments, :_destroy,
+              :id, :result_id, :name, :person_id, :deadline, :external_actors, :comments, :_destroy,
               corresponsabilities_attributes: [:id, :person_id, :_destroy],
             ],
         ],
