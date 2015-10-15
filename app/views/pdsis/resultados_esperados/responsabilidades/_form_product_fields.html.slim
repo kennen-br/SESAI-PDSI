@@ -9,14 +9,11 @@ fieldset
     legend
       strong Ações
 
-    - action_body_id = "actions_#{f.object.id}"
-    - partial_name    = 'pdsis/resultados_esperados/responsabilidades/form_action_fields'
-
-    div id=(action_body_id)
+    - partial_name = 'pdsis/resultados_esperados/responsabilidades/form_action_fields'
+    div.product-actions
       = f.fields_for :children do |children|
         == render partial_name, f: children
-
-    .links
-      = link_to_add_association f, :children, { data: { "association-insertion-node": "##{action_body_id}"}, class: 'button btn-sm', partial: partial_name } do
-        = icon 'plus'
-        | Adicionar Infraestrutura
+      .cocoon-link
+        = link_to_add_association f, :children, { class: 'button btn-sm', partial: partial_name } do
+          = icon 'plus'
+          | Adicionar Ação

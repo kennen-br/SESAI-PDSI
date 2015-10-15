@@ -1,4 +1,4 @@
-fieldset
+fieldset.expected-result class=('odd' if i % 2 == 0)
   legend
     strong  = f.object.result.text_no_index
 
@@ -8,14 +8,13 @@ fieldset
     legend
       strong Produtos
 
-    - product_body_id = "products_#{f.object.id}"
-    - partial_name    = 'pdsis/resultados_esperados/responsabilidades/form_product_fields'
-
-    div id=(product_body_id)
+    - partial_name = 'pdsis/resultados_esperados/responsabilidades/form_product_fields'
+    div.responsabilities
       = f.fields_for :children do |children|
         == render partial_name, f: children
+      .cocoon-link
+        = link_to_add_association f, :children, { class: 'button btn-sm', partial: partial_name } do
+          = icon 'plus'
+          | Adicionar Produto
 
-    .links
-      = link_to_add_association f, :children, { data: { "association-insertion-node": "##{product_body_id}"}, class: 'button btn-sm', partial: partial_name } do
-        = icon 'plus'
-        | Adicionar Produto
+hr

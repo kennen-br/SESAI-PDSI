@@ -6,23 +6,20 @@ fieldset
   legend
     strong Corresponsáveis
 
-  table.table.nested-form
-    thead
-      tr
-        th Pessoa
-        th.destroy Apagar?
+  - partial_name  = 'pdsis/resultados_esperados/responsabilidades/corresponsability_fields'
+  .person-list.head
+    .person
+      .name
+        | Pessoa
+      .destroy
+        | Apagar?
+  .person-list
+    = f.fields_for :corresponsabilities do |corresponsability|
+      = render partial_name, { f: corresponsability }
 
-    - tbody_id      = "tbody_corresponsability_#{f.object.id}"
-    - partial_name  = 'pdsis/resultados_esperados/responsabilidades/corresponsability_fields'
-    tbody id=(tbody_id)
-      = f.fields_for :corresponsabilities do |corresponsability|
-        = render partial_name, { f: corresponsability }
-    tfoot
-      tr
-        td.links.right-align colspan="2"
-          = link_to_add_association f, :corresponsabilities, { data: { "association-insertion-node": "tbody", "association-insertion-method": 'append', 'association-insertion-traversal': 'closest' }, class: 'button btn-sm', partial: partial_name } do
-            = icon 'plus'
-            | Adicionar Corresponsável
+    = link_to_add_association f, :corresponsabilities, { data: { "association-insertion-method": 'append' }, class: 'button btn-sm parent-cocoon', partial: partial_name } do
+      = icon 'plus'
+      | Adicionar Corresponsável
 
 .field
   = f.label       :deadline

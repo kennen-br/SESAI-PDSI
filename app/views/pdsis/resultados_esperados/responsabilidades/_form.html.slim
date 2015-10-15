@@ -9,5 +9,7 @@
   .vertical-tab-content-container style='width: 71%;'
     .vertical-tab-content style="display: block;"
       .parent-block
-       = f.fields_for :responsabilities, @pdsi.responsabilities_with_values(current) do |item|
-         = render 'pdsis/resultados_esperados/responsabilidades/form_responsabilities', f: item
+        - i = 0
+        = f.fields_for :responsabilities, @pdsi.responsabilities_with_values(current) do |item|
+          = render 'pdsis/resultados_esperados/responsabilidades/form_responsabilities', {f: item, i: i}
+          - i = i + 1
