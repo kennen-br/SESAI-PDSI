@@ -1,0 +1,29 @@
+.accordion-tabs-minimal
+  .tab-content style="display: block; border: 0;"
+    h2.section-title ANEXOS
+
+    .section-description
+      = link_to edit_anexos_path(@pdsi, section: 'anexos', subsection: 'custeios'), class: 'button pull-right' do
+          i.fa.fa-pencil
+          | Alterar Custeios
+      h2.section-title Dimensionamento de Necessidades - Custeios
+
+      table.tables
+        thead
+          tr
+            th Despesa
+            th Previsão 2015
+            th Estimativa 2015
+            th Déficit/Superávit 2015
+            th Percentual de Cobertura
+            th Estimativa Plena
+        tbody
+          - @pdsi.need_costs_with_values.each do |item|
+            tr
+              td = item.cost.name
+              td = number_to_currency item.previsao_orcamentaria_2015
+              td = number_to_currency item.orcamento_necessario
+              td = number_to_currency(item.previsao_orcamentaria_2015 - item.orcamento_necessario)
+              td #{number_with_precision(item.previsao_orcamentaria_2015 / item.orcamento_necessario, precision: 2)}%
+              td
+                strong = number_to_currency item.orcamento_necessario_pleno

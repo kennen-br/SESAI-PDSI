@@ -1,0 +1,20 @@
+h1 Custeios (#{@dsei.name})
+= f.fields_for :pdsi_need_costs, @pdsi.need_costs_with_values do |item|
+  fieldset
+    legend
+      strong = item.object.cost.name
+
+    .field
+      = item.label :previsao_orcamentaria_2015
+      strong style="display: block; margin: -5px 0 10px;" = number_to_currency item.object.previsao_orcamentaria_2015
+    .field
+      = item.label :previsao_orcamentaria_2016
+      strong style="display: block; margin: -5px 0 10px;" = number_to_currency item.object.previsao_orcamentaria_2016
+    .field
+      = item.label :orcamento_necessario
+      = item.hidden_field :orcamento_necessario, value: (number_with_precision(item.object.orcamento_necessario, :precision => 2, separator: '.', delimiter: '') || 0)
+      = text_field_tag '', number_with_precision(item.object.orcamento_necessario, precision: 2) || 0, class: 'currency-input'
+    .field
+      = item.label :orcamento_necessario_pleno
+      = item.hidden_field :orcamento_necessario_pleno, value: (number_with_precision(item.object.orcamento_necessario_pleno, :precision => 2, separator: '.', delimiter: '') || 0)
+      = text_field_tag '', number_with_precision(item.object.orcamento_necessario_pleno, precision: 2) || 0, class: 'currency-input'

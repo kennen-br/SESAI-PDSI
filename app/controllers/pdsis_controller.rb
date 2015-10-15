@@ -150,6 +150,9 @@ private
             ],
         ],
       ],
+      pdsi_need_costs_attributes: [
+        :id, :cost_id, :previsao_orcamentaria_2015, :previsao_orcamentaria_2016, :orcamento_necessario, :orcamento_necessario_pleno
+      ]
     )
   end
 end
