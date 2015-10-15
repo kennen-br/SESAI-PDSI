@@ -10,12 +10,22 @@ Todos os passos serão realizados dentro do diretório do projeto, dentro do vag
 $ rvm install 2.2.0
 $ rvm use 2.2.0 --default
 ```
+### Instalando pg 0.'8.2 (libpq-fe.h)
+
+```
+$ sudo aptitude install libpq-dev
+```
 
 ### Instalando as dependências do projeto
-
 ```
 $ bundle install
 ```
+### Criar banco de dados manualmente
+```
+psql -h localhost -U desenv sesai_pdsi
+```
+Senha: rapadura
+Caso não funcionar, tem que rodar manualmente as 3 últimas linhas do postinstall.sh
 
 ### Configurando / inicializando o banco de dados
 
@@ -43,6 +53,12 @@ $ rails server -b 0.0.0.0
 ```
 
 e agora acesse seu navegador em http://localhost:3000
+
+### Caso de erro em ExecJS Instalação NodeJS
+```
+sudo apt-get install nodejs npm
+```
+
 
 # Deploy
 
