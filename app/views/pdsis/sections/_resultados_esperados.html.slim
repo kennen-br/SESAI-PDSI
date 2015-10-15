@@ -31,17 +31,18 @@ ul.accordion-tabs-minimal
                 .strategy
                   .strategy-title Estratégia #{i}: #{strategy.name}
 
+                  table.tables.pdsi-result-table style="margin: 5px 0 -10px;"
+                    thead
+                      tr
+                        th TEXTO DO RESULTADO DO PDSI (2016-2019)
+                        th 2016
+                        th 2017
+                        th 2018
+                        th 2019
+                        th ORIENTAÇÕES PARA DSEIs
+                        th ORIENTAÇÕES PARA O SISTEMA
                   - @pdsi.pdsi_results_to_section_with_values(axis.section_name).each do |pdsi_result|
                     table.tables.pdsi-result-table
-                      thead
-                        tr
-                          th TEXTO DO RESULTADO DO PDSI (2016-2019)
-                          th 2016
-                          th 2017
-                          th 2018
-                          th 2019
-                          th ORIENTAÇÕES PARA DSEIs
-                          th ORIENTAÇÕES PARA O SISTEMA
                       tbody
                         tr
                           td = pdsi_result.result.name
@@ -52,22 +53,22 @@ ul.accordion-tabs-minimal
                           td = pdsi_result.result.orientacoes_dsei
                           td = pdsi_result.result.orientacoes_sistema
 
-                    table.tables.product
-                      thead
-                        tr
-                          th PRODUTO
-                          th RESPONSÁVEL
-                          th CORRESPONSÁVEIS
-                          th PRAZO
-                          th ATORES EXTERNOS
-                          th COMENTÁRIOS
-                      tbody
-                        - pdsi_result.products.each do |product|
+                    - unless pdsi_result.products.blank?
+                      table.tables.product
+                        thead
                           tr
-                            td = product.name
-                            td = product.person.name
-                            td = product.people_names
-                            td = l(product.deadline)
-                            td = product.external_actors
-                            td = product.comments
-            - break
+                            th PRODUTO
+                            th RESPONSÁVEL
+                            th CORRESPONSÁVEIS
+                            th PRAZO
+                            th ATORES EXTERNOS
+                            th COMENTÁRIOS
+                        tbody
+                          - pdsi_result.products.each do |product|
+                            tr
+                              td = product.name
+                              td = product.person.name
+                              td = product.people_names
+                              td = l(product.deadline)
+                              td = product.external_actors
+                              td = product.comments

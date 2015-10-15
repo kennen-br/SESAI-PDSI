@@ -7,7 +7,10 @@ class PdsiResult < ActiveRecord::Base
   validates_with PdsiResultValueValidator
 
   def products
-    result.responsabilities.where(pdsi: pdsi).first.children.includes(:person, :people)
+    item = result.responsabilities.where(pdsi: pdsi).first
+    return [] if item.nil?
+
+    item.children.includes(:person, :people)
   end
 
   def compose_value(year)
