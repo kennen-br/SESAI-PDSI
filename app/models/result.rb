@@ -4,6 +4,7 @@ class Result < ActiveRecord::Base
   belongs_to  :result_level
   belongs_to  :result_strategy
 
+  has_many  :responsabilities
   has_many  :specific_results
   has_many  :pdsi_results
 

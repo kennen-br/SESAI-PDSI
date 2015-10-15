@@ -6,6 +6,10 @@ class PdsiResult < ActiveRecord::Base
 
   validates_with PdsiResultValueValidator
 
+  def products
+    result.responsabilities.where(pdsi: pdsi).first.children.includes(:person, :people)
+  end
+
   def compose_value(year)
     result.result_text.gsub(/\[VALUE\]/, send("value_#{year.to_s}").to_s)
   end

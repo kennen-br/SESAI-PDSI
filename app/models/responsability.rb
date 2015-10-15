@@ -7,9 +7,14 @@ class Responsability < ActiveRecord::Base
   belongs_to :responsability_level
   belongs_to :parent, class_name: 'Responsability'
 
-  has_many  :corresponsabilities
+  has_many :people, through: :corresponsabilities
+  has_many :corresponsabilities
   accepts_nested_attributes_for :corresponsabilities, reject_if: :all_blank, allow_destroy: true
 
   has_many  :children,  class_name: 'Responsability', foreign_key: :parent_id
   accepts_nested_attributes_for :children, reject_if: :all_blank, allow_destroy: true
+
+  def people_names
+    people.map(&:name).join(', ')
+  end
 end

@@ -34,34 +34,40 @@ ul.accordion-tabs-minimal
                   - @pdsi.pdsi_results_to_section_with_values(axis.section_name).each do |pdsi_result|
                     table.tables.pdsi-result-table
                       thead
-                        th TEXTO DO RESULTADO DO PDSI (2016-2019)
-                        th 2016
-                        th 2017
-                        th 2018
-                        th 2019
-                        th ORIENTAÇÕES PARA DSEIs
-                        th ORIENTAÇÕES PARA O SISTEMA
+                        tr
+                          th TEXTO DO RESULTADO DO PDSI (2016-2019)
+                          th 2016
+                          th 2017
+                          th 2018
+                          th 2019
+                          th ORIENTAÇÕES PARA DSEIs
+                          th ORIENTAÇÕES PARA O SISTEMA
                       tbody
-                        td = pdsi_result.result.name
-                        td = pdsi_result.compose_value 2016
-                        td = pdsi_result.compose_value 2017
-                        td = pdsi_result.compose_value 2018
-                        td = pdsi_result.compose_value 2019
-                        td = pdsi_result.result.orientacoes_dsei
-                        td = pdsi_result.result.orientacoes_sistema
+                        tr
+                          td = pdsi_result.result.name
+                          td = pdsi_result.compose_value 2016
+                          td = pdsi_result.compose_value 2017
+                          td = pdsi_result.compose_value 2018
+                          td = pdsi_result.compose_value 2019
+                          td = pdsi_result.result.orientacoes_dsei
+                          td = pdsi_result.result.orientacoes_sistema
 
                     table.tables.product
                       thead
-                        th RESULTADO
-                        th RESPONSÁVEL
-                        th CORRESPONSÁVEIS
-                        th PRAZO
-                        th ATORES EXTERNOS
-                        th COMENTÁRIOS
+                        tr
+                          th PRODUTO
+                          th RESPONSÁVEL
+                          th CORRESPONSÁVEIS
+                          th PRAZO
+                          th ATORES EXTERNOS
+                          th COMENTÁRIOS
                       tbody
-                        td -
-                        td -
-                        td -
-                        td -
-                        td -
-                        td -
+                        - pdsi_result.products.each do |product|
+                          tr
+                            td = product.name
+                            td = product.person.name
+                            td = product.people_names
+                            td = l(product.deadline)
+                            td = product.external_actors
+                            td = product.comments
+            - break
