@@ -1,0 +1,23 @@
+h1 Investimentos
+- ProjectionBudgetCategory.all.each do |category|
+  fieldset
+    legend = category.name
+
+    = f.fields_for :pdsi_need_investiments, @pdsi.need_investiments_with_values(category) do |item|
+      fieldset
+        legend
+          strong = item.object.projection_budget_item.name
+
+        .field
+          = item.label :qtde_existente_2015
+          = item.number_field :qtde_existente_2015
+        .field
+          = item.label :qtde_necessaria
+          = item.number_field :qtde_necessaria
+        .field
+          = item.label :valor_unitario_medio
+          = item.hidden_field :valor_unitario_medio, value: (number_with_precision(item.object.valor_unitario_medio, :precision => 2, separator: '.', delimiter: '') || 0)
+          = text_field_tag '', number_with_precision(item.object.valor_unitario_medio, precision: 2) || 0, class: 'currency-input'
+        .field
+          = item.label :previsao_orcamentaria
+          strong style="display: block; margin: -5px 0 10px;" = number_to_currency item.object.previsao_orcamentaria

@@ -152,6 +152,9 @@ private
       ],
       pdsi_need_costs_attributes: [
         :id, :cost_id, :previsao_orcamentaria_2015, :previsao_orcamentaria_2016, :orcamento_necessario, :orcamento_necessario_pleno
+      ],
+      pdsi_need_investiments_attributes: [
+        :id, :projection_budget_item_id, :qtde_existente_2015, :qtde_necessaria, :valor_unitario_medio, :previsao_orcamentaria
       ]
     )
   end

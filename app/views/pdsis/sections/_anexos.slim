@@ -3,12 +3,41 @@
     h2.section-title ANEXOS
 
     .section-description
-      = link_to edit_anexos_path(@pdsi, section: 'anexos', subsection: 'custeios'), class: 'button pull-right' do
+
+      = link_to edit_anexos_path(@pdsi, section: 'anexos', subsection: 'investimentos'), class: 'button pull-right' do
+          i.fa.fa-pencil
+          | Alterar Investimentos
+      h2.section-title Dimensionamento de Necessidades - Investimentos
+      - ProjectionBudgetCategory.all.each do |category|
+        strong = category.name
+
+        table.tables.pdsi-result-table
+          thead
+            tr
+              th Investimento
+              th Qtde Existente 2015
+              th Qtde Necessária
+              th Déficit Quantitativo
+              th Percentual de Cobertura
+              th Valor Unitário Médio
+              th Estimativa Orçamento Necessário
+          tbody
+            - @pdsi.need_investiments_with_values(category).each do |item|
+              tr
+                td = item.projection_budget_item.name
+                td = item.qtde_existente_2015
+                td = item.qtde_necessaria
+                td = item.deficit_quantitativo
+                td #{number_with_precision(item.percentual_cobertura, precision: 2)}%
+                td = number_to_currency item.valor_unitario_medio
+                td = number_to_currency item.estimativa_necessario
+
+      = link_to edit_anexos_path(@pdsi, section: 'anexos', subsection: 'investimentos'), class: 'button pull-right' do
           i.fa.fa-pencil
           | Alterar Custeios
       h2.section-title Dimensionamento de Necessidades - Custeios
 
-      table.tables
+      table.tables.pdsi-result-table
         thead
           tr
             th Despesa
@@ -23,7 +52,7 @@
               td = item.cost.name
               td = number_to_currency item.previsao_orcamentaria_2015
               td = number_to_currency item.orcamento_necessario
-              td = number_to_currency(item.previsao_orcamentaria_2015 - item.orcamento_necessario)
-              td #{number_with_precision(item.previsao_orcamentaria_2015 / item.orcamento_necessario, precision: 2)}%
+              td = number_to_currency item.deficit_quantitativo
+              td #{number_with_precision(item.percentual_cobertura, precision: 2)}%
               td
                 strong = number_to_currency item.orcamento_necessario_pleno

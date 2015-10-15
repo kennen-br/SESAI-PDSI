@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151015181155) do
+ActiveRecord::Schema.define(version: 20151015203854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -421,6 +421,20 @@ ActiveRecord::Schema.define(version: 20151015181155) do
   add_index "pdsi_need_costs", ["cost_id"], name: "index_pdsi_need_costs_on_cost_id", using: :btree
   add_index "pdsi_need_costs", ["pdsi_id"], name: "index_pdsi_need_costs_on_pdsi_id", using: :btree
 
+  create_table "pdsi_need_investiments", force: :cascade do |t|
+    t.integer  "projection_budget_item_id"
+    t.integer  "pdsi_id"
+    t.integer  "qtde_existente_2015"
+    t.integer  "qtde_necessaria"
+    t.decimal  "valor_unitario_medio"
+    t.decimal  "previsao_orcamentaria"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "pdsi_need_investiments", ["pdsi_id"], name: "index_pdsi_need_investiments_on_pdsi_id", using: :btree
+  add_index "pdsi_need_investiments", ["projection_budget_item_id"], name: "index_pdsi_need_investiments_on_projection_budget_item_id", using: :btree
+
   create_table "pdsi_results", force: :cascade do |t|
     t.integer  "pdsi_id"
     t.integer  "result_id"
@@ -752,6 +766,8 @@ ActiveRecord::Schema.define(version: 20151015181155) do
   add_foreign_key "pdsi_human_resources", "pdsis"
   add_foreign_key "pdsi_need_costs", "costs"
   add_foreign_key "pdsi_need_costs", "pdsis"
+  add_foreign_key "pdsi_need_investiments", "pdsis"
+  add_foreign_key "pdsi_need_investiments", "projection_budget_items"
   add_foreign_key "pdsi_results", "pdsis"
   add_foreign_key "pdsi_results", "results"
   add_foreign_key "pdsis", "dseis"
