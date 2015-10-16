@@ -1,0 +1,8 @@
+h1 Arquivos
+- partial = 'pdsis/anexos/arquivos/pdsi_attached_files_fields'
+= f.fields_for :pdsi_attached_files do |item|
+  = render partial, f: item
+.cocoon-link
+  = link_to_add_association f, :pdsi_attached_files, { partial: partial, class: 'button btn-sm' }
+    = icon 'plus'
+    | Adicionar Arquivo

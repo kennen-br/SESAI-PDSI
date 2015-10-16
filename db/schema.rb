@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151015203854) do
+ActiveRecord::Schema.define(version: 20151016150937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -344,6 +344,19 @@ ActiveRecord::Schema.define(version: 20151015203854) do
 
   add_index "infrastructure_sanitations", ["pdsi_id"], name: "index_infrastructure_sanitations_on_pdsi_id", using: :btree
   add_index "infrastructure_sanitations", ["village_id"], name: "index_infrastructure_sanitations_on_village_id", using: :btree
+
+  create_table "pdsi_attached_files", force: :cascade do |t|
+    t.integer  "pdsi_id"
+    t.string   "name"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+  end
+
+  add_index "pdsi_attached_files", ["pdsi_id"], name: "index_pdsi_attached_files_on_pdsi_id", using: :btree
 
   create_table "pdsi_base_polo_data", force: :cascade do |t|
     t.integer  "pdsi_id"
@@ -758,6 +771,7 @@ ActiveRecord::Schema.define(version: 20151015203854) do
   add_foreign_key "infrastructure_buildings", "villages"
   add_foreign_key "infrastructure_sanitations", "pdsis"
   add_foreign_key "infrastructure_sanitations", "villages"
+  add_foreign_key "pdsi_attached_files", "pdsis"
   add_foreign_key "pdsi_base_polo_data", "base_polos"
   add_foreign_key "pdsi_base_polo_data", "pdsis"
   add_foreign_key "pdsi_costs", "costs"

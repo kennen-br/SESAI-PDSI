@@ -21,6 +21,7 @@ pt-BR:
       absolute_datum:               Dado absoluto
       category_budgets:             Dotação orçamentária
       pdsi_result:                  Resultados
+      pdsi_attached_file:           Arquivos Anexos
     attributes:
       user:
         username:               Usuário
@@ -269,6 +270,10 @@ pt-BR:
         reason:       'Motivo'
         criteria:     'Critério'
         distribution: 'Distribuição'
+
+      pdsi_attached_file:
+        name: 'Nome'
+        file: 'Arquivo'
     errors:
       models:
         user:

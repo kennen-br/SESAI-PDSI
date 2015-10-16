@@ -4,6 +4,28 @@
 
     .section-description
 
+      = link_to edit_anexos_path(@pdsi, section: 'anexos', subsection: 'arquivos'), class: 'button pull-right' do
+          i.fa.fa-pencil
+          | Alterar Arquivos
+      h2.section-title Arquivos Anexos
+
+      table.tables
+        thead
+          tr
+            th style="width: 85%;" Nome
+            th Link
+        tbody
+          - @pdsi.pdsi_attached_files.each do |item|
+            tr
+              td = item.name
+              td
+                = content_tag :a, { href: item.file.url, target: '_blank', class: 'button btn-sm' } do
+                  = icon 'eye'
+                  | Visualizar
+
+      br
+      br
+
       = link_to edit_anexos_path(@pdsi, section: 'anexos', subsection: 'investimentos'), class: 'button pull-right' do
           i.fa.fa-pencil
           | Alterar Investimentos
@@ -31,6 +53,9 @@
                 td #{number_with_precision(item.percentual_cobertura, precision: 2)}%
                 td = number_to_currency item.valor_unitario_medio
                 td = number_to_currency item.estimativa_necessario
+
+      br
+      br
 
       = link_to edit_anexos_path(@pdsi, section: 'anexos', subsection: 'investimentos'), class: 'button pull-right' do
           i.fa.fa-pencil
