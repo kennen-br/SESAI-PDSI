@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151015143633) do
+ActiveRecord::Schema.define(version: 20151015181155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -407,6 +407,20 @@ ActiveRecord::Schema.define(version: 20151015143633) do
   add_index "pdsi_human_resources", ["human_resource_function_id"], name: "index_pdsi_human_resources_on_human_resource_function_id", using: :btree
   add_index "pdsi_human_resources", ["pdsi_id"], name: "index_pdsi_human_resources_on_pdsi_id", using: :btree
 
+  create_table "pdsi_need_costs", force: :cascade do |t|
+    t.integer  "cost_id"
+    t.integer  "pdsi_id"
+    t.decimal  "previsao_orcamentaria_2015"
+    t.decimal  "previsao_orcamentaria_2016"
+    t.decimal  "orcamento_necessario"
+    t.decimal  "orcamento_necessario_pleno"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "pdsi_need_costs", ["cost_id"], name: "index_pdsi_need_costs_on_cost_id", using: :btree
+  add_index "pdsi_need_costs", ["pdsi_id"], name: "index_pdsi_need_costs_on_pdsi_id", using: :btree
+
   create_table "pdsi_results", force: :cascade do |t|
     t.integer  "pdsi_id"
     t.integer  "result_id"
@@ -736,6 +750,8 @@ ActiveRecord::Schema.define(version: 20151015143633) do
   add_foreign_key "pdsi_costs", "pdsis"
   add_foreign_key "pdsi_human_resources", "human_resource_functions"
   add_foreign_key "pdsi_human_resources", "pdsis"
+  add_foreign_key "pdsi_need_costs", "costs"
+  add_foreign_key "pdsi_need_costs", "pdsis"
   add_foreign_key "pdsi_results", "pdsis"
   add_foreign_key "pdsi_results", "results"
   add_foreign_key "pdsis", "dseis"

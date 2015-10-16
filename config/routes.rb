@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     patch '/:id/alterar/:section',              to: 'pdsis#update', as: :pdsi
     get   '/:id/alterar/:section(/:base_polo)', to: 'pdsis#edit',   as: :edit_pdsi
 
+    get '/:id/alterar/anexos/dimensionamento-necessidades/:subsection',  defaults: { section: 'anexos' },  to: 'pdsis#edit',  as: :edit_anexos
+
     scope '/dados-demograficos' do
       patch '/:id/alterar',  to: 'demographic_datas#update',  as: :demographic_data
       get   '/:id/alterar',  to: 'demographic_datas#edit',    as: :edit_demographic_data

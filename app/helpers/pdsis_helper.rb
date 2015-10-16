@@ -38,6 +38,8 @@ module PdsisHelper
       resultados_esperados:   'Resultados esperados',
       projecao_orcamentaria:  'Projeção orçamentária 2016-2019',
       dotacao_orcamentaria:   'Dotação orçamentária',
+      # 7
+      anexos: 'Anexos',
     }[section.to_sym]
   end
 end
