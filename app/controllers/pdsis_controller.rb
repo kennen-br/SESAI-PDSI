@@ -155,6 +155,9 @@ private
       ],
       pdsi_need_investiments_attributes: [
         :id, :projection_budget_item_id, :qtde_existente_2015, :qtde_necessaria, :valor_unitario_medio, :previsao_orcamentaria
+      ],
+      pdsi_attached_files_attributes: [
+        :id, :name, :file
       ]
     )
   end
