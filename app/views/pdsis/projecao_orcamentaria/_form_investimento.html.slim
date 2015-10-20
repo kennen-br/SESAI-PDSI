@@ -25,13 +25,13 @@
         .right
 
     = f.fields_for :projection_budgets, @pdsi.budgets_with_values(category) do |item|
-      fieldset
+      fieldset.projection-structure-type
         legend
           strong = item.object.projection_budget_item.name
 
         .field
           = item.label :quantidade_atual
-          = item.number_field :quantidade_atual
+          = item.number_field :quantidade_atual, class: 'initial-value'
 
         = item.fields_for :projection_budget_years do |year|
           - if year.object.year == 2015
