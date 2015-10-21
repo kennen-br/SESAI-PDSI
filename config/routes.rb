@@ -36,6 +36,9 @@ Rails.application.routes.draw do
     scope '/indicadores-saude-indigena', defaults: { section: 'indicadores-saude-indigena' }  do
       get '/:id/:subsection/alterar(/polo-base/:base_polo)(/casai/:casai)', to: 'pdsis#health_indicators', as: :health_indicators
     end
+
+    # Resultados Específicos
+    get '/:id/resultados-especificos', defaults: { section: 'resultados-esperados', tab: 'especificos' }, to: 'pdsis#edit',  as: :edit_specific_results
   end
 
   scope '/templates' do

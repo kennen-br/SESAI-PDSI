@@ -45,6 +45,8 @@ class Pdsi < ActiveRecord::Base
 
   has_many  :pdsi_results
   accepts_nested_attributes_for :pdsi_results, reject_if: :all_blank, allow_destroy: true
+  has_many :results, through: :pdsi_results
+  accepts_nested_attributes_for :results, reject_if: :all_blank, allow_destroy: true
 
   has_many  :projection_budgets
   accepts_nested_attributes_for :projection_budgets, reject_if: :all_blank, allow_destroy: true
