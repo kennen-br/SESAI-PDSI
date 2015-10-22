@@ -13,6 +13,7 @@ class Dsei < ActiveRecord::Base
 
   has_many  :specific_results
   has_many  :results, through: :specific_results
+  accepts_nested_attributes_for :results, reject_if: :all_blank, allow_destroy: true
 
   validates :name, length: { maximum: 255 }, presence: true, uniqueness: true
   validates :sesai_id,  numericality: true, uniqueness: true

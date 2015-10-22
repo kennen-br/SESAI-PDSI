@@ -11,7 +11,7 @@ h1 Metas
     .vertical-tab-content style="display: block;"
       fieldset
         legend Estratégia #{current[:index]}: #{current[:axis].result_strategies.first.name}
-        = f.fields_for :pdsi_results, @pdsi.pdsi_results_to_section_with_values(current[:axis].section_name) do |f_pdsi_result|
+        = f.fields_for :pdsi_results, @pdsi.pdsi_results_to_section_with_values(current[:axis].section_name) + @dsei.specific_pdsi_results do |f_pdsi_result|
           - object = f_pdsi_result.object.result
           fieldset
             legend = object.name

@@ -38,7 +38,8 @@ Rails.application.routes.draw do
     end
 
     # Resultados Específicos
-    get '/:id/resultados-especificos', defaults: { section: 'resultados-esperados', tab: 'especificos' }, to: 'pdsis#edit',  as: :edit_specific_results
+    get '/:id/resultados-especificos', defaults: { section: 'resultados-esperados', tab: 'especificos' }, to: 'specific_results#edit',  as: :edit_specific_results
+    patch '/:id/resultados-especificos', defaults: { section: 'resultados-esperados', tab: 'especificos' }, to: 'specific_results#update',  as: :update_specific_results
   end
 
   scope '/templates' do

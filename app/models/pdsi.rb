@@ -179,7 +179,7 @@ class Pdsi < ActiveRecord::Base
   end
 
   def pdsi_results_to_section_with_values(section_name)
-    items = pdsi_results.joins(result: [result_strategy: [:result_axis]]).where('result_axes.section_name = ?', section_name)
+    items = pdsi_results.joins(result: [result_strategy: [:result_axis]]).where('result_axes.section_name = ? AND results.result_level_id = 1', section_name)
     return items.includes(:result).order(['result_axes.id', 'result_strategies.id', 'results.id']) unless items.blank?
 
     ResultAxis.includes(:result_strategies).find_by_section_name(section_name).result_strategies.each do |strategy|

@@ -39,8 +39,7 @@ h2.section-title RESULTADOS ESPERADOS 2016-2019
                   th 2018
                   th 2019
                   th ORIENTAÇÕES PARA DSEIs
-                  th ORIENTAÇÕES PARA O SISTEMA
-            - @pdsi.pdsi_results_to_section_with_values(axis.section_name).each do |pdsi_result|
+            - (@pdsi.pdsi_results_to_section_with_values(axis.section_name) + @dsei.specific_pdsi_results).each do |pdsi_result|
               table.tables.pdsi-result-table
                 tbody
                   tr
@@ -50,7 +49,6 @@ h2.section-title RESULTADOS ESPERADOS 2016-2019
                     td = pdsi_result.compose_value 2018
                     td = pdsi_result.compose_value 2019
                     td = pdsi_result.result.orientacoes_dsei
-                    td = pdsi_result.result.orientacoes_sistema
 
               - unless pdsi_result.products.blank?
                 table.tables.product
