@@ -43,7 +43,7 @@ Copie os arquivos samples de configuração **usando root** e reinicie o server 
 ```
 $ sudo cp samples/postgresql.conf /etc/postgresql/9.3/main/
 $ sudo cp samples/pg_hba.conf /etc/postgresql/9.3/main/
-$ sudo service postgesql restart
+$ sudo service postgresql restart
 ```
 
 ### Rodando a aplicação localmente
