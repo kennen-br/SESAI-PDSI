@@ -126,6 +126,7 @@ private
       absolute_data_base_polos_attributes: [:id, :absolute_datum_id, :base_polo_id, :pdsi_id, :value],
       absolute_data_dseis_attributes: [:id, :absolute_datum_id, :dsei_id, :pdsi_id, :value],
       absolute_data_casais_attributes: [:id, :absolute_datum_id, :dsei_id, :pdsi_id, :value],
+      results_attributes: [:id, false_results_attributes: [:id, :dsei_id]],
       pdsi_results_attributes: [:id, :value_2016, :value_2017, :value_2018, :value_2019],
       category_budgets_attributes: [:id, :projection_budget_category_id, :value_2016, :value_2017, :value_2018, :value_2019],
       projection_budgets_attributes: [

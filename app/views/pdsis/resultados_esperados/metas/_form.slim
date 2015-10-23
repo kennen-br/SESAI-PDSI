@@ -11,10 +11,27 @@ h1 Metas
     .vertical-tab-content style="display: block;"
       fieldset
         legend Estratégia #{current[:index]}: #{current[:axis].result_strategies.first.name}
+
         = f.fields_for :pdsi_results, @pdsi.pdsi_results_to_section_with_values(current[:axis].section_name) + @dsei.specific_pdsi_results do |f_pdsi_result|
           - object = f_pdsi_result.object.result
           fieldset
             legend = object.name
+
+            / Mark a result that does not apply to the current DSEI
+            = f.fields_for :results, object do |f_result|
+              = f_result.fields_for :false_results, FalseResult.where(result: object).first_or_initialize do |f_false_result|
+                .field.resultado-aplicavel
+                  strong Resultado se aplica ao DSEI?
+                  .button-group
+                    label
+                      = f_false_result.radio_button :dsei_id, ''
+                      span.button-group-item
+                        | Sim
+                    label
+                      = f_false_result.radio_button :dsei_id, @dsei.id
+                      span.button-group-item
+                        | Não
+
             table.tables.pdsi-result-table
               thead
                 tr

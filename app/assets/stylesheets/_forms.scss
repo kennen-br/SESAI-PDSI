@@ -182,3 +182,19 @@ form {
     width: 100%;
   }
 }
+.resultado-aplicavel {
+  @include margin(-20px null 10px);
+
+  float: right;
+
+  .button-group {
+    float: right;
+    margin-left: 10px;
+
+    label {
+      .button-group-item {
+        @include padding(0.16em 0.5em);
+      }
+    }
+  }
+}
