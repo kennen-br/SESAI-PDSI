@@ -160,6 +160,13 @@ form {
 .pdsi-result-table {
   font-size: modular-scale(-1);
 
+  &.specific {
+    tr td {
+      background: #F9FBDC;
+      font-weight: bold;
+    }
+  }
+
   thead th, tbody td {
     @include padding(0.45em 0.7em);
 

@@ -36,7 +36,7 @@ class SpecificResultsController < ApplicationController
     def dsei_params
       params.require(:dsei).permit(
         :id,
-        results_attributes: [:id, :result_strategy_id, :result_level_id, :result_text, :name, :orientacoes_dsei, :is_boolean, :value_2016, :value_2017, :value_2018, :value_2019]
+        results_attributes: [:id, :result_strategy_id, :result_level_id, :result_text, :is_specific, :name, :orientacoes_dsei, :is_boolean, :value_2016, :value_2017, :value_2018, :value_2019]
       )
     end
 

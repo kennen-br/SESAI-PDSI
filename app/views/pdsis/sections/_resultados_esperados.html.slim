@@ -40,14 +40,14 @@ h2.section-title RESULTADOS ESPERADOS 2016-2019
                   th 2019
                   th ORIENTAÇÕES PARA DSEIs
             - (@pdsi.pdsi_results_to_section_with_values(axis.section_name) + @dsei.specific_pdsi_results).each do |pdsi_result|
-              table.tables.pdsi-result-table
+              table.tables.pdsi-result-table class=('specific' if pdsi_result.result.is_specific?)
                 tbody
                   tr
                     td = pdsi_result.result.name
-                    td = pdsi_result.compose_value 2016
-                    td = pdsi_result.compose_value 2017
-                    td = pdsi_result.compose_value 2018
-                    td = pdsi_result.compose_value 2019
+                    td == pdsi_result.compose_value 2016
+                    td == pdsi_result.compose_value 2017
+                    td == pdsi_result.compose_value 2018
+                    td == pdsi_result.compose_value 2019
                     td = pdsi_result.result.orientacoes_dsei
 
               - unless pdsi_result.products.blank?
