@@ -1,0 +1,37 @@
+h1.page-title
+  = icon 'edit'
+  = breadcrumbs [{ name: 'ESTRUTURA E CONTEÚDO | PDSI', path: nil }, { name: 'RESULTADOS ESPERADOS', path: pdsis_path('resultados-esperados') }, { name: 'RESULTADOS ESPECÍFICOS', path: nil }]
+
+= form_for @dsei, url: edit_specific_results_path(@pdsi) do |f|
+  - if @dsei.errors.any?
+    #error_explanation.flash-error
+      h2 = "#{pluralize(@dsei.errors.count, "erro")} encontrados:"
+      ul
+        - @dsei.errors.full_messages.each do |message|
+          li = message
+
+  .edit-section
+    h1 Resultados Específicos
+
+    fieldset
+      legend Resultados
+      = f.fields_for :results, @dsei.results do |result|
+        = render 'result_fields', f: result
+      .cocoon-link
+        = link_to_add_association f, :results, { class: 'button btn-sm' } do
+          = icon 'plus'
+          | Adicionar Resultado
+
+
+  = hidden_field_tag 'section', params[:section]
+  = hidden_field_tag 'tab', params[:tab] if params[:tab]
+
+  .actions
+    a.button href="javascript:void(0)" onclick="$(this).closest('form').submit()"
+      i.fa.fa-save
+      | Salvar
+    | &nbsp;
+    = link_to 'javascript:history.back()', class: 'button' do
+      i.fa.fa-warning
+      | Cancelar
+

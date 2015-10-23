@@ -1,5 +1,7 @@
 = render 'hidden_fields'
-- if params[:tab] == 'responsabilidades'
+- if params[:tab] == 'especificos'
+  = render 'pdsis/resultados_esperados/especificos/form' , f: f
+- elsif params[:tab] == 'responsabilidades'
   = render 'pdsis/resultados_esperados/responsabilidades/form', f: f
 - else
   = render 'pdsis/resultados_esperados/metas/form', f: f

@@ -1,74 +1,71 @@
-ul.accordion-tabs-minimal
-  li.tab-header-and-content
-    a.tab-link.is-active[href="#"]
-      | Responsabilidades
-    .tab-content
-      .pull-right
-        = link_to edit_pdsi_path(@pdsi, section: 'resultados-esperados-introducao'), class: 'button' do
-          = icon 'pencil'
-          | Definir texto
-      h2.section-title CATEGORIAS DE PLANEJAMENTO UTILIZADAS PELO PDSI
-      .section-description
-        == @pdsi.compose_item_5 || 'Não informado'
+.pull-right
+  = link_to edit_pdsi_path(@pdsi, section: 'resultados-esperados-introducao'), class: 'button' do
+    = icon 'pencil'
+    | Definir texto
+h2.section-title CATEGORIAS DE PLANEJAMENTO UTILIZADAS PELO PDSI
+.section-description
+  == @pdsi.compose_item_5 || 'Não informado'
 
-      .pull-right
-        = link_to edit_responsabilities_path(@pdsi, subsection: ResultAxis.first.section_link), class: 'button' do
-          = icon 'pencil'
-          | Coletar dados
-      h2.section-title RESULTADOS ESPERADOS 2016-2019 (#{@dsei.name})
-      .section-description
-        .expected-results-show
-          - ResultAxis.includes(:result_strategies).order(:id).each_with_index do |axis, index|
-            - i = index+1
-            .axis
-              .pull-right
-                = link_to edit_results_path(@pdsi, subsection: axis.section_link), class: 'button' do
-                  = icon 'pencil'
-                  | Definir Metas
-              h3 #{i}. #{axis.name}
+.pull-right
+  = link_to edit_specific_results_path(@pdsi), class: 'button' do
+    = icon 'plus'
+    | Resultados Específicos
+  | &nbsp;
+  = link_to edit_responsabilities_path(@pdsi, subsection: ResultAxis.first.section_link), class: 'button' do
+    = icon 'pencil'
+    | Responsabilidades
+h2.section-title RESULTADOS ESPERADOS 2016-2019
+.section-description
+  .expected-results-show
+    - ResultAxis.includes(:result_strategies).order(:id).each_with_index do |axis, index|
+      - i = index+1
+      .axis
+        .pull-right
+          = link_to edit_results_path(@pdsi, subsection: axis.section_link), class: 'button' do
+            = icon 'pencil'
+            | Definir Resultados
+        h3 #{i}. #{axis.name}
 
-              - axis.result_strategies.each_with_index do |strategy, j|
-                .strategy
-                  .strategy-title Estratégia #{i}: #{strategy.name}
+        - axis.result_strategies.each_with_index do |strategy, j|
+          .strategy
+            .strategy-title Estratégia #{i}: #{strategy.name}
 
-                  table.tables.pdsi-result-table style="margin: 5px 0 -10px;"
-                    thead
+            table.tables.pdsi-result-table style="margin: 5px 0 -10px;"
+              thead
+                tr
+                  th TEXTO DO RESULTADO DO PDSI (2016-2019)
+                  th 2016
+                  th 2017
+                  th 2018
+                  th 2019
+                  th ORIENTAÇÕES PARA DSEIs
+            - (@pdsi.pdsi_results_to_section_with_values(axis.section_name) + @dsei.specific_pdsi_results).each do |pdsi_result|
+              table.tables.pdsi-result-table class=('specific' if pdsi_result.result.is_specific?)
+                tbody
+                  tr
+                    td = pdsi_result.result.name
+                    td == pdsi_result.compose_value 2016
+                    td == pdsi_result.compose_value 2017
+                    td == pdsi_result.compose_value 2018
+                    td == pdsi_result.compose_value 2019
+                    td = pdsi_result.result.orientacoes_dsei
+
+              - unless pdsi_result.products.blank?
+                table.tables.product
+                  thead
+                    tr
+                      th PRODUTO
+                      th RESPONSÁVEL
+                      th CORRESPONSÁVEIS
+                      th PRAZO
+                      th ATORES EXTERNOS
+                      th COMENTÁRIOS
+                  tbody
+                    - pdsi_result.products.each do |product|
                       tr
-                        th TEXTO DO RESULTADO DO PDSI (2016-2019)
-                        th 2016
-                        th 2017
-                        th 2018
-                        th 2019
-                        th ORIENTAÇÕES PARA DSEIs
-                        th ORIENTAÇÕES PARA O SISTEMA
-                  - @pdsi.pdsi_results_to_section_with_values(axis.section_name).each do |pdsi_result|
-                    table.tables.pdsi-result-table
-                      tbody
-                        tr
-                          td = pdsi_result.result.name
-                          td = pdsi_result.compose_value 2016
-                          td = pdsi_result.compose_value 2017
-                          td = pdsi_result.compose_value 2018
-                          td = pdsi_result.compose_value 2019
-                          td = pdsi_result.result.orientacoes_dsei
-                          td = pdsi_result.result.orientacoes_sistema
-
-                    - unless pdsi_result.products.blank?
-                      table.tables.product
-                        thead
-                          tr
-                            th PRODUTO
-                            th RESPONSÁVEL
-                            th CORRESPONSÁVEIS
-                            th PRAZO
-                            th ATORES EXTERNOS
-                            th COMENTÁRIOS
-                        tbody
-                          - pdsi_result.products.each do |product|
-                            tr
-                              td = product.name
-                              td = product.person.name
-                              td = product.people_names
-                              td = l(product.deadline)
-                              td = product.external_actors
-                              td = product.comments
+                        td = product.name
+                        td = product.person.name
+                        td = product.people_names
+                        td = l(product.deadline)
+                        td = product.external_actors
+                        td = product.comments

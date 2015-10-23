@@ -8,9 +8,12 @@ class Dsei < ActiveRecord::Base
   has_many  :users
   has_many  :absolute_data_dseis
   has_many  :specific_absolute_data
-  has_many  :specific_results
   has_many  :people
   has_one   :pdsi
+
+  has_many  :specific_results
+  has_many  :results, through: :specific_results
+  accepts_nested_attributes_for :results, reject_if: :all_blank, allow_destroy: true
 
   validates :name, length: { maximum: 255 }, presence: true, uniqueness: true
   validates :sesai_id,  numericality: true, uniqueness: true
@@ -52,5 +55,9 @@ class Dsei < ActiveRecord::Base
     @pdsi = Pdsi.where(dsei: self).first_or_create
 
     @pdsi
+  end
+
+  def specific_pdsi_results
+    PdsiResult.where(pdsi: pdsi, result_id: results.map(&:id))
   end
 end
