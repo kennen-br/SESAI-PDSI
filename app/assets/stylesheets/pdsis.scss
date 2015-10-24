@@ -7,8 +7,11 @@
 }
 .section-title {
   border-bottom : 2px solid #999;
-  font-weight   : 400;
-  line-height   : 1.8em;
+  color         : #666;
+  font-family   : 'Roboto', sans-serif;
+  font-size     : 1.3em;
+  font-weight   : 500;
+  line-height   : 1.5em;
 }
 .section-description {
   font-size: modular-scale(-1);
@@ -46,6 +49,7 @@
 }
 
 .expected-results-show {
+  font-family: 'Roboto', sans-serif;
   .expected-result-parent {
     strong {
       @include margin(null null 10px);
@@ -63,33 +67,174 @@
     @include margin(null null 20px);
 
     h3 {
-      border-bottom  : 1px solid #999;
-      color          : #666;
-      font-weight    : 400;
+      border-bottom  : 1px solid #EE857F;
+      color          : #EE857F;
+      font-family    : 'Roboto', sans-serif;
+      font-size      : 1.7em;
+      font-weight    : 500;
       line-height    : 1.7em;
       text-transform : uppercase;
     }
 
     .strategy {
       .strategy-title {
-        @include padding(10px);
+        @include margin(-15px 0 20px);
 
-        background  : #999;
-        color       : #FFF;
-        font-weight : 600;
+        color       : #EE857F;
+        font-size   : 1.4em;
+        font-weight : 300;
       }
-      .product {
-        font-size: 0.8em;
+      .show-more {
+        color       : #FFF;
+        cursor      : pointer;
+        font-size   : .9em;
+        font-weight : 300;
 
-        thead {
-          tr {
-            th {
-              @include padding(null 0);
+        .fa {
+          font-size      : .75em;
+          vertical-align : middle;
+        }
+        span {
+          line-height    : 1em;
+          margin-left    : 2px;
+          vertical-align : middle;
 
-              background     : #999;
-              color          : #FFF;
-              text-align     : center;
-              text-transform : uppercase;
+          &.less { display: none; }
+        }
+      }
+      .result {
+        @include position(relative);
+        @include padding(2em 2em 0.5em);
+        @include margin(null null 20px);
+
+        background : #EE857F;
+        color      : #FFF;
+        font-size  : 1.5em;
+
+        .edit-result {
+          color: #FFF;
+        }
+        h4 {
+          @include margin(0);
+          @include padding(null null 5px);
+
+          border-bottom  : 1px solid #FFF;
+          font-family    : 'Roboto', sans-serif;
+          font-weight    : 400;
+          text-transform : uppercase;
+        }
+        .result-name {
+          @include clearfix;
+
+          font-weight    : 300;
+          text-transform : uppercase;
+          margin-bottom: 2em;
+
+        }
+        .orientacoes-dsei {
+          @include position(absolute, null 2em 0.5em null);
+          @include padding(0);
+
+          background  : none;
+          border      : 0;
+          line-height : 1em;
+          .fa {
+            color     : #FFF;
+            font-size : 2em;
+          }
+          .tooltip {
+            width: 200px;
+            transform: translateX(-48%);
+            left: 50%;
+            right: initial;
+          }
+        }
+      }
+      .result-products {
+        @include margin(null null 20px);
+        @include clearfix;
+
+        display: none;
+
+        .show-more {
+          border     : 1px solid #EE857F;
+          color      : #666;
+          display    : block;
+          font-size  : 1.2em;
+          margin     : -1px 0 0;
+          padding    : 5px 12px;
+          text-align : center;
+        }
+
+        .years {
+          @include clearfix;
+
+          border-bottom  : 1px solid #EE857F;
+          padding-bottom : 30px;
+          .year {
+            @include span-columns(3);
+            h4 {
+              @include padding(null null 10px);
+
+              border-bottom : 1px solid #EE857F;
+              color         : #EE857F;
+              font-size     : 2em;
+              font-weight   : 700;
+              text-align    : center;
+            }
+            .value {
+              font-size  : 1.2em;
+              padding    : 0 10px;
+              text-align : center;
+            }
+          }
+        }
+      }
+      .plano-anual {
+        @include margin(-15px null 20px);
+
+        display: none;
+
+        .product {
+          font-size: 0.8em;
+          border: 0;
+
+          thead {
+            tr {
+              th {
+                @include padding(null 0);
+
+                border         : 0;
+                border-bottom  : 3px solid #EE857F;
+                color          : #EE857F;
+                font-size      : 2em;
+                font-weight    : 500;
+                line-height    : 1.5em;
+                padding        : 0;
+                text-align     : center;
+                text-transform : uppercase;
+
+                hr {
+                  margin: 5px 0;
+                }
+              }
+            }
+          }
+          tbody {
+            tr {
+              td {
+                border     : 0;
+                font-size  : 1.75em;
+                text-align : center;
+
+                ul {
+                  li {
+                    list-style  : disc;
+                    margin-left : 30px;
+                    text-align  : left;
+                  }
+                }
+              }
             }
           }
         }

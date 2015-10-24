@@ -65,6 +65,11 @@ $(document).on 'click', '.add_person', (e) ->
   return
 $(document).ready ->
 
+  $('.strategy .show-more').click ->
+    $(this).parent().next().toggle()
+    $(this).find('span').toggle()
+    return
+
   # Add new behavior to cocoon add_fields button
   $('.expected-result.responsabilities').each  ->
     $fieldset = $(this)
