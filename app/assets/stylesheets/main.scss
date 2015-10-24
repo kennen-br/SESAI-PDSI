@@ -8,6 +8,8 @@ $error-color   : #fbe3e4 !default;
 $notice-color  : #e5edf8 !default;
 $success-color : #e6efc2 !default;
 
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300);
+
 .inline_elements{
   select{
     display : inline;
@@ -215,5 +217,40 @@ button#menu-button{
 
   .accordion .accordion-content .edit-link {
     @include position(absolute, 10px 10px null null);
+  }
+}
+
+
+.sliding-menu-content {
+  @include transform(translateX(-400px));
+  background-color: #E6E7E9;
+  width: 400px;
+  li {
+    a {
+
+      border-color : #CCC;
+      color        : #4E4E4E;
+      font-family  : 'Roboto', sans-serif;
+      font-size    : 1.6em;
+      font-weight  : 300;
+
+      &:hover {
+        background-color: #9F9F9F;
+        color: #FFF;
+      }
+    }
+
+    &.child {
+      font-size: .9em;
+      a {
+        font-size : 1.2em;
+        padding   : 0.5em 0.5em 0.5em 50px;
+
+        &.is-active {
+          background-color: #9F9F9F;
+          color: #FFF;
+        }
+      }
+    }
   }
 }

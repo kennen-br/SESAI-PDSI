@@ -14,7 +14,7 @@ h1 Metas
 
         = f.fields_for :pdsi_results, @pdsi.pdsi_results_to_section_with_values(current[:axis].section_name) + @dsei.specific_pdsi_results do |f_pdsi_result|
           - object = f_pdsi_result.object.result
-          fieldset
+          fieldset id=("resultado-#{object.id}")
             legend = object.name
 
             / Mark a result that does not apply to the current DSEI
