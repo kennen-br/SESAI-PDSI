@@ -41,13 +41,13 @@
                   - item_year = item.projection_budget_years.where(year: year).first
                   tr.item data-category=(category.id) data-index=("#{category.id}-#{index}")
                     td
-                      = icon 'plus-square-o', class: 'toggle-structures'
+                      = icon 'plus-square-o', class: 'toggle-structures' unless item_year.projection_budget_structures.blank?
                       | &nbsp;#{item.projection_budget_item.name}
                     td = item_year.quantidade_estimada
                     td = number_to_currency item_year.valor_unitario
                     td = number_to_currency (item_year.valor_unitario.to_f) * (item_year.quantidade_estimada.to_i)
                   - item_year.projection_budget_structures.order(:id).each do |structure|
-                    tr.structure data-index=("#{category.id}-#{index}")
+                    tr.structure data-index=("#{category.id}-#{index}") style="display: none;"
                       td = structure.name
                       td -
                       td -

@@ -1,12 +1,6 @@
 ul.accordion
   li
     a.js-accordion-trigger[href="javascript:void(0)"]
-      | SÍNTESE ORÇAMENTÁRIA
-    .accordion-content style="padding: 10px 20px;"
-      = render 'pdsis/projecao_orcamentaria/show_sintese'
-
-  li
-    a.js-accordion-trigger[href="javascript:void(0)"]
       | INVESTIMENTOS
     .accordion-content style="padding: 10px 20px;"
       = render 'pdsis/projecao_orcamentaria/show_investimentos', {  }
@@ -18,3 +12,6 @@ ul.accordion
       = link_to edit_budget_projection_path(@pdsi, subsection: 'custeio'), class: 'button pull-right edit-link' do
         i.fa.fa-pencil
         | Coletar dados
+
+h2.section-title SÍNTESE ORÇAMENTÁRIA
+= render 'pdsis/projecao_orcamentaria/show_sintese'
