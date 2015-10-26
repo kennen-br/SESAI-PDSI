@@ -11,8 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023173127) do
-
+ActiveRecord::Schema.define(version: 20151024162730) do
+  
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -80,6 +80,29 @@ ActiveRecord::Schema.define(version: 20151023173127) do
   end
 
   add_index "base_polos", ["dsei_id"], name: "index_base_polos_on_dsei_id", using: :btree
+
+  create_table "budget_forecasts", force: :cascade do |t|
+    t.integer  "cost_id"
+    t.integer  "pdsi_id"
+    t.datetime "updated_at"
+    t.decimal  "reference_forecast"
+    t.decimal  "budget_forecast"
+    t.decimal  "initial_allocation_2016"
+    t.decimal  "dsei_forecast_2016"
+    t.decimal  "revised_allocation_2016"
+    t.decimal  "initial_forecast_2017"
+    t.decimal  "dsei_forecast_2017"
+    t.decimal  "revised_forecast_2017"
+    t.decimal  "initial_forecast_2018"
+    t.decimal  "dsei_forecast_2018"
+    t.decimal  "revised_forecast_2018"
+    t.decimal  "initial_forecast_2019"
+    t.decimal  "dsei_forecast_2019"
+    t.decimal  "revised_forecast_2019"
+  end
+
+  add_index "budget_forecasts", ["cost_id"], name: "index_budget_forecasts_on_cost_id", using: :btree
+  add_index "budget_forecasts", ["pdsi_id"], name: "index_budget_forecasts_on_pdsi_id", using: :btree
 
   create_table "capai_villages", force: :cascade do |t|
     t.integer  "capai_id"
@@ -753,6 +776,8 @@ ActiveRecord::Schema.define(version: 20151023173127) do
   add_foreign_key "absolute_data_dseis", "dseis"
   add_foreign_key "absolute_data_dseis", "pdsis"
   add_foreign_key "base_polos", "dseis"
+  add_foreign_key "budget_forecasts", "costs"
+  add_foreign_key "budget_forecasts", "pdsis"
   add_foreign_key "capai_villages", "capais"
   add_foreign_key "capai_villages", "villages"
   add_foreign_key "capais", "pdsis"
