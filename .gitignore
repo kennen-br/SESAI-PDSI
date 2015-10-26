@@ -30,3 +30,4 @@ _line.html.slim
 
 .vagrant
 .env
+.DS_Store
