@@ -91,6 +91,6 @@ h2.section-title RESULTADOS ESPERADOS 2016-2019
                           td
                             ul
                               li
-                                = product.person.name
+                                = product.person.name unless product.person.nil?
                               - product.people.each do |person|
                                 li = person.name
