@@ -12,7 +12,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20151024162730) do
-
+  
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -297,6 +297,16 @@ ActiveRecord::Schema.define(version: 20151024162730) do
 
   add_index "etnias", ["demographic_data_id", "name"], name: "index_etnias_on_demographic_data_id_and_name", unique: true, using: :btree
   add_index "etnias", ["demographic_data_id"], name: "index_etnias_on_demographic_data_id", using: :btree
+
+  create_table "false_results", force: :cascade do |t|
+    t.integer  "dsei_id"
+    t.integer  "result_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "false_results", ["dsei_id"], name: "index_false_results_on_dsei_id", using: :btree
+  add_index "false_results", ["result_id"], name: "index_false_results_on_result_id", using: :btree
 
   create_table "health_establishments", force: :cascade do |t|
     t.integer  "service_network_id"
@@ -789,6 +799,8 @@ ActiveRecord::Schema.define(version: 20151024162730) do
   add_foreign_key "ethnicities_villages", "ethnicities"
   add_foreign_key "ethnicities_villages", "villages"
   add_foreign_key "etnias", "demographic_datas"
+  add_foreign_key "false_results", "dseis"
+  add_foreign_key "false_results", "results"
   add_foreign_key "health_establishments", "service_networks"
   add_foreign_key "health_specializeds", "service_networks"
   add_foreign_key "infrastructure_buildings", "infrastructure_building_types"

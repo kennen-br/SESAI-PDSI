@@ -4,24 +4,4 @@ h1.page-title
 
 p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia laboriosam accusamus incidunt, quisquam eveniet dignissimos necessitatibus, minima earum, cum soluta dolore impedit eius nam veniam. Laudantium alias praesentium illum, nihil.
 
-.vertical-tabs-container
-  .vertical-tabs
-    - link_opt = [{ class: 'vertical-tab' }, {:selected_class => 'is-active'}]
-    = nav_link_to pdsis_path(section: 'introducao'), link_opt[0], link_opt[1] do
-      | 1. Introdução
-    = nav_link_to pdsis_path(section: 'processo-de-construcao-do-pdsi'), link_opt[0], link_opt[1] do
-      | 2. O Processo de construção do PDSI
-    = nav_link_to pdsis_path(section: 'caracterizacao-do-dsei'), link_opt[0], link_opt[1] do
-      | 3. Caracterização do DSEI
-    = nav_link_to pdsis_path(section: 'analise-situacional'), link_opt[0], link_opt[1] do
-      | 4. Análise situacional
-    = nav_link_to pdsis_path(section: 'resultados-esperados'), link_opt[0], link_opt[1] do
-      | 5. Resultados esperados
-    = nav_link_to pdsis_path(section: 'projecao-orcamentaria'), link_opt[0], link_opt[1] do
-      | 6. Projeção orçamentária 2016-2019
-    = nav_link_to pdsis_path(section: 'anexos'), link_opt[0], link_opt[1] do
-      | 7. Anexos
-
-  .vertical-tab-content-container
-    .vertical-tab-content style="display: block;"
-      = render "pdsis/sections/#{@section}"
+= render "pdsis/sections/#{@section}"
