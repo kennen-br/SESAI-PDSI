@@ -12,4 +12,8 @@ fieldset.projection-year
       = f.hidden_field  :valor_unitario, value: (number_with_precision(f.object.valor_unitario, :precision => 2, separator: '.', delimiter: '') || 0)
       = text_field_tag '', number_with_precision(f.object.valor_unitario, precision: 2) || '', class: 'currency-input'
 
-    == render 'pdsis/projecao_orcamentaria/form_budget_structures', f: f
+  .field.total-sum style="margin-bottom: 20px;"
+    label Valor total
+    strong
+
+  == render 'pdsis/projecao_orcamentaria/form_budget_structures', f: f
