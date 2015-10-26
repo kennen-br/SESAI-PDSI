@@ -15,6 +15,4 @@ ul.accordion
     a.js-accordion-trigger[href="javascript:void(0)"]
       | CUSTEIO
     .accordion-content style="padding: 10px 20px;"
-      = link_to edit_budget_projection_path(@pdsi, subsection: 'custeio'), class: 'button pull-right edit-link' do
-        i.fa.fa-pencil
-        | Coletar dados
+      = render 'pdsis/projecao_orcamentaria/show_custeio', {  }
