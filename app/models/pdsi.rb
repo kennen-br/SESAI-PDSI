@@ -242,13 +242,13 @@ class Pdsi < ActiveRecord::Base
     need_costs_with_values
   end
 
-  def budget_forecast_with_values
-    items  = budget_forecasts
-    return  budget_forecasts.includes(:cost).order(:id) unless budget_forecasts.blank?
+  def budget_forecasts_with_values
+    items = budget_forecasts
+    return items.includes(:cost).order(:id) unless budget_forecasts.blank?
 
     Cost.all.each { |cost| budget_forecasts << BudgetForecast.new(cost: cost) }
 
-    budget_forecast_with_values
+    budget_forecasts_with_values
   end
 
   def need_investiments_with_values(category)

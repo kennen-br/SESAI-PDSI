@@ -1,4 +1,89 @@
 h2.section-title Custeio
+
+= f.fields_for :budget_forecasts, @pdsi.budget_forecasts_with_values do |forecast|
+  fieldset
+    legend = forecast.object.cost.name
+
+
+    .field
+      = forecast.label :reference_forecast
+      = forecast.hidden_field  :reference_forecast, value: (number_with_precision(forecast.object.reference_forecast, :precision => 2, separator: '.', delimiter: '') || 0)
+      = text_field_tag '', number_with_precision(forecast.object.reference_forecast, precision: 2) || 0, class: 'currency-input'
+
+    .field
+      = forecast.label :budget_forecast
+      = forecast.hidden_field  :budget_forecast, value: (number_with_precision(forecast.object.budget_forecast, :precision => 2, separator: '.', delimiter: '') || 0)
+      = text_field_tag '', number_with_precision(forecast.object.budget_forecast, precision: 2) || 0, class: 'currency-input'
+
+    fieldset
+      legend 2016
+      .field
+        = forecast.label :initial_allocation_2016
+        = forecast.hidden_field  :initial_allocation_2016, value: (number_with_precision(forecast.object.initial_allocation_2016, :precision => 2, separator: '.', delimiter: '') || 0)
+        = text_field_tag '', number_with_precision(forecast.object.initial_allocation_2016, precision: 2) || 0, class: 'currency-input'
+
+      .field
+        = forecast.label :dsei_forecast_2016
+        = forecast.hidden_field  :dsei_forecast_2016, value: (number_with_precision(forecast.object.dsei_forecast_2016, :precision => 2, separator: '.', delimiter: '') || 0)
+        = text_field_tag '', number_with_precision(forecast.object.dsei_forecast_2016, precision: 2) || 0, class: 'currency-input'
+
+      .field
+        = forecast.label :revised_allocation_2016
+        = forecast.hidden_field  :revised_allocation_2016, value: (number_with_precision(forecast.object.revised_allocation_2016, :precision => 2, separator: '.', delimiter: '') || 0)
+        = text_field_tag '', number_with_precision(forecast.object.revised_allocation_2016, precision: 2) || 0, class: 'currency-input'
+
+    fieldset
+      legend 2017
+      .field
+        = forecast.label :initial_forecast_2017
+        = forecast.hidden_field  :initial_forecast_2017, value: (number_with_precision(forecast.object.initial_forecast_2017, :precision => 2, separator: '.', delimiter: '') || 0)
+        = text_field_tag '', number_with_precision(forecast.object.initial_forecast_2017, precision: 2) || 0, class: 'currency-input'
+
+      .field
+        = forecast.label :dsei_forecast_2017
+        = forecast.hidden_field  :dsei_forecast_2017, value: (number_with_precision(forecast.object.dsei_forecast_2017, :precision => 2, separator: '.', delimiter: '') || 0)
+        = text_field_tag '', number_with_precision(forecast.object.dsei_forecast_2017, precision: 2) || 0, class: 'currency-input'
+
+      .field
+        = forecast.label :revised_forecast_2017
+        = forecast.hidden_field  :revised_forecast_2017, value: (number_with_precision(forecast.object.revised_forecast_2017, :precision => 2, separator: '.', delimiter: '') || 0)
+        = text_field_tag '', number_with_precision(forecast.object.revised_forecast_2017, precision: 2) || 0, class: 'currency-input'
+
+    fieldset
+      legend 2018
+      .field
+        = forecast.label :initial_forecast_2018
+        = forecast.hidden_field  :initial_forecast_2018, value: (number_with_precision(forecast.object.initial_forecast_2018, :precision => 2, separator: '.', delimiter: '') || 0)
+        = text_field_tag '', number_with_precision(forecast.object.initial_forecast_2018, precision: 2) || 0, class: 'currency-input'
+
+      .field
+        = forecast.label :dsei_forecast_2018
+        = forecast.hidden_field  :dsei_forecast_2018, value: (number_with_precision(forecast.object.dsei_forecast_2018, :precision => 2, separator: '.', delimiter: '') || 0)
+        = text_field_tag '', number_with_precision(forecast.object.dsei_forecast_2018, precision: 2) || 0, class: 'currency-input'
+
+      .field
+        = forecast.label :revised_forecast_2018
+        = forecast.hidden_field  :revised_forecast_2018, value: (number_with_precision(forecast.object.revised_forecast_2018, :precision => 2, separator: '.', delimiter: '') || 0)
+        = text_field_tag '', number_with_precision(forecast.object.revised_forecast_2018, precision: 2) || 0, class: 'currency-input'
+
+    fieldset
+      legend 2019
+      .field
+        = forecast.label :initial_forecast_2019
+        = forecast.hidden_field  :initial_forecast_2019, value: (number_with_precision(forecast.object.initial_forecast_2019, :precision => 2, separator: '.', delimiter: '') || 0)
+        = text_field_tag '', number_with_precision(forecast.object.initial_forecast_2019, precision: 2) || 0, class: 'currency-input'
+
+      .field
+        = forecast.label :dsei_forecast_2019
+        = forecast.hidden_field  :dsei_forecast_2019, value: (number_with_precision(forecast.object.dsei_forecast_2019, :precision => 2, separator: '.', delimiter: '') || 0)
+        = text_field_tag '', number_with_precision(forecast.object.dsei_forecast_2019, precision: 2) || 0, class: 'currency-input'
+
+      .field
+        = forecast.label :revised_forecast_2019
+        = forecast.hidden_field  :revised_forecast_2019, value: (number_with_precision(forecast.object.revised_forecast_2019, :precision => 2, separator: '.', delimiter: '') || 0)
+        = text_field_tag '', number_with_precision(forecast.object.revised_forecast_2019, precision: 2) || 0, class: 'currency-input'
+
+hr
 .carousel-nav
   .carousel-list
     .slider
