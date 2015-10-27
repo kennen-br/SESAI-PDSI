@@ -1,3 +1,18 @@
+  table.table-minimal.budget-table.investiment
+    thead
+      tr
+        th
+        th Previsão orçamentária (em R$)
+        th Previsão do DSEI (em R$)
+        th Previsão atualizada (em R$)
+    tbody
+      = f.fields_for :budget_forecasts, @pdsi.budget_forecast_with_values do |item|
+        tr.category data-category=(cost.id)
+          td = item.name
+          td = f.text_input :item.initial_forecast_2017
+          td = f.text_input :item.dsei_forecast_2017
+          td = f.text_input :item.revised_forecast_2017
+
 .carousel-nav
   .carousel-list
     .slider
@@ -26,7 +41,6 @@
                   td = number_to_currency(999.99)
                   td = number_to_currency(999.99)
 
-      - f.fields_for :budget_forecast do |f|
       - (2016..2019).map.with_index do |year, i|
         .item-content.animated data-index="#{i+1}"
           table.table-minimal.budget-table.investiment
