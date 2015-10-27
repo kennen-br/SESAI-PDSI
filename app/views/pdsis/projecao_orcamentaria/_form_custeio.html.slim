@@ -1,18 +1,4 @@
-  table.table-minimal.budget-table.investiment
-    thead
-      tr
-        th
-        th Previsão orçamentária (em R$)
-        th Previsão do DSEI (em R$)
-        th Previsão atualizada (em R$)
-    tbody
-      = f.fields_for :budget_forecasts, @pdsi.budget_forecast_with_values do |item|
-        tr.category data-category=(cost.id)
-          td = item.name
-          td = f.text_input :item.initial_forecast_2017
-          td = f.text_input :item.dsei_forecast_2017
-          td = f.text_input :item.revised_forecast_2017
-
+h2.section-title Custeio
 .carousel-nav
   .carousel-list
     .slider
@@ -27,33 +13,15 @@
       a href="javascript:void(0)" data-index="4"
         | 2019
   .carousel-items
-      .item-content.animated data-index="0" class='is-active'
-        table.table-minimal.budget-table.investiment.total
-          thead
-            tr
-              th
-              th Previsão orçamentária (em R$)
-              th Estimativa do orçamento (em R$)
-          tbody
-              - Cost.find_each do |cost|
-                tr.category data-category=(cost.id)
-                  td = cost.name
-                  td = number_to_currency(999.99)
-                  td = number_to_currency(999.99)
-
-      - (2016..2019).map.with_index do |year, i|
-        .item-content.animated data-index="#{i+1}"
-          table.table-minimal.budget-table.investiment
-            thead
-              tr
-                th
-                th Previsão orçamentária (em R$)
-                th Previsão do DSEI (em R$)
-                th Previsão atualizada (em R$)
-            tbody
-              - Cost.find_each do |cost|
-                tr.category data-category=(cost.id)
-                  td = cost.name
-                  td = number_to_currency(999.99)
-                  td = number_to_currency(999.99)
-                  td = number_to_currency(999.99)
+    .item-content.animated data-index="#0"
+      table.table-minimal.budget-table.investiment
+        thead
+          tr
+            th
+            th Previsão orçamentária (em R$)
+            th Previsão do DSEI (em R$)
+            th Previsão atualizada (em R$)
+        tbody
+          = f.fields_for :budget_forecasts, @pdsi.budget_forecast_with_values do |item|
+            tr.category data-category=1
+              td = item.inspect

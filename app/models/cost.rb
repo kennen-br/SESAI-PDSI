@@ -6,6 +6,7 @@ class Cost < ActiveRecord::Base
 
   has_many  :pdsi_costs
   has_many  :pdsi_needs_costs
+  has_many  :budget_forecast
 
   # Todo: Remove this
   has_many  :cost_users

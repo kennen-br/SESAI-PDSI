@@ -1,7 +1,1 @@
-.vertical-tabs-container
-  .vertical-tabs
-    == render "pdsis/projecao_orcamentaria/tab_#{current_user.user_type.menu_name}"
-
-  .vertical-tab-content-container
-    .vertical-tab-content style="display: block;"
-      = render "pdsis/projecao_orcamentaria/form_#{@subsection}", f: f
+= render "pdsis/projecao_orcamentaria/form_#{@subsection}", f: f
