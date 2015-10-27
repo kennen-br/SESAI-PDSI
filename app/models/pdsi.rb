@@ -69,8 +69,8 @@ class Pdsi < ActiveRecord::Base
   has_many  :pdsi_attached_files
   accepts_nested_attributes_for :pdsi_attached_files, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :budget_forecast
-  accepts_nested_attributes_for :budget_forecast, reject_if: :all_blank, allow_destroy: true
+  has_many  :budget_forecasts
+  accepts_nested_attributes_for :budget_forecasts, reject_if: :all_blank, allow_destroy: true
 
   has_attached_file :map, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :map, content_type: /\Aimage\/.*\Z/
@@ -240,6 +240,15 @@ class Pdsi < ActiveRecord::Base
     Cost.all.each { |cost| pdsi_need_costs << PdsiNeedCost.new(cost: cost) }
 
     need_costs_with_values
+  end
+
+  def budget_forecast_with_values
+    items  = budget_forecasts
+    return  budget_forecasts.includes(:cost).order(:id) unless budget_forecasts.blank?
+
+    Cost.all.each { |cost| budget_forecasts << BudgetForecast.new(cost: cost) }
+
+    budget_forecast_with_values
   end
 
   def need_investiments_with_values(category)
