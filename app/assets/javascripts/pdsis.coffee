@@ -160,6 +160,20 @@ $(document).ready ->
     # Years 2015-2019
     $type.find('.projection-year').each ->
       $year = $(this)
+
+      atualizaTotal = ->
+        qty   = parseInt($year.find('.structure-block').length) || 0
+        value = $year.find('.currency-input').val() || 0
+        value = parseFloat(value.toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+
+        $year.find('.total-sum strong').text "R$ #{(qty * value).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}"
+        return
+
+      # Calculate the total money necessary for the structures
+      atualizaTotal()
+      $year.find('.structure-qty, .currency-input').on 'change', atualizaTotal
+
+      # Show/Hide the forms for new structures
       $year.find('.structure-qty').on 'change', ->
         value = $(this).val()
 

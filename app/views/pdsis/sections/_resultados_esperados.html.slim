@@ -59,17 +59,18 @@ h2.section-title RESULTADOS ESPERADOS 2016-2019
                     .year
                       h4 = year
                       .value == pdsi_result.compose_value year
-                .show-more
-                  span.more
-                    = icon 'chevron-down'
-                    | &nbsp;Plano Anual
-                  span.less
-                    = icon 'chevron-up'
-                    | &nbsp;Plano Anual
-
-              .plano-anual
 
                 - unless pdsi_result.products.blank?
+                  .show-more
+                    span.more
+                      = icon 'chevron-down'
+                      | &nbsp;Plano Anual
+                    span.less
+                      = icon 'chevron-up'
+                      | &nbsp;Plano Anual
+
+              - unless pdsi_result.products.blank?
+                .plano-anual
                   table.tables.product
                     thead
                       tr
@@ -91,6 +92,6 @@ h2.section-title RESULTADOS ESPERADOS 2016-2019
                           td
                             ul
                               li
-                                = product.person.name
+                                = product.person.name unless product.person.nil?
                               - product.people.each do |person|
                                 li = person.name

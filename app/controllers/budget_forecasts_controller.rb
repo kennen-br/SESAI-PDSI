@@ -11,3 +11,4 @@ class BudgetForecastsController < ApplicationController
 
   def update
   end
+end

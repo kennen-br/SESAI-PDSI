@@ -20,6 +20,12 @@ $ sudo aptitude install libpq-dev
 ```
 $ bundle install
 ```
+
+### Em caso de erro na instalação do Nokogiri Gem
+```
+$ gem install nokogiri -v '1.6.6.2' -- --use-system-libraries
+```
+
 ### Criar banco de dados manualmente
 ```
 psql -h localhost -U desenv sesai_pdsi

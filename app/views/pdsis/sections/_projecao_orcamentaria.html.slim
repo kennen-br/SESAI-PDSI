@@ -1,12 +1,6 @@
 ul.accordion
   li
     a.js-accordion-trigger[href="javascript:void(0)"]
-      | SÍNTESE ORÇAMENTÁRIA
-    .accordion-content style="padding: 10px 20px;"
-      = render 'pdsis/projecao_orcamentaria/show_sintese'
-
-  li
-    a.js-accordion-trigger[href="javascript:void(0)"]
       | INVESTIMENTOS
     .accordion-content style="padding: 10px 20px;"
       = render 'pdsis/projecao_orcamentaria/show_investimentos', {  }
@@ -16,3 +10,6 @@ ul.accordion
       | CUSTEIO
     .accordion-content style="padding: 10px 20px;"
       = render 'pdsis/projecao_orcamentaria/show_custeio', {  }
+
+h2.section-title SÍNTESE ORÇAMENTÁRIA
+= render 'pdsis/projecao_orcamentaria/show_sintese'
