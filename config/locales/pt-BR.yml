@@ -22,6 +22,7 @@ pt-BR:
       category_budgets:             Dotação orçamentária
       pdsi_result:                  Resultados
       pdsi_attached_file:           Arquivos Anexos
+      budget_forecast:              Previsão de Custos
     attributes:
       user:
         username:               Usuário
@@ -274,6 +275,22 @@ pt-BR:
       pdsi_attached_file:
         name: 'Nome'
         file: 'Arquivo'
+
+      budget_forecast:
+        reference_forecast: 'Valor Referência 2015'
+        budget_forecast: 'Valor estimado necessário'
+        initial_allocation_2016: 'Dotação Inicial 2016'
+        dsei_forecast_2016: 'Previsão do DSEI 2016'
+        revised_allocation_2016: 'Dotação Atualizada 2016'
+        initial_forecast_2017: 'Dotação Inicial 2017'
+        dsei_forecast_2017: 'Previsão do DSEI 2017'
+        revised_forecast_2017: 'Dotação Atualizada 2017'
+        initial_forecast_2018: 'Dotação Inicial 2018'
+        dsei_forecast_2018: 'Previsão do DSEI 2018'
+        revised_forecast_2018: 'Dotação Atualizada 2018'
+        initial_forecast_2019: 'Dotação Inicial 2019'
+        dsei_forecast_2019: 'Previsão do DSEI 2019'
+        revised_forecast_2019: 'Dotação Atualizada 2019'
     errors:
       models:
         user:
