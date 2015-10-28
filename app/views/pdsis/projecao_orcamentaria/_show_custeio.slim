@@ -24,7 +24,7 @@
         | TOTAL
   .carousel-items
       .item-content.animated data-index="0" class='is-active'
-        table.table-minimal.budget-table.investiment.total
+        table.table-minimal.budget-table
           thead
             tr
               th Ano 2015
@@ -32,38 +32,63 @@
               th Estimativa do orçamento (em R$)
           tbody
           - @pdsi.budget_forecasts_with_values.each do |i|
-            tr.category data-category=(i.id)
-              td = 
+            - cost = Cost.find(i.cost_id)
+            tr 
+              td = cost.name
               td = number_to_currency(i.reference_forecast)
               td = number_to_currency(i.budget_forecast)
-
-      .item-content.animated data-index="1"
-        table.table-minimal.budget-table.investiment.total
-          thead
-            tr
-              th Ano 2016
-              th Previsão orçamentária (em R$)
-              th Previsão do DSEI (em R$)
-              th Previsão atualizada (em R$)
-          tbody
-          - @pdsi.budget_forecasts_with_values.each do |i|
-            tr.category data-category=(i.id)
-              td = 
-              td = number_to_currency(i.initial_allocation_2016)
-              td = number_to_currency(i.dsei_forecast_2016)
-              td = number_to_currency(i.revised_allocation_2016)
+              
+      - (2016..2019).map.with_index do |year, i|
+        .item-content.animated data-index="#{i+1}"
+          table.table-minimal.budget-table
+            thead
+              tr
+                th = "Ano #{year}"
+                th Previsão orçamentária (em R$)
+                th Previsão do DSEI (em R$)
+                th Previsão atualizada (em R$)
+            tbody
+            - @pdsi.budget_forecasts_with_values.each.with_index do |bf, idx|
+              - cost = Cost.find(bf.cost_id)
+              - # TODO: rename table fields and find a way to use dinamic variable names
+              - if year == 2016 then
+                - initial_forecast = bf.initial_allocation_2016 # rename to forecast
+                - dsei_forecast = bf.dsei_forecast_2016
+                - revised_forecast = bf.revised_allocation_2016 # rename to forecast
+              - if year == 2017 then
+                - initial_forecast = bf.initial_forecast_2017
+                - dsei_forecast = bf.dsei_forecast_2017
+                - revised_forecast = bf.revised_forecast_2017
+              - if year == 2018 then
+                - initial_forecast = bf.initial_forecast_2018
+                - dsei_forecast = bf.dsei_forecast_2018
+                - revised_forecast = bf.revised_forecast_2018
+              - if year == 2019 then
+                - initial_forecast = bf.initial_forecast_2019
+                - dsei_forecast = bf.dsei_forecast_2019
+                - revised_forecast = bf.revised_forecast_2019
+              tr data-category=("#{bf.id}-#{idx}")
+                td = cost.name
+                td = number_to_currency(initial_forecast)
+                td = number_to_currency(dsei_forecast)
+                td = number_to_currency(revised_forecast)
 
       .item-content.animated data-index="5"
-        table.table-minimal.budget-table.investiment.total
+        table.table-minimal.budget-table
           thead
             tr
-              th
+              th 
               th Quantidade estimada 2016-2019
               th PREVISÃO ORÇAMENTÁRIA DOS 4 ANOS (2016-2019)
           tbody
-              - Cost.find_each do |cost|
-                tr.category data-category=(cost.id)
+              - @pdsi.budget_forecasts_with_values.each do |i|
+                - cost = Cost.find(i.cost_id)
+                - initial_forecast_total  = i.initial_allocation_2016.to_f + i.initial_forecast_2017.to_f
+                - initial_forecast_total += i.initial_forecast_2018.to_f + i.initial_forecast_2019.to_f
+                - revised_forecast_total  = i.revised_allocation_2016.to_f + i.revised_forecast_2017.to_f
+                - revised_forecast_total += i.revised_forecast_2018.to_f + i.revised_forecast_2019.to_f
+                tr data-category=(i.id)
                   td = cost.name
-                  td = number_to_currency(999.99)
-                  td = number_to_currency(999.99)
+                  td = number_to_currency(initial_forecast_total)
+                  td = number_to_currency(revised_forecast_total)
                   

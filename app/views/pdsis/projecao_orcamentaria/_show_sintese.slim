@@ -9,173 +9,38 @@ table.table-minimal.budget-table
       th PREVISÃO ORÇAMENTÁRIA 2019 (em R$)
       th PREVISÃO ORÇAMENTÁRIA DOS 4 ANOS (em R$)
   tbody
+  - budget_forecast_2015 = 0
+  - budget_forecast_2016 = 0
+  - budget_forecast_2017 = 0
+  - budget_forecast_2018 = 0
+  - budget_forecast_2019 = 0
+  - budget_forecast_total = 0
+  - @pdsi.budget_forecasts_with_values.each.with_index do |bf, idx|
+    - cost = Cost.find(bf.cost_id)
+    - budget_forecast_per_cost = bf.revised_allocation_2016.to_f + bf.revised_forecast_2017.to_f
+    - budget_forecast_per_cost += bf.revised_forecast_2018.to_f + bf.revised_forecast_2019.to_f
+    - # TODO: renama table field name to use dynamic variable name
+    - budget_forecast_2015 += bf.budget_forecast
+    - budget_forecast_2016 += bf.revised_allocation_2016.to_f
+    - budget_forecast_2017 += bf.revised_forecast_2017.to_f
+    - budget_forecast_2018 += bf.revised_forecast_2018.to_f
+    - budget_forecast_2019 += bf.revised_forecast_2019.to_f
+    - budget_forecast_total += budget_forecast_2015 + budget_forecast_2016 + budget_forecast_2017 + budget_forecast_2018 + budget_forecast_2019
     tr
-      td CUSTEIO
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-    tr
-      td MATERIAL MÉDICO HOSPITALAR (MMH)
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-    tr
-      td CUSTEIO DE SANEAMENTO
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-    tr
-      td CUSTEIO DE EDIFICAÇÕES
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-    tr
-      td SATELITAL
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-    tr
-      td PASSAGENS E DIÁRIAS (SCDP + Contratos de Passagens)
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-    tr
-      td CONVÊNIOS PARA CONTRATAÇÃO DE RECURSOS HUMANOS
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-    tr
-      td MEDICAMENTOS
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-    tr
-      td SERVIDORES PÚBLICO FEDERAIS
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-    tr
-      td COMBUSTÍVEL
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-    tr
-      td CONTRATOS
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-    tr.child
-      td ALIMENTAÇÃO
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-    tr.child
-      td HORAS DE VÕO
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-    tr.child
-      td LOCAÇÃO DE VEÍCULOS
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-    tr.child
-      td LOCAÇÃO DE MÃO DE OBRA
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-    tr.child
-      td OUTROS CONTRATOS
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-    tr
-      td INVESTIMENTO
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-    tr
-      td OBRAS DE EDIFICAÇÕES
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-    tr
-      td OBRAS DE SANEAMENTO
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-    tr
-      td EQUIPAMENTOS
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
+      td = cost.name
+      td = number_to_currency(bf.budget_forecast)
+      td = number_to_currency(bf.revised_allocation_2016)
+      td = number_to_currency(bf.revised_forecast_2017)
+      td = number_to_currency(bf.revised_forecast_2018)
+      td = number_to_currency(bf.revised_forecast_2019)
+      td = number_to_currency(budget_forecast_per_cost)
   tfoot
     tr
       td
         strong TOTAL
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td 123.456,78
-      td
+      td = number_to_currency(budget_forecast_2015)
+      td = number_to_currency(budget_forecast_2016)
+      td = number_to_currency(budget_forecast_2017)
+      td = number_to_currency(budget_forecast_2018)
+      td = number_to_currency(budget_forecast_2019)
+      td = number_to_currency(budget_forecast_total)
