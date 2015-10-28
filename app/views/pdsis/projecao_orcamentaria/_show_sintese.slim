@@ -20,7 +20,7 @@ table.table-minimal.budget-table
     - budget_forecast_per_cost = bf.revised_allocation_2016.to_f + bf.revised_forecast_2017.to_f
     - budget_forecast_per_cost += bf.revised_forecast_2018.to_f + bf.revised_forecast_2019.to_f
     - # TODO: renama table field name to use dynamic variable name
-    - budget_forecast_2015 += bf.budget_forecast
+    - budget_forecast_2015 += bf.budget_forecast || 0
     - budget_forecast_2016 += bf.revised_allocation_2016.to_f
     - budget_forecast_2017 += bf.revised_forecast_2017.to_f
     - budget_forecast_2018 += bf.revised_forecast_2018.to_f
