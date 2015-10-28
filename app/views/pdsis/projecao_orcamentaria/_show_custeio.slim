@@ -11,17 +11,17 @@
   .carousel-list
     .slider
       a.is-active href="javascript:void(0)" data-index="0"
-        | DIMENSIONAMENTO ORÇAMENTÁRIO 2015
+        | 2015
       a href="javascript:void(0)" data-index="1"
-        | PREVISÃO ORÇAMENTÁRIA 2016
+        | 2016
       a href="javascript:void(0)" data-index="2"
-        | PREVISÃO ORÇAMENTÁRIA 2017
+        | 2017
       a href="javascript:void(0)" data-index="3"
-        | PREVISÃO ORÇAMENTÁRIA 2018
+        | 2018
       a href="javascript:void(0)" data-index="4"
-        | PREVISÃO ORÇAMENTÁRIA 2019
+        | 2019
       a href="javascript:void(0)" data-index="5"
-        | PREVISÃO ORÇAMENTÁRIA TOTAL
+        | TOTAL
   .carousel-items
       .item-content.animated data-index="0" class='is-active'
         table.table-minimal.budget-table.investiment.total
@@ -31,27 +31,28 @@
               th Previsão orçamentária (em R$)
               th Estimativa do orçamento (em R$)
           tbody
-              - Cost.find_each do |cost|
-                tr.category data-category=(cost.id)
-                  td = cost.name
-                  td = number_to_currency(999.99)
-                  td = number_to_currency(999.99)
-      - (2016..2019).map.with_index do |year, i|
-        .item-content.animated data-index="#{i+1}"
-          table.table-minimal.budget-table.investiment
-            thead
-              tr
-                th Ano #{year}
-                th Previsão orçamentária (em R$)
-                th Previsão do DSEI (em R$)
-                th Previsão atualizada (em R$)
-            tbody
-              - Cost.find_each do |cost|
-                tr.category data-category=(cost.id)
-                  td = cost.name
-                  td = number_to_currency(999.99)
-                  td = number_to_currency(999.99)
-                  td = number_to_currency(999.99)
+          - @pdsi.budget_forecasts_with_values.each do |i|
+            tr.category data-category=(i.id)
+              td = 
+              td = number_to_currency(i.reference_forecast)
+              td = number_to_currency(i.budget_forecast)
+
+      .item-content.animated data-index="1"
+        table.table-minimal.budget-table.investiment.total
+          thead
+            tr
+              th Ano 2016
+              th Previsão orçamentária (em R$)
+              th Previsão do DSEI (em R$)
+              th Previsão atualizada (em R$)
+          tbody
+          - @pdsi.budget_forecasts_with_values.each do |i|
+            tr.category data-category=(i.id)
+              td = 
+              td = number_to_currency(i.initial_allocation_2016)
+              td = number_to_currency(i.dsei_forecast_2016)
+              td = number_to_currency(i.revised_allocation_2016)
+
       .item-content.animated data-index="5"
         table.table-minimal.budget-table.investiment.total
           thead
@@ -65,3 +66,4 @@
                   td = cost.name
                   td = number_to_currency(999.99)
                   td = number_to_currency(999.99)
+                  

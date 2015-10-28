@@ -160,7 +160,7 @@ private
       pdsi_attached_files_attributes: [
         :id, :name, :file
       ],
-      budget_forecasts: [ 
+      budget_forecasts_attributes: [ 
         :id, :reference_forecast, :budget_forecast, 
         :initial_allocation_2016, :dsei_forecast_2016, :revised_allocation_2016,
         :initial_forecast_2017, :dsei_forecast_2017, :revised_forecast_2017,
