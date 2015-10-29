@@ -11,8 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151024162730) do
-  
+ActiveRecord::Schema.define(version: 20151029182808) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,9 +87,9 @@ ActiveRecord::Schema.define(version: 20151024162730) do
     t.datetime "updated_at"
     t.decimal  "reference_forecast"
     t.decimal  "budget_forecast"
-    t.decimal  "initial_allocation_2016"
+    t.decimal  "initial_forecast_2016"
     t.decimal  "dsei_forecast_2016"
-    t.decimal  "revised_allocation_2016"
+    t.decimal  "revised_forecast_2016"
     t.decimal  "initial_forecast_2017"
     t.decimal  "dsei_forecast_2017"
     t.decimal  "revised_forecast_2017"

@@ -18,9 +18,9 @@ h2.section-title Custeio
     fieldset
       legend 2016
       .field
-        = forecast.label :initial_allocation_2016
-        = forecast.hidden_field  :initial_allocation_2016, value: (number_with_precision(forecast.object.initial_allocation_2016, :precision => 2, separator: '.', delimiter: '') || 0)
-        = text_field_tag '', number_with_precision(forecast.object.initial_allocation_2016, precision: 2) || 0, class: 'currency-input'
+        = forecast.label :initial_forecast_2016
+        = forecast.hidden_field  :initial_forecast_2016, value: (number_with_precision(forecast.object.initial_forecast_2016, :precision => 2, separator: '.', delimiter: '') || 0)
+        = text_field_tag '', number_with_precision(forecast.object.initial_forecast_2016, precision: 2) || 0, class: 'currency-input'
 
       .field
         = forecast.label :dsei_forecast_2016
@@ -28,9 +28,9 @@ h2.section-title Custeio
         = text_field_tag '', number_with_precision(forecast.object.dsei_forecast_2016, precision: 2) || 0, class: 'currency-input'
 
       .field
-        = forecast.label :revised_allocation_2016
-        = forecast.hidden_field  :revised_allocation_2016, value: (number_with_precision(forecast.object.revised_allocation_2016, :precision => 2, separator: '.', delimiter: '') || 0)
-        = text_field_tag '', number_with_precision(forecast.object.revised_allocation_2016, precision: 2) || 0, class: 'currency-input'
+        = forecast.label :revised_forecast_2016
+        = forecast.hidden_field  :revised_forecast_2016, value: (number_with_precision(forecast.object.revised_forecast_2016, :precision => 2, separator: '.', delimiter: '') || 0)
+        = text_field_tag '', number_with_precision(forecast.object.revised_forecast_2016, precision: 2) || 0, class: 'currency-input'
 
     fieldset
       legend 2017

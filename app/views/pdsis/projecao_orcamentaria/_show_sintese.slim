@@ -17,19 +17,20 @@ table.table-minimal.budget-table
   - budget_forecast_total = 0
   - @pdsi.budget_forecasts_with_values.each.with_index do |bf, idx|
     - cost = Cost.find(bf.cost_id)
-    - budget_forecast_per_cost = bf.revised_allocation_2016.to_f + bf.revised_forecast_2017.to_f
+    - budget_forecast_per_cost  = bf.revised_forecast_2016.to_f + bf.revised_forecast_2017.to_f
     - budget_forecast_per_cost += bf.revised_forecast_2018.to_f + bf.revised_forecast_2019.to_f
     - # TODO: renama table field name to use dynamic variable name
-    - budget_forecast_2015 += bf.budget_forecast || 0
-    - budget_forecast_2016 += bf.revised_allocation_2016.to_f
+    - budget_forecast_2015 += bf.budget_forecast.to_f || 0
+    - budget_forecast_2016 += bf.revised_forecast_2016.to_f
     - budget_forecast_2017 += bf.revised_forecast_2017.to_f
     - budget_forecast_2018 += bf.revised_forecast_2018.to_f
     - budget_forecast_2019 += bf.revised_forecast_2019.to_f
-    - budget_forecast_total += budget_forecast_2015 + budget_forecast_2016 + budget_forecast_2017 + budget_forecast_2018 + budget_forecast_2019
+    - budget_forecast_total += budget_forecast_2015 + budget_forecast_2016
+    - budget_forecast_total += budget_forecast_2017 + budget_forecast_2018 + budget_forecast_2019
     tr
       td = cost.name
       td = number_to_currency(bf.budget_forecast)
-      td = number_to_currency(bf.revised_allocation_2016)
+      td = number_to_currency(bf.revised_forecast_2016)
       td = number_to_currency(bf.revised_forecast_2017)
       td = number_to_currency(bf.revised_forecast_2018)
       td = number_to_currency(bf.revised_forecast_2019)
