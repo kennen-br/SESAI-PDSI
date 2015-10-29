@@ -10,28 +10,47 @@ Todos os passos serão realizados dentro do diretório do projeto, dentro do vag
 $ rvm install 2.2.0
 $ rvm use 2.2.0 --default
 ```
-### Instalando pg 0.'8.2 (libpq-fe.h)
-
-```
-$ sudo aptitude install libpq-dev
-```
-
 ### Instalando as dependências do projeto
 ```
 $ bundle install
 ```
-
-### Em caso de erro na instalação do Nokogiri Gem
+#### Em caso de erro na instalação do Nokogiri Gem
 ```
 $ gem install nokogiri -v '1.6.6.2' -- --use-system-libraries
 ```
+#### Em caso de erro na instalação do pg 0.18.2 (libpq-fe.h)
 
+```
+$ sudo aptitude install libpq-dev
+```
+Rodar novamente 
+```
+$ bundle install
+```
+
+### Instalar banco de dados Postgree manualmente
+```
+$ sudo apt-get install postgresql-9.3
+$ sudo aptitude install postgresql-client
+```
+Para checar se o banco de dados esta instalado corretamente
+```
+$ aptitude search postgresql |grep ^i
+```
+Verificar se versão compativel: Postgree 9.3
 ### Criar banco de dados manualmente
 ```
-psql -h localhost -U desenv sesai_pdsi
+$ psql -h localhost -U desenv sesai_pdsi
 ```
 Senha: rapadura
 Caso não funcionar, tem que rodar manualmente as 3 últimas linhas do postinstall.sh
+
+```
+$ sudo su - postgres -c "echo \"CREATE USER desenv WITH SUPERUSER CREATEDB CREATEROLE ENCRYPTED PASSWORD 'rapadura';\" |psql -U postgres -d postgres" vagrant
+$ sudo su - postgres -c "echo \"CREATE DATABASE sesai_pdsi;\" |psql -U postgres -d postgres" vagrant
+$ sudo su - postgres -c "echo \"GRANT ALL PRIVILEGES ON DATABASE sesai_pdsi TO desenv;\" |psql -U postgres -d postgres" vagrant
+```
+
 
 ### Configurando / inicializando o banco de dados
 
