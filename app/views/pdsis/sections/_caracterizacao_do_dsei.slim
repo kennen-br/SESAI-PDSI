@@ -3,7 +3,8 @@ ul.accordion-tabs-minimal
     a.tab-link.is-active[href="#"]
       | Breve Histórico
     .tab-content
-
+	  h3
+    	| Relato resumido da história da população indígena, histórico da consolidação do DSEI, perfil econômico da população e etnias que compõem o território.	
       == @pdsi.compose_item_3 || 'Não informado'
 
       .right-align
@@ -15,14 +16,15 @@ ul.accordion-tabs-minimal
     a.tab-link[href="#"]
       | 3.1 Território e População
     .tab-content
-      p Atualizar informações sobre o distrito, com base na oficina de geoinformação.
-      p Conteúdo: Destacar a localização da sede do Distrito, dos polos-base e aspectos geográficos (rios, estradas, limites territoriais, políticos).
-
+      h3 Atualizar informações sobre o distrito, com base na oficina de geoinformação.
+      
       ul.accordion
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
-            | A) MAPA
+            | A) Mapa
           .accordion-content
+          	h3
+          	  |Destacar a localização da sede do Distrito, dos polos-base e aspectos geográficos (rios, estradas, limites territoriais, políticos). 
             = link_to edit_pdsi_path(@pdsi, section: 'mapa'), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
               | Alterar
@@ -51,9 +53,7 @@ ul.accordion-tabs-minimal
       ul.accordion
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
-            | A) Meios de Transporte para ACESSO DOS POVOS INDÍGENAS
-            br
-            | AOS SERVIÇOS DE SAÚDE
+            | A) Meios de Transporte para acesso dos povos indígenas aos serviços de saúde
           .accordion-content
             = link_to edit_pdsi_path(@pdsi, section: 'destinos'), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
@@ -69,7 +69,7 @@ ul.accordion-tabs-minimal
             == render 'pdsis/recursos_humanos/show'
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
-            | C) Capacidade Instalada
+            | C) Capacidade instalada
           .accordion-content
             = link_to edit_pdsi_path(@pdsi, section: 'capacidade-instalada'), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
@@ -77,7 +77,7 @@ ul.accordion-tabs-minimal
             == render 'pdsis/capacidade_instalada/show'
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
-            | D) Redes de Serviços
+            | D) Redes de serviços
           .accordion-content
             = link_to edit_pdsi_path(@pdsi, section: 'rede-servicos', base_polo: @dsei.base_polos.order(:id).first), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
@@ -85,7 +85,7 @@ ul.accordion-tabs-minimal
             == render 'pdsis/rede_servicos/show'
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
-            | E) Infraestrutura de saúde edificações
+            | E) Infraestrutura de saúde -  Edificações
           .accordion-content
             = link_to edit_pdsi_path(@pdsi, section: 'infraestrutura-edificacoes'), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
@@ -101,7 +101,7 @@ ul.accordion-tabs-minimal
             == render 'pdsis/infraestrutura_saneamento/show'
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
-            | G) Infraestrutura de saúde dos CAPAIS
+            | G) Infraestrutura de saúde dos CAPAIs
           .accordion-content
             = link_to edit_pdsi_path(@pdsi, section: 'capais'), class: 'button pull-right edit-link' do
               i.fa.fa-pencil

@@ -2,6 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+.menu_inicio li {
+	list-style: none;
+	line-height: 1.6em;
+}
+.menu_inicio .child a{
+	display:block;
+	margin: .2em .2em .2em 50px;
+
+
+}
+
 .edit-section {
   @include clearfix;
 }

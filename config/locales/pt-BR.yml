@@ -103,7 +103,7 @@ pt-BR:
         w_60:       mais de 60 anos
 
       pdsi_base_polo_datum:
-        city_name:  Cidade
+        city_name:  Município
       etnia:
         name: Nome
 
@@ -126,7 +126,7 @@ pt-BR:
         permanencia_tecnicos_enfermagem:  Técnicos / Auxiliares de enfermagem
 
       service_network:
-        city_name:  Cidade
+        city_name:  Município
 
 
       infrastructure_building_type:
@@ -135,7 +135,7 @@ pt-BR:
       infrastructure_building:
         name:             Nome do estabelecimento de saúde
         uf:               UF
-        city_name:        Cidade
+        city_name:        Município
         cnes:             CNES
         village:          Aldeia
         village_id:       Aldeia
@@ -159,7 +159,7 @@ pt-BR:
         esgotamento_sanitario:          Esgotamento sanitário?
 
       capai:
-        city_name:      Cidade
+        city_name:      Município
         uf:             UF
         capai_type:     Tipo de CAPAI
         host_capacity:  Capacidade de hospedagem

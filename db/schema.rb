@@ -12,7 +12,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20151024162730) do
-  
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -519,6 +519,9 @@ ActiveRecord::Schema.define(version: 20151024162730) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "workspace"
+    t.string "location"
+    t.string "bond" 
   end
 
   add_index "people", ["dsei_id"], name: "index_people_on_dsei_id", using: :btree
