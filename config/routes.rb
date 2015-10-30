@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :budget_correction_factors
   scope 'pessoas' do
     post '/cadastrar', to: 'people#create',  as: :people_create
   end
