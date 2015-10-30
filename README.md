@@ -85,18 +85,26 @@ sudo apt-get install nodejs npm
 ```
 
 
-# Deploy
+# Deploy ambiente Desenvolvimento (dese.knn)
 
+## Heroku
 ```
 $ git push heroku rc:master
 ```
 
-## Comandos heroku
+### Comandos Heroku
 ```
 $  git push heroku rc:master
 $  heroku run rails console
 $  heroku run bash
 ```
+
+##DigitalOcean
+### Comandos DigitalOcean
+```
+$  mina development deploy
+```
+
 
 # Documentação
 
