@@ -517,11 +517,10 @@ ActiveRecord::Schema.define(version: 20151024162730) do
   create_table "people", force: :cascade do |t|
     t.integer  "dsei_id"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "workspace"
-    t.string "location"
-    t.string "bond" 
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "location",   limit: 100
+    t.string   "bond",       limit: 100
   end
 
   add_index "people", ["dsei_id"], name: "index_people_on_dsei_id", using: :btree

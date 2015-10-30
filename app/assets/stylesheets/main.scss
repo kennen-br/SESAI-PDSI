@@ -220,19 +220,32 @@ button#menu-button{
   }
 }
 
-
+.menu_estrutura {
+	width: 50%;
+    padding: 1em;
+	ul{
+		list-style:none;
+		.child  {
+			margin-left:50px;
+		}
+		li a{
+			display:block;
+			padding: 0.2em;
+		}
+	}
+}
 .sliding-menu-content {
   @include transform(translateX(-400px));
   background-color: #E6E7E9;
-  width: 400px;
+  width: auto;
   li {
     a {
 
       border-color : #CCC;
       color        : #4E4E4E;
       font-family  : 'Roboto', sans-serif;
-      font-size    : 1.6em;
-      font-weight  : 300;
+      font-size    : 1.2em;
+      font-weight  : 100;
 
       &:hover {
         background-color: #9F9F9F;
@@ -243,8 +256,8 @@ button#menu-button{
     &.child {
       font-size: .9em;
       a {
-        font-size : 1.2em;
-        padding   : 0.5em 0.5em 0.5em 50px;
+        font-size : 1.1em;
+        padding   : 0.5em 1.5em 0.5em 50px;
 
         &.is-active {
           background-color: #9F9F9F;

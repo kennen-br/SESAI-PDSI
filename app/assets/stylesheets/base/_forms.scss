@@ -14,7 +14,11 @@ select {
 }
 
 label {
-  font-weight: 600;
+  font-weight: bold;
+  margin-bottom: 0.375em;
+  float: left;
+  margin-right: 20px;
+  font-size: 13px;
   margin-bottom: $small-spacing / 2;
 
   &.required::after {
