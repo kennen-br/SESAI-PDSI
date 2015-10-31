@@ -75,24 +75,138 @@
       @include padding(null null null 20px);
     }
   }
+	.axis:first-child h3, .axis:first-child .strategy .result-products .years, .axis:first-child .strategy .result-products .years .year h4 {
+		color          : #EE857F;
+		border-bottom  : 1px solid #EE857F;
+	}
+	.axis:nth-child(2) h3, .axis:nth-child(2) .strategy .result-products .years, .axis:nth-child(2) .strategy .result-products .years .year h4 {
+		color          : #51c6d6;
+		border-bottom  : 1px solid #51c6d6;
+	}
+	.axis:nth-child(3) h3, .axis:nth-child(3) .strategy .result-products .years, .axis:nth-child(3) .strategy .result-products .years .year h4 {
+		color          : #7fa2d5;
+		border-bottom  : 1px solid #7fa2d5;
+	}
+	.axis:nth-child(4) h3, .axis:nth-child(4) .strategy .result-products .years, .axis:nth-child(4) .strategy .result-products .years .year h4 {
+		color          : #f2738d;
+		border-bottom  : 1px solid #f2738d;
+	}
+	.axis:nth-child(5) h3, .axis:nth-child(5) .strategy .result-products .years, .axis:nth-child(5) .strategy .result-products .years .year h4  {
+		color          : #f2738d;
+		border-bottom  : 1px solid #f2738d;
+	}
+	.axis:nth-child(6) h3, .axis:nth-child(6) .strategy .result-products .years, .axis:nth-child(6) .strategy .result-products .years .year h4  {
+		color          : #f2738d;
+		border-bottom  : 1px solid #f2738d;
+	}
+	.axis:nth-child(7) h3, .axis:nth-child(7) .strategy .result-products .years, .axis:nth-child(7) .strategy .result-products .years .year h4  {
+		color          : #f59656;
+		border-bottom  : 1px solid #f59656;
+	}
+	.axis:nth-child(8) h3, .axis:nth-child(8) .strategy .result-products .years, .axis:nth-child(8) .strategy .result-products .years .year h4  {
+		color          : #8a88c2;
+		border-bottom  : 1px solid #8a88c2;
+	}
+	.axis:nth-child(9) h3, .axis:nth-child(9) .strategy .result-products .years, .axis:nth-child(9) .strategy .result-products .years .year h4  {
+		color          : #cecf57;
+		border-bottom  : 1px solid #cecf57;
+	}
+	
+	
+	.axis:first-child .strategy .strategy-title {
+		color          : #EE857F;
+		
+	}
+	.axis:nth-child(2) .strategy .strategy-title {
+		color          : #51c6d6;
+		
+	}
+	.axis:nth-child(3) .strategy .strategy-title {
+		color          : #7fa2d5;
+		
+	}
+	.axis:nth-child(4) .strategy .strategy-title {
+		color          : #f2738d;
+		
+	}
+	.axis:nth-child(5) .strategy .strategy-title {
+		color          : #f2738d;
+		
+	}
+	.axis:nth-child(6) .strategy .strategy-title {
+		color          : #f2738d;
+		
+	}
+	.axis:nth-child(7) .strategy .strategy-title {
+		color          : #f59656;
+		
+	}
+	.axis:nth-child(8) .strategy .strategy-title {
+		color          : #8a88c2;
+		
+	}
+	.axis:nth-child(9) .strategy .strategy-title {
+		color          : #cecf57;
+		
+	}
+	
+	
+	.axis:first-child .strategy .result {
+		background          : #EE857F;
+		
+	}
+	.axis:nth-child(2) .strategy .result {
+		background          : #51c6d6;
+		
+	}
+	.axis:nth-child(3) .strategy .result {
+		background          : #7fa2d5;
+		
+	}
+	.axis:nth-child(4) .strategy .result {
+		background          : #f2738d;
+		
+	}
+	.axis:nth-child(5) .strategy .result {
+		background          : #f2738d;
+		
+	}
+	.axis:nth-child(6) .strategy .result {
+		background          : #f2738d;
+		
+	}
+	.axis:nth-child(7) .strategy .result {
+		background          : #f59656;
+		
+	}
+	.axis:nth-child(8) .strategy .result {
+		background          : #8a88c2;
+		
+	}
+	.axis:nth-child(9) .strategy .result {
+		background          : #cecf57;
+		
+	}
+  
   .axis {
     @include margin(null null 20px);
 
     h3 {
-      border-bottom  : 1px solid #EE857F;
-      color          : #EE857F;
       font-family    : 'Roboto', sans-serif;
       font-size      : 1.7em;
       font-weight    : 500;
       line-height    : 1.7em;
       text-transform : uppercase;
     }
-
+	
+	
+	
+	
     .strategy {
       .strategy-title {
         @include margin(-15px 0 20px);
 
-        color       : #EE857F;
+       
         font-size   : 1.4em;
         font-weight : 300;
       }
@@ -119,7 +233,7 @@
         @include padding(2em 2em 0.5em);
         @include margin(null null 20px);
 
-        background : #EE857F;
+        
         color      : #FFF;
         font-size  : 1.5em;
 
