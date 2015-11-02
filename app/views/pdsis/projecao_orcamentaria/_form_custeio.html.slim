@@ -23,8 +23,9 @@ h2.section-title Custeio
       .item-content.animated data-index="0" class='is-active'
         table.table-minimal.budget-table.investiment
           thead
-            tr
-              th Ano 2015
+            tr 
+              th style="width: 400px;" 
+                = "Ano 2015"
               th Previsão orçamentária (em R$)
               th Estimativa do orçamento (em R$)
           tbody
@@ -44,21 +45,53 @@ h2.section-title Custeio
           table.table-minimal.budget-table.investiment
             thead
               tr
-                th = "Ano #{year}"
+                th style="width: 400px;" 
+                  = "Ano #{year}"
                 th Previsão orçamentária (em R$)
                 th Previsão do DSEI (em R$)
                 th Previsão atualizada (em R$)
             tbody
-            = f.fields_for :budget_forecasts, @pdsi.budget_forecasts_with_values do |bf|
-                tr data-category=("#{year}-#{bf.object.cost_id}")
-                  td = bf.object.cost.name
-                  td 
-                    = bf.hidden_field "initial_forecast_#{year}", value: (number_with_precision(eval("bf.object.initial_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
-                    = text_field_tag '', number_with_precision(eval("bf.object.initial_forecast_#{year}"), precision: 2) || 0, class: 'currency-input'
-                  td 
-                    = bf.hidden_field "dsei_forecast_#{year}", value: (number_with_precision(eval("bf.object.dsei_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
-                    = text_field_tag '', number_with_precision(eval("bf.object.dsei_forecast_#{year}"), precision: 2) || 0, class: 'currency-input'
-                  td 
-                    = bf.hidden_field "revised_forecast_#{year}", value: (number_with_precision(eval("bf.object.revised_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
-                    = text_field_tag '', number_with_precision(eval("bf.object.revised_forecast_#{year}"), precision: 2) || 0, class: 'currency-input'
+              = f.fields_for :budget_forecasts, @pdsi.budget_forecasts_with_values do |bf|
+                - if bf.object.cost.parent_id.blank? then
+                  tr data-category=("#{bf.object.cost.id}") data-index=("#{year}-#{bf.object.cost.id}")
+                    td = bf.object.cost.name
+                    td
+                      = bf.hidden_field "initial_forecast_#{year}", value: (number_with_precision(eval("bf.object.initial_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
+                      = text_field_tag '', number_with_precision(eval("bf.object.initial_forecast_#{year}"), precision: 2) || 0, class: 'currency-input'
+                    td 
+                      = bf.hidden_field "dsei_forecast_#{year}", value: (number_with_precision(eval("bf.object.dsei_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
+                      = text_field_tag '', number_with_precision(eval("bf.object.dsei_forecast_#{year}"), precision: 2) || 0, class: 'currency-input'
+                    td 
+                      = bf.hidden_field "revised_forecast_#{year}", value: (number_with_precision(eval("bf.object.revised_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
+                      = text_field_tag '', number_with_precision(eval("bf.object.revised_forecast_#{year}"), precision: 2) || 0, class: 'currency-input'
 
+                - elsif bf.object.cost.parent_id == 10
+                  tr.item data-category=("#{bf.object.cost.id}") data-index=("#{year}-#{bf.object.cost.id}")
+                    td
+                      = icon 'plus-square-o', class: 'toggle-structures' 
+                      | &nbsp;&nbsp;
+                      = bf.object.cost.name
+                
+                    td 
+                      = bf.hidden_field "initial_forecast_#{year}", value: (number_with_precision(eval("bf.object.initial_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
+                      = text_field_tag '', number_with_precision(eval("bf.object.initial_forecast_#{year}"), precision: 2) || 0, class: 'currency-input'
+                    td 
+                      = bf.hidden_field "dsei_forecast_#{year}", value: (number_with_precision(eval("bf.object.dsei_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
+                      = text_field_tag '', number_with_precision(eval("bf.object.dsei_forecast_#{year}"), precision: 2) || 0, class: 'currency-input'
+                    td 
+                      = bf.hidden_field "revised_forecast_#{year}", value: (number_with_precision(eval("bf.object.revised_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
+                      = text_field_tag '', number_with_precision(eval("bf.object.revised_forecast_#{year}"), precision: 2) || 0, class: 'currency-input'
+
+                - else 
+                    tr.structure data-index=("#{year}-#{bf.object.cost.parent_id}") style="display: none;"
+                      td = bf.object.cost.name
+
+                      td 
+                        = bf.hidden_field "initial_forecast_#{year}", value: (number_with_precision(eval("bf.object.initial_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
+                        = text_field_tag '', number_with_precision(eval("bf.object.initial_forecast_#{year}"), precision: 2) || 0, class: 'currency-input'
+                      td 
+                        = bf.hidden_field "dsei_forecast_#{year}", value: (number_with_precision(eval("bf.object.dsei_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
+                        = text_field_tag '', number_with_precision(eval("bf.object.dsei_forecast_#{year}"), precision: 2) || 0, class: 'currency-input'
+                      td 
+                        = bf.hidden_field "revised_forecast_#{year}", value: (number_with_precision(eval("bf.object.revised_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
+                        = text_field_tag '', number_with_precision(eval("bf.object.revised_forecast_#{year}"), precision: 2) || 0, class: 'currency-input'
