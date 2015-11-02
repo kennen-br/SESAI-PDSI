@@ -12,25 +12,27 @@
     .slider
       a.is-active href="javascript:void(0)" data-index="0"
         | 2015
+        
       a href="javascript:void(0)" data-index="1"
         | 2016
+      a href="javascript:void(0)" data-index="11"
+        | 2016 *
       a href="javascript:void(0)" data-index="2"
         | 2017
+      a href="javascript:void(0)" data-index="12"
+        | 2017 *
       a href="javascript:void(0)" data-index="3"
         | 2018
+      a href="javascript:void(0)" data-index="13"
+        | 2018 *
       a href="javascript:void(0)" data-index="4"
         | 2019
+      a href="javascript:void(0)" data-index="14"
+        | 2019 *
+        
       a href="javascript:void(0)" data-index="5"
         | TOTAL
 
-      a href="javascript:void(0)" data-index="10"
-        | 2016
-      a href="javascript:void(0)" data-index="11"
-        | 2017
-      a href="javascript:void(0)" data-index="12"
-        | 2018
-      a href="javascript:void(0)" data-index="13"
-        | 2019
 
   .carousel-items
       .item-content.animated data-index="0" class='is-active'
@@ -41,16 +43,15 @@
               th Previsão orçamentária (em R$)
               th Estimativa do orçamento (em R$)
           tbody
-          - @pdsi.budget_forecasts_with_values.each do |i|
-            - cost = Cost.find(i.cost_id)
-            - if cost.parent_id.blank? then
+            - @pdsi.budget_forecasts_with_values.each do |i|
+              - cost = Cost.find(i.cost_id)
               tr
                 td = cost.name
                 td = number_to_currency(i.reference_forecast)
                 td = number_to_currency(i.budget_forecast)            
               
       - (2016..2019).map.with_index do |year, i|
-        .item-content.animated data-index="#{i+10}"
+        .item-content.animated data-index="#{i+1}"
           table.table-minimal.budget-table.investiment
             thead
               tr
@@ -59,65 +60,17 @@
                 th Previsão do DSEI (em R$)
                 th Previsão atualizada (em R$)
             tbody
-            - @pdsi.budget_forecasts_with_values.each.with_index do |bf, idx|
-              - cost = Cost.find(bf.cost_id)
-                tr.category data-category=("#{year}-#{bf.cost_id}")
+              - @pdsi.budget_forecasts_with_values.each.with_index do |bf, idx|
+                - cost = Cost.find(bf.cost_id)
+                tr
                   td = cost.name
-                  td = number_to_currency(eval("i.initial_forecast_#{year}"))
-                  td = number_to_currency(eval("i.dsei_forecast_#{year}"))
-                  td = number_to_currency(eval("i.revised_forecast_#{year}"))
-
-                  tr.item data-category=("#{i.id}") data-index=("#{i.id}-1")
-                    td
-                      = icon 'plus-square-o', class: 'toggle-structures' 
-                      | &nbsp; ALIMENTAÇÃO
-                    td &nbsp;
-                    td &nbsp;
-                    td &nbsp;
-
-                    tr.structure data-index=("1-1") style="display: none;"
-                      td 3.3.90.30.07 - Generos de Alimentação
-                      td = number_to_currency(123.45)
-                      td = number_to_currency(123.45)
-                      td = number_to_currency(123.45)
-                    tr.structure data-index=("1-1") style="display: none;"
-                      td 3.3.90.36.23 - Fornecimento de Alimentação (Outros Serviços de Terceiros - Pessoa Física)
-                      td = number_to_currency(123.45)
-                      td = number_to_currency(123.45)
-                      td = number_to_currency(123.45)
-                    tr.structure data-index=("1-1") style="display: none;"
-                      td 3.3.90.39.41 - Fornecimento de Alimentação (Outros Serviço de Terceiros - Pessoa Jurídica)
-                      td = number_to_currency(123.45)
-                      td = number_to_currency(123.45)
-                      td = number_to_currency(123.45)
-
-                  tr.item data-category=(2) data-index=("2-1")
-                    td
-                      = icon 'plus-square-o', class: 'toggle-structures'
-                      | &nbsp; LOCAÇÃO DE VEÍCULOS
-                    td &nbsp;
-                    td &nbsp;
-                    td &nbsp;
-
-                    tr.structure data-index=("2-1") style="display: none;"
-                      td 3.3.90.33.03 - Locação de Veículos
-                      td = number_to_currency(123.45)
-                      td = number_to_currency(123.45)
-                      td = number_to_currency(123.45)
-                    tr.structure data-index=("2-1") style="display: none;"
-                      td 3.3.90.33.05 - Locomoção Urbana
-                      td = number_to_currency(123.45)
-                      td = number_to_currency(123.45)
-                      td = number_to_currency(123.45)
-                    tr.structure data-index=("2-1") style="display: none;"
-                      td 3.3.90.33.09 - Transporte de Servidores
-                      td = number_to_currency(123.45)
-                      td = number_to_currency(123.45)
-                      td = number_to_currency(123.45)
+                  td = number_to_currency(eval("bf.initial_forecast_#{year}"))
+                  td = number_to_currency(eval("bf.dsei_forecast_#{year}"))
+                  td = number_to_currency(eval("bf.revised_forecast_#{year}"))
 
 
       - (2016..2019).map.with_index do |year, i|
-        .item-content.animated data-index="#{i+10}"
+        .item-content.animated data-index="#{i+11}"
           table.table-minimal.budget-table.investiment
             thead
               tr
