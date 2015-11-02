@@ -27,6 +27,7 @@
 
   label {
     margin-bottom: 0;
+    margin-right: 0;
 
     @include media($large-screen) {
       float: left;
