@@ -162,7 +162,7 @@ private
       ],
       budget_forecasts_attributes: [ 
         :id, :reference_forecast, :budget_forecast, 
-        :initial_allocation_2016, :dsei_forecast_2016, :revised_allocation_2016,
+        :initial_forecast_2016, :dsei_forecast_2016, :revised_forecast_2016,
         :initial_forecast_2017, :dsei_forecast_2017, :revised_forecast_2017,
         :initial_forecast_2018, :dsei_forecast_2018, :revised_forecast_2018,
         :initial_forecast_2019, :dsei_forecast_2019, :revised_forecast_2019,

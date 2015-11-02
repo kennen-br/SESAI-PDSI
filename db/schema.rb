@@ -81,15 +81,20 @@ ActiveRecord::Schema.define(version: 20151031005524) do
 
   add_index "base_polos", ["dsei_id"], name: "index_base_polos_on_dsei_id", using: :btree
 
+  create_table "budget_correction_factors", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "budget_forecasts", force: :cascade do |t|
     t.integer  "cost_id"
     t.integer  "pdsi_id"
     t.datetime "updated_at"
     t.decimal  "reference_forecast"
     t.decimal  "budget_forecast"
-    t.decimal  "initial_allocation_2016"
+    t.decimal  "initial_forecast_2016"
     t.decimal  "dsei_forecast_2016"
-    t.decimal  "revised_allocation_2016"
+    t.decimal  "revised_forecast_2016"
     t.decimal  "initial_forecast_2017"
     t.decimal  "dsei_forecast_2017"
     t.decimal  "revised_forecast_2017"

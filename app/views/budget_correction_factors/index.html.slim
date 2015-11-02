@@ -1,0 +1,19 @@
+h1 Listing budget_correction_factors
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @budget_correction_factors.each do |budget_correction_factor|
+      tr
+        td = link_to 'Show', budget_correction_factor
+        td = link_to 'Edit', edit_budget_correction_factor_path(budget_correction_factor)
+        td = link_to 'Destroy', budget_correction_factor, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Budget correction factor', new_budget_correction_factor_path
