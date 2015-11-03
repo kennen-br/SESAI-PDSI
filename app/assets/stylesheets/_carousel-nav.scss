@@ -27,6 +27,8 @@ $blue: #66C;
     @include transition(all 1.0s ease-in-out);
 
     width: 2000em;
+    margin: 0 6px 10px;
+    font-size: 18px;
   }
 
   .carousel-list,
@@ -44,15 +46,89 @@ $blue: #66C;
       color         : $gray;
       float         : left;
       font-size     : modular-scale(-1);
+      padding: 0 4px;
 
       &.is-active {
-        border-bottom : 2px solid $blue;
+        border-bottom : 2px solid;
         color         : $blue;
+        &.resultado1 {
+			border-color          : #EE857F ;
+			
+		
+		}
+	    &.resultado2 {
+			border-color          : #51c6d6 ;
+		
+	    }
+	    &.resultado3 {
+			border-color          : #7fa2d5;
+		
+	    }
+	    &.resultado4 {
+			border-color          : #f2738d;
+		
+	    }
+	    &.resultado5 {
+			border-color          : #f2738d;
+		
+	    }
+	    &.resultado6 {
+			border-color          : #f2738d;
+		
+	    }
+	    &.resultado7 {
+			border-color          : #f59656;
+		
+	    }
+	    &.resultado8 {
+			border-color          : #8a88c2;
+		
+	    }
+	    &.resultado9 {
+			border-color          : #cecf57;
+		
+	    }
       }
 
       &:last-child {
         @include margin(0);
       }
+      &.resultado1 {
+		color          : #EE857F ;
+		background: src('../images/resultados_1.png') no-repeat center 0;
+		}
+	  &.resultado2 {
+		color          : #51c6d6 ;
+		background: src('../images/resultados_2.png') no-repeat center 0;
+	  }
+	  &.resultado3 {
+		color          : #7fa2d5;
+		background: src('../images/resultados_3.png') no-repeat center 0;
+	  }
+	  &.resultado4 {
+		color          : #f2738d;
+		background: src('../images/resultados_4.png') no-repeat center 0;
+	  }
+	  &.resultado5 {
+		color          : #f2738d;
+		background: src('../images/resultados_5.png') no-repeat center 0;
+	  }
+	  &.resultado6 {
+		color          : #f2738d;
+		background: src('../images/resultados_6.png') no-repeat center 0;
+	  }
+	  &.resultado7 {
+		color          : #f59656;
+		background: src('../images/resultados_7.png') no-repeat center 0;
+	  }
+	  &.resultado8 {
+		color          : #8a88c2;
+		background: src('../images/resultados_8.png') no-repeat center 0;
+	  }
+	  &.resultado9 {
+		color          : #cecf57;
+		background: src('../images/resultados_9.png') no-repeat center 0;
+	  }  
     }
   }
 
@@ -61,6 +137,7 @@ $blue: #66C;
 
     .item-content {
       display: none;
+      white-space : normal;
 
       &.is-active {
         display: block;
