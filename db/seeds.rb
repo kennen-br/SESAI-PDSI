@@ -8,6 +8,9 @@ if InfrastructureBuildingType.count == 0
     ])
 end
 
+
+
+
 if Dsei.count == 0
   Dsei.create!([
     {name: "ALAGOAS E SERGIPE", sesai_id:  1 },
@@ -15112,6 +15115,46 @@ if User.count == 0
     { username: "OD0034", password: 'Rapadura1234!@#$', user_type:UserType.first(38).last, active:true, profile:Profile.new(name: 'YANOMAMI'), dsei: Dsei.find(34) }
     
 ])
+end
+
+if Pdsi.count == 0
+    Pdsi.create!([
+        { id: 1, dsei_id:1, user_id: User.find(5)},
+        { id: 2, dsei_id:2, user_id: User.find(6)},
+        { id: 3, dsei_id:3, user_id: User.find(7)},
+        { id: 4, dsei_id:4, user_id: User.find(8)},
+        { id: 5, dsei_id:5, user_id: User.find(9)},
+        { id: 6, dsei_id:6, user_id: User.find(10)},
+        { id: 7, dsei_id:7, user_id: User.find(11)},
+        { id: 8, dsei_id:8, user_id: User.find(12)},
+        { id: 9, dsei_id:9, user_id: User.find(13)},
+        { id: 10, dsei_id:10, user_id: User.find(14)},
+        { id: 11, dsei_id:11, user_id: User.find(15)},
+        { id: 12, dsei_id:12, user_id: User.find(16)},
+        { id: 13, dsei_id:13, user_id: User.find(17)},
+        { id: 14, dsei_id:14, user_id: User.find(18)},
+        { id: 15, dsei_id:15, user_id: User.find(19)},
+        { id: 16, dsei_id:16, user_id: User.find(20)},
+        { id: 17, dsei_id:17, user_id: User.find(21)},
+        { id: 18, dsei_id:18, user_id: User.find(22)},
+        { id: 19, dsei_id:19, user_id: User.find(23)},
+        { id: 20, dsei_id:20, user_id: User.find(24)},
+        { id: 21, dsei_id:21, user_id: User.find(25)},
+        { id: 22, dsei_id:22, user_id: User.find(26)},
+        { id: 23, dsei_id:23, user_id: User.find(27)},
+        { id: 24, dsei_id:24, user_id: User.find(28)},
+        { id: 25, dsei_id:25, user_id: User.find(29)},
+        { id: 26, dsei_id:26, user_id: User.find(30)},
+        { id: 27, dsei_id:27, user_id: User.find(31)},
+        { id: 28, dsei_id:28, user_id: User.find(32)},
+        { id: 29, dsei_id:29, user_id: User.find(33)},
+        { id: 30, dsei_id:30, user_id: User.find(34)},
+        { id: 31, dsei_id:31, user_id: User.find(35)},
+        { id: 32, dsei_id:32, user_id: User.find(36)},
+        { id: 33, dsei_id:33, user_id: User.find(37)},
+        { id: 34, dsei_id:34, user_id: User.find(38)}
+        
+    ])
 end
 
 if Cost.count == 0
