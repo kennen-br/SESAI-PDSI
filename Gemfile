@@ -95,12 +95,30 @@ group :development, :test do
   gem 'capybara'
 
   gem 'racksh'
-end
-
-group :production, :staging do
-  gem 'newrelic_rpm'
-  gem 'rails_12factor'
   
   gem 'pg'
   gem 'puma'
+end
+
+group :production, :staging do
+  gem 'byebug'
+  gem 'spring'
+  gem 'sqlite3'
+  gem 'rubocop'
+  gem 'pry-rails'
+  gem 'web-console',                '~> 2.0'
+  gem 'quiet_assets'
+  gem 'sql_queries_count'
+
+  gem 'simplecov'
+  gem 'rspec-rails'
+  gem 'factory_girl'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
+  gem 'factory_girl_rails'
+  gem 'codeclimate-test-reporter'
+  gem 'ffaker'
+  gem 'capybara'
+
+  gem 'racksh'
 end
