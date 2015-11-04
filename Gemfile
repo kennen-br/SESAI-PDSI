@@ -100,4 +100,7 @@ end
 group :production, :staging do
   gem 'newrelic_rpm'
   gem 'rails_12factor'
+  
+  gem 'pg'
+  gem 'puma'
 end
