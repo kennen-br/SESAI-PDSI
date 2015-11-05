@@ -1,7 +1,7 @@
 module PdsisHelper
 
   def allowed_sections
-    %w"dados-fisiograficos rede-servicos indicadores-saude-indigena"
+    %w"dados-fisiograficos rede-servicos indicadores-saude-indigena destinos"
   end
 
   def section_path(section)

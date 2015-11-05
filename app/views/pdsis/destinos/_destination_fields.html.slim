@@ -1,13 +1,12 @@
 fieldset
   = f.hidden_field :destination_type_id, value: destination_type.id
-  .field
-    = f.label :origin_village
-    = select_village_from_dsei f, @dsei, :origin_village_id, f.object.origin_village_id
+  = f.hidden_field :origin_village_id, value: village.id
 
   .field
     = f.label :destination_village
     = select_village_from_dsei f, @dsei, :destination_village_id, f.object.destination_village_id
 
+  br
   .field.destiny-transport
     label Transporte fluvial?
     label.label-switch
@@ -18,6 +17,7 @@ fieldset
       = f.label       :boat_time
       = f.text_field  :boat_time
 
+  br
   .field.destiny-transport
     label Transporte rodoviário?
     label.label-switch
@@ -28,6 +28,7 @@ fieldset
       = f.label       :road_time
       = f.text_field  :road_time
 
+  br
   .field.destiny-transport
     label Transporte aéreo?
     label.label-switch
