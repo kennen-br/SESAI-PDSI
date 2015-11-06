@@ -221,3 +221,21 @@ table {
     float: none;
   }
 }
+
+label.checkbox {
+  float: none;
+  margin: 0;
+
+  input[type="radio"] {
+    @include margin(0 null);
+
+    vertical-align: middle;
+  }
+
+  .description {
+    font-size: modular-scale(-1);
+    font-weight: 300;
+    display: block;
+    margin-bottom: 5px;
+  }
+}
