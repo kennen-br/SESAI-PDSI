@@ -157,6 +157,23 @@ form {
   margin: 0 5px;
 }
 
+table {
+  thead {
+    tr {
+      th {
+        vertical-align: bottom;
+        text-align: center;
+
+        label {
+          text-align: center;
+          float: none;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
 .pdsi-result-table {
   font-size: modular-scale(-1);
 

@@ -14,6 +14,7 @@ fieldset.emsi-fieldset class=('new' if f.object.new_record?)
           th = f.label :numero_tecnicos_enfermagem
           th = f.label :asb
           th = f.label :ais
+          th = f.label :aisan
       tbody
         tr
           td = f.number_field :numero_medicos
@@ -22,10 +23,7 @@ fieldset.emsi-fieldset class=('new' if f.object.new_record?)
           td = f.number_field :numero_tecnicos_enfermagem
           td = f.number_field :asb
           td = f.number_field :ais
-
-  .field
-    = f.label :aisan
-    = f.number_field :aisan
+          td = f.number_field :aisan
 
   .field
     = f.label :aldeias_atendidas
