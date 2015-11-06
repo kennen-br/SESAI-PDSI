@@ -16,6 +16,8 @@
 //= require cocoon
 //= require pace/pace
 //= require froala_editor.min.js
+//= require plugins/char_counter.min.js
+//= require plugins/fullscreen.min.js
 //= require jquery.numeric.min.js
 //= require jquery.maskMoney.min.js
 //= require_tree .

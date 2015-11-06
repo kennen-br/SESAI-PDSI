@@ -1,4 +1,5 @@
+h2 Introdução
 .field
   = f.label :introducao_1
   label DICA: Utilize a tag [NOME_DSEI] para substituição no texto pelo nome do distrito.
-  = f.text_area :introducao_1, { class: 'basic-editable' }
+  = f.text_area :introducao_1, { class: 'basic-editable', data: { limit: 10000 } }
