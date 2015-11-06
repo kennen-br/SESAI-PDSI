@@ -157,7 +157,7 @@ form {
   margin: 0 5px;
 }
 
-table {
+table.custom-head {
   thead {
     tr {
       th {
@@ -237,5 +237,14 @@ label.checkbox {
     font-weight: 300;
     display: block;
     margin-bottom: 5px;
+  }
+}
+
+.how-to-use {
+  margin-left: 15px;
+  li {
+    list-style-type: disc;
+    font-size: modular-scale(-1);
+    color: #FB4F4F;
   }
 }
