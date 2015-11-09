@@ -71,7 +71,7 @@ ul.accordion-tabs-minimal
           a.js-accordion-trigger[href="javascript:void(0)"]
             | C) Capacidade instalada
           .accordion-content
-            = link_to edit_pdsi_path(@pdsi, section: 'capacidade-instalada'), class: 'button pull-right edit-link' do
+            = link_to edit_pdsi_path(@pdsi, section: 'capacidade-instalada', base_polo: @dsei.base_polos.order(:id).first), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
               | Alterar
             == render 'pdsis/capacidade_instalada/show'
