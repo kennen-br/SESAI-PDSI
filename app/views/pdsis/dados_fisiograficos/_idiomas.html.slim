@@ -1,0 +1,26 @@
+fieldset
+  legend Língua Indígena
+
+  ul.how-to-use
+    li Para adicionar uma nova Língua Indígena clique no botão "Adicionar Língua Indígena".
+    li Coloque apenas um idioma por campo de texto. Para inserir mais línguas, clique de novo no botão.
+    li
+      | Para apagar uma língua inserida anteriormente, marque a caixinha na coluna "Apagar?".
+      br
+      | O idioma será apagado quando você clicar no botão "Salvar" do formulário.
+
+  - tbody_id = "physiographic_data_languages_#{f.object.id}"
+  table.table.nested-form
+    thead
+      tr
+        th Nome
+        th.destroy Apagar?
+    tbody id=(tbody_id)
+      = f.fields_for :physiographic_data_languages do |physiographic_data_language|
+        = render 'pdsis/dados_fisiograficos/physiographic_data_language_fields', { f: physiographic_data_language }
+    tfoot
+      tr
+        td.links.right-align colspan="2"
+          = link_to_add_association f, :physiographic_data_languages, { data: { "association-insertion-node": "##{tbody_id}", "association-insertion-method": 'append' }, class: 'button btn-sm', partial: 'pdsis/dados_fisiograficos/physiographic_data_language_fields' } do
+            = icon 'plus'
+            | Adicionar Língua Indígena

@@ -103,6 +103,7 @@ private
       pdsi_base_polo_data_attributes: [:id, :base_polo_id, :city_name],
       physiographic_datas_attributes: [
         :id, :vilage_id, :pt_fluency, :m_1, :m_1_4, :m_5_9, :m_10_49, :m_50_59, :m_60, :w_1, :w_1_4, :w_5_9, :w_10_49, :w_50_59, :w_60,
+        physiographic_data_ethnicities_attributes: [:id, :physiographic_data_id, :ethnicity_id, :_destroy],
         physiographic_data_languages_attributes: [:id, :physiographic_data_id, :language, :_destroy]
       ],
       emsis_attributes: [:id, :name, :base_polo_id, :pdsi_id, :numero_medicos, :numero_enfermeiros, :numero_odontologistas, :numero_tecnicos_enfermagem, :asb, :ais, :aisan, :aldeias_atendidas, :permanencia_medicos, :permanencia_enfermeiros, :permanencia_odontologistas, :permanencia_tecnicos_enfermagem, :_destroy],
@@ -160,8 +161,8 @@ private
       pdsi_attached_files_attributes: [
         :id, :name, :file
       ],
-      budget_forecasts_attributes: [ 
-        :id, :reference_forecast, :budget_forecast, 
+      budget_forecasts_attributes: [
+        :id, :reference_forecast, :budget_forecast,
         :initial_forecast_2016, :dsei_forecast_2016, :revised_forecast_2016,
         :initial_forecast_2017, :dsei_forecast_2017, :revised_forecast_2017,
         :initial_forecast_2018, :dsei_forecast_2018, :revised_forecast_2018,
