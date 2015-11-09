@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151109133249) do
+ActiveRecord::Schema.define(version: 20151109172605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -206,6 +206,9 @@ ActiveRecord::Schema.define(version: 20151109133249) do
     t.text     "meios_de_transporte"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.boolean  "fluvial"
+    t.boolean  "rodoviario"
+    t.boolean  "aereo"
   end
 
   add_index "demographic_datas", ["pdsi_id"], name: "index_demographic_datas_on_pdsi_id", using: :btree
@@ -736,16 +739,6 @@ ActiveRecord::Schema.define(version: 20151109133249) do
     t.text     "analise_situacional_4"
   end
 
-  create_table "transportations", force: :cascade do |t|
-    t.integer  "demographic_data_id"
-    t.string   "name"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-  end
-
-  add_index "transportations", ["demographic_data_id", "name"], name: "index_transportations_on_demographic_data_id_and_name", unique: true, using: :btree
-  add_index "transportations", ["demographic_data_id"], name: "index_transportations_on_demographic_data_id", using: :btree
-
   create_table "user_types", force: :cascade do |t|
     t.string   "name",       null: false
     t.datetime "created_at", null: false
@@ -866,7 +859,6 @@ ActiveRecord::Schema.define(version: 20151109133249) do
   add_foreign_key "specific_absolute_data", "dseis"
   add_foreign_key "specific_results", "dseis"
   add_foreign_key "specific_results", "results"
-  add_foreign_key "transportations", "demographic_datas"
   add_foreign_key "users", "dseis"
   add_foreign_key "villages", "base_polos"
 end

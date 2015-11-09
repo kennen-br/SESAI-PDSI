@@ -55,17 +55,21 @@ fieldset
 
 fieldset
   legend Meios de Transporte
-  table.table.nested-form
-    thead
-      tr
-        th Nome
-        th.destroy Apagar?
-    tbody#transportations
-      = f.fields_for :transportations do |transportation|
-        = render 'transportation_fields', { f: transportation }
-    tfoot
-      tr
-        td.links.right-align colspan="2"
-          = link_to_add_association f, :transportations, { data: { "association-insertion-node": '#transportations', "association-insertion-method": 'append' }, class: 'button btn-sm' } do
-            = icon 'plus'
-            | Adicionar Meio de Transporte
+
+  .field
+    = f.label :fluvial
+    label.label-switch
+      = f.check_box :fluvial
+      .checkbox
+
+  .field
+    = f.label :rodoviario
+    label.label-switch
+      = f.check_box :rodoviario
+      .checkbox
+
+  .field
+    = f.label :aereo
+    label.label-switch
+      = f.check_box :aereo
+      .checkbox
