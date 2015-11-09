@@ -743,7 +743,6 @@ ActiveRecord::Schema.define(version: 20151109133249) do
     t.datetime "updated_at",          null: false
   end
 
-  add_index "transportations", ["demographic_data_id", "name"], name: "index_transportations_on_demographic_data_id_and_name", unique: true, using: :btree
   add_index "transportations", ["demographic_data_id"], name: "index_transportations_on_demographic_data_id", using: :btree
 
   create_table "user_types", force: :cascade do |t|
