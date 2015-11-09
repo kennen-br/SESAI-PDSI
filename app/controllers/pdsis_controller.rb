@@ -106,7 +106,7 @@ private
         physiographic_data_ethnicities_attributes: [:id, :physiographic_data_id, :ethnicity_id, :_destroy],
         physiographic_data_languages_attributes: [:id, :physiographic_data_id, :language, :_destroy]
       ],
-      emsis_attributes: [:id, :name, :base_polo_id, :pdsi_id, :numero_medicos, :numero_enfermeiros, :numero_odontologistas, :numero_tecnicos_enfermagem, :asb, :ais, :aisan, :aldeias_atendidas, :permanencia_medicos, :permanencia_enfermeiros, :permanencia_odontologistas, :permanencia_tecnicos_enfermagem, :_destroy],
+      emsis_attributes: [:id, :name, :base_polo_id, :pdsi_id, :numero_medicos, :numero_enfermeiros, :numero_odontologistas, :numero_tecnicos_enfermagem, :asb, :ais, :aisan, :aldeias_atendidas, :permanencia_medicos, :permanencia_enfermeiros, :permanencia_odontologistas, :permanencia_tecnicos_enfermagem, :permanencia_asb, :_destroy],
       service_networks_attributes: [
         :id, :base_polo_id, :pdsi_id, :city_name,
         health_establishments_attributes:  [:id, :service_network_id, :name, :_destroy],

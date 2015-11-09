@@ -218,7 +218,6 @@ $(document).ready ->
 
   # Generate a Default name for all new created EMSI on Capacidade Instalada form
   $('.base-polo-emsi .add_fields').click (e) ->
-    console.log 'new emsi'
     $this = $(this)
     node = $this.data 'association-insertion-node'
     setTimeout( ->
