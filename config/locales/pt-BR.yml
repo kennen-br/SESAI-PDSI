@@ -125,10 +125,10 @@ pt-BR:
         permanencia_enfermeiros:          Enfermeiros
         permanencia_odontologistas:       Odontologistas
         permanencia_tecnicos_enfermagem:  Técnicos / Auxiliares de enfermagem
+        permanencia_asb:                  ASB
 
       service_network:
         city_name:  Município
-
 
       infrastructure_building_type:
         name: Nome
