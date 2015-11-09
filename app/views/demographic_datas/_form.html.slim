@@ -55,3 +55,21 @@ fieldset
 
 fieldset
   legend Meios de Transporte
+
+  .field
+    = f.label :fluvial
+    label.label-switch
+      = f.check_box :fluvial
+      .checkbox
+
+  .field
+    = f.label :rodoviario
+    label.label-switch
+      = f.check_box :rodoviario
+      .checkbox
+
+  .field
+    = f.label :aereo
+    label.label-switch
+      = f.check_box :aereo
+      .checkbox

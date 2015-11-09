@@ -74,6 +74,9 @@ pt-BR:
         numero_aldeias:           Nº de aldeias
         numero_familias:          Nº de famílias
         meios_de_transporte:      Meios de transporte
+        fluvial:                  Fluvial
+        rodoviario:               Rodoviário
+        aereo:                    Aéreo
 
       physiographic_data:
         pt_fluency: Fluência em português
@@ -104,10 +107,8 @@ pt-BR:
 
       pdsi_base_polo_datum:
         city_name:  Município
-      etnia:
-        name: Nome
 
-      transportation:
+      etnia:
         name: Nome
 
       emsi:

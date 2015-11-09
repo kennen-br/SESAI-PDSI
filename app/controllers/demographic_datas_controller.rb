@@ -27,6 +27,6 @@ class DemographicDatasController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def demographic_data_params
-      params.require(:demographic_data).permit(:pdsi_id, :extensao_territorial, :municipio_sede, :endereco, :email, :numero_municipios, :populacao_indigena, :numero_polos_base, :numero_ubsi, :numero_regioes_de_saude, :numero_casais, :numero_aldeias, :numero_familias, etnias_attributes: [:id, :name, :_destroy])
+      params.require(:demographic_data).permit(:pdsi_id, :extensao_territorial, :municipio_sede, :endereco, :email, :numero_municipios, :populacao_indigena, :numero_polos_base, :numero_ubsi, :numero_regioes_de_saude, :numero_casais, :numero_aldeias, :numero_familias, :fluvial, :rodoviario, :aereo, etnias_attributes: [:id, :name, :_destroy])
     end
 end
