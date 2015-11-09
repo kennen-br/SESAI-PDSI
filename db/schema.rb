@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151103174550) do
+ActiveRecord::Schema.define(version: 20151109133249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -530,6 +530,16 @@ ActiveRecord::Schema.define(version: 20151103174550) do
 
   add_index "people", ["dsei_id"], name: "index_people_on_dsei_id", using: :btree
 
+  create_table "physiographic_data_ethnicities", force: :cascade do |t|
+    t.integer  "ethnicity_id"
+    t.integer  "physiographic_data_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "physiographic_data_ethnicities", ["ethnicity_id"], name: "index_physiographic_data_ethnicities_on_ethnicity_id", using: :btree
+  add_index "physiographic_data_ethnicities", ["physiographic_data_id"], name: "index_physiographic_data_ethnicities_on_physiographic_data_id", using: :btree
+
   create_table "physiographic_data_languages", force: :cascade do |t|
     t.integer  "physiographic_data_id"
     t.string   "language"
@@ -831,6 +841,8 @@ ActiveRecord::Schema.define(version: 20151103174550) do
   add_foreign_key "pdsis", "dseis"
   add_foreign_key "pdsis", "users"
   add_foreign_key "people", "dseis"
+  add_foreign_key "physiographic_data_ethnicities", "ethnicities"
+  add_foreign_key "physiographic_data_ethnicities", "physiographic_datas"
   add_foreign_key "physiographic_data_languages", "physiographic_datas"
   add_foreign_key "physiographic_datas", "pdsis"
   add_foreign_key "physiographic_datas", "villages"

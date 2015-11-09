@@ -1,7 +1,7 @@
 class BasePolo < ActiveRecord::Base
   auditable
 
-  attr_accessor :cities
+  attr_accessor :cities, :ethnicities
 
   belongs_to :dsei
 
@@ -19,6 +19,12 @@ class BasePolo < ActiveRecord::Base
     return @cities unless @cities.nil?
 
     @cities = Village.select('DISTINCT city_name').where(base_polo: self).order(:city_name).map{ |i| i.city_name }
+  end
+
+  def ethnicities
+    return @ethnicities unless @ethnicities.nil?
+
+    @ethnicities  = Ethnicity.joins(:villages).where('villages.base_polo_id = ?', id).order('ethnicities.name')
   end
 
   def pdsi_data(pdsi)
