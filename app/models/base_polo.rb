@@ -24,7 +24,7 @@ class BasePolo < ActiveRecord::Base
   def ethnicities
     return @ethnicities unless @ethnicities.nil?
 
-    @ethnicities  = Ethnicity.joins(:villages).where('villages.base_polo_id = ?', id).order('ethnicities.name')
+    @ethnicities  = Ethnicity.joins(:villages).where('villages.base_polo_id = ?', id).order('ethnicities.name').distinct
   end
 
   def pdsi_data(pdsi)

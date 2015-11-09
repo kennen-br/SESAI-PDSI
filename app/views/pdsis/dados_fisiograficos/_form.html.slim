@@ -29,5 +29,3 @@ h1 POLO BASE: #{@base_polo.name}
               strong = village.name
             = f.fields_for :physiographic_datas, village.physiographic_datum(@pdsi) do |item|
               == render 'pdsis/dados_fisiograficos/form_aldeias', f: item
-          - # TODO: DEBUG
-          - break
