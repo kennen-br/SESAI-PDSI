@@ -2,6 +2,10 @@
 = f.hidden_field :pdsi_id, value: @pdsi.id
 
 .field
+  = f.label  :city_name
+  = f.select :city_name, options_for_select(@base_polo.cities, f.object.city_name), include_blank: true
+
+.field
   = f.label :pt_fluency, class: 'checkbox'
   label.checkbox
     = f.radio_button :pt_fluency, 'Plena'
@@ -21,8 +25,6 @@
     span.description Comunidades onde a comunicação em português é muito limitada ou inexistente, fazendo-se necessário apoio de intérprete para a realização de todas as ações de saúde.
 
 br
-
-
 
 .field.inline_field
   h3 Homens

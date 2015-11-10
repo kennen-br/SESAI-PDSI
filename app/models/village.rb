@@ -17,6 +17,9 @@ class Village < ActiveRecord::Base
   def physiographic_datum(pdsi)
     return @physiographic_data unless @physiographic_data.nil?
 
-    @physiographic_data = PhysiographicData.where(village: self, pdsi: pdsi).first_or_create
+    item  = PhysiographicData.where(village: self, pdsi: pdsi).first_or_create
+    item.update city_name: city_name if item.city_name.blank?
+
+    @physiographic_data = item
   end
 end
