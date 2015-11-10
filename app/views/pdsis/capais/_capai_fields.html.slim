@@ -8,8 +8,8 @@ fieldset
     = select_uf f, :uf, f.object.uf
 
   .field
-    = f.label       :capai_type
-    = f.text_field  :capai_type
+    = f.label   :capai_type
+    = f.select  :capai_type,  options_for_select(['Casa alugada', 'Casa própria', 'Hotel'], f.object.capai_type), include_blank: true
 
   .field
     = f.label         :host_capacity
