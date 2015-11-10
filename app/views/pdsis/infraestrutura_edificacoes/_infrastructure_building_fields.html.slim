@@ -4,7 +4,7 @@ fieldset style="position: relative;"
   - else
     = f.hidden_field :infrastructure_building_type_id
 
-  - unless f.object.new_record?
+  - unless building_type.name == 'Sede do DSEI' or f.object.new_record?
     .field.delete
       = f.label :_destroy, 'Apagar?'
       = f.check_box :_destroy

@@ -46,7 +46,6 @@ private
     if @section == 'dotacao_orcamentaria'
       @pdsi = Pdsi.find params[:id]
     else
-      debug current_dsei
       @pdsi = current_dsei.pdsi
     end
     @demographic_data = @pdsi.demographic_data
