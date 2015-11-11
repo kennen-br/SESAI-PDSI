@@ -35,7 +35,7 @@ class BasePolo < ActiveRecord::Base
 
   def force_service_networks(pdsi)
     items = service_networks
-    return items unless items.blank?
+    return items.includes(:service_network_cities) unless items.blank?
 
     cities.each { |city| service_networks << ServiceNetwork.new(pdsi: pdsi, base_polo: self, city_name: city) }
 

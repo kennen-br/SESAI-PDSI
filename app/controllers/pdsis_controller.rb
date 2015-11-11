@@ -108,8 +108,11 @@ private
       emsis_attributes: [:id, :name, :base_polo_id, :pdsi_id, :numero_medicos, :numero_enfermeiros, :numero_odontologistas, :numero_tecnicos_enfermagem, :asb, :ais, :aisan, :aldeias_atendidas, :permanencia_medicos, :permanencia_enfermeiros, :permanencia_odontologistas, :permanencia_tecnicos_enfermagem, :permanencia_asb, :_destroy],
       service_networks_attributes: [
         :id, :base_polo_id, :pdsi_id, :city_name,
-        health_establishments_attributes:  [:id, :service_network_id, :name, :_destroy],
-        health_specializeds_attributes:    [:id, :service_network_id, :name, :_destroy]
+        service_network_cities_attributes: [
+          :id, :city_name, :_destroy,
+          health_establishments_attributes:  [:id, :service_network_id, :name, :_destroy],
+          health_specializeds_attributes:    [:id, :service_network_id, :name, :_destroy]
+        ],
       ],
       infrastructure_buildings_attributes: [
         :id, :infrastructure_building_type_id, :name, :uf, :city_name, :village_id, :cnes, :building_status, :ground_status, :_destroy

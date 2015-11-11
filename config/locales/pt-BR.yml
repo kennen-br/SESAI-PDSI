@@ -10,7 +10,10 @@ pt-BR:
       pdsi_base_polo_datum: Dados do Polo Base
       transportation:       Transporte
       emsi:                 EMSI
-      service_network:
+      service_network:      Rede de serviço
+      service_network_city: Municípios da rede de serviço
+      health_establishment: Estabelecimentos de saúde (Complementariedade da Atenção Básica)
+      health_specialized:   Estabelecimentos de saúde (Atenção Especializada)
       infrastructure_building_type: Tipo de infraestrutura (Edificação)
       infrastructure_building:      Infraestrutura (Edificação)
       infrastructure_sanitation:    Infraestrutura (Saneamento)
@@ -130,6 +133,15 @@ pt-BR:
 
       service_network:
         city_name:  Município
+
+      service_network_city:
+        city_name:  Município
+
+      health_establishment:
+        name:       Nome do estabelecimento
+
+      health_specialized:
+        name:       Nome do estabelecimento
 
       infrastructure_building_type:
         name: Nome

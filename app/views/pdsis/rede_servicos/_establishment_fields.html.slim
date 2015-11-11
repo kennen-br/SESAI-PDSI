@@ -1,0 +1,9 @@
+fieldset style="position: relative;"
+  - unless f.object.new_record?
+    .field.delete
+      = f.label :_destroy, 'Apagar?'
+      = f.check_box :_destroy
+
+  .field
+    = f.label       :name
+    = f.text_field  :name
