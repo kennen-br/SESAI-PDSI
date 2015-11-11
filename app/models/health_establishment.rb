@@ -1,5 +1,5 @@
 class HealthEstablishment < ActiveRecord::Base
   auditable
 
-  belongs_to :service_network
+  belongs_to :service_network_city
 end

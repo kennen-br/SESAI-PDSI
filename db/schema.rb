@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151110184845) do
+ActiveRecord::Schema.define(version: 20151111114145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -318,22 +318,22 @@ ActiveRecord::Schema.define(version: 20151110184845) do
   add_index "false_results", ["result_id"], name: "index_false_results_on_result_id", using: :btree
 
   create_table "health_establishments", force: :cascade do |t|
-    t.integer  "service_network_id"
     t.string   "name"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "service_network_city_id"
   end
 
-  add_index "health_establishments", ["service_network_id"], name: "index_health_establishments_on_service_network_id", using: :btree
+  add_index "health_establishments", ["service_network_city_id"], name: "index_health_establishments_on_service_network_city_id", using: :btree
 
   create_table "health_specializeds", force: :cascade do |t|
-    t.integer  "service_network_id"
     t.string   "name"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "service_network_city_id"
   end
 
-  add_index "health_specializeds", ["service_network_id"], name: "index_health_specializeds_on_service_network_id", using: :btree
+  add_index "health_specializeds", ["service_network_city_id"], name: "index_health_specializeds_on_service_network_city_id", using: :btree
 
   create_table "human_resource_functions", force: :cascade do |t|
     t.string   "name"
@@ -702,6 +702,15 @@ ActiveRecord::Schema.define(version: 20151110184845) do
   add_index "results", ["result_level_id"], name: "index_results_on_result_level_id", using: :btree
   add_index "results", ["result_strategy_id"], name: "index_results_on_result_strategy_id", using: :btree
 
+  create_table "service_network_cities", force: :cascade do |t|
+    t.integer  "service_network_id"
+    t.string   "city_name"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "service_network_cities", ["service_network_id"], name: "index_service_network_cities_on_service_network_id", using: :btree
+
   create_table "service_networks", force: :cascade do |t|
     t.integer  "base_polo_id"
     t.integer  "pdsi_id"
@@ -813,8 +822,8 @@ ActiveRecord::Schema.define(version: 20151110184845) do
   add_foreign_key "etnias", "demographic_datas"
   add_foreign_key "false_results", "dseis"
   add_foreign_key "false_results", "results"
-  add_foreign_key "health_establishments", "service_networks"
-  add_foreign_key "health_specializeds", "service_networks"
+  add_foreign_key "health_establishments", "service_network_cities"
+  add_foreign_key "health_specializeds", "service_network_cities"
   add_foreign_key "infrastructure_buildings", "infrastructure_building_types"
   add_foreign_key "infrastructure_buildings", "pdsis"
   add_foreign_key "infrastructure_buildings", "villages"
@@ -855,6 +864,7 @@ ActiveRecord::Schema.define(version: 20151110184845) do
   add_foreign_key "result_strategies", "result_axes"
   add_foreign_key "results", "result_levels"
   add_foreign_key "results", "result_strategies"
+  add_foreign_key "service_network_cities", "service_networks"
   add_foreign_key "service_networks", "base_polos"
   add_foreign_key "service_networks", "pdsis"
   add_foreign_key "specific_absolute_data", "absolute_data"
