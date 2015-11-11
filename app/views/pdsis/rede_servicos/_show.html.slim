@@ -11,13 +11,20 @@
           strong = service_network.city_name
 
         fieldset
-          legend Estabelecimentos de saúde (Complementariedade da Atenção Básica)
-          ul.default
-            - service_network.health_establishments.each do |item|
-              li = item.name
+          legend Municípios de referência
 
-        fieldset
-          legend Estabelecimentos de saúde (Complementariedade da Atenção Básica)
-          ul.default
-            - service_network.health_specializeds.each do |item|
-              li = item.name
+          - service_network.service_network_cities.each do |city|
+            fieldset
+              legend = city.city_name
+
+              fieldset
+                legend Estabelecimentos de saúde (Complementariedade da Atenção Básica)
+                ul.default
+                  - city.health_establishments.each do |item|
+                    li = item.name
+
+              fieldset
+                legend Estabelecimentos de saúde (Atenção Especializada)
+                ul.default
+                  - city.health_specializeds.each do |item|
+                    li = item.name

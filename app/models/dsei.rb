@@ -32,7 +32,7 @@ class Dsei < ActiveRecord::Base
   end
 
   def base_polos_with_service_networks
-    base_polos.includes(service_networks: [:health_establishments, :health_specializeds])
+    base_polos.includes(service_networks: [service_network_cities: [:health_establishments, :health_specializeds]])
   end
 
   def villages
