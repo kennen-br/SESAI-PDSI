@@ -6,4 +6,12 @@
         - @budget_correction_factor.errors.full_messages.each do |message|
           li = message
 
-  .actions = f.submit
+  .field
+    = f.label :ano
+    = f.text_field :year
+
+  .field
+    = f.label :valor
+    = f.text_field :value
+
+  .actions = f.submit "Atualizar"

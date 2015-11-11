@@ -84,6 +84,8 @@ ActiveRecord::Schema.define(version: 20151110184845) do
   create_table "budget_correction_factors", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "year"
+    t.decimal  "value"
   end
 
   create_table "budget_forecasts", force: :cascade do |t|
