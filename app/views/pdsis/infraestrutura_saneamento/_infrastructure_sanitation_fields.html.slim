@@ -34,8 +34,8 @@ fieldset style="position: relative;"
     = f.text_field :nome_concessionaria
 
   .field
-    = f.label :tipo_tratamento_agua
-    = f.text_field :tipo_tratamento_agua
+    = f.label   :tipo_tratamento_agua
+    = f.select  :tipo_tratamento_agua,  options_for_select(['ETA Completo', 'Dosador de cloro', 'Dessalinizador', 'Cloreto de sódio', 'Outros'], f.object.tipo_tratamento_agua), include_blank: true
 
   .field.checkbox
     = f.label :abastecimento_mqa
