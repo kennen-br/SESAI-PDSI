@@ -1088,3 +1088,11 @@ end
 BudgetForecast.find_by_sql("update budget_forecasts set initial_forecast_2017 = initial_forecast_2016 + (initial_forecast_2016*0.017)")
 BudgetForecast.find_by_sql("update budget_forecasts set initial_forecast_2018 = initial_forecast_2016 + (initial_forecast_2016*0.02)")
 BudgetForecast.find_by_sql("update budget_forecasts set initial_forecast_2019 = initial_forecast_2016 + (initial_forecast_2016*0.025)")
+
+if BudgetCorrectionFactor.count == 0
+  BudgetCorrectionFactor.create!([
+    { year: 2017, value: 0.017 },
+    { year: 2018, value: 0.020 },
+    { year: 2019, value: 0.025 }
+  ])
+end

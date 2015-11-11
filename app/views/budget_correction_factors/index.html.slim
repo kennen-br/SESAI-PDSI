@@ -1,19 +1,15 @@
-h1 Listing budget_correction_factors
+h1 Exibindo Fatores de Correção Orçamentária
 
 table
   thead
     tr
-      th
-      th
+      th Ano
+      th Valor
       th
 
   tbody
     - @budget_correction_factors.each do |budget_correction_factor|
       tr
-        td = link_to 'Show', budget_correction_factor
-        td = link_to 'Edit', edit_budget_correction_factor_path(budget_correction_factor)
-        td = link_to 'Destroy', budget_correction_factor, data: {:confirm => 'Are you sure?'}, :method => :delete
-
-br
-
-= link_to 'New Budget correction factor', new_budget_correction_factor_path
+        td = budget_correction_factor.year
+        td = budget_correction_factor.value
+        td = link_to 'Editar', edit_budget_correction_factor_path(budget_correction_factor)
