@@ -1,4 +1,5 @@
 class ResultAxis < ActiveRecord::Base
+  include Stringable
   self.table_name = 'result_axes'
   auditable
 

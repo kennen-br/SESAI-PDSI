@@ -1,0 +1,24 @@
+h1 Resultados esperados
+
+/= render 'filters'
+
+- @items.each do |axis|
+  h2 Eixo: #{axis}
+  - axis.result_strategies.each do |strategy|
+    h3 Estratégia: #{strategy}
+
+    fieldset
+      legend Resultados
+
+      == render 'list', results: strategy.results.where(is_specific: false).includes(:result_level)
+
+    - if strategy.has_specific_results?
+      fieldset
+        legend Resultados específicos
+
+        == render 'list', results: strategy.results.where(is_specific: true).includes(:result_level)
+
+br
+= link_to new_result_path, class: 'button' do
+  i.fa.fa-plus
+  | Cadastrar resultado

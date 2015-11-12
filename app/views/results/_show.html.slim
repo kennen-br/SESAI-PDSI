@@ -1,0 +1,49 @@
+p
+  strong #{Result.human_attribute_name :result_level_id}: &nbsp;
+  = result.result_level
+
+p
+  strong #{Result.human_attribute_name :result_strategy_id}: &nbsp;
+  = result.result_strategy
+
+p
+  strong #{Result.human_attribute_name :name}: &nbsp;
+  = result.name
+
+p
+  strong #{Result.human_attribute_name :is_specific}: &nbsp;
+  = result.is_specific ? 'Sim' : 'Não'
+
+- if result.is_specific
+  fieldset
+    p
+      strong Resultado específico do DSEI: &nbsp;
+      = result.specific_results.first.dsei.name
+
+p
+  strong #{Result.human_attribute_name :is_boolean}: &nbsp;
+  = result.is_boolean ? 'Sim' : 'Não'
+
+p
+  strong #{Result.human_attribute_name :value_2016}: &nbsp;
+  = result.value_2016
+
+p
+  strong #{Result.human_attribute_name :value_2017}: &nbsp;
+  = result.value_2017
+
+p
+  strong #{Result.human_attribute_name :value_2018}: &nbsp;
+  = result.value_2018
+
+p
+  strong #{Result.human_attribute_name :value_2019}: &nbsp;
+  = result.value_2019
+
+
+  strong #{Result.human_attribute_name :orientacoes_dsei}: &nbsp;
+  = result.orientacoes_dsei
+
+p
+  strong #{Result.human_attribute_name :orientacoes_sistema}: &nbsp;
+  = result.orientacoes_sistema

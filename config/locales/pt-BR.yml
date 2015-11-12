@@ -264,6 +264,7 @@ pt-BR:
         dotacao_orcamentaria_inicial: DOTAÇÃO ORÇAMENTÁRIA INICIAL (PLOA 2016) (em R$)
 
       result:
+        result_level_id:      Nível
         result_strategy_id:   Estratégia
         name:                 Nome
         is_specific:          Específico?

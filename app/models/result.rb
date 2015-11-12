@@ -1,4 +1,5 @@
 class Result < ActiveRecord::Base
+  include Stringable
   auditable
 
   belongs_to  :result_level
@@ -25,5 +26,9 @@ class Result < ActiveRecord::Base
 
   def dsei_not_apply?(dsei)
     !false_results.where(dsei: dsei).blank?
+  end
+
+  def specific
+    is_specific ? 'Sim' : 'Não'
   end
 end

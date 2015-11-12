@@ -1,0 +1,77 @@
+= form_for @result do |f|
+  - if @result.errors.any?
+    #error_explanation.flash-error
+      h2 = "#{pluralize(@result.errors.count, "erro")} encontrados"
+      ul
+        - @result.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :result_level_id
+    = f.collection_select :result_level_id, ResultLevel.order(:name), :id, :name, prompt: true
+    /= f.text_field :result_level
+
+  .field.result-strategy-select
+    = f.label :result_strategy_id
+    = f.grouped_collection_select :result_strategy_id, ResultAxis.all, :result_strategies, :name, :id, :name
+
+  .field
+    = f.label :name
+    = f.text_field :name
+
+  .field
+    = f.label :orientacoes_dsei
+    = f.text_field :orientacoes_dsei
+
+  .field.destiny-transport
+    = f.label :is_boolean
+    label.label-switch
+      = f.check_box :is_boolean
+      .checkbox
+
+  table.tables.pdsi-result-table
+    thead
+      tr
+        th
+        th 2016
+        th 2017
+        th 2018
+        th 2019
+    tbody
+      tr
+        td Valores
+        td = f.number_field :value_2016, class: "number-field"
+        td = f.number_field :value_2017, class: "number-field"
+        td = f.number_field :value_2018, class: "number-field"
+        td = f.number_field :value_2019, class: "number-field"
+    tfoot
+      tr
+        td colspan="5"
+          center
+            strong Obs. Se você marcar o Resultado como "Verdadeiro/Falso" coloque apenas 0 ou 1 nos valores
+
+  .actions = f.submit
+
+/
+/  .field
+/    = f.label :result_strategy
+/    = f.text_field :result_strategy
+/  .field
+/    = f.label :name
+/    = f.text_field :name
+/  .field
+/    = f.label :reference_value
+/    = f.number_field :reference_value
+/  .field
+/    = f.label :parent_id
+/    = f.text_field :parent_id
+/  .field
+/    = f.label :is_specific
+/    = f.check_box :is_specific
+/  .field
+/    = f.label :is_percentage
+/    = f.check_box :is_percentage
+/  .field
+/    = f.label :result_text
+/    = f.text_area :result_text
+
