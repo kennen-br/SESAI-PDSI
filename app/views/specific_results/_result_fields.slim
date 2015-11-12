@@ -1,8 +1,12 @@
-fieldset
-
+fieldset style="position: relative;"
   = f.hidden_field :result_level_id, value: ResultLevel.find_by_name('DSEI').id
   = f.hidden_field :result_text, value: f.object.result_text || '[VALUE]'
   = f.hidden_field :is_specific, value: true
+
+  - unless f.object.new_record?
+    .field.delete
+      = f.label :_destroy, 'Apagar?'
+      = f.check_box :_destroy
 
   .field.result-strategy-select
     = f.label :result_strategy_id
@@ -17,7 +21,7 @@ fieldset
     = f.text_field :orientacoes_dsei
 
   .field.destiny-transport
-    label É Verdadeiro/Falso?
+    = f.label :is_boolean
     label.label-switch
       = f.check_box :is_boolean
       .checkbox
@@ -39,7 +43,3 @@ fieldset
         td = f.number_field :value_2019, class: "number-field"
 
   p Obs. Se você marcar o Resultado como "Verdadeiro/Falso" coloque apenas 0 ou 1 nos valores
-
-  .field
-    label Apagar?
-    p = f.check_box :_destroy

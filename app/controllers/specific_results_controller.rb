@@ -6,8 +6,6 @@ class SpecificResultsController < ApplicationController
 
   def update
     if @dsei.update(dsei_params)
-
-
       @dsei.results.each do |result|
         PdsiResult.where(pdsi: @pdsi, result: result ).first_or_create do |pdsi_result|
           pdsi_result.value_2016 = result.value_2016
