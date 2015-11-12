@@ -23,6 +23,7 @@ class ResultsController < ApplicationController
   # POST /results
   def create
     @result = Result.new(result_params)
+    @result.is_specific = false if @result.is_specific.nil?
 
     if @result.save
       redirect_to results_path, notice: 'Resultado cadastrado com sucesso.'
@@ -48,6 +49,6 @@ class ResultsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def result_params
-      params.require(:result).permit(:result_level, :result_strategy_id, :name, :reference_value, :parent_id_id, :is_specific, :is_percentage, :result_text)
+      params.require(:result).permit(:result_level_id, :result_strategy_id, :name, :orientacoes_dsei, :is_boolean, :value_2016, :value_2017, :value_2018, :value_2019)
     end
 end
