@@ -2,9 +2,25 @@ fieldset
   = f.hidden_field :destination_type_id, value: destination_type.id
   = f.hidden_field :origin_village_id, value: village.id
 
-  .field
-    = f.label :destination_village
-    = select_village_from_dsei f, @dsei, :destination_village_id, f.object.destination_village_id
+  fieldset
+    legend Destino
+
+    .field
+      label
+        = f.radio_button :destination_class, 'aldeia', class: 'radio_destination_class'
+        | Aldeia
+
+      label
+        = f.radio_button :destination_class,  'municipio', class: 'radio_destination_class'
+        | Município
+
+    .field.destination_village style="display: #{f.object.destination_class == 'aldeia' ? 'block' : 'none' }"
+      = f.label :destination_village
+      = select_village_from_dsei f, @dsei, :destination_village_id, f.object.destination_village_id
+
+    .field.destination_city style="display: #{f.object.destination_class == 'municipio' ? 'block' : 'none' }"
+      = f.label :city_name
+      = select_city_from_dsei f, @dsei, :city_name, f.object.city_name
 
   br
   .field.destiny-transport

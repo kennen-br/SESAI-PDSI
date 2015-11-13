@@ -6,6 +6,11 @@ manage_element = (element) ->
   element.parents('.destiny-transport').find('fieldset').toggle()
   return
 
+$(document).on 'click', '.radio_destination_class', (e) ->
+  $this   = $(this)
+  parent  = $this.parent().parent().parent().prop("tagName")
+  return
+
 $(document).on 'click', '.add_person', (e) ->
   $this       = $(this)
   $parent     = $(this).parent()
