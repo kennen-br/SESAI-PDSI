@@ -14,8 +14,8 @@ h1 Meios de Transporte para ACESSO DOS POVOS INDÍGENAS AOS SERVIÇOS DE SAÚDE
             | Aldeia de Origem:&nbsp;
             strong = village.name
 
-          h2 Município da aldeia:
-          = village.city_name
+          .field
+            label Munciípio da aldeia: #{village.city_name}
 
           - DestinationType.order(:id).each do |destination_type|
             - body_id = "destination_#{destination_type.id}"
