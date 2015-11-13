@@ -1,0 +1,5 @@
+= f.hidden_field :destination_class, value: 'aldeia'
+
+.field
+  = f.label :destination_village
+  = select_village_from_dsei f, @dsei, :destination_village_id, f.object.destination_village_id
