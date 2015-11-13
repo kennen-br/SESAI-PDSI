@@ -5,7 +5,8 @@ Rails.application.routes.draw do
     post '/cadastrar', to: 'people#create',  as: :people_create
   end
 
-  post '/image-upload', to: 'application#image_upload', as: :image_upload
+  post '/image-upload',     to: 'application#image_upload', as: :image_upload
+  post '/procurar-pessoa',  to: 'people#search',            as: :search
 
   get 'category_budgets/index'
 
@@ -37,6 +38,13 @@ Rails.application.routes.draw do
     scope '/indicadores-saude-indigena', defaults: { section: 'indicadores-saude-indigena' }  do
       get '/:id/:subsection/alterar(/polo-base/:base_polo)(/casai/:casai)', to: 'pdsis#health_indicators', as: :health_indicators
     end
+
+
+    # Resultados Esperados
+    get  '/:id/resultados-esperados',                  to: 'results_special#index',          as: :results
+    post '/:id/resultados-esperados',                  to: 'results_special#update',         as: :results_edit
+    post '/:id/resultados-esperados/loop',             to: 'results_special#loop',           as: :results_loop
+    post '/:id/resultados-esperados/respontabilidade', to: 'results_special#responsability', as: :results_responsability
 
     # Resultados Específicos
     get '/:id/resultados-especificos', defaults: { section: 'resultados-esperados', tab: 'especificos' }, to: 'specific_results#edit',  as: :edit_specific_results
