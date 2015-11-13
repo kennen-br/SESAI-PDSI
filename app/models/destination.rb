@@ -25,4 +25,8 @@ class Destination < ActiveRecord::Base
   def total_time
     'TODO: Calcular isso'
   end
+
+  def class_to_name
+    destination_class == 'aldeia' ? 'Aldeia' : 'Município'
+  end
 end
