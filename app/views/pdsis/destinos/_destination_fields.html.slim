@@ -2,9 +2,9 @@ fieldset
   = f.hidden_field :destination_type_id, value: destination_type.id
   = f.hidden_field :origin_village_id, value: village.id
 
-  .field
-    = f.label :destination_village
-    = select_village_from_dsei f, @dsei, :destination_village_id, f.object.destination_village_id
+  fieldset
+    legend Destino
+    == render "pdsis/destinos/#{destination_type.snake_name}_fields", f: f
 
   br
   .field.destiny-transport

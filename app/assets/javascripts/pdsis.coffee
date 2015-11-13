@@ -6,6 +6,19 @@ manage_element = (element) ->
   element.parents('.destiny-transport').find('fieldset').toggle()
   return
 
+$(document).on 'click', '.radio_destination_class', (e) ->
+  $this   = $(this)
+  parent  = $this.parent().parent().parent().parent()
+
+  if $this.val() == 'aldeia'
+    parent.children('.destination_village').show()
+    parent.children('.destination_city').hide()
+  if $this.val() == 'municipio'
+    parent.children('.destination_village').hide()
+    parent.children('.destination_city').show()
+
+  return
+
 $(document).on 'click', '.add_person', (e) ->
   $this       = $(this)
   $parent     = $(this).parent()

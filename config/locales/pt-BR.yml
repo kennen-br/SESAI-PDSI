@@ -189,6 +189,8 @@ pt-BR:
         boat_time:            Duração da viagem (em horas)
         road_time:            Duração da viagem (em horas)
         fly_time:             Duração da viagem (Aéreo)
+        destination_class:    Aldeia ou município?
+        city_name:            Município
 
       absolute_datum_level:
         name:                 Nível
