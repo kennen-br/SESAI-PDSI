@@ -26,7 +26,7 @@ h1 Meios de Transporte para ACESSO DOS POVOS INDÍGENAS AOS SERVIÇOS DE SAÚDE
 
               - partial = 'pdsis/destinos/destination_fields'
               div id=(body_id)
-                = f.fields_for :destinations, @pdsi.destinations.where(destination_type: destination_type) do |destination|
+                = f.fields_for :destinations, @pdsi.destinations.where(destination_type: destination_type, origin_village: village) do |destination|
                   == render partial,  f: destination, destination_type: destination_type, village: village
 
               .links
