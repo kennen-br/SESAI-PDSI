@@ -6,13 +6,15 @@ fieldset
     legend Destino
 
     .field
-      label
-        = f.radio_button :destination_class, 'aldeia', class: 'radio_destination_class'
-        | Aldeia
+      .inline-column
+        label
+          = f.radio_button :destination_class, 'aldeia', class: 'radio_destination_class'
+          | Aldeia
 
-      label
-        = f.radio_button :destination_class,  'municipio', class: 'radio_destination_class'
-        | Município
+      .inline-column
+        label
+          = f.radio_button :destination_class,  'municipio', class: 'radio_destination_class'
+          | Município
 
     .field.destination_village style="display: #{f.object.destination_class == 'aldeia' ? 'block' : 'none' }"
       = f.label :destination_village

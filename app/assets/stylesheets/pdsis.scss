@@ -214,3 +214,7 @@ fieldset.expected-result {
     margin: 0;
   }
 }
+
+.inline-column{
+  @include span-columns(6);
+}
