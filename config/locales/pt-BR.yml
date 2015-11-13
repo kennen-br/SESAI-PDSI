@@ -185,12 +185,12 @@ pt-BR:
       destination:
         origin_village:       Aldeia origem
         destination_village:  Aldeia destino
+        city_name:            Município destino
         destination_type:     Tipo do destino
         boat_time:            Duração da viagem (em horas)
         road_time:            Duração da viagem (em horas)
         fly_time:             Duração da viagem (Aéreo)
         destination_class:    Aldeia ou município?
-        city_name:            Município
 
       absolute_datum_level:
         name:                 Nível
