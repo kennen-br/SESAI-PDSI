@@ -42,10 +42,10 @@ Rails.application.routes.draw do
 
 
     # Resultados Esperados
-    get  '/:id/resultados-esperados',                  to: 'results_special#index',          as: :results
-    post '/:id/resultados-esperados',                  to: 'results_special#update',         as: :results_edit
-    post '/:id/resultados-esperados/loop',             to: 'results_special#loop',           as: :results_loop
-    post '/:id/resultados-esperados/respontabilidade', to: 'results_special#responsability', as: :results_responsability
+    get  '/:id/resultados-esperados',                  to: 'results_special#index',          as: :results_special
+    post '/:id/resultados-esperados',                  to: 'results_special#update',         as: :results_special_edit
+    post '/:id/resultados-esperados/loop',             to: 'results_special#loop',           as: :results_special_loop
+    post '/:id/resultados-esperados/respontabilidade', to: 'results_special#responsability', as: :results_special_responsability
 
     # Resultados Específicos
     get '/:id/resultados-especificos', defaults: { section: 'resultados-esperados', tab: 'especificos' }, to: 'specific_results#edit',  as: :edit_specific_results

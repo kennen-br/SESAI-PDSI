@@ -1,7 +1,7 @@
 #result-index
-  = hidden_field_tag '', results_edit_path(current_dsei.pdsi), { id: 'result-edit-url' }
-  = hidden_field_tag '', results_loop_path(current_dsei.pdsi), { id: 'result-loop-url' }
-  = hidden_field_tag '', results_responsability_path(current_dsei.pdsi), { id: 'result-responsability-url' }
+  = hidden_field_tag '', results_special_edit_path(current_dsei.pdsi), { id: 'result-edit-url' }
+  = hidden_field_tag '', results_special_loop_path(current_dsei.pdsi), { id: 'result-loop-url' }
+  = hidden_field_tag '', results_special_responsability_path(current_dsei.pdsi), { id: 'result-responsability-url' }
   h1.page-title
     = icon 'edit'
     = breadcrumbs [{ name: 'ESTRUTURA E CONTEÚDO | PDSI', path: nil }, { name: 'RESULTADOS ESPERADOS', path: results_path }]
