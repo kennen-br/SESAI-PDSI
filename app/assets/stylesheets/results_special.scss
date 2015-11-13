@@ -1,0 +1,494 @@
+// Place all the styles related to the Results controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#result-index {
+  .carousel-nav {
+    .carousel-list {
+      a {
+        &.resultado-1 {
+          border-color : #EE857F;
+          color        : #EE857F;
+        }
+        &.resultado-2 {
+          border-color : #51c6d6;
+          color        : #51c6d6;
+        }
+        &.resultado-3 {
+          border-color : #7fa2d5;
+          color        : #7fa2d5;
+        }
+        &.resultado-4 {
+          border-color : #f2738d;
+          color        : #f2738d;
+        }
+        &.resultado-5 {
+          border-color : #f2738d;
+          color        : #f2738d;
+        }
+        &.resultado-6 {
+          border-color : #f2738d;
+          color        : #f2738d;
+        }
+        &.resultado-7 {
+          border-color : #f59656;
+          color        : #f59656;
+        }
+        &.resultado-8 {
+          border-color : #8a88c2;
+          color        : #8a88c2;
+        }
+        &.resultado-9 {
+          border-color : #cecf57;
+          color        : #cecf57;
+        }
+      }
+    }
+  }
+
+  .expected-results-show {
+    font-family: 'Roboto', sans-serif;
+
+    .expected-result-parent {
+      strong {
+        @include margin(null null 10px);
+
+        display         : block;
+        font-weight     : 400;
+        text-decoration : underline;
+      }
+
+      p.child {
+        @include padding(null null null 20px);
+      }
+    }
+
+
+
+    .axis {
+      @include margin(null null 20px);
+
+      h2 {
+        font-family : 'Roboto', sans-serif;
+      }
+      h3 {
+        font-family    : 'Roboto', sans-serif;
+        font-size      : 1.7em;
+        font-weight    : 500;
+        line-height    : 1.7em;
+        text-transform : uppercase;
+      }
+      .strategy {
+        .strategy-title {
+          @include margin(-15px 0 20px);
+
+
+          font-size   : 1.4em;
+          font-weight : 300;
+        }
+        .show-more {
+          cursor      : pointer;
+          font-size   : .9em;
+          font-weight : 300;
+
+          .fa {
+            font-size      : .75em;
+            vertical-align : middle;
+          }
+          span {
+            color          : #FFF;
+            line-height    : 1em;
+            margin-left    : 2px;
+            vertical-align : middle;
+
+            &.less { display: none; }
+          }
+        }
+        .result {
+          @include position(relative);
+          @include padding(2em 2em 0.5em);
+          @include margin(null null 20px);
+
+
+          color      : #FFF;
+          font-size  : 1.5em;
+
+          .edit-result {
+            color: #FFF;
+          }
+          h4 {
+            @include margin(0);
+            @include padding(null null 5px);
+
+            border-bottom  : 1px solid #FFF;
+            font-family    : 'Roboto', sans-serif;
+            font-weight    : 400;
+            text-transform : uppercase;
+          }
+          .result-name {
+            @include clearfix;
+
+            font-weight    : 300;
+            text-transform : uppercase;
+            margin-bottom: 2em;
+
+          }
+          .orientacoes-dsei {
+            @include position(absolute, null 2em 0.5em null);
+            @include padding(0);
+
+            background  : none;
+            border      : 0;
+            line-height : 1em;
+            .fa {
+              color     : #FFF;
+              font-size : 2em;
+            }
+            .tooltip {
+              width: 200px;
+              transform: translateX(-48%);
+              left: 50%;
+              right: initial;
+            }
+          }
+        }
+        .result-products {
+          @include margin(null null 20px);
+          @include padding(null 15px);
+          @include clearfix;
+
+          display: none;
+
+          .years {
+            @include clearfix;
+
+            padding-bottom : 30px;
+            .year {
+              @include span-columns(3);
+              h4 {
+                @include padding(null null 10px);
+
+                font-size     : 2em;
+                font-weight   : 700;
+                text-align    : center;
+              }
+              .value {
+                font-size  : 1.2em;
+                padding    : 0 10px;
+                text-align : left;
+
+                input {
+                  &[type="text"] {
+                    border-radius : 0;
+                    display       : inline;
+                    margin        : 0;
+                    padding       : 1px 0;
+                    text-align    : center;
+                    width         : 35px;
+
+                    &.success { border-color: #0C0; }
+                    &.error { border-color: #C00; }
+                  }
+                }
+
+                .result-checkbox {
+                  float      : none;
+                  margin     : 0;
+                  text-align : left;
+
+                  input {
+                    vertical-align: middle;
+                  }
+
+                  &.success { color: #0C0; }
+                  &.error { color: #C00; }
+                }
+              }
+            }
+          }
+        }
+        .plano-anual {
+          @include margin(0 null 20px);
+
+          .show-more {
+            border        : 1px solid;
+            border-radius : 0;
+            display       : inline-block;
+            font-size     : 1.2em;
+            margin        : -1px 0 0;
+            padding       : 5px 12px;
+            text-align    : center;
+
+            span { color : #666; }
+            h2 { display: none; }
+
+            &.visible {
+              @include padding(0);
+
+              border-width : 1px 0;
+              display      : block;
+
+              h2 {
+                @include margin(0);
+                @include padding(10px 0);
+
+                font-size  : modular-scale(1);
+                text-align : left;
+              }
+            }
+          }
+
+          .actions {
+            border-top: 1px solid;
+
+            a.button {
+              @include margin(null 10px null null);
+
+              border        : 1px solid;
+              border-top    : 0;
+              border-radius : 0;
+              display       : inline-block;
+              font-size     : modular-scale(0);
+            }
+          }
+
+          .responsability {
+            display: none;
+
+            > .actions {
+              margin: 0 -15px;
+            }
+          }
+
+          .children {
+            padding: 0 0 30px 0;
+            border-top: 2px solid;
+          }
+
+          .product {
+            @include position(relative);
+            margin-bottom: 20px;
+
+            .product-actions {
+              @include position(absolute, 0 null null -20px);
+
+              font-size: 30px;
+
+              .toggle-children {
+                color: #666;
+                cursor: pointer;
+
+                &:hover {
+                  color: #000;
+                }
+              }
+            }
+
+            .children {
+              border: 0;
+
+              table {
+                tbody {
+                  tr {
+                    td:first-child {
+                      textarea {
+                        width: 95%;
+                        float: right;
+                      }
+                    }
+                  }
+                }
+              }
+
+              .colored-border {
+                border-color: #999!important;
+              }
+            }
+          }
+
+
+          .responsability-result {
+            font-size: 0.8em;
+            border: 0;
+
+            &.head {
+              margin-bottom: 0;
+            }
+            &.body {
+              margin-top: 0;
+            }
+
+            thead {
+              tr {
+                th {
+                  border         : 0;
+                  border-bottom  : 3px solid;
+                  font-size      : 2em;
+                  font-weight    : 500;
+                  line-height    : 1.5em;
+                  padding        : 0 0 5px;
+                  text-align     : center;
+                  text-transform : uppercase;
+
+                  hr {
+                    margin: 5px 0;
+                  }
+                }
+              }
+            }
+            tbody {
+              tr {
+
+                &:hover {
+                  > td {
+                    background: #FFF;
+                  }
+                }
+
+
+                td {
+                  @include padding(5px 0.3em null);
+
+                  border         : 0;
+                  font-size      : 1.75em;
+                  text-align     : center;
+                  vertical-align : top;
+
+                  &:first-child {
+                    padding-left: 0;
+                  }
+                  &:last-child {
+                    padding-right: 0;
+                  }
+
+                  .product-name {
+                    @include size(100% 150px);
+
+                    display : block;
+                    margin  : 0;
+                    resize  : none;
+                  }
+                  .product-date {
+                    text-align: center;
+                  }
+                  .product-date,
+                  .product-name {
+                    border        : 1px solid;
+                    border-radius : 0;
+                    font-size     : modular-scale(-1);
+                  }
+
+                  .people {
+                    @include position(relative);
+
+                    background  : #FFF;
+                    border      : 1px solid;
+
+                    input {
+                      border: 0;
+                      border-bottom: 1px solid;
+                      border-radius: 0;
+                      font-size: modular-scale(-1);
+                      margin: 0;
+                      padding-right: 15px;
+                    }
+
+                    .clear-search {
+                      @include position(absolute, 6px 5px null null);
+
+                      cursor    : pointer;
+                      display   : none;
+                      font-size : modular-scale(-1);
+                    }
+                    .loading {
+                      @include position(absolute, 6px 5px null null);
+
+                      display: none;
+                      font-size : modular-scale(-1);
+                    }
+
+                    ul {
+                      @include size(100% 120px);
+                      @include padding(5px null null);
+
+                      overflow    : auto;
+                      overflow-x  : hidden;
+
+                      li {
+                        color       : #666;
+                        line-height : 1em;
+                        padding     : 2px 5px;
+                        text-align  : left;
+
+                        label {
+                          cursor      : pointer;
+                          float       : none;
+                          font-size   : 0.7em;
+                          font-weight : normal;
+                          margin      : 2px 0;
+
+                          &:hover {
+                            font-weight: bold;
+                          }
+
+                          input {
+                            @include margin(null 2px null null);
+
+                            border-radius  : 0;
+                            border         : 1px solid #000;
+                            vertical-align : middle;
+                          }
+                          strong {
+                            font-weight: 400;
+                          }
+                          span {
+                            font-size: 0.8em;
+                          }
+                        }
+                      }
+                      &.searching .person { display: none; }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // Colors for each Axis
+      @mixin axis_color($color) {
+        color: $color;
+
+        .colored-border {
+          border-color: $color!important;
+
+          &.button:hover {
+            background : $color;
+            color      : #FFF;
+          }
+        }
+        .colored-bg {
+          background : $color;
+          color      : #FFF;
+
+          &.button:hover {
+            background : #FFF;
+            color      : $color;
+          }
+        }
+        h3, .years, .year h4 { border-bottom: 1px solid $color; }
+        .strategy .result { background: $color; }
+      }
+      &:first-child  { @include axis_color(#EE857F); }
+      &:nth-child(2) { @include axis_color(#51c6d6); }
+      &:nth-child(3) { @include axis_color(#7fa2d5); }
+      &:nth-child(4) { @include axis_color(#f2738d); }
+      &:nth-child(5) { @include axis_color(#f2738d); }
+      &:nth-child(6) { @include axis_color(#f2738d); }
+      &:nth-child(7) { @include axis_color(#f59656); }
+      &:nth-child(8) { @include axis_color(#8a88c2); }
+      &:nth-child(9) { @include axis_color(#cecf57); }
+    }
+  }
+}

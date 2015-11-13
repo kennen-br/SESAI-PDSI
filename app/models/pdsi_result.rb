@@ -22,6 +22,10 @@ class PdsiResult < ActiveRecord::Base
     end
   end
 
+  def editable_value(year)
+    result.result_text.gsub(/\[VALUE\]/, '')
+  end
+
   def css(year)
     value = send("value_#{year}")
     return '' if value.blank?

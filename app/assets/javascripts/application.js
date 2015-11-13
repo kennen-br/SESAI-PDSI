@@ -15,10 +15,12 @@
 //= require jquery_ujs
 //= require cocoon
 //= require pace/pace
+//= require toastr
 //= require froala_editor.min.js
 //= require plugins/char_counter.min.js
 //= require plugins/fullscreen.min.js
 //= require jquery.numeric.min.js
 //= require jquery.maskMoney.min.js
+//= require jquery.maskedinput.min.js
 //= require_tree .
 //= require turbolinks

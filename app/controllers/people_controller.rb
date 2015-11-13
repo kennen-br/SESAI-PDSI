@@ -11,6 +11,12 @@ class PeopleController < ApplicationController
     end
   end
 
+  def search
+    results = People.where("name ILIKE ?", "%#{params[:query]}%").order(:name).limit(100)
+
+    render json: results.map{ |person| { id: person.id, name: person.name, location: person.location }}
+  end
+
 private
   def validate_person
     fail 'Nome da pessoa não informado' unless params.key?(:name)

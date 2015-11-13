@@ -29,6 +29,8 @@ gem 'activerecord-session_store'
 # Loading Bar to link
 gem 'pace-rails'
 
+gem 'toastr-rails'
+
 # Nested Forms
 gem "cocoon"
 
