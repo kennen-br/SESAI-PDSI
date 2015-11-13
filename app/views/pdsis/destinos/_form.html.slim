@@ -18,18 +18,16 @@ h1 Meios de Transporte para ACESSO DOS POVOS INDÍGENAS AOS SERVIÇOS DE SAÚDE
             label Muncípio da aldeia: #{village.city_name}
 
           - DestinationType.order(:id).each do |destination_type|
-            - body_id = "destination_#{destination_type.id}"
 
             fieldset
               legend
                 strong = destination_type.name
 
               - partial = 'pdsis/destinos/destination_fields'
-              div id=(body_id)
-                = f.fields_for :destinations, @pdsi.destinations.where(destination_type: destination_type, origin_village: village) do |destination|
-                  == render partial,  f: destination, destination_type: destination_type, village: village
+              = f.fields_for :destinations, @pdsi.destinations.where(destination_type: destination_type, origin_village: village) do |destination|
+                == render partial,  f: destination, destination_type: destination_type, village: village
 
               .links
-                = link_to_add_association f, :destinations, { data: { "association-insertion-node": "##{body_id}"}, class: 'button btn-sm', partial: partial, render_options: { locals: { destination_type: destination_type, village: village } } } do
+                = link_to_add_association f, :destinations, { class: 'button btn-sm', partial: partial, render_options: { locals: { destination_type: destination_type, village: village } } } do
                   = icon 'plus'
                   | Adicionar transporte
