@@ -37,9 +37,11 @@ fieldset.emsi-fieldset class=('new' if f.object.new_record?)
         th = f.label :permanencia_enfermeiros
         th = f.label :permanencia_odontologistas
         th = f.label :permanencia_tecnicos_enfermagem
+        th = f.label :permanencia_asb
     tbody
       tr
         td = f.number_field :permanencia_medicos
         td = f.number_field :permanencia_enfermeiros
         td = f.number_field :permanencia_odontologistas
         td = f.number_field :permanencia_tecnicos_enfermagem
+        td = f.number_field :permanencia_asb

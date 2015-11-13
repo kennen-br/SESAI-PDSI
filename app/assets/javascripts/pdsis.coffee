@@ -213,7 +213,6 @@ $(document).ready ->
 
   # Generate a Default name for all new created EMSI on Capacidade Instalada form
   $('.base-polo-emsi .add_fields').click (e) ->
-    console.log 'new emsi'
     $this = $(this)
     node = $this.data 'association-insertion-node'
     setTimeout( ->
@@ -240,4 +239,18 @@ $(document).ready ->
   $(document).on 'change', '.destiny-transport :checkbox', ->
     manage_element $(this)
     return
+
+  $(document).on 'change', '.2016-budget-value', ->
+    console.log 'recalculating budgets'
+    idx = $(this).attr('input_index')
+    val = parseFloat($(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+    for year in [2017..2019]
+      el = "#input-#{year}-#{idx}"
+      cf = $(el).attr('correction_factor')
+      new_val = val + (val*cf)
+      msg = "#{el} #{cf} #{new_val}"
+      console.log msg
+      $(el).val(new_val)
+    return
+
   return

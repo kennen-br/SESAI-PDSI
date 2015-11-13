@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   get 'category_budgets/index'
 
+  resources :results, path: 'resultados', path_names: { new: 'cadastrar', edit: 'alterar' }
   resources :casais, path_names: { new: 'cadastrar', edit: 'alterar' }
   resources :absolute_data, path: 'dados-absolutos', path_names: { new: 'cadastrar', edit: 'alterar' }
 

@@ -66,10 +66,15 @@ p
   br
   = @demographic_data.numero_familias || 'Não informado'
 
-p
-  strong #{DemographicData.human_attribute_name 'meios_de_transporte'}:
-  br
-  - if @demographic_data.transportations.blank?
-    | Não informado
-  - else
-    = @demographic_data.transportations.map { |item| item.name }.join ', '
+fieldset
+  legend #{DemographicData.human_attribute_name 'meios_de_transporte'}:
+
+  p
+    strong #{DemographicData.human_attribute_name 'fluvial'}:
+    == has_transportation @demographic_data, :fluvial
+  p
+    strong #{DemographicData.human_attribute_name 'rodoviario'}:
+    == has_transportation @demographic_data, :rodoviario
+  p
+    strong #{DemographicData.human_attribute_name 'aereo'}:
+    == has_transportation @demographic_data, :aereo

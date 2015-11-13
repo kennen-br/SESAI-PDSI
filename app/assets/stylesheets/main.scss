@@ -267,3 +267,12 @@ button#menu-button{
     }
   }
 }
+
+tr.table_result_infos{
+  display           : none;
+
+  td{
+    background-color  : #fff;
+    padding           : 10px;
+  }
+}

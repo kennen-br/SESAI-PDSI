@@ -1,7 +1,7 @@
 class BasePolo < ActiveRecord::Base
   auditable
 
-  attr_accessor :cities
+  attr_accessor :cities, :ethnicities
 
   belongs_to :dsei
 
@@ -21,6 +21,12 @@ class BasePolo < ActiveRecord::Base
     @cities = Village.select('DISTINCT city_name').where(base_polo: self).order(:city_name).map{ |i| i.city_name }
   end
 
+  def ethnicities
+    return @ethnicities unless @ethnicities.nil?
+
+    @ethnicities  = Ethnicity.joins(:villages).where('villages.base_polo_id = ?', id).order('ethnicities.name').distinct
+  end
+
   def pdsi_data(pdsi)
     return @pdsi_base_polo_datum unless @pdsi_base_polo_datum.nil?
 
@@ -29,7 +35,7 @@ class BasePolo < ActiveRecord::Base
 
   def force_service_networks(pdsi)
     items = service_networks
-    return items unless items.blank?
+    return items.includes(:service_network_cities) unless items.blank?
 
     cities.each { |city| service_networks << ServiceNetwork.new(pdsi: pdsi, base_polo: self, city_name: city) }
 

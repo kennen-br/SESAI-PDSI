@@ -123,6 +123,19 @@ class Pdsi < ActiveRecord::Base
     Capai.eager_load(capai_villages: [:village]).where(pdsi: self)
   end
 
+  def infrastructure_building_to_building_type(building_type)
+    items = infrastructure_buildings.where(infrastructure_building_type: building_type) 
+
+    if building_type.name == 'Sede do DSEI'
+      return items unless items.blank?
+
+      item  = InfrastructureBuilding.create pdsi: self, infrastructure_building_type: building_type
+      items << item
+    end
+
+    return items
+  end
+
   def absolute_data_dseis_with_values
     items = absolute_data_dseis.order(:id)
     return items.includes(:absolute_datum) unless items.blank?

@@ -4,34 +4,32 @@ h1 Meios de Transporte para ACESSO DOS POVOS INDÍGENAS AOS SERVIÇOS DE SAÚDE
   .vertical-tabs style="width: 30%;"
     - @dsei.base_polos.order(:id).each do |base_polo|
       - link_opt = [{ class: 'vertical-tab' }, {:selected_class => 'is-active'}]
-      = nav_link_to edit_pdsi_path(@pdsi, section: 'dados-fisiograficos', base_polo: base_polo), link_opt[0], link_opt[1] do
+      = nav_link_to edit_pdsi_path(@pdsi, section: 'destinos', base_polo: base_polo), link_opt[0], link_opt[1] do
         = base_polo.name
   .vertical-tab-content-container style="width: 70%;"
     .vertical-tab-content#destinos-form style="display: block;"
-      fieldset
-        legend
-          |Polo Base &nbsp;
-          strong = @base_polo.name
+      - @base_polo.villages.each do |village|
+        fieldset
+          legend
+            | Aldeia de Origem:&nbsp;
+            strong = village.name
 
-        - @base_polo.villages.each do |village|
-          fieldset
-            legend
-              | Aldeia de Origem:&nbsp;
-              strong = village.name
+          .field
+            label Muncípio da aldeia: #{village.city_name}
 
-            - DestinationType.order(:id).each do |destination_type|
-              - body_id = "destination_#{destination_type.id}"
+          - DestinationType.order(:id).each do |destination_type|
+            - body_id = "destination_#{destination_type.id}"
 
-              fieldset
-                legend
-                  strong = destination_type.name
+            fieldset
+              legend
+                strong = destination_type.name
 
-                - partial = 'pdsis/destinos/destination_fields'
-                div id=(body_id)
-                  = f.fields_for :destinations, @pdsi.destinations.where(destination_type: destination_type) do |destination|
-                    == render partial,  f: destination, destination_type: destination_type, village: village
+              - partial = 'pdsis/destinos/destination_fields'
+              div id=(body_id)
+                = f.fields_for :destinations, @pdsi.destinations.where(destination_type: destination_type) do |destination|
+                  == render partial,  f: destination, destination_type: destination_type, village: village
 
-                .links
-                  = link_to_add_association f, :destinations, { data: { "association-insertion-node": "##{body_id}"}, class: 'button btn-sm', partial: partial, render_options: { locals: { destination_type: destination_type, village: village } } } do
-                    = icon 'plus'
-                    | Adicionar transporte
+              .links
+                = link_to_add_association f, :destinations, { data: { "association-insertion-node": "##{body_id}"}, class: 'button btn-sm', partial: partial, render_options: { locals: { destination_type: destination_type, village: village } } } do
+                  = icon 'plus'
+                  | Adicionar transporte

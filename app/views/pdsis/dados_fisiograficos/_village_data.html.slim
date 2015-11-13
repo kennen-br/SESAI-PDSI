@@ -1,7 +1,12 @@
 .field
   strong = PhysiographicData.human_attribute_name 'pt_fluency'
   | &nbsp;
-  = village.physiographic_data.pt_fluency
+  = village.physiographic_data.pt_fluency || 'Não informado'
+p
+  .field
+    strong = PhysiographicData.human_attribute_name 'city_name'
+    | &nbsp;
+    = village.physiographic_data.city_name
 
 fieldset
   legend Homens
