@@ -1,11 +1,7 @@
 $ ->
-  $(".modal-window").on "click", ->
-    $(".modal-state:checked").prop("checked", false).change()
+  $(document).on "click", ".modal-window", (e) ->
+    if e.target == this
+      $(".modal-state:checked").prop("checked", false).change()
     return
-
-  $(".modal-inner").on "click", (e) ->
-    e.stopPropagation()
-    return
-
   return
 

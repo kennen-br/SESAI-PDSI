@@ -5,7 +5,20 @@
       label.modal-close for=("comments-#{resp.id}")
       h1
         | Comentários
-      p.modal-intro
-        | Intro text lorem ipsum dolor sit ametm, quas, eaque facilis aliquid cupiditate tempora cumque ipsum accusantium illo modi commodi minima.
-      p.modal-content
-        | Body text lorem ipsum dolor ipsum dolor sit sit possimus amet, consectetur adipisicing elit. Itaque, placeat, explicabo, veniam quos aperiam molestias eriam molestias molestiae suscipit ipsum enim quasi sit possimus quod atque nobis voluptas earum odit accusamus quibusdam. Body text lorem ipsum dolor ipsum dolor sit sit possimus amet.
+      .comments-list.colored-border
+        - if resp.responsability_comments.blank?
+          .comment.colored-border.empty
+            | Nenhum comentário
+
+        table.tables class=('hidden' if resp.responsability_comments.blank?)
+          thead
+            tr
+              th Data
+              th Usuário
+              th Comentário
+          tbody
+            - resp.responsability_comments.each do |comment|
+              = render 'comment', { comment: comment }
+      .new-comment
+        = text_area_tag '', '', { placeholder: 'Insira seu comentário' }
+        a.send-comment.button.colored-border.colored-bg data-id="#{resp.id}" Enviar

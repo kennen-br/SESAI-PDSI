@@ -43,11 +43,21 @@ class ResultsSpecialController < ApplicationController
     render json: response
   end
 
+  def new_comment
+    values = new_comment_params
+    @comment = ResponsabilityComment.create(responsability_id: values['resp_id'], comment: values['comment'], user: current_user)
+    render layout: false
+  end
+
   private
 
     def set_pdsi
       @dsei = current_dsei
       @pdsi = current_dsei.pdsi
+    end
+
+    def new_comment_params
+      params.require(:comment).permit(:resp_id, :comment)
     end
 
     def false_result_params

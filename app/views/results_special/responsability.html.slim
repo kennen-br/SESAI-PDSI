@@ -1,42 +1,11 @@
 = content_tag :div, { data: { "id": "#{@responsability.id}" }, class: "#{@klass} resp-item" } do
 
   .responsability-actions
-    = icon 'caret-right', class: 'toggle-children'
+    = icon 'caret-right', class: 'toggle-children' if params['level'] == 'Produto'
+    = icon 'comment', class: 'toggle-comments'
   = render 'modal_comments', { resp: @responsability }
-  table.tables.responsability-result.body
-    tbody
-      tr
-        td = text_area_tag '', @responsability.name, class: 'product-name colored-border', data: { field: 'name', type: 'Resultado' }
-        td = text_field_tag '', @responsability.initial_date, class: 'product-date date-field colored-border', data: { field: 'initial_date', type: 'Resultado' }
-        td = text_field_tag '', @responsability.deadline, class: 'product-date date-field colored-border', data: { field: 'deadline', type: 'Resultado' }
-        td
-          .people.colored-border.single
-            = text_field_tag '', nil, { class: 'colored-border search', placeholder: 'Insira o responsável'}
-            = icon 'times', class: 'clear-search'
-            = icon 'circle-o-notch', class: 'loading fa-spin'
-            ul
-              - unless @responsability.person.nil?
-                li.person
-                  label.people-checkbox
-                    = check_box_tag '', '', true, { data: { person_id: @responsability.person.id }}
-                    strong = @responsability.person.name
-                    | &nbsp;
-                    span
-                      | (#{@responsability.person.location})
-        td
-          .people.colored-border.multiple
-            = text_field_tag '', nil, { class: 'colored-border search', placeholder: 'Insira o corresponsável'}
-            = icon 'times', class: 'clear-search'
-            = icon 'circle-o-notch', class: 'loading fa-spin'
-            ul
-              - @responsability.corresponsabilities.each do |person|
-                li.person
-                  label.people-checkbox
-                    = check_box_tag '', '', true, { data: { person_id: person.person.id, id: person.id }}
-                    strong = person.person.name
-                    | &nbsp;
-                    span
-                      | (#{person.person.location})
+  = render 'responsability', { responsability: @responsability}
+
   - if params['level'] == 'Produto'
     .children class=('hidden' if @responsability.children.blank?)
       - @responsability.children.order(:id).each do |action|

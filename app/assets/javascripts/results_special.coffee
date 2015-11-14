@@ -25,6 +25,45 @@ $(document).ready ->
 
     applyDateMask $page.find('.date-field')
 
+    # SEND COMMENT
+    $('.plano-anual', $page).on 'click', '.modal.comments .send-comment', ->
+
+      $this  = $(this)
+      $field = $this.prev()
+      $modal = $this.parents('.modal-inner:eq(0)')
+
+      id = $this.data('id')
+      comment = $field.val()
+
+      console.log 'NEW COMMENT', comment
+
+      if comment.trim() == ''
+        toastr.error 'Comentário em branco'
+        return false
+
+      params = { 'comment' : {}}
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+
+      params['comment']['resp_id'] = id
+      params['comment']['comment'] = comment
+
+      startLoading()
+
+      url = $('#result-new-comment-url', $page).val()
+
+      $.post url, params, (data) ->
+        stopLoading()
+        $field.val('')
+
+        $modal.find('.comments-list .comment.empty').remove()
+        $modal.find('.comments-list table').removeClass('hidden')
+        $modal.find('.comments-list table tbody').append(data)
+
+        toastr.success 'Comentário enviado.'
+        return
+
+      return
+
     # TOGGLE OVERLAY WHEN MODAL IS OPENED
     $('.plano-anual .responsability', $page).on 'change', '.modal-state', ->
       if $(this).is(":checked")
@@ -60,13 +99,16 @@ $(document).ready ->
       falseResultAjax.abort() if falseResultAjax
       falseResultAjax = $.post url, params, (data) ->
         stopLoading()
-        console.log 'NAO SE EPLICA', data
+        toastr.success 'Resultado marcado como não aplicável para este DSEI'
         $this.find('.fa').toggleClass('fa-square').toggleClass('fa-check-square')
         return
       return
 
     # TOGGLE PRODUCT ACTIONS
     $('.plano-anual .responsability', $page).on 'click', '.responsability-actions .toggle-children', ->
+      if $(this).parent().parent().find('> .children > .resp-item').length == 0
+        toastr.warning 'O produto não possui nenhuma ação'
+        return false
       $(this).parent().parent().find('> .children').toggleClass('hidden')
       $(this).toggleClass('fa-caret-right').toggleClass('fa-caret-down')
       return

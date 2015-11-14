@@ -3,6 +3,7 @@
   = hidden_field_tag '', results_special_loop_path(current_dsei.pdsi), { id: 'result-loop-url' }
   = hidden_field_tag '', results_special_responsability_path(current_dsei.pdsi), { id: 'result-responsability-url' }
   = hidden_field_tag '', results_special_false_result_path(current_dsei.pdsi), { id: 'result-false-url' }
+  = hidden_field_tag '', results_special_new_comment_path(current_dsei.pdsi), { id: 'result-new-comment-url' }
   h1.page-title
     = icon 'edit'
     = breadcrumbs [{ name: 'ESTRUTURA E CONTEÚDO | PDSI', path: nil }, { name: 'RESULTADOS ESPERADOS', path: results_path }]
@@ -117,19 +118,19 @@
                                     th TÉRMINO
                                     th RESPONSÁVEL
                                     th CORRESPONSÁVEIS
-                              - responsability.children.order(:id).each do |product|
+                              - responsability.children.includes(:person, :corresponsabilities).order(:id).each do |product|
                                 .product.resp-item data-id="#{product.id}"
                                   .responsability-actions
                                     = icon 'caret-right', class: 'toggle-children'
                                     = icon 'comment', class: 'toggle-comments'
-                                  = render 'modal_comments', { resp: responsability }
+                                  = render 'modal_comments', { resp: product }
                                   = render 'responsability', { level: 'PRODUTO', responsability: product }
                                   .children.hidden
-                                    - product.children.order(:id).each do |action|
+                                    - product.children.includes(:person, :corresponsabilities).order(:id).each do |action|
                                       .action.resp-item data-id="#{action.id}"
                                         .responsability-actions
                                           = icon 'comment', class: 'toggle-comments'
-                                        = render 'modal_comments', { resp: responsability }
+                                        = render 'modal_comments', { resp: action }
                                         = render 'responsability', { level: 'AÇÃO', responsability: action }
                                   .actions
                                     a.button.colored-border.add-action
