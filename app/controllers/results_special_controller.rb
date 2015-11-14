@@ -30,11 +30,28 @@ class ResultsSpecialController < ApplicationController
     render layout: false
   end
 
+  def false_result
+    values = false_result_params
+    false_result = FalseResult.where(dsei_id: values['dsei_id'], result_id: values['result_id'])
+    if values['not_apply'] == 'true'
+      false_result.first_or_create
+      response = { status: 'created' }
+    else
+      false_result.first.destroy
+      response = { status: 'deleted' }
+    end
+    render json: response
+  end
+
   private
 
     def set_pdsi
       @dsei = current_dsei
       @pdsi = current_dsei.pdsi
+    end
+
+    def false_result_params
+      params.require(:false_result).permit(:result_id, :dsei_id, :not_apply)
     end
 
     def loop_params

@@ -2,6 +2,7 @@
   = hidden_field_tag '', results_special_edit_path(current_dsei.pdsi), { id: 'result-edit-url' }
   = hidden_field_tag '', results_special_loop_path(current_dsei.pdsi), { id: 'result-loop-url' }
   = hidden_field_tag '', results_special_responsability_path(current_dsei.pdsi), { id: 'result-responsability-url' }
+  = hidden_field_tag '', results_special_false_result_path(current_dsei.pdsi), { id: 'result-false-url' }
   h1.page-title
     = icon 'edit'
     = breadcrumbs [{ name: 'ESTRUTURA E CONTEÚDO | PDSI', path: nil }, { name: 'RESULTADOS ESPERADOS', path: results_path }]
@@ -49,7 +50,6 @@
 
                   - j = 0
                   - (@pdsi.pdsi_results_to_section_with_values(axis.section_name) + @dsei.specific_pdsi_results).each do |pdsi_result|
-                    - next if pdsi_result.result.dsei_not_apply?(@dsei)
                     - j = j + 1
                     .result-container data-id="#{pdsi_result.id}"
                       .result
@@ -62,11 +62,15 @@
                           span.less
                             = icon 'chevron-up'
                             | &nbsp;Ver Menos
-                        .tooltip-item.orientacoes-dsei
-                          = icon 'info-circle'
-                          .tooltip
-                            p
-                              = pdsi_result.result.orientacoes_dsei
+                        .helpers
+                          .dsei-false-result data-result-id="#{pdsi_result.result.id}" data-dsei-id="#{current_dsei.id}"
+                            = icon (pdsi_result.result.dsei_not_apply?(current_dsei) ? 'check-square' : 'square')
+                            | não se aplica ao DSEI
+                          .tooltip-item.orientacoes-dsei
+                            = icon 'info-circle'
+                            .tooltip
+                              p
+                                = pdsi_result.result.orientacoes_dsei
 
                       .result-products
                         .years
@@ -92,6 +96,9 @@
 
                           - responsability = responsabilities.where(result: pdsi_result.result).first
                           .responsability.resp-item data-id="#{responsability.id}"
+                            .responsability-actions
+                              = icon 'comment', class: 'toggle-comments'
+                            = render 'modal_comments', { resp: responsability }
                             table.tables.responsability-result.head
                               thead
                                 tr
@@ -112,12 +119,17 @@
                                     th CORRESPONSÁVEIS
                               - responsability.children.order(:id).each do |product|
                                 .product.resp-item data-id="#{product.id}"
-                                  .product-actions
+                                  .responsability-actions
                                     = icon 'caret-right', class: 'toggle-children'
+                                    = icon 'comment', class: 'toggle-comments'
+                                  = render 'modal_comments', { resp: responsability }
                                   = render 'responsability', { level: 'PRODUTO', responsability: product }
                                   .children.hidden
                                     - product.children.order(:id).each do |action|
                                       .action.resp-item data-id="#{action.id}"
+                                        .responsability-actions
+                                          = icon 'comment', class: 'toggle-comments'
+                                        = render 'modal_comments', { resp: responsability }
                                         = render 'responsability', { level: 'AÇÃO', responsability: action }
                                   .actions
                                     a.button.colored-border.add-action

@@ -1,5 +1,8 @@
 = content_tag :div, { data: { "id": "#{@responsability.id}" }, class: "#{@klass} resp-item" } do
 
+  .responsability-actions
+    = icon 'caret-right', class: 'toggle-children'
+  = render 'modal_comments', { resp: @responsability }
   table.tables.responsability-result.body
     tbody
       tr
