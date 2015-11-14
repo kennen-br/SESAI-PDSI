@@ -24,7 +24,7 @@ table.tables.responsability-result.body
           = icon 'times', class: 'clear-search'
           = icon 'circle-o-notch', class: 'loading fa-spin'
           ul
-            - responsability.corresponsabilities.each do |person|
+            - responsability.corresponsabilities.includes(:person).each do |person|
               li.person
                 label.people-checkbox
                   = check_box_tag '', '', true, { data: { person_id: person.person.id, id: person.id }}

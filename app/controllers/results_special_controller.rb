@@ -30,11 +30,38 @@ class ResultsSpecialController < ApplicationController
     render layout: false
   end
 
+  def false_result
+    values = false_result_params
+    false_result = FalseResult.where(dsei_id: values['dsei_id'], result_id: values['result_id'])
+    if values['not_apply'] == 'true'
+      false_result.first_or_create
+      response = { status: 'created' }
+    else
+      false_result.first.destroy
+      response = { status: 'deleted' }
+    end
+    render json: response
+  end
+
+  def new_comment
+    values = new_comment_params
+    @comment = ResponsabilityComment.create(responsability_id: values['resp_id'], comment: values['comment'], user: current_user)
+    render layout: false
+  end
+
   private
 
     def set_pdsi
       @dsei = current_dsei
       @pdsi = current_dsei.pdsi
+    end
+
+    def new_comment_params
+      params.require(:comment).permit(:resp_id, :comment)
+    end
+
+    def false_result_params
+      params.require(:false_result).permit(:result_id, :dsei_id, :not_apply)
     end
 
     def loop_params

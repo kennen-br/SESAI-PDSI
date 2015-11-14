@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
   has_many  :cost_users
   accepts_nested_attributes_for :cost_users, reject_if: lambda { |attributes| attributes['value_2015'].blank? }
 
+  has_many  :responsability_comments, :dependent => :destroy
+
   belongs_to  :user_type
 
   has_one :pdsi

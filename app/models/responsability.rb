@@ -14,6 +14,9 @@ class Responsability < ActiveRecord::Base
   has_many  :children,  class_name: 'Responsability', foreign_key: :parent_id, :dependent => :destroy
   accepts_nested_attributes_for :children, reject_if: :all_blank, allow_destroy: true
 
+  has_many  :responsability_comments, :dependent => :destroy
+  accepts_nested_attributes_for :responsability_comments, reject_if: :all_blank, allow_destroy: true
+
   def people_names
     people.map(&:name).join(', ')
   end

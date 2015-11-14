@@ -133,22 +133,41 @@
             margin-bottom: 2em;
 
           }
-          .orientacoes-dsei {
+          .helpers {
             @include position(absolute, null 2em 0.5em null);
-            @include padding(0);
 
-            background  : none;
-            border      : 0;
-            line-height : 1em;
-            .fa {
-              color     : #FFF;
-              font-size : 2em;
+            .dsei-false-result {
+              @include margin(10px 10px null null);
+
+              cursor      : pointer;
+              float       : left;
+              font-size   : modular-scale(-1);
+              font-weight : 300;
+
+              .fa {
+                @include margin(null 5px null null);
+
+                vertical-align: middle;
+              }
             }
-            .tooltip {
-              width: 200px;
-              transform: translateX(-48%);
-              left: 50%;
-              right: initial;
+            .orientacoes-dsei {
+              @include position(relative);
+              @include padding(0);
+
+              background  : none;
+              border      : 0;
+              float       : right;
+              line-height : 1em;
+              .fa {
+                color     : #FFF;
+                font-size : 2em;
+              }
+              .tooltip {
+                width: 200px;
+                transform: translateX(-48%);
+                left: 50%;
+                right: initial;
+              }
             }
           }
         }
@@ -157,7 +176,7 @@
           @include padding(null 15px);
           @include clearfix;
 
-          display: none;
+          // display: none;
 
           .years {
             @include clearfix;
@@ -253,7 +272,13 @@
           }
 
           .responsability {
-            display: none;
+            @include position(relative);
+
+            // display: none;
+
+            > .responsability-actions {
+              top: 40px;
+            }
 
             > .actions {
               margin: 0 -15px;
@@ -265,24 +290,37 @@
             border-top: 2px solid;
           }
 
+
+          .responsability-actions {
+            @include position(absolute, 0 null null -20px);
+
+            font-size: 30px;
+
+            .fa {
+              display : block;
+              cursor : pointer;
+            }
+            .toggle-comments {
+              color       : #ccc;
+              font-size   : 19px;
+              margin-left : -3px;
+
+              &:hover {
+                color: #666;
+              }
+            }
+            .toggle-children {
+              color: #666;
+
+              &:hover {
+                color: #000;
+              }
+            }
+          }
+
           .product {
             @include position(relative);
             margin-bottom: 20px;
-
-            .product-actions {
-              @include position(absolute, 0 null null -20px);
-
-              font-size: 30px;
-
-              .toggle-children {
-                color: #666;
-                cursor: pointer;
-
-                &:hover {
-                  color: #000;
-                }
-              }
-            }
 
             .children {
               border: 0;
@@ -302,6 +340,77 @@
 
               .colored-border {
                 border-color: #999!important;
+              }
+            }
+          }
+
+          .action {
+            @include position(relative);
+
+            .responsability-actions {
+              top: 7px;
+            }
+          }
+
+          .modal {
+            .modal-inner {
+              border-radius : 0;
+              border        : 2px solid;
+              box-shadow    : 0 0 0px 5px #FFF;
+            }
+            .tables {
+              border-radius : 0;
+              border        : 0;
+              margin        : 0;
+
+              thead tr th,
+              tbody tr td {
+                border-left: 0;
+                border-right: 0;
+              }
+            }
+            .comments-list {
+              @include margin(10px null);
+              @include padding(0.5em);
+
+              border-bottom : 2px solid;
+              border-top    : 2px solid;
+              max-height    : 400px;
+              overflow      : auto;
+
+              .tables {
+                thead tr th {
+                  &:nth-child(1),
+                  &:nth-child(2) {
+                    width: 15%;
+                  }
+                }
+                .comment {
+                  font-size: 1em;
+                }
+              }
+            }
+            .new-comment {
+              margin: 0;
+
+              textarea {
+                border-radius : 0;
+                float         : left;
+                height        : 70px;
+                margin        : 0;
+                resize        : none;
+                width         : 90%;
+              }
+              .send-comment {
+                border        : 1px solid;
+                border-radius : 0;
+                cursor        : pointer;
+                float         : right;
+                font-size     : 1em;
+                margin        : 0;
+                padding       : 5px 10px;
+                text-align    : center;
+                width         : 9%;
               }
             }
           }
