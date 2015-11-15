@@ -99,7 +99,7 @@
                               | &nbsp;Plano Anual
                             h2 PLANO ANUAL
 
-                          - responsability = responsabilities.where(result: pdsi_result.result).first
+                          - responsability = pdsi_result.result.responsability_result
                           .responsability.resp-item data-id="#{responsability.id}"
                             .responsability-actions
                               = icon 'comment', class: 'toggle-comments'
