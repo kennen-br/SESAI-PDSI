@@ -17,6 +17,12 @@ class Responsability < ActiveRecord::Base
   has_many  :responsability_comments, :dependent => :destroy
   accepts_nested_attributes_for :responsability_comments, reject_if: :all_blank, allow_destroy: true
 
+  amoeba do
+    include_association :children
+    include_association :corresponsabilities
+    include_association :responsability_comments
+  end
+
   def people_names
     people.map(&:name).join(', ')
   end

@@ -5,6 +5,7 @@
   = hidden_field_tag '', results_special_false_result_path(current_dsei.pdsi), { id: 'result-false-url' }
   = hidden_field_tag '', results_special_new_comment_path(current_dsei.pdsi), { id: 'result-new-comment-url' }
   = hidden_field_tag '', results_special_delete_path(current_dsei.pdsi), { id: 'result-delete-url' }
+  = hidden_field_tag '', results_special_link_product_path(current_dsei.pdsi), { id: 'result-link-product-url' }
   h1.page-title
     = icon 'edit'
     = breadcrumbs [{ name: 'ESTRUTURA E CONTEÚDO | PDSI', path: nil }, { name: 'RESULTADOS ESPERADOS', path: results_path }]
@@ -51,9 +52,11 @@
                   .strategy-title Estratégia #{i}: #{strategy.name}
 
                   - j = 0
-                  - (@pdsi.pdsi_results_to_section_with_values(axis.section_name) + @dsei.specific_pdsi_results).each do |pdsi_result|
+                  - results = (@pdsi.pdsi_results_to_section_with_values(axis.section_name) + @dsei.specific_pdsi_results)
+                  = render 'modal_link', { axis: axis, results: results }
+                  - results.each do |pdsi_result|
                     - j = j + 1
-                    .result-container data-id="#{pdsi_result.id}"
+                    .result-container id=("result-#{pdsi_result.result.id}") data-id="#{pdsi_result.id}" data-result-id="#{pdsi_result.result.id}"
                       .result
                         h4 Resultado #{j}
                         .result-name == pdsi_result.result.name

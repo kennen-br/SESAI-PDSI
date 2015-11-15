@@ -1,0 +1,14 @@
+.modal.link-product
+  = hidden_field_tag '', '', { class: 'product-id' }
+  input.modal-state type="checkbox" id=("link-product-result-#{axis.id}")
+  .modal-window
+    .modal-inner
+      label.modal-close for=("link-product-result-#{axis.id}")
+      h1
+        | Associar produto a outro resultado
+      ul.results-list
+        - results.each do |result|
+          li id=("link-result-#{result.result.id}") data-id="#{result.result.id}"
+            = icon 'square-o'
+            | &nbsp;
+            = result.result.name

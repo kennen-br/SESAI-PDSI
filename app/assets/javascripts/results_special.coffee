@@ -25,6 +25,56 @@ $(document).ready ->
 
     applyDateMask $page.find('.date-field')
 
+    # LINK PRODUCT TO ANOTHER RESULT
+    $('.strategy .modal.link-product .results-list li', $page).click ->
+      $this = $(this)
+      $modal = $this.parents('.modal.link-product')
+
+      result_id = $this.data('id')
+      product_id = $modal.find('.product-id').val()
+
+      if $this.find('.fa-square-o').length > 0
+
+        params = { 'link_product' : {}}
+        params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+        params['link_product']['product_id'] = product_id
+        params['link_product']['result_id']  = result_id
+
+        startLoading()
+
+        url = $('#result-link-product-url', $page).val()
+        $.post url, params, (data) ->
+          stopLoading()
+          $("#result-#{result_id}.result-container .plano-anual .responsability > .children").removeClass('hidden').append(data)
+          $this.data('newId', $(data).data('id'))
+          $this.find('.fa').toggleClass('fa-square-o').toggleClass('fa-check-square-o')
+          toastr.success 'Produto adicionado ao resultado escolhido'
+          return
+
+      else
+        new_id = $this.data('newId')
+        $("#result-#{result_id}.result-container .plano-anual .responsability > .children .product[data-id='#{new_id}'] .responsability-actions .delete-responsability").click()
+        $this.find('.fa').toggleClass('fa-square-o').toggleClass('fa-check-square-o')
+        $this.removeData('newId')
+
+      return
+    # OPEN MODAL TO LINK PRODUCT TO ANOTHER RESULT
+    $('.plano-anual .responsability', $page).on 'click', '.product .link-product', ->
+      $this = $(this)
+
+      $axis    = $this.parents('.strategy')
+      $modal   = $axis.find('.modal.link-product')
+      $product = $this.parents('.product:eq(0)')
+
+      product_id = $product.data('id')
+      result_id  = $product.parents('.result-container:eq(0)').data('resultId')
+
+      $modal.find('ul li').show().find('.fa').removeClass('fa-check-square-o').addClass('fa-square-o').removeData('newId')
+      $modal.find('input.product-id').val(product_id)
+      $modal.find("#link-result-#{result_id}").hide()
+
+      $modal.find('.modal-state').click()
+      return
     # DELETE A RESPONSABILITY
     $('.plano-anual .responsability', $page).on 'click', '.responsability-actions .delete-responsability', ->
 
@@ -45,6 +95,7 @@ $(document).ready ->
 
       url = $('#result-delete-url', $page).val()
       $.post url, params, (data) ->
+        stopLoading()
         if data.status
           if $resp.hasClass 'product'
             name = 'Produto removido.'
@@ -52,7 +103,10 @@ $(document).ready ->
             name = 'Ação removida.'
 
           toastr.success "#{name}"
+          $parent = $resp.parent()
           $resp.remove()
+          if $parent.find('.resp-item').length == 0
+            $parent.addClass('hidden')
         return
       return
     # SEND COMMENT
@@ -95,7 +149,7 @@ $(document).ready ->
       return
 
     # TOGGLE OVERLAY WHEN MODAL IS OPENED
-    $('.plano-anual .responsability', $page).on 'change', '.modal-state', ->
+    $(document).on 'change', '.modal-state', ->
       if $(this).is(":checked")
         $("body").addClass "modal-open"
       else
