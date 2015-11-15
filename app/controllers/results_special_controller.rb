@@ -49,11 +49,47 @@ class ResultsSpecialController < ApplicationController
     render layout: false
   end
 
+  def delete
+    values = delete_params
+    if Responsability.find(values['resp_id']).destroy
+      response = { status: true }
+    else
+      response = { status: false }
+    end
+
+    render json: response
+  end
+
+  def link_product
+    values = link_product_params
+    product = Responsability.find(values['product_id'])
+    @responsability = product.amoeba_dup
+
+    result = Result.find(values['result_id'])
+    result_resp = result.responsability_result
+
+    @responsability.parent_id = result_resp.id
+    @responsability.save
+
+    @klass          = 'product'
+    params['level'] = 'Produto'
+
+    render 'responsability', layout: false
+  end
+
   private
 
     def set_pdsi
       @dsei = current_dsei
       @pdsi = current_dsei.pdsi
+    end
+
+    def link_product_params
+      params.require(:link_product).permit(:product_id, :result_id)
+    end
+
+    def delete_params
+      params.require(:delete).permit(:resp_id)
     end
 
     def new_comment_params

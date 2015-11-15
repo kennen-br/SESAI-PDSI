@@ -21,6 +21,9 @@ gem "paperclip",                    '~> 4.3'
 
 gem 'mailchimp-api',                require: 'mailchimp'
 
+# Copy records and its associations
+gem 'amoeba'
+
 # Cookies Problem
 # https://github.com/rails/activerecord-session_store
 # http://stackoverflow.com/a/18581914

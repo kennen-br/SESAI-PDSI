@@ -3,6 +3,7 @@
   .responsability-actions
     = icon 'caret-right', class: 'toggle-children' if params['level'] == 'Produto'
     = icon 'comment', class: 'toggle-comments'
+    = icon 'trash-o', class: 'delete-responsability'
   = render 'modal_comments', { resp: @responsability }
   = render 'responsability', { responsability: @responsability}
 

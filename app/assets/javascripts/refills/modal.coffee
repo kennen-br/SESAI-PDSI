@@ -4,4 +4,3 @@ $ ->
       $(".modal-state:checked").prop("checked", false).change()
     return
   return
-

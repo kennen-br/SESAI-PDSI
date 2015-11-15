@@ -48,6 +48,8 @@ Rails.application.routes.draw do
     post '/:id/resultados-esperados/respontabilidade', to: 'results_special#responsability', as: :results_special_responsability
     post '/:id/resultados-esperados/nao-se-aplica',    to: 'results_special#false_result',   as: :results_special_false_result
     post '/:id/resultados-esperados/novo-comentario',  to: 'results_special#new_comment',    as: :results_special_new_comment
+    post '/:id/resultados-esperados/delete',           to: 'results_special#delete',         as: :results_special_delete
+    post '/:id/resultados-esperados/associar-produto', to: 'results_special#link_product',   as: :results_special_link_product
 
     # Resultados Específicos
     get '/:id/resultados-especificos', defaults: { section: 'resultados-esperados', tab: 'especificos' }, to: 'specific_results#edit',  as: :edit_specific_results

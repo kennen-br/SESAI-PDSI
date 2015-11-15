@@ -31,4 +31,8 @@ class Result < ActiveRecord::Base
   def specific
     is_specific ? 'Sim' : 'Não'
   end
+
+  def responsability_result
+    responsabilities.where('parent_id IS NULL').first
+  end
 end
