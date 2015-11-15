@@ -294,7 +294,8 @@
           .responsability-actions {
             @include position(absolute, 0 null null -20px);
 
-            font-size: 30px;
+            font-size : 30px;
+            height    : 155px;
 
             .fa {
               display : block;
@@ -314,6 +315,16 @@
 
               &:hover {
                 color: #000;
+              }
+            }
+            .delete-responsability {
+              @include position(absolute, null null 0 0);
+
+              color: #666;
+              font-size: 23px;
+
+              &:hover {
+                color: #900;
               }
             }
           }
@@ -348,7 +359,9 @@
             @include position(relative);
 
             .responsability-actions {
-              top: 7px;
+              height : 148px;
+              left   : -11px;
+              top    : 7px;
             }
           }
 

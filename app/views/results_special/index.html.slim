@@ -4,6 +4,7 @@
   = hidden_field_tag '', results_special_responsability_path(current_dsei.pdsi), { id: 'result-responsability-url' }
   = hidden_field_tag '', results_special_false_result_path(current_dsei.pdsi), { id: 'result-false-url' }
   = hidden_field_tag '', results_special_new_comment_path(current_dsei.pdsi), { id: 'result-new-comment-url' }
+  = hidden_field_tag '', results_special_delete_path(current_dsei.pdsi), { id: 'result-delete-url' }
   h1.page-title
     = icon 'edit'
     = breadcrumbs [{ name: 'ESTRUTURA E CONTEÚDO | PDSI', path: nil }, { name: 'RESULTADOS ESPERADOS', path: results_path }]
@@ -123,6 +124,7 @@
                                   .responsability-actions
                                     = icon 'caret-right', class: 'toggle-children'
                                     = icon 'comment', class: 'toggle-comments'
+                                    = icon 'trash-o', class: 'delete-responsability'
                                   = render 'modal_comments', { resp: product }
                                   = render 'responsability', { level: 'PRODUTO', responsability: product }
                                   .children.hidden
@@ -130,6 +132,7 @@
                                       .action.resp-item data-id="#{action.id}"
                                         .responsability-actions
                                           = icon 'comment', class: 'toggle-comments'
+                                          = icon 'trash-o', class: 'delete-responsability'
                                         = render 'modal_comments', { resp: action }
                                         = render 'responsability', { level: 'AÇÃO', responsability: action }
                                   .actions

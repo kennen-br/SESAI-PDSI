@@ -25,6 +25,36 @@ $(document).ready ->
 
     applyDateMask $page.find('.date-field')
 
+    # DELETE A RESPONSABILITY
+    $('.plano-anual .responsability', $page).on 'click', '.responsability-actions .delete-responsability', ->
+
+      $this = $(this)
+      $resp = $this.parents('.resp-item:eq(0)')
+
+      if $resp.hasClass('product')
+        message = 'O produto será removido junto com todas suas ações. Desejar continuar?'
+      else
+        message = 'A ação será removida. Desejar continuar?'
+      return false unless confirm(message)
+
+      params = { 'delete' : {}}
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+      params['delete']['resp_id'] = $resp.data('id')
+
+      startLoading()
+
+      url = $('#result-delete-url', $page).val()
+      $.post url, params, (data) ->
+        if data.status
+          if $resp.hasClass 'product'
+            name = 'Produto removido.'
+          else
+            name = 'Ação removida.'
+
+          toastr.success "#{name}"
+          $resp.remove()
+        return
+      return
     # SEND COMMENT
     $('.plano-anual', $page).on 'click', '.modal.comments .send-comment', ->
 

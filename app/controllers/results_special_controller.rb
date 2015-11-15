@@ -49,11 +49,26 @@ class ResultsSpecialController < ApplicationController
     render layout: false
   end
 
+  def delete
+    values = delete_params
+    if Responsability.find(values['resp_id']).destroy
+      response = { status: true }
+    else
+      response = { status: false }
+    end
+
+    render json: response
+  end
+
   private
 
     def set_pdsi
       @dsei = current_dsei
       @pdsi = current_dsei.pdsi
+    end
+
+    def delete_params
+      params.require(:delete).permit(:resp_id)
     end
 
     def new_comment_params
