@@ -8,6 +8,7 @@
   = hidden_field_tag '', results_special_link_product_path(current_dsei.pdsi), { id: 'result-link-product-url' }
   = hidden_field_tag '', results_special_specific_result_path(current_dsei.pdsi), { id: 'result-specific-result-url' }
   = hidden_field_tag '', results_special_specific_update_path(current_dsei.pdsi), { id: 'result-specific-update-url' }
+  = hidden_field_tag '', results_special_products_order_path(current_dsei.pdsi), { id: 'result-product-order-url' }
   h1.page-title
     = icon 'edit'
     = breadcrumbs [{ name: 'ESTRUTURA E CONTEÚDO | PDSI', path: nil }, { name: 'RESULTADOS ESPERADOS', path: results_path }]
@@ -124,29 +125,32 @@
                                     th TÉRMINO
                                     th RESPONSÁVEL
                                     th CORRESPONSÁVEIS
-                              - responsability.children.includes(:person, :corresponsabilities).order(:id).each do |product|
-                                .product.resp-item data-id="#{product.id}"
-                                  .responsability-actions
-                                    = icon 'caret-right', class: 'toggle-children'
-                                    = icon 'comment', class: 'toggle-comments'
-                                    = icon 'trash-o', class: 'delete-responsability'
-                                  = render 'modal_comments', { resp: product }
-                                  = render 'responsability', { level: 'PRODUTO', responsability: product }
-                                  .children.hidden
-                                    - product.children.includes(:person, :corresponsabilities).order(:id).each do |action|
-                                      .action.resp-item data-id="#{action.id}"
-                                        .responsability-actions
-                                          = icon 'comment', class: 'toggle-comments'
-                                          = icon 'trash-o', class: 'delete-responsability'
-                                        = render 'modal_comments', { resp: action }
-                                        = render 'responsability', { level: 'AÇÃO', responsability: action }
-                                  .actions
-                                    a.button.colored-border.add-action
-                                      = icon 'plus'
-                                      | &nbsp;Inserir Ações
-                                    a.button.colored-border.link-product
-                                      = icon 'pencil'
-                                      | &nbsp;Associar produto a outro resultado
+                              .product-list
+                                - responsability.children.includes(:person, :corresponsabilities).order(:order, :id).each do |product|
+                                  .product.resp-item data-id="#{product.id}"
+                                    .responsability-actions
+                                      = icon 'caret-right', class: 'toggle-children'
+                                      = icon 'comment', class: 'toggle-comments'
+                                      = icon 'arrows', class: 'sortable-icon'
+                                      = icon 'trash-o', class: 'delete-responsability'
+                                    = render 'modal_comments', { resp: product }
+                                    = render 'responsability', { level: 'PRODUTO', responsability: product }
+                                    .children.hidden
+                                      - product.children.includes(:person, :corresponsabilities).order(:order, :id).each do |action|
+                                        .action.resp-item data-id="#{action.id}"
+                                          .responsability-actions
+                                            = icon 'comment', class: 'toggle-comments'
+                                            = icon 'arrows', class: 'sortable-icon'
+                                            = icon 'trash-o', class: 'delete-responsability'
+                                          = render 'modal_comments', { resp: action }
+                                          = render 'responsability', { level: 'AÇÃO', responsability: action }
+                                    .actions
+                                      a.button.colored-border.add-action
+                                        = icon 'plus'
+                                        | &nbsp;Inserir Ações
+                                      a.button.colored-border.link-product
+                                        = icon 'pencil'
+                                        | &nbsp;Associar produto a outro resultado
                             .actions
                               a.button.colored-border.add-product
                                 = icon 'plus'

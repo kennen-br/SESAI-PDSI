@@ -7,12 +7,12 @@ $(document).ready ->
       return
     return
 
-  $(document).keyup (e) ->
-    switch e.which
-      when 39 then navigate('right')
-      when 37 then navigate('left')
-      else return false
-    return
+  # $(document).keyup (e) ->
+  #   switch e.which
+  #     when 39 then navigate('right')
+  #     when 37 then navigate('left')
+  #     else return false
+  #   return
 
   $('.carousel-nav').each ->
     $nav = $(this)
