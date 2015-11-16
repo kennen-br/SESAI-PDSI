@@ -133,6 +133,14 @@ class ResultsSpecialController < ApplicationController
     render json: {status: true}
   end
 
+  def products_order
+    params['order'].each do |item|
+      values = item[1]
+      Responsability.find(values['id']).update(order: values['order'])
+    end
+    render json: { status: true }
+  end
+
   private
 
     def set_pdsi

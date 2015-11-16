@@ -23,8 +23,42 @@ $(document).ready ->
       $('.pace.results-loading').remove()
       return
 
+    # START SORTABLE
+    startSortable = ($list, tipo) ->
+      console.log 'START SORTABLE', $list, tipo
+      $list.sortable
+        items: '.resp-item'
+        handle: '.sortable-icon'
+        placeholder: "<div class='sortable-placeholder colored-bg'>#{tipo}</div>"
+      .bind 'sortupdate', (e, ui) ->
+        $parent = ui.item.parent()
+        order = []
+        $parent.find('> .resp-item').each (index) ->
+          order.push { id: $(this).data('id'), order: index }
+          return
+
+        params = { 'order' : {}}
+        params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+        params['order'] = order
+        startLoading()
+
+        url = $('#result-product-order-url', $page).val()
+        $.post url, params, (data) ->
+          stopLoading()
+          toastr.success 'Ordem atualizada.'
+          return
+        return
+      return
+
     applyDateMask $page.find('.date-field')
 
+    # SORTABLE
+    $('.product .children').each ->
+      startSortable $(this), 'AÇÃO'
+      return
+    $('.product-list').each ->
+      startSortable $(this), 'PRODUTO'
+      return
     # UPDATE A SPECIFIC RESULT
     $('.strategy', $page).on 'keyup', '.specific-result .result-products .value :input', (e) ->
       e.stopPropagation()
@@ -94,10 +128,13 @@ $(document).ready ->
 
       url = $('#result-specific-result-url', $page).val()
       $.post url, params, (data) ->
+        id = $(data).attr 'id'
         $('.specific-results-block', $page).append(data)
         toastr.success 'Resultado específico adicionado.'
         $name.val($name.data('original'))
         $text.val($text.data('original'))
+        startSortable $(".specific-results-block ##{id}").find('.product-list'), 'PRODUTO'
+        console.log 'SPECIFIC RESULT', $(".specific-results-block ##{id}")
         return
       return
     # LINK PRODUCT TO ANOTHER RESULT
@@ -120,7 +157,9 @@ $(document).ready ->
         url = $('#result-link-product-url', $page).val()
         $.post url, params, (data) ->
           stopLoading()
-          $("#result-#{result_id}.result-container .plano-anual .responsability > .children").removeClass('hidden').append(data)
+          $("#result-#{result_id}.result-container .plano-anual .responsability > .children").removeClass('hidden').find('.product-list').append(data)
+          $("#result-#{result_id}.result-container .plano-anual .responsability > .children .product-list").sortable('reload')
+          startSortable $(data).find('.children'), 'AÇÃO'
           $this.data('newId', $(data).data('id'))
           $this.find('.fa').toggleClass('fa-square-o').toggleClass('fa-check-square-o')
           toastr.success 'Produto adicionado ao resultado escolhido'
@@ -178,7 +217,7 @@ $(document).ready ->
             name = 'Ação removida.'
 
           toastr.success "#{name}"
-          $parent = $resp.parent()
+          $parent = $resp.parents('.children:eq(0)')
           $resp.remove()
           if $parent.find('.resp-item').length == 0
             $parent.addClass('hidden')
@@ -283,6 +322,7 @@ $(document).ready ->
         $action = $(data)
         applyDateMask $action.find('.date-field')
         $product.find('> .children').removeClass('hidden').append($action)
+        $product.find('> .children').sortable('reload')
         return
       return
 
@@ -296,7 +336,9 @@ $(document).ready ->
         stopLoading()
         $product = $(data)
         applyDateMask $product.find('.date-field')
-        $result.find('> .children').removeClass('hidden').append($product)
+        $result.find('> .children').removeClass('hidden').find('.product-list').append($product)
+        $result.find('> .children .product-list').sortable('reload')
+        startSortable $product.find('.children'), 'AÇÃO'
         return
 
       return
