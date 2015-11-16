@@ -77,11 +77,71 @@ class ResultsSpecialController < ApplicationController
     render 'responsability', layout: false
   end
 
+  def specific_result
+    values = specific_result_params
+
+    # Creates the Result and make it Specific
+    level  = ResultLevel.find_by_name('DSEI')
+    result = Result.create({
+      result_level: level,
+      result_strategy_id: values['strategy'],
+      name: values['name'],
+      result_text: values['text'],
+      is_specific: true,
+      value_2016: 0,
+      value_2017: 0,
+      value_2018: 0,
+      value_2019: 0
+    })
+    SpecificResult.create({
+      result: result,
+      dsei: @dsei,
+      text_2016: values['text'],
+      text_2017: values['text'],
+      text_2018: values['text'],
+      text_2019: values['text']
+    })
+
+    # Creates the Result Responsability for the result
+    level = ResponsabilityLevel.find_by_name('Resultado')
+    Responsability.create result: result, responsability_level: level, pdsi: @pdsi
+
+    # Creates the PdsiResult
+    @pdsi_result = PdsiResult.create({
+      pdsi: @pdsi,
+      result: result,
+      value_2016: 0,
+      value_2017: 0,
+      value_2018: 0,
+      value_2019: 0
+    })
+    render layout: false
+  end
+
+  def specific_update
+    values = specific_result_params
+
+    result = Result.find(values['result_id'])
+
+    if values['field'].include? 'value_'
+      result.update(values['field'].to_sym => values['value'])
+      result.pdsi_results.where(pdsi: @pdsi).first.update(values['field'].to_sym => values['value'])
+    else
+      result.dsei_specific_result(@dsei).update(values['field'].to_sym => values['value'])
+    end
+
+    render json: {status: true}
+  end
+
   private
 
     def set_pdsi
       @dsei = current_dsei
       @pdsi = current_dsei.pdsi
+    end
+
+    def specific_result_params
+      params.require(:specific_result).permit(:name, :text, :strategy, :field, :value, :result_id)
     end
 
     def link_product_params

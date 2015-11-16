@@ -25,6 +25,81 @@ $(document).ready ->
 
     applyDateMask $page.find('.date-field')
 
+    # UPDATE A SPECIFIC RESULT
+    $('.strategy', $page).on 'keyup', '.specific-result .result-products .value :input', (e) ->
+      e.stopPropagation()
+      return
+    $('.strategy', $page).on 'change', '.specific-result .result-products .value :input', (e) ->
+      $this = $(this)
+
+      params = { 'specific_result' : {}}
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+
+      params['specific_result']['field']     = $this.data('field')
+      params['specific_result']['value']     = $this.val()
+      params['specific_result']['result_id'] = $this.parents('.specific-result:eq(0)').data('resultId')
+
+      startLoading()
+
+      url = $('#result-specific-update-url', $page).val()
+      $.post url, params, (data) ->
+        stopLoading()
+        flashField $this
+        toastr.success 'Informação atualizada.'
+        return
+      return
+
+    # CREATE A SPECIFIC RESULT
+    $('.strategy .create-specific-result :input', $page).focus ->
+      $this = $(this)
+
+      original = $this.data('original')
+      value = $this.val()
+
+      if original == value
+        $this.val('')
+      return
+    $('.strategy .create-specific-result :input', $page).blur ->
+      $this = $(this)
+
+      original = $this.data('original')
+      value = $this.val()
+
+      if  value.trim() == ''
+        $this.val(original)
+      return
+    $('.strategy .create-specific-result .new-specific-result ', $page).click ->
+      $this = $(this)
+      $name = $this.parent().find('h4 :input')
+      $text = $this.parent().find('.result-name :input')
+
+      strategy_id = $this.data('strategyId')
+
+      if $name.val() == $name.data('original')
+        toastr.error 'Nome do resultado em branco.'
+        return false
+
+      if $text.val() == $text.data('original')
+        toastr.error 'Texto do resultado em branco.'
+        return false
+
+      params = { 'specific_result' : {}}
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+
+      params['specific_result']['name']     = $name.val()
+      params['specific_result']['text']     = $text.val()
+      params['specific_result']['strategy'] = strategy_id
+
+      startLoading()
+
+      url = $('#result-specific-result-url', $page).val()
+      $.post url, params, (data) ->
+        $('.specific-results-block', $page).append(data)
+        toastr.success 'Resultado específico adicionado.'
+        $name.val($name.data('original'))
+        $text.val($text.data('original'))
+        return
+      return
     # LINK PRODUCT TO ANOTHER RESULT
     $('.strategy .modal.link-product .results-list li', $page).click ->
       $this = $(this)
@@ -59,7 +134,7 @@ $(document).ready ->
 
       return
     # OPEN MODAL TO LINK PRODUCT TO ANOTHER RESULT
-    $('.plano-anual .responsability', $page).on 'click', '.product .link-product', ->
+    $('.strategy', $page).on 'click', '.plano-anual .responsability .product .link-product', ->
       $this = $(this)
 
       $axis    = $this.parents('.strategy')
@@ -76,7 +151,7 @@ $(document).ready ->
       $modal.find('.modal-state').click()
       return
     # DELETE A RESPONSABILITY
-    $('.plano-anual .responsability', $page).on 'click', '.responsability-actions .delete-responsability', ->
+    $('.strategy', $page).on 'click', '.plano-anual .responsability .responsability-actions .delete-responsability', ->
 
       $this = $(this)
       $resp = $this.parents('.resp-item:eq(0)')
@@ -110,7 +185,7 @@ $(document).ready ->
         return
       return
     # SEND COMMENT
-    $('.plano-anual', $page).on 'click', '.modal.comments .send-comment', ->
+    $('.strategy', $page).on 'click', '.plano-anual .modal.comments .send-comment', ->
 
       $this  = $(this)
       $field = $this.prev()
@@ -156,7 +231,7 @@ $(document).ready ->
         $("body").removeClass "modal-open"
       return
     # SHOW COMMENTS MODAL WINDOW
-    $('.plano-anual .responsability', $page).on 'click', '.responsability-actions .toggle-comments', ->
+    $('.strategy', $page).on 'click', '.plano-anual .responsability .responsability-actions .toggle-comments', ->
       $this = $(this)
       $resp = $this.parents('.resp-item:eq(0)')
       $modal = $resp.find('> .modal.comments')
@@ -189,7 +264,7 @@ $(document).ready ->
       return
 
     # TOGGLE PRODUCT ACTIONS
-    $('.plano-anual .responsability', $page).on 'click', '.responsability-actions .toggle-children', ->
+    $('.strategy', $page).on 'click', '.plano-anual .responsability .responsability-actions .toggle-children', ->
       if $(this).parent().parent().find('> .children > .resp-item').length == 0
         toastr.warning 'O produto não possui nenhuma ação'
         return false
@@ -198,7 +273,7 @@ $(document).ready ->
       return
 
     # ADD NEW ACTION TO PRODUCT
-    $('.plano-anual .responsability', $page).on 'click', '.product > .actions .add-action', ->
+    $('.strategy', $page).on 'click', '.plano-anual .responsability .product > .actions .add-action', ->
       startLoading()
       $product  = $(this).parents('.product')
       product_id = $product.data('id')
@@ -212,7 +287,7 @@ $(document).ready ->
       return
 
     # ADD NEW PRODUCT TO RESULT
-    $('.plano-anual .responsability > .actions', $page).on 'click', '.add-product', ->
+    $('.strategy', $page).on 'click', '.plano-anual .responsability > .actions .add-product', ->
       startLoading()
       $result   = $(this).parents('.responsability')
       result_id = $result.data('id')
@@ -227,7 +302,7 @@ $(document).ready ->
       return
 
     # UPDATE RESPONSABILITIES VALUES
-    $('.plano-anual', $page).on 'change', '.resp-item .product-name, .resp-item .product-date', ->
+    $('.strategy', $page).on 'change', '.plano-anual .resp-item .product-name, .resp-item .product-date', ->
       $field = $(this)
 
       field     = $field.data 'field'
@@ -246,7 +321,7 @@ $(document).ready ->
       return
 
     # DELETING A PERSON
-    $('.plano-anual', $page).on 'click', '.people .person :checkbox', (e) ->
+    $('.strategy', $page).on 'click', '.plano-anual .people .person :checkbox', (e) ->
       $this = $(this)
       $people = $this.parents('.people')
 
@@ -274,7 +349,7 @@ $(document).ready ->
       return
 
     # SELECTING PERSON
-    $('.plano-anual', $page).on 'click', '.people .new-person :checkbox', (e) ->
+    $('.strategy', $page).on 'click', '.plano-anual .people .new-person :checkbox', (e) ->
 
       $this = $(this)
       $people = $this.parents('.people')
@@ -332,7 +407,7 @@ $(document).ready ->
 
     # PEOPLE SEARCH
     peopleTime = null
-    $('.plano-anual', $page).on 'keyup', '.people .search', (e) ->
+    $('.strategy', $page).on 'keyup', '.plano-anual .people .search', (e) ->
       e.stopPropagation()
 
       if $(this).val().trim() == ''
@@ -376,30 +451,30 @@ $(document).ready ->
       return
 
     # CLEAR PEOPLE SEARCH
-    $('.plano-anual', $page).on 'click', '.people .clear-search', ->
+    $('.strategy', $page).on 'click', '.plano-anual .people .clear-search', ->
       clearPeopleSearch($(this).parent())
       return
 
     # HIDE PLANO ANUAL
-    $('.plano-anual a.button.close', $page).click ->
+    $('.strategy', $page).on 'click', '.plano-anual a.button.close', ->
       $(this).parents('.plano-anual').find('.show-more').click()
       return
 
     # TOGGLE RESULTADOS DSEI
-    $('.result .show-more', $page).click ->
+    $('.strategy', $page).on 'click', '.result .show-more', ->
       $(this).find('span').toggle()
       $(this).parent().next().toggle()
       return
 
     # HIDE PLANO ANUAL
-    $('.plano-anual .show-more', $page).click ->
+    $('.strategy', $page).on 'click', '.plano-anual .show-more', ->
       $(this).toggleClass 'visible'
       $(this).find('span, h2').toggle()
       $(this).parent().find('.responsability').toggle()
       return
 
     # POST A FIELD CHANGE
-    $('.result-products .years .result-field', $page).each ->
+    $('.result-container:not(.specific-result) .result-products .years .result-field', $page).each ->
       $field = $(this)
 
       field     = $field.data 'field'
@@ -411,10 +486,17 @@ $(document).ready ->
         return
 
       $field.on 'change', ->
+
+        if $(this).val() < $(this).data('limit')
+          toastr.error "Valor não pode ser menor do que #{$(this).data('limit')}."
+          $(this).val($(this).data('limit')).focus()
+          flashField $(this)
+          return false
+
         params = {}
         params['pdsi_results_attributes'] = [{}]
         params['pdsi_results_attributes'][0]['id']  = result_id
-        params['pdsi_results_attributes'][0][field] = value
+        params['pdsi_results_attributes'][0][field] = $(this).val()
 
         runAjaxRequest $field, params, (data) ->
           toastr.success 'Informação atualizada.'

@@ -6,6 +6,8 @@
   = hidden_field_tag '', results_special_new_comment_path(current_dsei.pdsi), { id: 'result-new-comment-url' }
   = hidden_field_tag '', results_special_delete_path(current_dsei.pdsi), { id: 'result-delete-url' }
   = hidden_field_tag '', results_special_link_product_path(current_dsei.pdsi), { id: 'result-link-product-url' }
+  = hidden_field_tag '', results_special_specific_result_path(current_dsei.pdsi), { id: 'result-specific-result-url' }
+  = hidden_field_tag '', results_special_specific_update_path(current_dsei.pdsi), { id: 'result-specific-update-url' }
   h1.page-title
     = icon 'edit'
     = breadcrumbs [{ name: 'ESTRUTURA E CONTEÚDO | PDSI', path: nil }, { name: 'RESULTADOS ESPERADOS', path: results_path }]
@@ -52,8 +54,8 @@
                   .strategy-title Estratégia #{i}: #{strategy.name}
 
                   - j = 0
-                  - results = (@pdsi.pdsi_results_to_section_with_values(axis.section_name) + @dsei.specific_pdsi_results)
-                  = render 'modal_link', { axis: axis, results: results }
+                  - results = @pdsi.pdsi_results_to_section_with_values(axis.section_name)
+                  = render 'modal_link', { axis: axis, results: (results + @dsei.specific_pdsi_results) }
                   - results.each do |pdsi_result|
                     - j = j + 1
                     .result-container id=("result-#{pdsi_result.result.id}") data-id="#{pdsi_result.id}" data-result-id="#{pdsi_result.result.id}"
@@ -89,7 +91,7 @@
                                     - checked = pdsi_result.send("value_#{year}") == 0 ? false : true
                                     = check_box_tag '', '1', checked, { data: { field: "value_#{year}" }}
                                 -else
-                                  = text_field_tag '', pdsi_result.send("value_#{year}"), { class: 'result-field colored-border', data: { field: "value_#{year}" }}
+                                  = text_field_tag '', pdsi_result.send("value_#{year}"), { class: 'result-field colored-border', data: { field: "value_#{year}", limit: pdsi_result.result.send("value_#{year}") }}
                                   span
                                     == pdsi_result.editable_value year
                         .plano-anual
@@ -152,4 +154,14 @@
                               a.button.colored-border.colored-bg.close
                                 | Fechar
 
+                  .specific-results-block
+                    - @dsei.specific_pdsi_results.each do |pdsi_result|
+                      = render 'specific_result', { pdsi_result: pdsi_result }
 
+                  .result-container
+                    .result.create-specific-result
+                      h4
+                        = text_field_tag '', 'Inserir resultado específico do DSEI', data: { original: 'Inserir resultado específico do DSEI' }
+                      .result-name
+                        = text_area_tag '', 'Descreva o resultado', data: { original: 'Descreva o resultado' }
+                      .new-specific-result.colored-font data-strategy-id="#{strategy.id}" NOVO

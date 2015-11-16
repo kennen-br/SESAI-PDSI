@@ -210,13 +210,47 @@
               }
             }
           }
+
+          &.create-specific-result {
+            height: 165px;
+
+            .new-specific-result {
+              @include position(absolute, 0 null null 35px);
+
+              background: #FFF;
+              padding: 5px 25px;
+              line-height: 1em;
+              cursor: pointer;
+
+              &:hover {
+                color: #666;
+              }
+            }
+
+            input,
+            textarea {
+              background     : transparent;
+              border         : 0;
+              box-shadow     : none;
+              color          : #FFF;
+              margin         : 0;
+              padding        : 0;
+              text-transform : uppercase;
+            }
+            textarea {
+              font-weight : 300;
+              height      : 80px;
+              margin-top  : 5px;
+              resize      : none;
+            }
+          }
         }
         .result-products {
           @include margin(null null 20px);
           @include padding(null 15px);
           @include clearfix;
 
-          // display: none;
+          display: none;
 
           .years {
             @include clearfix;
@@ -602,6 +636,38 @@
             }
           }
         }
+
+        .result-container.specific-result {
+          .result {
+
+          }
+          .result-products {
+
+            .years {
+              .year {
+                .value {
+                  input[type="text"] {
+                    float: left;
+                  }
+                  span {
+                    float: right;
+                    width: 80%;
+
+                    textarea {
+                      height: 90px;
+                      border-radius: 0;
+                      resize: none;
+                    }
+                  }
+                }
+              }
+            }
+
+            .plano-anual {
+
+            }
+          }
+        }
       }
 
       // Colors for each Axis
@@ -615,6 +681,9 @@
             background : $color;
             color      : #FFF;
           }
+        }
+        .colored-font {
+          color: $color;
         }
         .colored-bg {
           background : $color;
