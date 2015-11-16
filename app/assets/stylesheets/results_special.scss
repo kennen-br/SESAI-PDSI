@@ -348,7 +348,7 @@
           .responsability {
             @include position(relative);
 
-            // display: none;
+            display: none;
 
             > .responsability-actions {
               top: 40px;
