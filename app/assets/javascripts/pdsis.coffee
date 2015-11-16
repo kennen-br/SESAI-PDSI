@@ -8,13 +8,18 @@ manage_element = (element) ->
 
 calculate_parent_total = (parent_id) ->
   subtotal = 0.0
+  console.log "Recalculating subtotals by group #{parent_id}"
+  
   $(document).find(".#{parent_id}").each (item) ->
-    input_value = parseFloat($(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
-    subtotal += input_value
-    console.log "input_value: #{input_value}, subtotal: #{subtotal}"
+    input_value = $(this).attr("value").toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.')
+    console.log "input_value: #{input_value}"
+      
+    subtotal += parseFloat(input_value)
+    console.log "subtotal: #{subtotal}"
     return
 
-  $("#input-#{parent_id}").val(parseFloat(subtotal).toFixed(2))
+  $("#input-#{parent_id}").attr("value", parseFloat(subtotal).toFixed(2))
+  #$("#hidden-#{parent_id}").attr("value", parseFloat(subtotal).toFixed(2))
   return
 
 $(document).on 'click', '.radio_destination_class', (e) ->
@@ -267,25 +272,32 @@ $(document).ready ->
   # Recalculate values for 2017-2019 based on 2016 and correction factors
   $(document).on 'change', '.2016-budget-value', ->
     console.log 'Recalculating budgets for years 2017-2019'
+
     idx = $(this).attr('input_index')
     val = parseFloat($(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+    group_parent_id = $(this).attr('group_parent_id')
+
     for year in [2017..2019]
       el = "#input-#{year}-#{idx}"
       cf = $(el).attr('correction_factor')
-      parent_id = "#{year}-#{idx}"
+      year_parent_id = "#{year}-#{group_parent_id}"
       new_val = val + (val*cf)
-      msg = "#{el} #{cf} #{new_val}"
-      console.log msg
+
+      console.log "Recalculating #{el} using correction factor #{cf}: #{new_val}"
       $(el).val(new_val.toFixed(2))
-      calculate_parent_total(parent_id)
+
+      if idx > 10
+        calculate_parent_total(year_parent_id)
+      
     return
 
   # Update subtotals by group of contracts
   $(document).on 'change', '.2015-group-value, .2016-group-value, .2017-group-value, .2018-group-value, .2019-group-value', ->
-    parent_id = $(this).attr('year_parent_id')
-    console.log "Recalculating subtotals by group #{parent_id}"
-    input_value = parseFloat($(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
-    calculate_parent_total(parent_id)
+    year_parent_id = $(this).attr('year_parent_id')
+    year_cost_id = $(this).attr('year_cost_id')
+    value = $(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.')
+    #$("#hidden-#{year_cost_id}").attr("value", value)
+    calculate_parent_total(year_parent_id)
     return
 
   return
