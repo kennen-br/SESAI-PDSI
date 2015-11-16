@@ -6,6 +6,17 @@ manage_element = (element) ->
   element.parents('.destiny-transport').find('fieldset').toggle()
   return
 
+calculate_parent_total = (parent_id) ->
+  subtotal = 0.0
+  $(document).find(".#{parent_id}").each (item) ->
+    input_value = parseFloat($(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+    subtotal += input_value
+    console.log "input_value: #{input_value}, subtotal: #{subtotal}"
+    return
+
+  $("#input-#{parent_id}").val(parseFloat(subtotal).toFixed(2))
+  return
+
 $(document).on 'click', '.radio_destination_class', (e) ->
   $this   = $(this)
   parent  = $this.parent().parent().parent().parent()
@@ -253,17 +264,28 @@ $(document).ready ->
     manage_element $(this)
     return
 
+  # Recalculate values for 2017-2019 based on 2016 and correction factors
   $(document).on 'change', '.2016-budget-value', ->
-    console.log 'recalculating budgets'
+    console.log 'Recalculating budgets for years 2017-2019'
     idx = $(this).attr('input_index')
     val = parseFloat($(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
     for year in [2017..2019]
       el = "#input-#{year}-#{idx}"
       cf = $(el).attr('correction_factor')
+      parent_id = "#{year}-#{idx}"
       new_val = val + (val*cf)
       msg = "#{el} #{cf} #{new_val}"
       console.log msg
-      $(el).val(new_val)
+      $(el).val(new_val.toFixed(2))
+      calculate_parent_total(parent_id)
+    return
+
+  # Update subtotals by group of contracts
+  $(document).on 'change', '.2015-group-value, .2016-group-value, .2017-group-value, .2018-group-value, .2019-group-value', ->
+    parent_id = $(this).attr('year_parent_id')
+    console.log "Recalculating subtotals by group #{parent_id}"
+    input_value = parseFloat($(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+    calculate_parent_total(parent_id)
     return
 
   return
