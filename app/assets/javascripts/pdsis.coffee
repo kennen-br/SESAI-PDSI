@@ -6,6 +6,18 @@ manage_element = (element) ->
   element.parents('.destiny-transport').find('fieldset').toggle()
   return
 
+calculate_parent_total = (parent_id) ->
+  subtotal = 0.0
+  $(document).find(".#{parent_id}").each (item) ->
+    input_value = parseFloat($(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+    subtotal += input_value
+    console.log "input_value: #{input_value}, subtotal: #{subtotal}"
+    return
+
+  $("#input-#{parent_id}").val(parseFloat(subtotal).toFixed(2))
+  
+  return
+
 $(document).on 'click', '.add_person', (e) ->
   $this       = $(this)
   $parent     = $(this).parent()
@@ -253,27 +265,20 @@ $(document).ready ->
     for year in [2017..2019]
       el = "#input-#{year}-#{idx}"
       cf = $(el).attr('correction_factor')
+      parent_id = "#{year}-#{idx}"
       new_val = val + (val*cf)
       msg = "#{el} #{cf} #{new_val}"
       console.log msg
       $(el).val(new_val.toFixed(2))
+      calculate_parent_total(parent_id)
     return
 
   # updates subtotals by group of contracts
   $(document).on 'change', '.2015-group-value, .2016-group-value, .2017-group-value, .2018-group-value, .2019-group-value', ->
-    parent_id = $(this).attr('parent_id')
+    parent_id = $(this).attr('year_parent_id')
     console.log "Recalculating subtotals by group #{parent_id}"
     input_value = parseFloat($(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
-    
-    $("#input-#{parent_id}").val(0)
-    $(document).find(".#{parent_id}").each (item) ->
-      parent_value = parseInt($("#input-#{parent_id}").val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
-      input_value = parseInt($(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
-      new_value = parent_value + input_value
-      console.log "#{parent_value}, #{input_value}, #{new_value}"
-      $("#input-#{parent_id}").val(new_value)
-      return
-      
+    calculate_parent_total(parent_id)
     return
 
   return
