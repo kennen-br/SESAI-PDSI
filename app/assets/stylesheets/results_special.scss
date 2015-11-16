@@ -211,7 +211,7 @@
             }
           }
 
-          &.specific-result {
+          &.create-specific-result {
             height: 165px;
 
             .new-specific-result {
@@ -633,6 +633,38 @@
                   }
                 }
               }
+            }
+          }
+        }
+
+        .result-container.specific-result {
+          .result {
+
+          }
+          .result-products {
+
+            .years {
+              .year {
+                .value {
+                  input[type="text"] {
+                    float: left;
+                  }
+                  span {
+                    float: right;
+                    width: 80%;
+
+                    textarea {
+                      height: 90px;
+                      border-radius: 0;
+                      resize: none;
+                    }
+                  }
+                }
+              }
+            }
+
+            .plano-anual {
+
             }
           }
         }

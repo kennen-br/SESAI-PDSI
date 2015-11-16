@@ -5,11 +5,11 @@ class Result < ActiveRecord::Base
   belongs_to  :result_level
   belongs_to  :result_strategy
 
-  has_many  :responsabilities
-  has_many  :specific_results
-  has_many  :pdsi_results
+  has_many  :responsabilities, :dependent => :destroy
+  has_many  :specific_results, :dependent => :destroy
+  has_many  :pdsi_results, :dependent => :destroy
 
-  has_many  :false_results
+  has_many  :false_results, :dependent => :destroy
   accepts_nested_attributes_for :false_results, reject_if: :all_blank, allow_destroy: true
 
   validates :result_level,    presence: true
@@ -30,6 +30,10 @@ class Result < ActiveRecord::Base
 
   def specific
     is_specific ? 'Sim' : 'Não'
+  end
+
+  def dsei_specific_result(dsei)
+    specific_results.where(dsei: dsei).first
   end
 
   def responsability_result

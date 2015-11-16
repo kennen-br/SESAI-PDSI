@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151114173036) do
+ActiveRecord::Schema.define(version: 20151116000130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -753,6 +753,10 @@ ActiveRecord::Schema.define(version: 20151114173036) do
     t.integer  "dsei_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text     "text_2016"
+    t.text     "text_2017"
+    t.text     "text_2018"
+    t.text     "text_2019"
   end
 
   add_index "specific_results", ["dsei_id"], name: "index_specific_results_on_dsei_id", using: :btree
