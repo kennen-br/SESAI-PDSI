@@ -25,6 +25,54 @@ $(document).ready ->
 
     applyDateMask $page.find('.date-field')
 
+    # CREATE A SPECIFIC RESULT
+    $('.strategy .specific-result :input', $page).focus ->
+      $this = $(this)
+
+      original = $this.data('original')
+      value = $this.val()
+
+      if original == value
+        $this.val('')
+      return
+    $('.strategy .specific-result :input', $page).blur ->
+      $this = $(this)
+
+      original = $this.data('original')
+      value = $this.val()
+
+      if  value.trim() == ''
+        $this.val(original)
+      return
+    $('.strategy .specific-result .new-specific-result ', $page).click ->
+      $this = $(this)
+      $name = $this.parent().find('h4 :input')
+      $text = $this.parent().find('.result-name :input')
+
+      strategy_id = $this.data('strategyId')
+
+      if $name.val() == $name.data('original')
+        toastr.error 'Nome do resultado em branco.'
+        return false
+
+      if $text.val() == $text.data('original')
+        toastr.error 'Texto do resultado em branco.'
+        return false
+
+      params = { 'specifc_result' : {}}
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+
+      params['specifc_result']['name']     = $name.val()
+      params['specifc_result']['text']     = $text.val()
+      params['specifc_result']['strategy'] = strategy_id
+
+      startLoading()
+
+      url = $('#result-specific-result-url', $page).val()
+      $.post url, params, (data) ->
+
+        return
+      return
     # LINK PRODUCT TO ANOTHER RESULT
     $('.strategy .modal.link-product .results-list li', $page).click ->
       $this = $(this)

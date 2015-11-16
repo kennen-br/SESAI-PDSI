@@ -6,6 +6,7 @@
   = hidden_field_tag '', results_special_new_comment_path(current_dsei.pdsi), { id: 'result-new-comment-url' }
   = hidden_field_tag '', results_special_delete_path(current_dsei.pdsi), { id: 'result-delete-url' }
   = hidden_field_tag '', results_special_link_product_path(current_dsei.pdsi), { id: 'result-link-product-url' }
+  = hidden_field_tag '', results_special_specific_result_path(current_dsei.pdsi), { id: 'result-specific-result-url' }
   h1.page-title
     = icon 'edit'
     = breadcrumbs [{ name: 'ESTRUTURA E CONTEÚDO | PDSI', path: nil }, { name: 'RESULTADOS ESPERADOS', path: results_path }]
@@ -152,4 +153,10 @@
                               a.button.colored-border.colored-bg.close
                                 | Fechar
 
-
+                  .result-container
+                    .result.specific-result
+                      h4
+                        = text_field_tag '', 'Inserir resultado específico do DSEI', data: { original: 'Inserir resultado específico do DSEI' }
+                      .result-name
+                        = text_area_tag '', 'Descreva o resultado', data: { original: 'Descreva o resultado' }
+                      .new-specific-result.colored-font data-strategy-id="#{strategy.id}" NOVO

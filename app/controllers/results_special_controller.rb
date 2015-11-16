@@ -77,11 +77,24 @@ class ResultsSpecialController < ApplicationController
     render 'responsability', layout: false
   end
 
+  def specific_result
+    values = specific_result_params
+    level =  ResultLevel.find_by_name('DSEI')
+    result = Result.create result_level: level, result_strategy_id: values['strategy'], name: values['name'], result_text: values['text'], is_specific: true
+    SpecificResult.create result: result, dsei: @dsei
+    @pdsi_result = PdsiResult.create pdsi: @pdsi, result: result
+    render layout: false
+  end
+
   private
 
     def set_pdsi
       @dsei = current_dsei
       @pdsi = current_dsei.pdsi
+    end
+
+    def specific_result_params
+      params.require(:specific_result).permit(:name, :text, :strategy)
     end
 
     def link_product_params
