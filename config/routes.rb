@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :people, path: 'pessoas', path_names: { new: 'cadastrar', edit: 'alterar', destroy: 'excluir' }
+
   resources :budget_correction_factors
-  scope 'pessoas' do
-    post '/cadastrar', to: 'people#create',  as: :people_create
-  end
 
   post '/image-upload',     to: 'application#image_upload', as: :image_upload
   post '/procurar-pessoa',  to: 'people#search',            as: :search

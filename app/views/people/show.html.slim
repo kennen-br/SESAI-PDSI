@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Dsei:
+  = @person.dsei
+p
+  strong Name:
+  = @person.name
+p
+  strong Location:
+  = @person.location
+p
+  strong Bond:
+  = @person.bond
+
+= link_to 'Edit', edit_person_path(@person)
+'|
+= link_to 'Back', people_path
