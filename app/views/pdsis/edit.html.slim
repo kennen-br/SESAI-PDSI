@@ -1,6 +1,6 @@
 h1.page-title
-  = icon 'edit'
-  = breadcrumbs [{ name: 'ESTRUTURA E CONTEÚDO | PDSI', path: nil }] + section_path(@section)
+  .breadcrumb-icon
+  = breadcrumbs [{ name: 'PDSI', path: pdsis_path(section: 'estrutura') }] + section_path(@section)
 
 = form_for @pdsi, url: pdsi_path(@pdsi, section: @section_url), html: { multipart: true } do |f|
   - if @pdsi.errors.any?

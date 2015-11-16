@@ -1,6 +1,6 @@
 h1.page-title
-  = icon 'edit'
-  = breadcrumbs [{ name: 'ESTRUTURA E CONTEÚDO | PDSI', path: nil }, { name: 'RESULTADOS ESPERADOS', path: pdsis_path('resultados-esperados') }, { name: 'RESULTADOS ESPECÍFICOS', path: nil }]
+  .breadcrumb-icon
+  = breadcrumbs [{ name: 'PDSI', path: pdsis_path(section: 'estrutura') }, { name: '5. Resultados Esperados 2016-2019', path: pdsis_path('resultados-esperados') }, { name: 'Resultados Específicos', path: nil }]
 
 = form_for @dsei, url: edit_specific_results_path(@pdsi) do |f|
   - if @dsei.errors.any?

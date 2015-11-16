@@ -1,6 +1,6 @@
 h1.page-title
-  = icon 'edit'
-  = breadcrumbs [{ name: 'ESTRUTURA E CONTEÚDO | PDSI', path: nil }, { name: section_name(@section), path: pdsis_path(section: @section_url) }]
+  .breadcrumb-icon
+  = breadcrumbs [{ name: 'PDSI', path: pdsis_path(section: 'estrutura') }, { name: section_name(@section), path: pdsis_path(section: @section_url) }]
 
 
 = render "pdsis/sections/#{@section}"
