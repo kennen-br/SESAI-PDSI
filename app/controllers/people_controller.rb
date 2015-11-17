@@ -1,15 +1,11 @@
 class PeopleController < ApplicationController
   before_action :set_dsei
-  before_action :set_person,      only: [:show, :edit, :update, :destroy]
+  before_action :set_person,      only: [:edit, :update, :destroy]
   before_action :validate_person, only: [:edit, :update, :destroy]
 
   # GET /people
   def index
     @people = @dsei.people.order(:name)
-  end
-
-  # GET /people/1
-  def show
   end
 
   # GET /people/new
@@ -46,6 +42,12 @@ class PeopleController < ApplicationController
   def destroy
     @person.destroy
     redirect_to people_url, notice: 'Pessoa excluída com sucesso.'
+  end
+
+  def search
+    results = People.where("name ILIKE ?", "%#{params[:query]}%").order(:name).limit(100)
+
+    render json: results.map{ |person| { id: person.id, name: person.name, location: person.location }}
   end
 
   private

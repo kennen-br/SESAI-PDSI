@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  resources :people, path: 'pessoas', path_names: { new: 'cadastrar', edit: 'alterar', destroy: 'excluir' }
+  resources :sesai_people,  path: 'pessoas-sesai',  path_names: { new: 'cadastrar', edit: 'alterar', destroy: 'excluir' }
+  resources :people,        path: 'pessoas',        path_names: { new: 'cadastrar', edit: 'alterar', destroy: 'excluir' }
 
   resources :budget_correction_factors
 
