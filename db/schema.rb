@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151116112548) do
+ActiveRecord::Schema.define(version: 20151116162311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -530,10 +530,11 @@ ActiveRecord::Schema.define(version: 20151116112548) do
   create_table "people", force: :cascade do |t|
     t.integer  "dsei_id"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "location"
     t.string   "bond"
+    t.boolean  "is_sesai_central", default: false
   end
 
   add_index "people", ["dsei_id"], name: "index_people_on_dsei_id", using: :btree

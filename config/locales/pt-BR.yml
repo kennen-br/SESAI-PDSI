@@ -27,6 +27,7 @@ pt-BR:
       pdsi_attached_file:           Arquivos Anexos
       budget_forecast:              Previsão de Custos
       result:                       Resultados
+      person:                       Pessoa
     attributes:
       user:
         username:               Usuário
@@ -323,6 +324,12 @@ pt-BR:
         initial_forecast_2019: 'Dotação Inicial 2019'
         dsei_forecast_2019: 'Previsão do DSEI 2019'
         revised_forecast_2019: 'Dotação Atualizada 2019'
+
+      person:
+        name:       Nome
+        location:   Localização
+        bond:       Ligação
+
     errors:
       models:
         user:
