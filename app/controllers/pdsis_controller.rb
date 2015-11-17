@@ -41,7 +41,7 @@ class PdsisController < ApplicationController
   end
 
   def delete_map
-    @pdsi.map.destroy if @pdsi.map.present?
+    @pdsi.update map: nil
 
     notice  = {notice: 'Mapa excluído com sucesso.'}
     args    = { section: 'mapa' }
