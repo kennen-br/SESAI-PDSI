@@ -51,6 +51,63 @@ $(document).ready ->
 
     applyDateMask $page.find('.date-field')
 
+
+    ###
+    # EVENT HANDLERS
+    ###
+
+
+    # LINK PRODUCT TO ANOTHER DSEI
+    $('.modal.link-product-dsei .dsei-list li', $page).click ->
+      $this = $(this)
+      $modal = $this.parents('.modal.link-product-dsei')
+
+      dsei_id    = $this.data('id')
+      product_id = $modal.find('.product-id').val()
+
+      params = { 'link_product' : {}}
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+
+      params['link_product']['dsei_id']    = dsei_id
+      params['link_product']['product_id'] = product_id
+
+      startLoading()
+      url = $('#result-link-product-dsei-url', $page).val()
+
+      if $this.find('.fa-square-o').length > 0
+        callback = (data, $obj) ->
+          $obj.data 'newId', data.id
+          $obj.find('.fa').toggleClass('fa-square-o').toggleClass('fa-check-square-o')
+          toastr.success "Produto vinculado ao DSEI #{$obj.find('.name').text()}"
+          return
+      else
+        params['link_product']['_destroy'] = '1'
+        params['link_product']['product_id'] = $this.data('newId')
+        callback = (data, $obj) ->
+          $obj.find('.fa').toggleClass('fa-square-o').toggleClass('fa-check-square-o')
+          $obj.removeData('newId')
+          toastr.success "Produto desvinculado do DSEI #{$obj.find('.name').text()}"
+          return
+
+      $.post url, params, (data) ->
+        stopLoading()
+        callback data, $this
+        return
+
+      return
+    # OPEN MODAL TO LINK PRODUCT TO ANOTHER DSEI
+    $('.strategy', $page).on 'click', '.plano-anual .responsability .product .link-product-dsei', ->
+      $this = $(this)
+
+      $modal   = $('.modal.link-product-dsei', $page)
+      $product = $this.parents('.product:eq(0)')
+
+      product_id = $product.data('id')
+
+      $modal.find('.fa').removeClass('fa-check-square-o').addClass('fa-square-o').removeData('newId')
+      $modal.find('input.product-id').val(product_id)
+
+      $modal.find('.modal-state').click()
     # SORTABLE
     $('.product .children').each ->
       startSortable $(this), 'AÇÃO'
@@ -174,8 +231,7 @@ $(document).ready ->
     $('.strategy', $page).on 'click', '.plano-anual .responsability .product .link-product', ->
       $this = $(this)
 
-      $axis    = $this.parents('.strategy')
-      $modal   = $axis.find('.modal.link-product')
+      $modal   = $this.parents('.strategy').find('.modal.link-product')
       $product = $this.parents('.product:eq(0)')
 
       product_id = $product.data('id')

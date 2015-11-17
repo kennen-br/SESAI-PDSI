@@ -36,7 +36,8 @@ class Result < ActiveRecord::Base
     specific_results.where(dsei: dsei).first
   end
 
-  def responsability_result
-    responsabilities.where('parent_id IS NULL').first
+  def responsability_result(pdsi)
+    # responsabilities.where('parent_id IS NULL AND pdsi_id = ?', pdsi.id).first_or_create
+    responsabilities.where(parent_id: nil, pdsi: pdsi).first_or_create
   end
 end

@@ -46,6 +46,54 @@
     }
   }
 
+  .modal {
+    font-size: 1.2em;
+
+    .modal-inner {
+      border-radius : 0;
+      border        : 2px solid;
+      box-shadow    : 0 0 0px 5px #FFF;
+    }
+    .tables {
+      border-radius : 0;
+      border        : 0;
+      margin        : 0;
+
+      thead tr th,
+      tbody tr td {
+        border-left: 0;
+        border-right: 0;
+      }
+    }
+
+    h1 {
+      border-bottom: 2px solid;
+      font-size: 1.2em;
+      font-family: 'Roboto', sans-serif;
+      text-transform: none;
+    }
+    ul {
+      li {
+        cursor: pointer;
+        margin: 10px;
+
+        .fa {
+          vertical-align: middle;
+        }
+
+        &:hover {
+          color: #666;
+        }
+      }
+
+    }
+    &.link-product-dsei {
+      ul li:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
   .expected-results-show {
     font-family: 'Roboto', sans-serif;
 
@@ -86,46 +134,7 @@
           font-size   : 1.4em;
           font-weight : 300;
         }
-        .modal {
-          .modal-inner {
-            border-radius : 0;
-            border        : 2px solid;
-            box-shadow    : 0 0 0px 5px #FFF;
-          }
-          .tables {
-            border-radius : 0;
-            border        : 0;
-            margin        : 0;
 
-            thead tr th,
-            tbody tr td {
-              border-left: 0;
-              border-right: 0;
-            }
-          }
-          &.link-product {
-            font-size: 1.2em;
-            h1 {
-              border-bottom: 2px solid;
-              font-size: 1.2em;
-              font-family: 'Roboto', sans-serif;
-            }
-            .results-list {
-              li {
-                cursor: pointer;
-                margin: 10px;
-
-                .fa {
-                  vertical-align: middle;
-                }
-
-                &:hover {
-                  color: #666;
-                }
-              }
-            }
-          }
-        }
         .show-more {
           cursor      : pointer;
           font-size   : .9em;
@@ -250,8 +259,6 @@
           @include padding(null 15px);
           @include clearfix;
 
-          display: none;
-
           .years {
             @include clearfix;
 
@@ -347,8 +354,6 @@
 
           .responsability {
             @include position(relative);
-
-            display: none;
 
             > .responsability-actions {
               top: 40px;
@@ -681,6 +686,11 @@
             }
           }
         }
+      }
+
+      .result-products,
+      .responsability {
+        // display: none;
       }
 
       // Colors for each Axis

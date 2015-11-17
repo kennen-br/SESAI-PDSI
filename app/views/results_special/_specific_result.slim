@@ -26,7 +26,7 @@
           | &nbsp;Plano Anual
         h2 PLANO ANUAL
 
-      - responsability = pdsi_result.result.responsability_result
+      - responsability = pdsi_result.result.responsability_result(@pdsi)
       .responsability.resp-item data-id="#{responsability.id}"
         .responsability-actions
           = icon 'comment', class: 'toggle-comments'
