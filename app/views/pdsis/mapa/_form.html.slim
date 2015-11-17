@@ -1,4 +1,11 @@
 h2 Mapa do Território
 
+label = f.object.map.exists? ? 'Alterar mapa' : 'Inserir mapa'
 .field
   = f.file_field :map
+
+- if f.object.map.exists?
+  h2 OU
+  = link_to delete_map_path(@pdsi), data: {:confirm => 'Tem certeza? Esta operação é irreversível!'}, :method => :delete, class: 'button' do
+    i.fa.fa-trash
+    | Excluir mapa atual
