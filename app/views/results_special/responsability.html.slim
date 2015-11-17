@@ -5,5 +5,6 @@
   - if params['level'] == 'Produto'
     .children class=('hidden' if @responsability.children.blank?)
       - @responsability.children.order(:id).each do |action|
-        = render 'responsability', { level: 'AÇÃO', responsability: action }
+        .action.resp-item data-id="#{action.id}"
+          = render 'responsability', { level: 'AÇÃO', responsability: action }
     = render 'responsability_buttons'
