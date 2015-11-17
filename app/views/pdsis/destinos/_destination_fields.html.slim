@@ -13,7 +13,8 @@ fieldset
       = check_box_tag "use_boat_#{f.index}", "use_checkox_#{f.index}", f.object.use_boat?, data: { type: 'boat' }
       .checkbox
 
-    fieldset id=("fields_to_boat_time_#{f.index}") style="display: none"
+    - display = f.object.use_boat? ? 'block' : 'none'
+    fieldset id=("fields_to_boat_time_#{f.index}") style=("display: #{display}")
       = f.label       :boat_time
       = f.text_field  :boat_time
 
@@ -24,7 +25,8 @@ fieldset
       = check_box_tag "use_road_#{f.index}", "use_checkox_#{f.index}", f.object.use_road?, data: { type: 'road' }
       .checkbox
 
-    fieldset id=("fields_to_road_time_#{f.index}") style="display: none"
+    - display = f.object.use_road? ? 'block' : 'none'
+    fieldset id=("fields_to_road_time_#{f.index}") style=("display: #{display}")
       = f.label       :road_time
       = f.text_field  :road_time
 
@@ -35,6 +37,7 @@ fieldset
       = check_box_tag "use_fly_#{f.index}", "use_checkox_#{f.index}", f.object.use_fly?, data: { type: 'fly' }
       .checkbox
 
-    fieldset id=("fields_to_fly_time_#{f.index}") style="display: none"
+    - display = f.object.use_fly? ? 'block' : 'none'
+    fieldset id=("fields_to_fly_time_#{f.index}") style=("display: #{display}")
       = f.label       :fly_time
       = f.text_field  :fly_time
