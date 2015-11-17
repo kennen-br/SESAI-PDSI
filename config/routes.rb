@@ -25,9 +25,10 @@ Rails.application.routes.draw do
     get '/:id/alterar/projecao-orcamentaria/:subsection',                   defaults: { section: 'projecao-orcamentaria' }, to: 'pdsis#edit',         as: :edit_budget_projection
     get '/:id/alterar/resultados-esperados/:subsection',                    defaults: { section: 'resultados-esperados', tab: 'resultados' },         to: 'pdsis#edit',  as: :edit_results
     get '/:id/alterar/resultados-esperados/responsabilidades/:subsection',  defaults: { section: 'resultados-esperados', tab: 'responsabilidades' },  to: 'pdsis#edit',  as: :edit_responsabilities
-    get   '/(ver/:section)',                    to: 'pdsis#index',  as: :pdsis
-    patch '/:id/alterar/:section',              to: 'pdsis#update', as: :pdsi
-    get   '/:id/alterar/:section(/:base_polo)', to: 'pdsis#edit',   as: :edit_pdsi
+    get   '/(ver/:section)',                    to: 'pdsis#index',      as: :pdsis
+    patch '/:id/alterar/:section',              to: 'pdsis#update',     as: :pdsi
+    get   '/:id/alterar/:section(/:base_polo)', to: 'pdsis#edit',       as: :edit_pdsi
+    delete  '/:id/mapa/excluir',                to: 'pdsis#delete_map', as: :delete_map
 
     get '/:id/alterar/anexos/dimensionamento-necessidades/:subsection',  defaults: { section: 'anexos' },  to: 'pdsis#edit',  as: :edit_anexos
 
