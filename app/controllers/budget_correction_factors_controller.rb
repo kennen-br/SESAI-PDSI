@@ -3,7 +3,7 @@ class BudgetCorrectionFactorsController < ApplicationController
 
   # GET /budget_correction_factors
   def index
-    @budget_correction_factors = BudgetCorrectionFactor.all
+    @budget_correction_factors = BudgetCorrectionFactor.all.order(:year)
   end
 
   # GET /budget_correction_factors/1
@@ -24,7 +24,8 @@ class BudgetCorrectionFactorsController < ApplicationController
     @budget_correction_factor = BudgetCorrectionFactor.new(budget_correction_factor_params)
 
     if @budget_correction_factor.save
-      redirect_to @budget_correction_factor, notice: 'Budget correction factor was successfully created.'
+      #redirect_to @budget_correction_factor, notice: 'Budget correction factor was successfully created.'
+      redirect_to budget_correction_factors_url
     else
       render :new
     end
@@ -33,7 +34,8 @@ class BudgetCorrectionFactorsController < ApplicationController
   # PATCH/PUT /budget_correction_factors/1
   def update
     if @budget_correction_factor.update(budget_correction_factor_params)
-      redirect_to @budget_correction_factor, notice: 'Budget correction factor was successfully updated.'
+      #redirect_to @budget_correction_factor, notice: 'Budget correction factor was successfully updated.'
+      redirect_to budget_correction_factors_url, notice: 'Fator de correção atualizado com sucesso.'
     else
       render :edit
     end
@@ -53,6 +55,6 @@ class BudgetCorrectionFactorsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def budget_correction_factor_params
-      params[:budget_correction_factor]
+      params.require(:budget_correction_factor).permit(:year, :value)
     end
 end

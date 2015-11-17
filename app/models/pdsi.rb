@@ -123,6 +123,19 @@ class Pdsi < ActiveRecord::Base
     Capai.eager_load(capai_villages: [:village]).where(pdsi: self)
   end
 
+  def infrastructure_building_to_building_type(building_type)
+    items = infrastructure_buildings.where(infrastructure_building_type: building_type) 
+
+    if building_type.name == 'Sede do DSEI'
+      return items unless items.blank?
+
+      item  = InfrastructureBuilding.create pdsi: self, infrastructure_building_type: building_type
+      items << item
+    end
+
+    return items
+  end
+
   def absolute_data_dseis_with_values
     items = absolute_data_dseis.order(:id)
     return items.includes(:absolute_datum) unless items.blank?
@@ -244,7 +257,7 @@ class Pdsi < ActiveRecord::Base
 
   def budget_forecasts_with_values
     items = budget_forecasts
-    return items.includes(:cost).order(:id) unless budget_forecasts.blank?
+    return items.includes(:cost).order(:cost_id) unless budget_forecasts.blank?
 
     Cost.all.each { |cost| budget_forecasts << BudgetForecast.new(cost: cost) }
 
@@ -262,14 +275,14 @@ class Pdsi < ActiveRecord::Base
   end
 
   def responsabilities_with_values(axis)
-    items = responsabilities.joins(result: [:result_strategy]).where('result_strategies.result_axis_id = ?', axis.id)
+    level = ResponsabilityLevel.find_by_name 'Resultado'
+    items = responsabilities.joins(result: [:result_strategy]).where('result_strategies.result_axis_id = ? AND responsability_level_id = ?', axis.id, level.id)
     return items.includes(:children, :person, :result, :corresponsabilities).order(:id) unless items.blank?
 
-    level = ResponsabilityLevel.find_by_name 'Resultado'
     axis.result_strategies.each do |result_strategy|
       result_strategy.results.each do |result|
         # next unless result.parent_id.nil?
-        responsabilities << Responsability.new(result_id: result.id)
+        responsabilities << Responsability.new(result_id: result.id, responsability_level: level)
       end
     end
 

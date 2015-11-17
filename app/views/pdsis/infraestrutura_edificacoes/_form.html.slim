@@ -5,10 +5,11 @@
       legend
         strong = building_type.name
 
-      = f.fields_for :infrastructure_buildings, @pdsi.infrastructure_buildings.where(infrastructure_building_type: building_type) do |ib|
-        == render 'pdsis/infraestrutura_edificacoes/infrastructure_building_fields', { f: ib }
+      = f.fields_for :infrastructure_buildings, @pdsi.infrastructure_building_to_building_type(building_type) do |ib|
+        == render 'pdsis/infraestrutura_edificacoes/infrastructure_building_fields', { f: ib, building_type: building_type }
 
-      .links
-        = link_to_add_association f, :infrastructure_buildings, class: 'button btn-sm', partial: 'pdsis/infraestrutura_edificacoes/infrastructure_building_fields', render_options: { locals: { building_type: building_type }} do
-          = icon 'plus'
-          | Adicionar Infraestrutura
+      - unless building_type.name == 'Sede do DSEI'
+        .links
+          = link_to_add_association f, :infrastructure_buildings, class: 'button btn-sm', partial: 'pdsis/infraestrutura_edificacoes/infrastructure_building_fields', render_options: { locals: { building_type: building_type }} do
+            = icon 'plus'
+            | Adicionar Estabelecimento

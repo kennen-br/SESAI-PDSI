@@ -1,0 +1,9 @@
+td
+  = bf.hidden_field "initial_forecast_#{year}", value: (number_with_precision(eval("bf.object.initial_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0), value_index: "#{bf.object.cost.id}"
+  = text_field_tag '', number_with_precision(eval("bf.object.initial_forecast_#{year}"), precision: 2) || 0, class: "currency-input #{year}-budget-value", id: "input-#{year}-#{bf.object.cost.id}", input_index: "#{bf.object.cost.id}", correction_factor: "#{bcf}"
+td 
+  = bf.hidden_field "dsei_forecast_#{year}", value: (number_with_precision(eval("bf.object.dsei_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
+  = text_field_tag '', number_with_precision(eval("bf.object.dsei_forecast_#{year}"), precision: 2) || 0, class: 'currency-input'
+td 
+  = bf.hidden_field "revised_forecast_#{year}", value: (number_with_precision(eval("bf.object.revised_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
+  = text_field_tag '', number_with_precision(eval("bf.object.revised_forecast_#{year}"), precision: 2) || 0, class: 'currency-input'

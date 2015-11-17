@@ -6,6 +6,35 @@ manage_element = (element) ->
   element.parents('.destiny-transport').find('fieldset').toggle()
   return
 
+calculate_parent_total = (parent_id) ->
+  subtotal = 0.0
+  console.log "Recalculating subtotals by group #{parent_id}"
+
+  $(document).find(".#{parent_id}").each (item) ->
+    input_value = $(this).attr("value").toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.')
+    console.log "input_value: #{input_value}"
+
+    subtotal += parseFloat(input_value)
+    console.log "subtotal: #{subtotal}"
+    return
+
+  $("#input-#{parent_id}").attr("value", parseFloat(subtotal).toFixed(2))
+  #$("#hidden-#{parent_id}").attr("value", parseFloat(subtotal).toFixed(2))
+  return
+
+$(document).on 'click', '.radio_destination_class', (e) ->
+  $this   = $(this)
+  parent  = $this.parent().parent().parent().parent()
+
+  if $this.val() == 'aldeia'
+    parent.children('.destination_village').show()
+    parent.children('.destination_city').hide()
+  if $this.val() == 'municipio'
+    parent.children('.destination_village').hide()
+    parent.children('.destination_city').show()
+
+  return
+
 $(document).on 'click', '.add_person', (e) ->
   $this       = $(this)
   $parent     = $(this).parent()
@@ -64,11 +93,6 @@ $(document).on 'click', '.add_person', (e) ->
 
   return
 $(document).ready ->
-
-  $('.strategy .show-more').click ->
-    $(this).parent().next().toggle()
-    $(this).find('span').toggle()
-    return
 
   # Add new behavior to cocoon add_fields button
   $('.expected-result.responsabilities').each  ->
@@ -218,7 +242,6 @@ $(document).ready ->
 
   # Generate a Default name for all new created EMSI on Capacidade Instalada form
   $('.base-polo-emsi .add_fields').click (e) ->
-    console.log 'new emsi'
     $this = $(this)
     node = $this.data 'association-insertion-node'
     setTimeout( ->
@@ -238,11 +261,39 @@ $(document).ready ->
       $this.parent().parent().find(".#{$this.data('field')}").show()
     return
 
-  $('.destiny-transport :checkbox').each (item) ->
-    manage_element $(this)
-    return
-
   $(document).on 'change', '.destiny-transport :checkbox', ->
     manage_element $(this)
     return
+
+  # Recalculate values for 2017-2019 based on 2016 and correction factors
+  $(document).on 'change', '.2016-budget-value', ->
+    console.log 'Recalculating budgets for years 2017-2019'
+
+    idx = $(this).attr('input_index')
+    val = parseFloat($(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+    group_parent_id = $(this).attr('group_parent_id')
+
+    for year in [2017..2019]
+      el = "#input-#{year}-#{idx}"
+      cf = $(el).attr('correction_factor')
+      year_parent_id = "#{year}-#{group_parent_id}"
+      new_val = val + (val*cf)
+
+      console.log "Recalculating #{el} using correction factor #{cf}: #{new_val}"
+      $(el).val(new_val.toFixed(2))
+
+      if idx > 10
+        calculate_parent_total(year_parent_id)
+
+    return
+
+  # Update subtotals by group of contracts
+  $(document).on 'change', '.2015-group-value, .2016-group-value, .2017-group-value, .2018-group-value, .2019-group-value', ->
+    year_parent_id = $(this).attr('year_parent_id')
+    year_cost_id = $(this).attr('year_cost_id')
+    value = $(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.')
+    #$("#hidden-#{year_cost_id}").attr("value", value)
+    calculate_parent_total(year_parent_id)
+    return
+
   return

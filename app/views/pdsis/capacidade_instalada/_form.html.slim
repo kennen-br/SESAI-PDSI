@@ -1,19 +1,26 @@
-h1 Capacidade instalada
+h1 POLO BASE: #{@base_polo.name}
 
-- @dsei.base_polos.includes(:emsis).each do |base_polo|
-  fieldset.base-polo-emsi
-    legend
-      |Polo Base &nbsp;
-      strong = base_polo.name
+= render 'hidden_fields'
 
-    - nform_id = "emsis_#{base_polo.id}"
-    div id=(nform_id)
-      = f.fields_for :emsis, base_polo.emsis do |emsi|
-        = render 'pdsis/capacidade_instalada/emsi_fields', { f: emsi, base_polo: base_polo }
+.vertical-tabs-container
+  .vertical-tabs style="width: 30%;"
+    - @dsei.base_polos.order(:id).each do |base_polo|
+      - link_opt = [{ class: 'vertical-tab' }, {:selected_class => 'is-active'}]
+      = nav_link_to edit_pdsi_path(@pdsi, section: 'capacidade-instalada', base_polo: base_polo), link_opt[0], link_opt[1] do
+        = base_polo.name
+  .vertical-tab-content-container style="width: 70%;"
+    .vertical-tab-content style="display: block;"
+      fieldset.base-polo-emsi
+        legend
+          |Polo Base &nbsp;
+          strong = @base_polo.name
 
-    .right-align
-      = link_to_add_association f, :emsis, class: 'button btn-sm', partial: 'pdsis/capacidade_instalada/emsi_fields', render_options: { locals: { base_polo: base_polo }}, data: { "association-insertion-node": "##{nform_id}", "association-insertion-method": 'append' } do
-        = icon 'plus'
-        | Adicionar EMSI
+        - nform_id = "emsis_#{@base_polo.id}"
+        div id=(nform_id)
+          = f.fields_for :emsis, @base_polo.emsis do |emsi|
+            = render 'pdsis/capacidade_instalada/emsi_fields', { f: emsi, base_polo: @base_polo }
 
-  /- break
+        .right-align
+          = link_to_add_association f, :emsis, class: 'button btn-sm', partial: 'pdsis/capacidade_instalada/emsi_fields', render_options: { locals: { base_polo: @base_polo }}, data: { "association-insertion-node": "##{nform_id}", "association-insertion-method": 'append' } do
+            = icon 'plus'
+            | Adicionar EMSI

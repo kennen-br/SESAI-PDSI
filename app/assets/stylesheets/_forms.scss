@@ -157,6 +157,23 @@ form {
   margin: 0 5px;
 }
 
+table.custom-head {
+  thead {
+    tr {
+      th {
+        vertical-align: bottom;
+        text-align: center;
+
+        label {
+          text-align: center;
+          float: none;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
 .pdsi-result-table {
   font-size: modular-scale(-1);
 
@@ -196,5 +213,38 @@ form {
         @include padding(0.16em 0.5em);
       }
     }
+  }
+}
+
+#destinos-form {
+  label {
+    float: none;
+  }
+}
+
+label.checkbox {
+  float: none;
+  margin: 0;
+
+  input[type="radio"] {
+    @include margin(0 null);
+
+    vertical-align: middle;
+  }
+
+  .description {
+    font-size: modular-scale(-1);
+    font-weight: 300;
+    display: block;
+    margin-bottom: 5px;
+  }
+}
+
+.how-to-use {
+  margin-left: 15px;
+  li {
+    list-style-type: disc;
+    font-size: modular-scale(-1);
+    color: #FB4F4F;
   }
 }

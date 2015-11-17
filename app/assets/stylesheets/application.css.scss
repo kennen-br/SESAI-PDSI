@@ -13,6 +13,7 @@
 @import 'refills/animate';
 @import 'refills/button-group';
 @import 'refills/breadcrumbs';
+@import 'refills/modal';
 @import 'refills/navigation';
 @import 'refills/sliding-menu';
 @import 'refills/switch';
@@ -20,6 +21,7 @@
 @import 'refills/tables-minimal';
 @import 'refills/tooltip';
 @import 'refills/vertical-tabs';
+@import 'refills/search-tools';
 
 // Wysiwyg
 @import 'froala/froala_editor.min';
@@ -27,6 +29,9 @@
 
 // Pace
 @import 'pace/yellow/pace-theme-flash';
+
+// Toastr
+@import 'toastr';
 
 // Devise
 @import 'devise/sessions';
@@ -36,3 +41,4 @@
 @import 'main';
 @import 'carousel-nav';
 @import 'pdsis';
+@import 'results_special';

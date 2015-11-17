@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151103174550) do
+ActiveRecord::Schema.define(version: 20151116162311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,8 @@ ActiveRecord::Schema.define(version: 20151103174550) do
   create_table "budget_correction_factors", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "year"
+    t.decimal  "value"
   end
 
   create_table "budget_forecasts", force: :cascade do |t|
@@ -206,6 +208,9 @@ ActiveRecord::Schema.define(version: 20151103174550) do
     t.text     "meios_de_transporte"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.boolean  "fluvial"
+    t.boolean  "rodoviario"
+    t.boolean  "aereo"
   end
 
   add_index "demographic_datas", ["pdsi_id"], name: "index_demographic_datas_on_pdsi_id", using: :btree
@@ -219,13 +224,15 @@ ActiveRecord::Schema.define(version: 20151103174550) do
   create_table "destinations", force: :cascade do |t|
     t.integer  "pdsi_id"
     t.integer  "origin_village_id",      null: false
-    t.integer  "destination_village_id", null: false
+    t.integer  "destination_village_id"
     t.integer  "destination_type_id"
     t.string   "boat_time"
     t.string   "road_time"
     t.string   "fly_time"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "destination_class"
+    t.string   "city_name"
   end
 
   add_index "destinations", ["destination_type_id"], name: "index_destinations_on_destination_type_id", using: :btree
@@ -256,6 +263,7 @@ ActiveRecord::Schema.define(version: 20151103174550) do
     t.integer  "permanencia_tecnicos_enfermagem"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.integer  "permanencia_asb"
   end
 
   add_index "emsis", ["base_polo_id"], name: "index_emsis_on_base_polo_id", using: :btree
@@ -314,22 +322,22 @@ ActiveRecord::Schema.define(version: 20151103174550) do
   add_index "false_results", ["result_id"], name: "index_false_results_on_result_id", using: :btree
 
   create_table "health_establishments", force: :cascade do |t|
-    t.integer  "service_network_id"
     t.string   "name"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "service_network_city_id"
   end
 
-  add_index "health_establishments", ["service_network_id"], name: "index_health_establishments_on_service_network_id", using: :btree
+  add_index "health_establishments", ["service_network_city_id"], name: "index_health_establishments_on_service_network_city_id", using: :btree
 
   create_table "health_specializeds", force: :cascade do |t|
-    t.integer  "service_network_id"
     t.string   "name"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "service_network_city_id"
   end
 
-  add_index "health_specializeds", ["service_network_id"], name: "index_health_specializeds_on_service_network_id", using: :btree
+  add_index "health_specializeds", ["service_network_city_id"], name: "index_health_specializeds_on_service_network_city_id", using: :btree
 
   create_table "human_resource_functions", force: :cascade do |t|
     t.string   "name"
@@ -522,13 +530,24 @@ ActiveRecord::Schema.define(version: 20151103174550) do
   create_table "people", force: :cascade do |t|
     t.integer  "dsei_id"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "location"
     t.string   "bond"
+    t.boolean  "is_sesai_central", default: false
   end
 
   add_index "people", ["dsei_id"], name: "index_people_on_dsei_id", using: :btree
+
+  create_table "physiographic_data_ethnicities", force: :cascade do |t|
+    t.integer  "ethnicity_id"
+    t.integer  "physiographic_data_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "physiographic_data_ethnicities", ["ethnicity_id"], name: "index_physiographic_data_ethnicities_on_ethnicity_id", using: :btree
+  add_index "physiographic_data_ethnicities", ["physiographic_data_id"], name: "index_physiographic_data_ethnicities_on_physiographic_data_id", using: :btree
 
   create_table "physiographic_data_languages", force: :cascade do |t|
     t.integer  "physiographic_data_id"
@@ -557,6 +576,7 @@ ActiveRecord::Schema.define(version: 20151103174550) do
     t.integer  "w_60"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "city_name"
   end
 
   add_index "physiographic_datas", ["pdsi_id"], name: "index_physiographic_datas_on_pdsi_id", using: :btree
@@ -631,12 +651,25 @@ ActiveRecord::Schema.define(version: 20151103174550) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.string   "name"
+    t.date     "initial_date"
+    t.integer  "order"
   end
 
   add_index "responsabilities", ["pdsi_id"], name: "index_responsabilities_on_pdsi_id", using: :btree
   add_index "responsabilities", ["person_id"], name: "index_responsabilities_on_person_id", using: :btree
   add_index "responsabilities", ["responsability_level_id"], name: "index_responsabilities_on_responsability_level_id", using: :btree
   add_index "responsabilities", ["result_id"], name: "index_responsabilities_on_result_id", using: :btree
+
+  create_table "responsability_comments", force: :cascade do |t|
+    t.integer  "responsability_id"
+    t.integer  "user_id"
+    t.text     "comment"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "responsability_comments", ["responsability_id"], name: "index_responsability_comments_on_responsability_id", using: :btree
+  add_index "responsability_comments", ["user_id"], name: "index_responsability_comments_on_user_id", using: :btree
 
   create_table "responsability_levels", force: :cascade do |t|
     t.string   "name"
@@ -687,6 +720,15 @@ ActiveRecord::Schema.define(version: 20151103174550) do
   add_index "results", ["result_level_id"], name: "index_results_on_result_level_id", using: :btree
   add_index "results", ["result_strategy_id"], name: "index_results_on_result_strategy_id", using: :btree
 
+  create_table "service_network_cities", force: :cascade do |t|
+    t.integer  "service_network_id"
+    t.string   "city_name"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "service_network_cities", ["service_network_id"], name: "index_service_network_cities_on_service_network_id", using: :btree
+
   create_table "service_networks", force: :cascade do |t|
     t.integer  "base_polo_id"
     t.integer  "pdsi_id"
@@ -713,6 +755,10 @@ ActiveRecord::Schema.define(version: 20151103174550) do
     t.integer  "dsei_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text     "text_2016"
+    t.text     "text_2017"
+    t.text     "text_2018"
+    t.text     "text_2019"
   end
 
   add_index "specific_results", ["dsei_id"], name: "index_specific_results_on_dsei_id", using: :btree
@@ -725,16 +771,6 @@ ActiveRecord::Schema.define(version: 20151103174550) do
     t.text     "processo_construcao_pdsi_2"
     t.text     "analise_situacional_4"
   end
-
-  create_table "transportations", force: :cascade do |t|
-    t.integer  "demographic_data_id"
-    t.string   "name"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-  end
-
-  add_index "transportations", ["demographic_data_id", "name"], name: "index_transportations_on_demographic_data_id_and_name", unique: true, using: :btree
-  add_index "transportations", ["demographic_data_id"], name: "index_transportations_on_demographic_data_id", using: :btree
 
   create_table "user_types", force: :cascade do |t|
     t.string   "name",       null: false
@@ -808,8 +844,8 @@ ActiveRecord::Schema.define(version: 20151103174550) do
   add_foreign_key "etnias", "demographic_datas"
   add_foreign_key "false_results", "dseis"
   add_foreign_key "false_results", "results"
-  add_foreign_key "health_establishments", "service_networks"
-  add_foreign_key "health_specializeds", "service_networks"
+  add_foreign_key "health_establishments", "service_network_cities"
+  add_foreign_key "health_specializeds", "service_network_cities"
   add_foreign_key "infrastructure_buildings", "infrastructure_building_types"
   add_foreign_key "infrastructure_buildings", "pdsis"
   add_foreign_key "infrastructure_buildings", "villages"
@@ -831,6 +867,8 @@ ActiveRecord::Schema.define(version: 20151103174550) do
   add_foreign_key "pdsis", "dseis"
   add_foreign_key "pdsis", "users"
   add_foreign_key "people", "dseis"
+  add_foreign_key "physiographic_data_ethnicities", "ethnicities"
+  add_foreign_key "physiographic_data_ethnicities", "physiographic_datas"
   add_foreign_key "physiographic_data_languages", "physiographic_datas"
   add_foreign_key "physiographic_datas", "pdsis"
   add_foreign_key "physiographic_datas", "villages"
@@ -845,16 +883,18 @@ ActiveRecord::Schema.define(version: 20151103174550) do
   add_foreign_key "responsabilities", "responsabilities", column: "parent_id"
   add_foreign_key "responsabilities", "responsability_levels"
   add_foreign_key "responsabilities", "results"
+  add_foreign_key "responsability_comments", "responsabilities"
+  add_foreign_key "responsability_comments", "users"
   add_foreign_key "result_strategies", "result_axes"
   add_foreign_key "results", "result_levels"
   add_foreign_key "results", "result_strategies"
+  add_foreign_key "service_network_cities", "service_networks"
   add_foreign_key "service_networks", "base_polos"
   add_foreign_key "service_networks", "pdsis"
   add_foreign_key "specific_absolute_data", "absolute_data"
   add_foreign_key "specific_absolute_data", "dseis"
   add_foreign_key "specific_results", "dseis"
   add_foreign_key "specific_results", "results"
-  add_foreign_key "transportations", "demographic_datas"
   add_foreign_key "users", "dseis"
   add_foreign_key "villages", "base_polos"
 end

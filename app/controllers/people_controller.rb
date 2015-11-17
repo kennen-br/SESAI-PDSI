@@ -1,25 +1,72 @@
 class PeopleController < ApplicationController
-  attr_accessor :dsei, :person
-  def create
-    @dsei = current_user.pdsi.dsei
-    begin
-      validate_person
+  before_action :set_dsei
+  before_action :set_person,      only: [:edit, :update, :destroy]
+  before_action :validate_person, only: [:edit, :update, :destroy]
 
-      render json: { status: true, id: @person.id, name: @person.name }
-    rescue => e
-      render json: { status: false, message: e.message }
+  # GET /people
+  def index
+    @people = @dsei.people.order(:name)
+  end
+
+  # GET /people/new
+  def new
+    @person = Person.new
+  end
+
+  # GET /people/1/edit
+  def edit
+  end
+
+  # POST /people
+  def create
+    @person       = Person.new(person_params)
+    @person.dsei  = @dsei
+
+    if @person.save
+      redirect_to people_url, notice: 'Pessoa cadastrada com sucesso.'
+    else
+      render :new
     end
   end
 
-private
-  def validate_person
-    fail 'Nome da pessoa não informado' unless params.key?(:name)
-
-    @person = @dsei.people.where(name: params[:name]).first_or_initialize
-    return unless @person.id.nil?
-
-    fail "Nome #{@person.errors.messages[:name].first}" unless @person.valid?
-
-    @person.save
+  # PATCH/PUT /people/1
+  def update
+    if @person.update(person_params)
+      redirect_to people_url, notice: 'Pessoa atualizada com sucesso.'
+    else
+      render :edit
+    end
   end
+
+  # DELETE /people/1
+  def destroy
+    @person.destroy
+    redirect_to people_url, notice: 'Pessoa excluída com sucesso.'
+  end
+
+  def search
+    results = People.where("name ILIKE ?", "%#{params[:query]}%").order(:name).limit(100)
+
+    render json: results.map{ |person| { id: person.id, name: person.name, location: person.location }}
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_person
+      @person = Person.find(params[:id])
+    end
+
+    def set_dsei
+      @dsei   = current_dsei
+    end
+
+    # Check if person to edit, update or destroy belongs to current dsei
+    def validate_person
+      redirect_to people_path, flash: { error: 'A pessoa que você esta tentando alterar não pertence ao seu DSEI!' } if @person.dsei != @dsei
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    def person_params
+      params.require(:person).permit(:dsei_id, :name, :location, :bond)
+    end
 end

@@ -1,0 +1,4 @@
+h1 Alterar pessoa
+
+= form_for @person, url: { controller: 'sesai_people', action: 'update' } do |f|
+  == render 'form', f: f

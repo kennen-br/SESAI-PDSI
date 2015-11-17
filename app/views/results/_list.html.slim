@@ -1,0 +1,22 @@
+table
+  thead
+    tr
+      th Resultado
+      th Ações
+
+  tbody
+    - results.each do |result|
+      tr
+        td = result.name
+
+        td width="10%"
+          a.button href="javascript:void(0);" onclick="$('#infos_#{result.id}').toggle('highlight')"
+            i.fa.fa-info
+            | Infos
+          = link_to edit_result_path(result), class: 'button' do
+            i.fa.fa-pencil
+            | Editar
+      tr.table_result_infos id="infos_#{result.id}"
+        td colspan="2"
+          fieldset
+            == render 'show', result: result

@@ -1,0 +1,17 @@
+- if @person.errors.any?
+  #error_explanation.flash-error
+    h2 = "#{pluralize(@person.errors.count, "erro")} encontrados"
+    ul
+      - @person.errors.full_messages.each do |message|
+        li = message
+
+.field
+  = f.label :name
+  = f.text_field :name
+.field
+  = f.label :location
+  = f.text_field :location
+.field
+  = f.label :bond
+  = f.text_field :bond
+.actions = f.submit

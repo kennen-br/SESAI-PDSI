@@ -40,13 +40,21 @@ class PdsisController < ApplicationController
     end
   end
 
+  def delete_map
+    @pdsi.map.destroy if @pdsi.map.present?
+
+    notice  = {notice: 'Mapa excluído com sucesso.'}
+    args    = { section: 'mapa' }
+
+    redirect_to edit_pdsi_path(@pdsi, args), notice
+  end
+
 private
   # Use callbacks to share common setup or constraints between actions.
   def set_pdsi
     if @section == 'dotacao_orcamentaria'
       @pdsi = Pdsi.find params[:id]
     else
-      debug current_dsei
       @pdsi = current_dsei.pdsi
     end
     @demographic_data = @pdsi.demographic_data
@@ -102,14 +110,18 @@ private
 
       pdsi_base_polo_data_attributes: [:id, :base_polo_id, :city_name],
       physiographic_datas_attributes: [
-        :id, :vilage_id, :pt_fluency, :m_1, :m_1_4, :m_5_9, :m_10_49, :m_50_59, :m_60, :w_1, :w_1_4, :w_5_9, :w_10_49, :w_50_59, :w_60,
+        :id, :vilage_id, :pt_fluency, :m_1, :m_1_4, :m_5_9, :m_10_49, :m_50_59, :m_60, :w_1, :w_1_4, :w_5_9, :w_10_49, :w_50_59, :w_60, :city_name,
+        physiographic_data_ethnicities_attributes: [:id, :physiographic_data_id, :ethnicity_id, :_destroy],
         physiographic_data_languages_attributes: [:id, :physiographic_data_id, :language, :_destroy]
       ],
-      emsis_attributes: [:id, :name, :base_polo_id, :pdsi_id, :numero_medicos, :numero_enfermeiros, :numero_odontologistas, :numero_tecnicos_enfermagem, :asb, :ais, :aisan, :aldeias_atendidas, :permanencia_medicos, :permanencia_enfermeiros, :permanencia_odontologistas, :permanencia_tecnicos_enfermagem, :_destroy],
+      emsis_attributes: [:id, :name, :base_polo_id, :pdsi_id, :numero_medicos, :numero_enfermeiros, :numero_odontologistas, :numero_tecnicos_enfermagem, :asb, :ais, :aisan, :aldeias_atendidas, :permanencia_medicos, :permanencia_enfermeiros, :permanencia_odontologistas, :permanencia_tecnicos_enfermagem, :permanencia_asb, :_destroy],
       service_networks_attributes: [
         :id, :base_polo_id, :pdsi_id, :city_name,
-        health_establishments_attributes:  [:id, :service_network_id, :name, :_destroy],
-        health_specializeds_attributes:    [:id, :service_network_id, :name, :_destroy]
+        service_network_cities_attributes: [
+          :id, :city_name, :_destroy,
+          health_establishments_attributes:  [:id, :service_network_id, :name, :_destroy],
+          health_specializeds_attributes:    [:id, :service_network_id, :name, :_destroy]
+        ],
       ],
       infrastructure_buildings_attributes: [
         :id, :infrastructure_building_type_id, :name, :uf, :city_name, :village_id, :cnes, :building_status, :ground_status, :_destroy
@@ -121,7 +133,7 @@ private
         :id, :pdsi_id, :city_name, :uf, :capai_type, :host_capacity, :_destroy,
         capai_villages_attributes: [:id, :capai_id, :village_id, :_destroy],
       ],
-      destinations_attributes: [:id, :pdsi_id, :origin_village_id, :destination_village_id, :destination_type_id, :boat_time, :road_time, :fly_time, :_destroy],
+      destinations_attributes: [:id, :pdsi_id, :origin_village_id, :destination_village_id, :destination_type_id, :boat_time, :road_time, :fly_time, :_destroy, :destination_class, :city_name],
       pdsi_human_resources_attributes: [:id, :human_resource_function_id, :ubsi_atual, :polo_base_tipo_1_atual, :polo_base_tipo_2, :casai_atual, :sead_atual, :selog_atual, :sesane_atual, :seofi_atual, :sgep_atual, :gabinete_atual, :diasi_atual, :sesai_dsei, :municipio, :estado, :convenio, :mais_medicos, :terceirizacao, :ubsi_necessaria, :polo_base_tipo_1_necessaria, :polo_base_tipo_2_necessaria, :casai_necessaria, :sead_necessaria, :selog_necessaria, :sesane_necessaria, :seofi_necessaria, :sgep_necessaria, :gabinete_necessaria, :diasi_necessaria],
       absolute_data_base_polos_attributes: [:id, :absolute_datum_id, :base_polo_id, :pdsi_id, :value],
       absolute_data_dseis_attributes: [:id, :absolute_datum_id, :dsei_id, :pdsi_id, :value],
@@ -160,8 +172,8 @@ private
       pdsi_attached_files_attributes: [
         :id, :name, :file
       ],
-      budget_forecasts_attributes: [ 
-        :id, :reference_forecast, :budget_forecast, 
+      budget_forecasts_attributes: [
+        :id, :reference_forecast, :budget_forecast,
         :initial_forecast_2016, :dsei_forecast_2016, :revised_forecast_2016,
         :initial_forecast_2017, :dsei_forecast_2017, :revised_forecast_2017,
         :initial_forecast_2018, :dsei_forecast_2018, :revised_forecast_2018,

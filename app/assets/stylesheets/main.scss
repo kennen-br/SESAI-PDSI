@@ -23,6 +23,10 @@ body{
   font-family : 'Open Sans', sans-serif;
 }
 
+.pace .pace-activity {
+  z-index: 9999999999!important;
+}
+
 #select_dsei_menu{
   padding     : 10px;
 
@@ -265,5 +269,14 @@ button#menu-button{
         }
       }
     }
+  }
+}
+
+tr.table_result_infos{
+  display           : none;
+
+  td{
+    background-color  : #fff;
+    padding           : 10px;
   }
 }

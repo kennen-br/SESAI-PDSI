@@ -6,4 +6,7 @@ class PhysiographicData < ActiveRecord::Base
 
   has_many :physiographic_data_languages
   accepts_nested_attributes_for :physiographic_data_languages, reject_if: :all_blank, allow_destroy: true
+
+  has_many :physiographic_data_ethnicities
+  accepts_nested_attributes_for :physiographic_data_ethnicities, reject_if: :all_blank, allow_destroy: true
 end

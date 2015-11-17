@@ -2,8 +2,29 @@
 = f.hidden_field :pdsi_id, value: @pdsi.id
 
 .field
-  = f.label :pt_fluency
-  = f.select :pt_fluency, options_for_select(%w{ Plena Suficiente Parcial Limitada }, f.object.pt_fluency), include_blank: true
+  = f.label  :city_name
+  = f.select :city_name, options_for_select(@base_polo.cities, f.object.city_name), include_blank: true
+
+.field
+  = f.label :pt_fluency, class: 'checkbox'
+  label.checkbox
+    = f.radio_button :pt_fluency, 'Plena'
+    | Plena
+    span.description Comunidades em que toda a população tem pleno domínio da língua portuguesa.
+  label.checkbox
+    = f.radio_button :pt_fluency, 'Suficiente'
+    | Suficiente
+    span.description Comunidades em que a maior parte da população consegue se comunicar em português, ainda que cotidianamente se comuniquem  através de línguas indígena. Em situações específicas pode ser necessário o apoio de intérprete para a realização de ações de saúde com certos grupos.
+  label.checkbox
+    = f.radio_button :pt_fluency, 'Parcial'
+    | Parcial
+    span.description Comunidades em que parcela importante da população (por exemplo mulheres e/ou crianças) não entende ou tem dificuldades em se comunicar em português, motivo pelo qual é necessário o apoio de intérprete para a realização de ações de saúde.
+  label.checkbox
+    = f.radio_button :pt_fluency, 'Limitada'
+    | Limitada
+    span.description Comunidades onde a comunicação em português é muito limitada ou inexistente, fazendo-se necessário apoio de intérprete para a realização de todas as ações de saúde.
+
+br
 
 .field.inline_field
   h3 Homens
@@ -65,21 +86,5 @@
     .value
       = f.number_field :w_60
 
-fieldset
-  legend Lingua Indígena
-
-  - tbody_id = "physiographic_data_languages_#{f.object.id}"
-  table.table.nested-form
-    thead
-      tr
-        th Nome
-        th.destroy Apagar?
-    tbody id=(tbody_id)
-      = f.fields_for :physiographic_data_languages do |physiographic_data_language|
-        = render 'pdsis/dados_fisiograficos/physiographic_data_language_fields', { f: physiographic_data_language }
-    tfoot
-      tr
-        td.links.right-align colspan="2"
-          = link_to_add_association f, :physiographic_data_languages, { data: { "association-insertion-node": "##{tbody_id}", "association-insertion-method": 'append' }, class: 'button btn-sm', partial: 'pdsis/dados_fisiograficos/physiographic_data_language_fields' } do
-            = icon 'plus'
-            | Adicionar Lingua Indígena
+= render 'pdsis/dados_fisiograficos/etnias',  f: f
+= render 'pdsis/dados_fisiograficos/idiomas', f: f

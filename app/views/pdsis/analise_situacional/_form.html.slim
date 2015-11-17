@@ -2,7 +2,7 @@
   h3
     | (Escreva aqui o seu texto)
   .field
-    = f.text_area :analise_situacional_4, { class: 'basic-editable' }
+    = f.text_area :analise_situacional_4, { class: 'basic-editable', data: { limit: 2500 } }
 .sample-text
   h3
   == @pdsi.sample :analise_situacional_4

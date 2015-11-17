@@ -13,9 +13,14 @@
 
         .field
           p
-            strong = Destination.human_attribute_name 'destination_village'
-            br
-            = destination.destination_village.name
+            - if destination.destination_class == 'aldeia'
+              strong = Destination.human_attribute_name 'destination_village'
+              br
+              = destination.destination_village.name
+            - else
+              strong = Destination.human_attribute_name 'city_name'
+              br
+              = destination.city_name
 
         - unless destination.boat_time.blank?
           .field

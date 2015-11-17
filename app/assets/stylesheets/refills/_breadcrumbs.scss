@@ -1,3 +1,12 @@
+.breadcrumb-icon {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6.5px 0 6.5px 7px;
+  border-color: transparent transparent transparent #000000;
+  float: left;
+  margin-top: 5px;
+}
 .breadcrumb {
   ///////////////////////////////////////////////////////////////////////////////////
   $base-border-color: gainsboro !default;
@@ -12,13 +21,13 @@
   //////////////////////////////////////////////////////////////////////////////////
 
   $breadcrumb-border-color: $base-border-color;
-  $breadcrumb-border: 1px solid $breadcrumb-border-color;
+  $breadcrumb-border: 0px solid $breadcrumb-border-color;
   $breadcrumb-height: $base-spacing * 1;
   $breadcrumb-arrow-color: $breadcrumb-border-color;
   $breadcrumb-background: $base-background-color;
   $breadcrumb-inactive-hover-color: $breadcrumb-background;
-  $breadcrumb-color: $medium-gray;
-  $breadcrumb-color-hover: $base-accent-color;
+  $breadcrumb-color: #000;
+  $breadcrumb-color-hover: $medium-gray;
   $breadcrumb-color-active: $breadcrumb-color;
 
   display: inline-block;
@@ -39,7 +48,7 @@
     padding          : 0 ($breadcrumb-height / 4) 0 ($breadcrumb-height / 2);
     position         : relative;
     text-decoration  : none;
-    text-transform   : uppercase;
+    
     vertical-align   : 6px;
 
     &:first-child {
@@ -55,6 +64,8 @@
       border-top-right-radius: $base-border-radius;
       color: $breadcrumb-color-active;
       padding-right: $breadcrumb-height / 2;
+    
+      font-weight: bold;
     }
 
     &:focus,
@@ -66,13 +77,17 @@
     &:after,
     &:before {
       @include position(absolute, 0px auto 0px 98.5%);
-      border-bottom: $breadcrumb-height / 2 solid transparent;
-      border-left: $breadcrumb-height / 4 solid transparent;
-      border-top: $breadcrumb-height / 2 solid transparent;
+      border: 1px solid #000;
+      -moz-transform: rotate(200deg);
+      -o-transform: rotate(200deg);
+      -webkit-transform: rotate(200deg);
+      -ms-transform: rotate(200deg);
+      transform: rotate(200deg);
       content: '';
       display: block;
       margin: auto;
       z-index: 2;
+      height:1em;
     }
 
     &:last-child:after,
@@ -81,12 +96,11 @@
     }
 
     &:before {
-      border-left-color: $breadcrumb-arrow-color;
-      margin-left: 1px;
+       
       z-index: 1;
     }
     &:after {
-      border-left-color: $breadcrumb-background;
+        
     }
 
     @include media($medium-screen) {

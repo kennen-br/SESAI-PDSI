@@ -1,0 +1,34 @@
+fieldset style="position: relative;"
+  - unless f.object.new_record?
+    .field.delete
+      = f.label :_destroy, 'Apagar?'
+      = f.check_box :_destroy
+
+  .field
+    = f.label :city_name
+    = f.text_field :city_name
+
+  // Same partial to both stablishments
+  - partial = 'pdsis/rede_servicos/establishment_fields'
+
+  fieldset
+    legend Estabelecimentos de saúde (Complementariedade da Atenção Básica)
+
+    div
+      = f.fields_for :health_establishments do |health_establishment|
+        = render partial, { f: health_establishment }
+
+      = link_to_add_association f, :health_establishments, { class: 'button btn-sm', partial: partial } do
+        = icon 'plus'
+        | Adicionar Estabelecimento
+
+  fieldset
+    legend Estabelecimentos de saúde (Atenção Especializada)
+
+    div
+      = f.fields_for :health_specializeds do |health_specialized|
+        = render partial, { f: health_specialized }
+
+      = link_to_add_association f, :health_specializeds, { class: 'button btn-sm', partial: partial } do
+        = icon 'plus'
+        | Adicionar Estabelecimento

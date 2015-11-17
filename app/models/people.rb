@@ -3,5 +3,5 @@ class People < ActiveRecord::Base
 
   belongs_to :dsei
 
-  validates :name, length: { mininum: 3, maximum: 255 }, uniqueness: { scope: :dsei }, presence: true
+  validates :name, length: { mininum: 3, maximum: 255 }, presence: true
 end

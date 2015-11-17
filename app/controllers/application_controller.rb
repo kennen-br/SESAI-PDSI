@@ -24,14 +24,14 @@ class ApplicationController < ActionController::Base
 
   def check_admin_actions
     unless current_user.admin?
-      redirect_to root_path, flash: { error: 'Este usuário não possui privilégios suficientes para esta ação. Esta tentativa foi logada.' }
+      redirect_to root_path, flash: { error: 'Este usuário não possui privilégios suficientes para esta ação.' }
       debug "TODO: Logar esta tentativa || ApplicationController::check_admin_actions"
     end
   end
 
   def check_sesai_central_actions
     unless current_user.sesai_central?
-      redirect_to root_path, flash: { error: 'Este usuário não possui privilégios suficientes para esta ação. Esta tentativa foi logada.' }
+      redirect_to root_path, flash: { error: 'Este usuário não possui privilégios suficientes para esta ação.' }
       debug "TODO: Logar esta tentativa || ApplicationController::check_admin_actions"
     end
   end

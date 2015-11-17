@@ -10,7 +10,10 @@ pt-BR:
       pdsi_base_polo_datum: Dados do Polo Base
       transportation:       Transporte
       emsi:                 EMSI
-      service_network:
+      service_network:      Rede de serviço
+      service_network_city: Municípios da rede de serviço
+      health_establishment: Estabelecimentos de saúde (Complementariedade da Atenção Básica)
+      health_specialized:   Estabelecimentos de saúde (Atenção Especializada)
       infrastructure_building_type: Tipo de infraestrutura (Edificação)
       infrastructure_building:      Infraestrutura (Edificação)
       infrastructure_sanitation:    Infraestrutura (Saneamento)
@@ -23,6 +26,8 @@ pt-BR:
       pdsi_result:                  Resultados
       pdsi_attached_file:           Arquivos Anexos
       budget_forecast:              Previsão de Custos
+      result:                       Resultados
+      person:                       Pessoa
     attributes:
       user:
         username:               Usuário
@@ -74,6 +79,9 @@ pt-BR:
         numero_aldeias:           Nº de aldeias
         numero_familias:          Nº de famílias
         meios_de_transporte:      Meios de transporte
+        fluvial:                  Fluvial
+        rodoviario:               Rodoviário
+        aereo:                    Aéreo
 
       physiographic_data:
         pt_fluency: Fluência em português
@@ -101,13 +109,12 @@ pt-BR:
         w_10_49:    de 10 a 49 anos
         w_50_59:    de 50 a 59 anos
         w_60:       mais de 60 anos
+        city_name:  Município da aldeia
 
       pdsi_base_polo_datum:
         city_name:  Município
-      etnia:
-        name: Nome
 
-      transportation:
+      etnia:
         name: Nome
 
       emsi:
@@ -124,10 +131,19 @@ pt-BR:
         permanencia_enfermeiros:          Enfermeiros
         permanencia_odontologistas:       Odontologistas
         permanencia_tecnicos_enfermagem:  Técnicos / Auxiliares de enfermagem
+        permanencia_asb:                  ASB
 
       service_network:
         city_name:  Município
 
+      service_network_city:
+        city_name:  Município
+
+      health_establishment:
+        name:       Nome do estabelecimento
+
+      health_specialized:
+        name:       Nome do estabelecimento
 
       infrastructure_building_type:
         name: Nome
@@ -170,10 +186,12 @@ pt-BR:
       destination:
         origin_village:       Aldeia origem
         destination_village:  Aldeia destino
+        city_name:            Município destino
         destination_type:     Tipo do destino
         boat_time:            Duração da viagem (em horas)
         road_time:            Duração da viagem (em horas)
         fly_time:             Duração da viagem (Aéreo)
+        destination_class:    Aldeia ou município?
 
       absolute_datum_level:
         name:                 Nível
@@ -248,6 +266,21 @@ pt-BR:
         orcamento_necessario:         ESTIMATIVA DO ORÇAMENTO NECESSÁRIO PARA O ADEQUADO FUNCIONAMENTO DO DSEI, NO CENÁRIO DE PLENO ATENDIMENTO DOS INVESTIMENTOS SOLICITADOS
         dotacao_orcamentaria_inicial: DOTAÇÃO ORÇAMENTÁRIA INICIAL (PLOA 2016) (em R$)
 
+      result:
+        result_level_id:      Nível
+        result_strategy_id:   Estratégia
+        name:                 Nome
+        is_specific:          Específico?
+        is_percentage:        Porcentagem?
+        result_text:          Texto do resultado
+        is_boolean:           É verdadeiro/falso?
+        value_2016:           Valor para 2016
+        value_2017:           Valor para 2017
+        value_2018:           Valor para 2018
+        value_2019:           Valor para 2019
+        orientacoes_dsei:     Orientações ao DSEI
+        orientacoes_sistema:  Orientações no sistema
+
       pdsi_result:
         value_2016  : Valor para 2016
         value_2017  : Valor para 2017
@@ -291,6 +324,12 @@ pt-BR:
         initial_forecast_2019: 'Dotação Inicial 2019'
         dsei_forecast_2019: 'Previsão do DSEI 2019'
         revised_forecast_2019: 'Dotação Atualizada 2019'
+
+      person:
+        name:       Nome
+        location:   Localização
+        bond:       Ligação
+
     errors:
       models:
         user:

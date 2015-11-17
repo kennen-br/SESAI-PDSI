@@ -1,7 +1,7 @@
 class Dsei < ActiveRecord::Base
   auditable
 
-  attr_accessor :villages
+  attr_accessor :villages, :cities
 
   has_many  :base_polos
   has_many  :casais
@@ -32,7 +32,7 @@ class Dsei < ActiveRecord::Base
   end
 
   def base_polos_with_service_networks
-    base_polos.includes(service_networks: [:health_establishments, :health_specializeds])
+    base_polos.includes(service_networks: [service_network_cities: [:health_establishments, :health_specializeds]])
   end
 
   def villages
@@ -43,11 +43,21 @@ class Dsei < ActiveRecord::Base
     Dsei.eager_load(base_polos: [:villages]).where(id: id).first.base_polos.each do |base_polo|
       @villages[base_polo.id]  = { name: base_polo.name, villages: {} }
       base_polo.villages.each do |village|
-        @villages[base_polo.id][:villages][village.id]  = village.name
+        @villages[base_polo.id][:villages][village.id]  = "#{village.name}, em #{village.city_name}"
       end
     end
 
     @villages
+  end
+
+  def cities
+    return @cities unless @cities.nil?
+
+    @cities = []
+
+    Village.select('DISTINCT city_name').joins(:base_polo).where('base_polos.dsei_id = ?', Dsei.first.id).order('city_name').each { |city| @cities <<  city.city_name }
+
+    @cities
   end
 
   def pdsi

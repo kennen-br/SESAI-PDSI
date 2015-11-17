@@ -1,39 +1,43 @@
 fieldset
   = f.hidden_field :destination_type_id, value: destination_type.id
-  .field
-    = f.label :origin_village
-    = select_village_from_dsei f, @dsei, :origin_village_id, f.object.origin_village_id
+  = f.hidden_field :origin_village_id, value: village.id
 
-  .field
-    = f.label :destination_village
-    = select_village_from_dsei f, @dsei, :destination_village_id, f.object.destination_village_id
+  fieldset
+    legend Destino
+    == render "pdsis/destinos/#{destination_type.snake_name}_fields", f: f
 
+  br
   .field.destiny-transport
     label Transporte fluvial?
     label.label-switch
       = check_box_tag "use_boat_#{f.index}", "use_checkox_#{f.index}", f.object.use_boat?, data: { type: 'boat' }
       .checkbox
 
-    fieldset id=("fields_to_boat_time_#{f.index}") style="display: none"
+    - display = f.object.use_boat? ? 'block' : 'none'
+    fieldset id=("fields_to_boat_time_#{f.index}") style=("display: #{display}")
       = f.label       :boat_time
       = f.text_field  :boat_time
 
+  br
   .field.destiny-transport
     label Transporte rodoviário?
     label.label-switch
       = check_box_tag "use_road_#{f.index}", "use_checkox_#{f.index}", f.object.use_road?, data: { type: 'road' }
       .checkbox
 
-    fieldset id=("fields_to_road_time_#{f.index}") style="display: none"
+    - display = f.object.use_road? ? 'block' : 'none'
+    fieldset id=("fields_to_road_time_#{f.index}") style=("display: #{display}")
       = f.label       :road_time
       = f.text_field  :road_time
 
+  br
   .field.destiny-transport
     label Transporte aéreo?
     label.label-switch
       = check_box_tag "use_fly_#{f.index}", "use_checkox_#{f.index}", f.object.use_fly?, data: { type: 'fly' }
       .checkbox
 
-    fieldset id=("fields_to_fly_time_#{f.index}") style="display: none"
+    - display = f.object.use_fly? ? 'block' : 'none'
+    fieldset id=("fields_to_fly_time_#{f.index}") style=("display: #{display}")
       = f.label       :fly_time
       = f.text_field  :fly_time

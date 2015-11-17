@@ -1,5 +1,5 @@
 li
-  = link_to 'Meu PDSI', pdsis_path(section: 'estrutura')
+  = link_to 'PDSI', pdsis_path(section: 'estrutura')
 li.child
   = nav_link_to pdsis_path(section: 'introducao') do
     | 1. Introdução
@@ -9,7 +9,7 @@ li.child
     | 3. Caracterização do DSEI
   = nav_link_to pdsis_path(section: 'analise-situacional') do
     | 4. Análise situacional
-  = nav_link_to pdsis_path(section: 'resultados-esperados') do
+  = nav_link_to results_special_path(current_dsei.pdsi) do
     | 5. Resultados esperados
   = nav_link_to pdsis_path(section: 'projecao-orcamentaria') do
     | 6. Projeção orçamentária 2016-2019
@@ -17,3 +17,5 @@ li.child
     | 7. Anexos
 li
   = link_to 'Meus CASAIs', casais_path
+li
+  = link_to 'Pessoas do DSEI', people_path

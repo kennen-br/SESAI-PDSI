@@ -8,8 +8,8 @@ fieldset
     = select_uf f, :uf, f.object.uf
 
   .field
-    = f.label       :capai_type
-    = f.text_field  :capai_type
+    = f.label   :capai_type
+    = f.select  :capai_type,  options_for_select(['Casa alugada', 'Casa própria', 'Hotel'], f.object.capai_type), include_blank: true
 
   .field
     = f.label         :host_capacity
@@ -17,6 +17,14 @@ fieldset
 
   fieldset
     legend Aldeias Vinculadas
+
+    ul.how-to-use
+      li Para adicionar uma nova Aldeia clique no botão "Adicionar Aldeia".
+      li Selecione a aldeia no campo que aparecer na coluna "Nome".
+      li
+        | Para desvincular uma Aldeia, marque a caixinha na coluna "Apagar?".
+        br
+        | A aldeia será desvinculada quando você clicar no botão "Salvar" do formulário.
 
     - tbody_id = "capai_villages_#{f.object.id}"
     table.table.nested-form

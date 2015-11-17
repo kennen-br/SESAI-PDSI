@@ -21,7 +21,7 @@ config/database.yml
 batch/
 
 # Paperclip uploads
-public/system
+public/system/*
 public/images
 public/assets
 

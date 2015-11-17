@@ -1,17 +1,33 @@
 h1 Meios de Transporte para ACESSO DOS POVOS INDÍGENAS AOS SERVIÇOS DE SAÚDE
 
-- DestinationType.order(:id).each do |destination_type|
-  - body_id = "destination_#{destination_type.id}"
+.vertical-tabs-container
+  .vertical-tabs style="width: 30%;"
+    - @dsei.base_polos.order(:id).each do |base_polo|
+      - link_opt = [{ class: 'vertical-tab' }, {:selected_class => 'is-active'}]
+      = nav_link_to edit_pdsi_path(@pdsi, section: 'destinos', base_polo: base_polo), link_opt[0], link_opt[1] do
+        = base_polo.name
+  .vertical-tab-content-container style="width: 70%;"
+    .vertical-tab-content#destinos-form style="display: block;"
+      - @base_polo.villages.each do |village|
+        fieldset
+          legend
+            | Aldeia de Origem:&nbsp;
+            strong = village.name
 
-  fieldset
-    legend
-      strong = destination_type.name
+          .field
+            label Muncípio da aldeia: #{village.city_name}
 
-    div id=(body_id)
-      = f.fields_for :destinations, @pdsi.destinations.where(destination_type: destination_type) do |destination|
-        == render 'pdsis/destinos/destination_fields',  f: destination, destination_type: destination_type
+          - DestinationType.order(:id).each do |destination_type|
 
-    .links
-      = link_to_add_association f, :destinations, { data: { "association-insertion-node": "##{body_id}"}, class: 'button btn-sm', partial: 'pdsis/destinos/destination_fields', render_options: { locals: { destination_type: destination_type } } } do
-        = icon 'plus'
-        | Adicionar transporte
+            fieldset
+              legend
+                strong = destination_type.name
+
+              - partial = 'pdsis/destinos/destination_fields'
+              = f.fields_for :destinations, @pdsi.destinations.where(destination_type: destination_type, origin_village: village) do |destination|
+                == render partial,  f: destination, destination_type: destination_type, village: village
+
+              .links
+                = link_to_add_association f, :destinations, { class: 'button btn-sm', partial: partial, render_options: { locals: { destination_type: destination_type, village: village } } } do
+                  = icon 'plus'
+                  | Adicionar transporte

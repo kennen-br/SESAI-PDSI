@@ -1,6 +1,6 @@
 h1.page-title
-  = icon 'edit'
-  = breadcrumbs [{ name: 'ESTRUTURA E CONTEÚDO | PDSI', path: nil }, { name: 'Caracterização do DSEI', path: pdsis_path(section: 'caracterizacao-do-dsei')}, { name: 'Dados Demográficos', path: nil }]
+  .breadcrumb-icon
+  = breadcrumbs [{ name: 'PDSI', path: pdsis_path(section: 'estrutura') }, { name: '3. Caracterização do DSEI', path: pdsis_path(section: 'caracterizacao-do-dsei')}, { name: '3.1. Dados Demográficos', path: nil }]
 
 = form_for @demographic_data do |f|
   - if @demographic_data.errors.any?
@@ -20,6 +20,6 @@ h1.page-title
 
     | &nbsp;
 
-    = link_to pdsis_path, class: 'button' do
+    = link_to 'javascript:history.back()', class: 'button' do
       i.fa.fa-warning
       | Cancelar
