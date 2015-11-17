@@ -9,11 +9,11 @@ manage_element = (element) ->
 calculate_parent_total = (parent_id) ->
   subtotal = 0.0
   console.log "Recalculating subtotals by group #{parent_id}"
-  
+
   $(document).find(".#{parent_id}").each (item) ->
     input_value = $(this).attr("value").toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.')
     console.log "input_value: #{input_value}"
-      
+
     subtotal += parseFloat(input_value)
     console.log "subtotal: #{subtotal}"
     return
@@ -261,10 +261,6 @@ $(document).ready ->
       $this.parent().parent().find(".#{$this.data('field')}").show()
     return
 
-  $('.destiny-transport :checkbox').each (item) ->
-    manage_element $(this)
-    return
-
   $(document).on 'change', '.destiny-transport :checkbox', ->
     manage_element $(this)
     return
@@ -288,7 +284,7 @@ $(document).ready ->
 
       if idx > 10
         calculate_parent_total(year_parent_id)
-      
+
     return
 
   # Update subtotals by group of contracts
