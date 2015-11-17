@@ -13,7 +13,7 @@ $(document).ready ->
 
     # SHOW PACE LOADING
     startLoading = ->
-      $pace = $('<div></div>', { class: 'pace results-loading'})
+      $pace = $('<div></div>', { class: 'pace pace-active results-loading'})
       $pace.append $('<div></div>', { class: 'pace-activity' })
       $('body').prepend $pace
       return
@@ -25,7 +25,6 @@ $(document).ready ->
 
     # START SORTABLE
     startSortable = ($list, tipo) ->
-      console.log 'START SORTABLE', $list, tipo
       $list.sortable
         items: '.resp-item'
         handle: '.sortable-icon'
@@ -52,6 +51,63 @@ $(document).ready ->
 
     applyDateMask $page.find('.date-field')
 
+
+    ###
+    # EVENT HANDLERS
+    ###
+
+
+    # LINK PRODUCT TO ANOTHER DSEI
+    $('.modal.link-product-dsei .dsei-list li', $page).click ->
+      $this = $(this)
+      $modal = $this.parents('.modal.link-product-dsei')
+
+      dsei_id    = $this.data('id')
+      product_id = $modal.find('.product-id').val()
+
+      params = { 'link_product' : {}}
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+
+      params['link_product']['dsei_id']    = dsei_id
+      params['link_product']['product_id'] = product_id
+
+      startLoading()
+      url = $('#result-link-product-dsei-url', $page).val()
+
+      if $this.find('.fa-square-o').length > 0
+        callback = (data, $obj) ->
+          $obj.data 'newId', data.id
+          $obj.find('.fa').toggleClass('fa-square-o').toggleClass('fa-check-square-o')
+          toastr.success "Produto vinculado ao DSEI #{$obj.find('.name').text()}"
+          return
+      else
+        params['link_product']['_destroy'] = '1'
+        params['link_product']['product_id'] = $this.data('newId')
+        callback = (data, $obj) ->
+          $obj.find('.fa').toggleClass('fa-square-o').toggleClass('fa-check-square-o')
+          $obj.removeData('newId')
+          toastr.success "Produto desvinculado do DSEI #{$obj.find('.name').text()}"
+          return
+
+      $.post url, params, (data) ->
+        stopLoading()
+        callback data, $this
+        return
+
+      return
+    # OPEN MODAL TO LINK PRODUCT TO ANOTHER DSEI
+    $('.strategy', $page).on 'click', '.plano-anual .responsability .product .link-product-dsei', ->
+      $this = $(this)
+
+      $modal   = $('.modal.link-product-dsei', $page)
+      $product = $this.parents('.product:eq(0)')
+
+      product_id = $product.data('id')
+
+      $modal.find('.fa').removeClass('fa-check-square-o').addClass('fa-square-o').removeData('newId')
+      $modal.find('input.product-id').val(product_id)
+
+      $modal.find('.modal-state').click()
     # SORTABLE
     $('.product .children').each ->
       startSortable $(this), 'AÇÃO'
@@ -134,7 +190,6 @@ $(document).ready ->
         $name.val($name.data('original'))
         $text.val($text.data('original'))
         startSortable $(".specific-results-block ##{id}").find('.product-list'), 'PRODUTO'
-        console.log 'SPECIFIC RESULT', $(".specific-results-block ##{id}")
         return
       return
     # LINK PRODUCT TO ANOTHER RESULT
@@ -176,8 +231,7 @@ $(document).ready ->
     $('.strategy', $page).on 'click', '.plano-anual .responsability .product .link-product', ->
       $this = $(this)
 
-      $axis    = $this.parents('.strategy')
-      $modal   = $axis.find('.modal.link-product')
+      $modal   = $this.parents('.strategy').find('.modal.link-product')
       $product = $this.parents('.product:eq(0)')
 
       product_id = $product.data('id')
@@ -232,8 +286,6 @@ $(document).ready ->
 
       id = $this.data('id')
       comment = $field.val()
-
-      console.log 'NEW COMMENT', comment
 
       if comment.trim() == ''
         toastr.error 'Comentário em branco'
@@ -381,7 +433,6 @@ $(document).ready ->
         item['_destroy'] = '1'
 
         params = responsabilityParams($this, {'corresponsabilities_attributes': [item]})
-        console.log 'REMOVE PERSON', params
         runAjaxRequest $people, params, (data) ->
           $this.parents('.person').remove()
           toastr.success "Corresponsável removido com successo!"
@@ -476,7 +527,6 @@ $(document).ready ->
         params['query'] = value
         params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
         $.post '/procurar-pessoa', params, (data) ->
-          console.log 'SEARCH RESULTS'
           $people.find('.fa').toggle()
           if data.length == 0
             $people.find('ul').append('<li class="new-person empty">Nenhuma pessoa encontrada.</li>')
@@ -598,7 +648,6 @@ $(document).ready ->
       $.post url, params, (data) ->
         stopLoading()
 
-        console.log 'POSTED', data
         if data.status
           klass = 'success'
           successCallback(data) if successCallback?
@@ -664,7 +713,6 @@ $(document).ready ->
 
     # CLEAR PEOPLE SEARCH
     clearPeopleSearch = ($people) ->
-      console.log 'CLEAR SEARCH'
       $people.find('.search').val('')
       $people.find('ul .new-person').remove()
       $people.find('ul').removeClass('searching')

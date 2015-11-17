@@ -1,0 +1,15 @@
+.modal.link-product-dsei
+  = hidden_field_tag '', '', { class: 'product-id' }
+  input.modal-state type="checkbox" id=("link-product-dsei")
+  .modal-window
+    .modal-inner
+      label.modal-close for=("link-product-dsei")
+      h1
+        | Associar produto a outro DSEI
+      ul.dsei-list
+        - Dsei.where.not(id: @dsei.id).all.each do |dsei|
+          li data-id="#{dsei.id}"
+            = icon 'square-o'
+            | &nbsp;
+            span.name
+              = dsei.name

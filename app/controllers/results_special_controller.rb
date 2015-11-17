@@ -66,7 +66,7 @@ class ResultsSpecialController < ApplicationController
     @responsability = product.amoeba_dup
 
     result = Result.find(values['result_id'])
-    result_resp = result.responsability_result
+    result_resp = result.responsability_result(@pdsi)
 
     @responsability.parent_id = result_resp.id
     @responsability.save
@@ -75,6 +75,28 @@ class ResultsSpecialController < ApplicationController
     params['level'] = 'Produto'
 
     render 'responsability', layout: false
+  end
+
+  def link_product_dsei
+    values = link_product_params
+
+    product = Responsability.find(values['product_id'])
+    if values['_destroy'] == '1'
+      product.destroy
+      response = { status: true }
+    else
+      dsei        = Dsei.find(values['dsei_id'])
+      result      = product.parent.result
+      result_resp = result.responsability_result(dsei.pdsi)
+
+      responsability = product.amoeba_dup
+      responsability.parent_id = result_resp.id
+      responsability.save
+
+      response = { status: true, id: responsability.id }
+    end
+
+    render json: response
   end
 
   def specific_result
@@ -153,7 +175,7 @@ class ResultsSpecialController < ApplicationController
     end
 
     def link_product_params
-      params.require(:link_product).permit(:product_id, :result_id)
+      params.require(:link_product).permit(:product_id, :result_id, :dsei_id, :_destroy)
     end
 
     def delete_params

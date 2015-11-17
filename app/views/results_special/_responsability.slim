@@ -1,3 +1,7 @@
+- unless responsability.responsability_level.name == 'Resultado'
+  = render 'responsability_actions', { resp: responsability }
+  = render 'modal_comments', { resp: responsability }
+
 table.tables.responsability-result.body
   tbody
     tr
