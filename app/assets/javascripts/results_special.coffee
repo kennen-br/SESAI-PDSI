@@ -585,13 +585,17 @@ $(document).ready ->
           flashField $(this)
           return false
 
+        new_value = $(this).val()
+
         params = {}
         params['pdsi_results_attributes'] = [{}]
         params['pdsi_results_attributes'][0]['id']  = result_id
-        params['pdsi_results_attributes'][0][field] = $(this).val()
+        params['pdsi_results_attributes'][0][field] = new_value
 
         runAjaxRequest $field, params, (data) ->
           toastr.success 'Informação atualizada.'
+          if field == 'value_2019'
+            $field.parents('.result-container:eq(0)').find('> .result .result-name span.value').text(new_value)
           return
         , (data) ->
           return

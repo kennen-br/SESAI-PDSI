@@ -14,11 +14,12 @@ class PdsiResult < ActiveRecord::Base
   end
 
   def compose_value(year)
+    method = "value_#{year.to_s}"
     if result.is_boolean?
-      klass = send("value_#{year.to_s}") == 0 ? 'times' : 'check'
+      klass = send(method) == 0 ? 'times' : 'check'
       "<i class='fa fa-#{klass}'></i>"
     else
-      result.result_text.gsub(/\[VALUE\]/, send("value_#{year.to_s}").to_s)
+      result.result_text.gsub(/\[VALUE\]/, "<span class='value'>#{send(method)}</span>")
     end
   end
 
