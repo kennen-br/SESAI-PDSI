@@ -40,6 +40,15 @@ class PdsisController < ApplicationController
     end
   end
 
+  def delete_map
+    @pdsi.update map: nil
+
+    notice  = {notice: 'Mapa excluído com sucesso.'}
+    args    = { section: 'mapa' }
+
+    redirect_to edit_pdsi_path(@pdsi, args), notice
+  end
+
 private
   # Use callbacks to share common setup or constraints between actions.
   def set_pdsi
