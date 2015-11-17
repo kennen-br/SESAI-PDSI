@@ -9,3 +9,13 @@ label = f.object.map.exists? ? 'Alterar mapa' : 'Inserir mapa'
   = link_to delete_map_path(@pdsi), data: {:confirm => 'Tem certeza? Esta operação é irreversível!'}, :method => :delete, class: 'button' do
     i.fa.fa-trash
     | Excluir mapa atual
+
+javascript:
+  $('document').ready(function(){
+    $('form.edit_pdsi').submit(function(){
+      if ($('#pdsi_map').get(0).files.length === 0){
+        alert('Arquivo não pode ficar em branco');
+        return false;
+      }
+    });
+  });

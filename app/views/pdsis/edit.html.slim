@@ -17,7 +17,7 @@ h1.page-title
     = hidden_field_tag :section, @section
     = hidden_field_tag :subsection, @subsection.gsub(/-/, '_') if @subsection
 
-    a.button href="javascript:void(0)" onclick="$(this).closest('form').submit()"
+    a#pdsi_save_button.button href="javascript:void(0)" onclick="$(this).closest('form').submit()"
       i.fa.fa-save
       | Salvar
 
