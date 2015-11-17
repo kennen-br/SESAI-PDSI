@@ -65,7 +65,7 @@
                     .result-container id=("result-#{pdsi_result.result.id}") data-id="#{pdsi_result.id}" data-result-id="#{pdsi_result.result.id}"
                       .result
                         h4 Resultado #{j}
-                        .result-name == pdsi_result.result.name
+                        .result-name == pdsi_result.compose_value(2019)
                         .show-more
                           span.more
                             = icon 'chevron-down'
