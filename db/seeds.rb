@@ -1055,10 +1055,13 @@ if People.count == 0
 
 seed_path = File.join(Rails.root, 'db', 'seeds', 'people.seed.csv')
 sql = <<COPY_PSQL
-  COPY people(dsei_id,"name","location","bond",created_at,updated_at)
-  FROM '#{seed_path}'
-  WITH DELIMITER ','
-  CSV HEADER
+  COPY people(dsei_id,is_sesai_central,"name","location","bond",created_at,updated_at)
+    FROM '#{seed_path}'
+    WITH
+      DELIMITER ','
+      NULL 'null'
+      CSV
+        HEADER
 COPY_PSQL
 ActiveRecord::Base.connection.execute(sql)
 
