@@ -1,21 +1,9 @@
 = content_tag :div, { data: { "id": "#{@responsability.id}" }, class: "#{@klass} resp-item" } do
 
-  .responsability-actions
-    = icon 'caret-right', class: 'toggle-children' if params['level'] == 'Produto'
-    = icon 'comment', class: 'toggle-comments'
-    = icon 'arrows', class: 'sortable-icon'
-    = icon 'trash-o', class: 'delete-responsability'
-  = render 'modal_comments', { resp: @responsability }
-  = render 'responsability', { responsability: @responsability}
+  = render 'responsability', { responsability: @responsability }
 
   - if params['level'] == 'Produto'
     .children class=('hidden' if @responsability.children.blank?)
       - @responsability.children.order(:id).each do |action|
         = render 'responsability', { level: 'AÇÃO', responsability: action }
-    .actions
-      a.button.colored-border.add-action
-        = icon 'plus'
-        | &nbsp;Inserir Ações
-      a.button.colored-border.link-product
-        = icon 'pencil'
-        | &nbsp;Associar produto a outro resultado
+    = render 'responsability_buttons'

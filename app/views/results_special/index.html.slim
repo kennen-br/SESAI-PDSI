@@ -128,29 +128,12 @@
                               .product-list
                                 - responsability.children.includes(:person, :corresponsabilities).order(:order, :id).each do |product|
                                   .product.resp-item data-id="#{product.id}"
-                                    .responsability-actions
-                                      = icon 'caret-right', class: 'toggle-children'
-                                      = icon 'comment', class: 'toggle-comments'
-                                      = icon 'arrows', class: 'sortable-icon'
-                                      = icon 'trash-o', class: 'delete-responsability'
-                                    = render 'modal_comments', { resp: product }
-                                    = render 'responsability', { level: 'PRODUTO', responsability: product }
+                                    = render 'responsability', { responsability: product }
                                     .children.hidden
                                       - product.children.includes(:person, :corresponsabilities).order(:order, :id).each do |action|
                                         .action.resp-item data-id="#{action.id}"
-                                          .responsability-actions
-                                            = icon 'comment', class: 'toggle-comments'
-                                            = icon 'arrows', class: 'sortable-icon'
-                                            = icon 'trash-o', class: 'delete-responsability'
-                                          = render 'modal_comments', { resp: action }
-                                          = render 'responsability', { level: 'AÇÃO', responsability: action }
-                                    .actions
-                                      a.button.colored-border.add-action
-                                        = icon 'plus'
-                                        | &nbsp;Inserir Ações
-                                      a.button.colored-border.link-product
-                                        = icon 'pencil'
-                                        | &nbsp;Associar produto a outro resultado
+                                          = render 'responsability', { responsability: action }
+                                    = render 'responsability_buttons'
                             .actions
                               a.button.colored-border.add-product
                                 = icon 'plus'
