@@ -37,10 +37,14 @@
     <type label="SET" length="1" sql="SET" quote=""/>
     <type label="Bit" length="0" sql="bit" quote=""/>
   </group>
-</datatypes><table x="180" y="222" name="users">
+</datatypes><table x="143" y="276" name="users">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
+<row name="user_type_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="user_types" row="id" />
+</row>
 <row name="username" null="1" autoincrement="0">
 <datatype>VARCHAR(100)</datatype>
 <default>NULL</default></row>
@@ -52,7 +56,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="179" y="86" name="profiles">
+<table x="134" y="69" name="profiles">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -87,7 +91,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="707" y="67" name="base_polos">
+<table x="657" y="43" name="base_polos">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -141,7 +145,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1488" y="58" name="ethnicities">
+<table x="1500" y="61" name="ethnicities">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -161,7 +165,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1222" y="111" name="ethnicites_villages">
+<table x="1229" y="111" name="ethnicites_villages">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -177,7 +181,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1924" y="1261" name="pdsis">
+<table x="1921" y="1261" name="pdsis">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -211,7 +215,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1060" y="907" name="demographic_datas">
+<table x="1080" y="823" name="demographic_datas">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -234,11 +238,23 @@
 <row name="numero_municipios" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
+<row name="transporte_fluvial" null="1" autoincrement="0">
+<datatype>bit</datatype>
+<default>NULL</default></row>
+<row name="transporte_rodoviario" null="1" autoincrement="0">
+<datatype>bit</datatype>
+<default>NULL</default></row>
+<row name="transporte_aereo" null="1" autoincrement="0">
+<datatype>bit</datatype>
+<default>NULL</default></row>
+<row name="city_name" null="1" autoincrement="0">
+<datatype>VARCHAR(100)</datatype>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="1424" y="886" name="etnias">
+<table x="1353" y="897" name="etnias">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -253,22 +269,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1419" y="1011" name="transportation">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="demographic_data_id" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="demographic_datas" row="id" />
-</row>
-<row name="name" null="1" autoincrement="0">
-<datatype>VARCHAR(100)</datatype>
-<default>NULL</default></row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-</table>
-<table x="1058" y="698" name="physiographic_datas">
+<table x="1053" y="593" name="physiographic_datas">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -287,7 +288,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1412" y="713" name="physiographic_data_languages">
+<table x="1437" y="684" name="physiographic_data_languages">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -321,7 +322,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1942" y="242" name="emsis">
+<table x="1875" y="390" name="emsis">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -369,11 +370,14 @@
 <row name="permanencia_tecnicos_enfermagem" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
+<row name="permanencia_asb" null="1" autoincrement="0">
+<datatype>TINYINT</datatype>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="2325" y="252" name="service_networks">
+<table x="2274" y="188" name="service_networks">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -392,32 +396,32 @@
 <part>id</part>
 </key>
 </table>
-<table x="2649" y="216" name="health_specializeds">
+<table x="2824" y="36" name="health_specializeds">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="service_network_id" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="service_networks" row="id" />
-</row>
 <row name="name" null="1" autoincrement="0">
 <datatype>VARCHAR(100)</datatype>
 <default>NULL</default></row>
+<row name="service_network_city_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="service_network_cities" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="2639" y="354" name="health_establishments">
+<table x="2824" y="219" name="health_establishments">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="service_network_id" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="service_networks" row="id" />
-</row>
 <row name="name" null="1" autoincrement="0">
 <datatype>VARCHAR(100)</datatype>
 <default>NULL</default></row>
+<row name="service_network_city_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="service_network_cities" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -710,7 +714,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="722" y="340" name="casais">
+<table x="751" y="339" name="casais">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -852,7 +856,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="4121" y="909" name="result_levels">
+<table x="3849" y="834" name="result_levels">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -863,7 +867,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="3886" y="1028" name="result_strategies">
+<table x="3872" y="1004" name="result_strategies">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -878,7 +882,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="3662" y="934" name="results">
+<table x="3514" y="973" name="results">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -893,27 +897,41 @@
 <row name="name" null="1" autoincrement="0">
 <datatype>VARCHAR(255)</datatype>
 <default>NULL</default></row>
-<row name="reference_value" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="parent_id" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="results" row="id" />
-</row>
 <row name="is_specific" null="1" autoincrement="0">
 <datatype>bit</datatype>
 <default>false</default></row>
 <row name="is_percentage" null="1" autoincrement="0">
 <datatype>bit</datatype>
 <default>NULL</default></row>
+<row name="is_boolean" null="1" autoincrement="0">
+<datatype>bit</datatype>
+<default>NULL</default></row>
 <row name="result_text" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
+<row name="value_2016" null="1" autoincrement="0">
+<datatype>TINYINT</datatype>
+<default>NULL</default></row>
+<row name="value_2017" null="1" autoincrement="0">
+<datatype>TINYINT</datatype>
+<default>NULL</default></row>
+<row name="value_2018" null="1" autoincrement="0">
+<datatype>TINYINT</datatype>
+<default>NULL</default></row>
+<row name="value_2019" null="1" autoincrement="0">
+<datatype>TINYINT</datatype>
+<default>NULL</default></row>
+<row name="orientacoes_dsei" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
+<row name="orientacoes_sistema" null="1" autoincrement="0">
 <datatype>MEDIUMTEXT</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="3653" y="767" name="specific_results">
+<table x="3418" y="741" name="specific_results">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -925,11 +943,23 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="results" row="id" />
 </row>
+<row name="text_2016" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
+<row name="text_2017" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
+<row name="text_2018" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
+<row name="text_2019" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="3316" y="921" name="pdsi_results">
+<table x="3118" y="855" name="pdsi_results">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -941,14 +971,23 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="results" row="id" />
 </row>
-<row name="value" null="1" autoincrement="0">
+<row name="value_2016" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="value_2017" null="1" autoincrement="0">
+<datatype>TINYINT</datatype>
+<default>NULL</default></row>
+<row name="value_2018" null="1" autoincrement="0">
+<datatype>TINYINT</datatype>
+<default>NULL</default></row>
+<row name="value_2019" null="1" autoincrement="0">
+<datatype>TINYINT</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="4137" y="1037" name="result_axes">
+<table x="4132" y="1041" name="result_axes">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -970,7 +1009,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="988" y="2202" name="projection_budget_items">
+<table x="999" y="2252" name="projection_budget_items">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -988,7 +1027,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1315" y="2194" name="projection_budgets">
+<table x="1301" y="2136" name="projection_budgets">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -1076,7 +1115,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="3567" y="2434" name="costs">
+<table x="2886" y="2002" name="costs">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -1097,7 +1136,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="3164" y="2405" name="pdsi_costs">
+<table x="2500" y="1957" name="pdsi_costs">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -1122,27 +1161,22 @@
 <part>id</part>
 </key>
 </table>
-<table x="3045" y="1351" name="people">
+<table x="2946" y="1478" name="people">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="dsei_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="dseis" row="id" /></row>
+<default>NULL</default><relation table="dseis" row="id" />
+</row>
 <row name="name" null="1" autoincrement="0">
-<datatype>VARCHAR(100)</datatype>
-<default>NULL</default></row>
-<row name="location" null="1" autoincrement="0">
-<datatype>VARCHAR(100)</datatype>
-<default>NULL</default></row>
-<row name="bond" null="1" autoincrement="0">
 <datatype>VARCHAR(100)</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="3301" y="1151" name="responsabilities">
+<table x="3149" y="1172" name="responsabilities">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -1166,8 +1200,14 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="responsability_levels" row="id" />
 </row>
+<row name="initial_date" null="1" autoincrement="0">
+<datatype>DATE</datatype>
+<default>NULL</default></row>
 <row name="deadline" null="1" autoincrement="0">
 <datatype>DATE</datatype>
+<default>NULL</default></row>
+<row name="name" null="1" autoincrement="0">
+<datatype>VARCHAR(100)</datatype>
 <default>NULL</default></row>
 <row name="external_actors" null="1" autoincrement="0">
 <datatype>MEDIUMTEXT</datatype>
@@ -1175,11 +1215,14 @@
 <row name="comments" null="1" autoincrement="0">
 <datatype>MEDIUMTEXT</datatype>
 <default>NULL</default></row>
+<row name="order" null="1" autoincrement="0">
+<datatype>TINYINT</datatype>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="3258" y="1467" name="responsability_corresponsibles">
+<table x="3230" y="1591" name="corresponsibles">
 <row name="id" null="1" autoincrement="1">
 <datatype>TINYINT</datatype>
 <default>NULL</default></row>
@@ -1195,7 +1238,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="3714" y="1504" name="responsability_levels">
+<table x="3525" y="1345" name="responsability_levels">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -1206,4 +1249,225 @@
 <part>id</part>
 </key>
 </table>
+<table x="116" y="412" name="user_types">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name" null="1" autoincrement="0">
+<datatype>VARCHAR(100)</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="2497" y="2162" name="pdsi_need_costs">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="cost_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="costs" row="id" />
+</row>
+<row name="pdsi_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="pdsis" row="id" />
+</row>
+<row name="previsao_orcamentaria_2015" null="1" autoincrement="0">
+<datatype>DECIMAL</datatype>
+<default>NULL</default></row>
+<row name="previsao_orcamentaria_2016" null="1" autoincrement="0">
+<datatype>DECIMAL</datatype>
+<default>NULL</default></row>
+<row name="orcamento_necessario" null="1" autoincrement="0">
+<datatype>DECIMAL</datatype>
+<default>NULL</default></row>
+<row name="orcamento_necessario_pleno" null="1" autoincrement="0">
+<datatype>DECIMAL</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="2495" y="2379" name="pdsi_need_investiments">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="projection_budget_item_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="projection_budget_items" row="id" />
+</row>
+<row name="pdsi_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="pdsis" row="id" />
+</row>
+<row name="qtde_existente_2015" null="1" autoincrement="0">
+<datatype>TINYINT</datatype>
+<default>NULL</default></row>
+<row name="qtde_necessaria" null="1" autoincrement="0">
+<datatype>TINYINT</datatype>
+<default>NULL</default></row>
+<row name="valor_unitario_medio" null="1" autoincrement="0">
+<datatype>DECIMAL</datatype>
+<default>NULL</default></row>
+<row name="previsao_orcamentaria" null="1" autoincrement="0">
+<datatype>DECIMAL</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="2501" y="2585" name="pdsi_attached_files">
+<row name="id" null="1" autoincrement="1">
+<datatype>TINYINT</datatype>
+<default>NULL</default></row>
+<row name="pdsi_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="pdsis" row="id" />
+</row>
+<row name="name" null="1" autoincrement="0">
+<datatype>VARCHAR(100)</datatype>
+<default>NULL</default></row>
+<row name="file" null="1" autoincrement="0">
+<datatype>VARCHAR(100)</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="3244" y="658" name="false_results">
+<row name="id" null="1" autoincrement="1">
+<datatype>TINYINT</datatype>
+<default>NULL</default></row>
+<row name="result_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="results" row="id" />
+</row>
+<row name="dsei_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="dseis" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="3265" y="1857" name="budget_forecasts">
+<row name="id" null="1" autoincrement="1">
+<datatype>TINYINT</datatype>
+<default>NULL</default></row>
+<row name="pdsi_id" null="1" autoincrement="0">
+<datatype>INT</datatype>
+<default>NULL</default><relation table="pdsis" row="id" />
+</row>
+<row name="cost_id" null="1" autoincrement="0">
+<datatype>INT</datatype>
+<default>NULL</default><relation table="costs" row="id" />
+</row>
+<row name="updated_at" null="1" autoincrement="0">
+<datatype>DATETIME</datatype>
+<default>'NOW()'</default></row>
+<row name="reference_forecast" null="1" autoincrement="0">
+<datatype>DECIMAL(11,2)</datatype>
+<default>NULL</default></row>
+<row name="budget_forecast" null="1" autoincrement="0">
+<datatype>DECIMAL(11,2)</datatype>
+<default>NULL</default></row>
+<row name="initial_forecast_2016" null="1" autoincrement="0">
+<datatype>DECIMAL(11,2)</datatype>
+<default>NULL</default></row>
+<row name="dsei_forecast_2016" null="1" autoincrement="0">
+<datatype>DECIMAL(11,2)</datatype>
+<default>NULL</default></row>
+<row name="revised_forecast_2006" null="1" autoincrement="0">
+<datatype>INT(11,2)</datatype>
+<default>NULL</default></row>
+<row name="initial_forecast_2017" null="1" autoincrement="0">
+<datatype>DECIMAL(11,2)</datatype>
+<default>NULL</default></row>
+<row name="dsei_forecast_2017" null="1" autoincrement="0">
+<datatype>TINYINT</datatype>
+<default>NULL</default></row>
+<row name="revised_forecast_2017" null="1" autoincrement="0">
+<datatype>DECIMAL(11,2)</datatype>
+<default>NULL</default></row>
+<row name="initial_forecast_2018" null="1" autoincrement="0">
+<datatype>DECIMAL(11,2)</datatype>
+<default>NULL</default></row>
+<row name="dsei_forecast_2018" null="1" autoincrement="0">
+<datatype>DECIMAL(11,2)</datatype>
+<default>NULL</default></row>
+<row name="revised_forecast_2018" null="1" autoincrement="0">
+<datatype>DECIMAL(11,2)</datatype>
+<default>NULL</default></row>
+<row name="initial_forecast_2019" null="1" autoincrement="0">
+<datatype>DECIMAL(11,2)</datatype>
+<default>NULL</default></row>
+<row name="dsei_forecast_2019" null="1" autoincrement="0">
+<datatype>DECIMAL(11,2)</datatype>
+<default>NULL</default></row>
+<row name="revised_forecast_2019" null="1" autoincrement="0">
+<datatype>DECIMAL(11,2)</datatype>
+<default>NULL</default></row>
+<key type="INDEX" name="idx_pdsi_id">
+<part>pdsi_id</part>
+</key>
+<key type="INDEX" name="idx_cost_id">
+<part>cost_id</part>
+</key>
+<key type="INDEX" name="">
+</key>
+</table>
+<table x="2522" y="191" name="service_network_cities">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="service_network_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="service_networks" row="id" />
+</row>
+<row name="city_name" null="1" autoincrement="0">
+<datatype>VARCHAR(100)</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1468" y="551" name="physiographic_data_ethnicities">
+<row name="id" null="1" autoincrement="1">
+<datatype>TINYINT</datatype>
+<default>NULL</default></row>
+<row name="physiographic_data_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="physiographic_datas" row="id" />
+</row>
+<row name="ethnicity_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="ethnicities" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="3513" y="1452" name="responsability_comments">
+<row name="id" null="1" autoincrement="1">
+<datatype>TINYINT</datatype>
+<default>NULL</default></row>
+<row name="responsability_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="responsabilities" row="id" />
+</row>
+<row name="user_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="users" row="id" />
+</row>
+<row name="comment" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
+<row name="users" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
 </sql>
+
