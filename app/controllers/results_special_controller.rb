@@ -163,6 +163,12 @@ class ResultsSpecialController < ApplicationController
     render json: { status: true }
   end
 
+  def see_comment
+    comment = ResponsabilityComment.find params['comment']
+
+    render json: { status: comment.user_saw(current_user) }
+  end
+
   private
 
     def set_pdsi

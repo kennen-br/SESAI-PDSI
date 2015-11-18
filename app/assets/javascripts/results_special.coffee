@@ -184,6 +184,7 @@ $(document).ready ->
 
       url = $('#result-specific-result-url', $page).val()
       $.post url, params, (data) ->
+        stopLoading()
         id = $(data).attr 'id'
         $('.specific-results-block', $page).append(data)
         toastr.success 'Resultado específico adicionado.'
@@ -321,13 +322,17 @@ $(document).ready ->
       else
         $("body").removeClass "modal-open"
       return
-    # SHOW COMMENTS MODAL WINDOW
+    # OPEN MODAL MODAL WITH COMMENTS
     $('.strategy', $page).on 'click', '.plano-anual .responsability .responsability-actions .toggle-comments', ->
       $this = $(this)
       $resp = $this.parents('.resp-item:eq(0)')
       $modal = $resp.find('> .modal.comments')
 
       $modal.find('.modal-state').click()
+
+      if $resp.find('.responsability-actions .unread-comment').length > 0
+        comment_id = $resp.find('.responsability-actions .unread-comment').data('commentId')
+        readComment(comment_id, $resp.find('.responsability-actions .unread-comment'))
 
       return
 
@@ -602,29 +607,23 @@ $(document).ready ->
         return
       return
 
-    # $('.result-products .years .result-checkbox', $page).each ->
-    #   $field = $(this).find('input')
-
-    #   field     = $field.data 'field'
-    #   result_id = $field.parents('.result-container').data 'id'
-
-    #   $field.on 'click', ->
-    #     value = if this.checked then 1 else 0
-    #     params =
-    #       object_id: result_id
-    #       relation: 'pdsi_results'
-    #       field: field
-    #       value: value
-    #     console.log 'Updating Checkbox', params
-    #     runAjaxRequest $field.parent(), params
-    #     return
-
-      return
-
 
     ####################
     ##### HELPERS ######
     ####################
+
+    # MARK A COMMENTAS READ
+    readComment = (comment_id, $comment) ->
+      params = {}
+
+      params['comment'] = comment_id
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+      url = $('#result-see-comment-url', $page).val()
+
+      $.post url, params, (data) ->
+        $comment.remove() if data.status
+        return
+      return
 
     # CREATEA THE HTML FOR RESPONSABILITIES
     createResponsabilityDOM = (level, parent_id, callBack) ->

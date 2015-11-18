@@ -3,6 +3,7 @@
   = hidden_field_tag '', results_special_loop_path(current_dsei.pdsi), { id: 'result-loop-url' }
   = hidden_field_tag '', results_special_delete_path(current_dsei.pdsi), { id: 'result-delete-url' }
   = hidden_field_tag '', results_special_new_comment_path(current_dsei.pdsi), { id: 'result-new-comment-url' }
+  = hidden_field_tag '', results_special_see_comment_path(current_dsei.pdsi), { id: 'result-see-comment-url' }
   = hidden_field_tag '', results_special_false_result_path(current_dsei.pdsi), { id: 'result-false-url' }
   = hidden_field_tag '', results_special_link_product_path(current_dsei.pdsi), { id: 'result-link-product-url' }
   = hidden_field_tag '', results_special_products_order_path(current_dsei.pdsi), { id: 'result-product-order-url' }
@@ -107,9 +108,6 @@
 
                           - responsability = pdsi_result.result.responsability_result(@pdsi)
                           .responsability.resp-item data-id="#{responsability.id}"
-                            .responsability-actions
-                              = icon 'comment', class: 'toggle-comments'
-                            = render 'modal_comments', { resp: responsability }
                             table.tables.responsability-result.head
                               thead
                                 tr
