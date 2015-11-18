@@ -7,37 +7,27 @@ Todos os passos serão realizados dentro do diretório do projeto, dentro do vag
 
 ### Ajustando o RVM
 ```
-$ rvm install 2.2.0
-$ rvm use 2.2.0 --default
+rvm install 2.2.0
+rvm use 2.2.0 --default
 ```
-### Instalando as dependências do projeto
-```
-$ bundle install
-```
-#### Em caso de erro na instalação do Nokogiri Gem
-```
-$ gem install nokogiri -v '1.6.6.2' -- --use-system-libraries
-```
-#### Em caso de erro na instalação do pg 0.18.2 (libpq-fe.h)
-
-```
-$ sudo aptitude install libpq-dev
-```
-Rodar novamente 
-```
-$ bundle install
-```
-
 ### Instalar banco de dados Postgree manualmente
 ```
-$ sudo apt-get install postgresql-9.3
-$ sudo aptitude install postgresql-client
+sudo apt-get install postgresql-9.3
+sudo aptitude install postgresql-client
+sudo aptitude install libpq-dev
 ```
 Para checar se o banco de dados esta instalado corretamente
 ```
-$ aptitude search postgresql |grep ^i
+aptitude search postgresql |grep ^i
 ```
 Verificar se versão compativel: Postgree 9.3
+
+### Instalando as dependências do projeto
+```
+gem install nokogiri -v '1.6.6.2' -- --use-system-libraries
+bundle install
+```
+
 ### Criar banco de dados manualmente
 ```
 $ psql -h localhost -U desenv sesai_pdsi
@@ -46,11 +36,10 @@ Senha: rapadura
 Caso não funcionar, tem que rodar manualmente as 3 últimas linhas do postinstall.sh
 
 ```
-$ sudo su - postgres -c "echo \"CREATE USER desenv WITH SUPERUSER CREATEDB CREATEROLE ENCRYPTED PASSWORD 'rapadura';\" |psql -U postgres -d postgres" vagrant
-$ sudo su - postgres -c "echo \"CREATE DATABASE sesai_pdsi;\" |psql -U postgres -d postgres" vagrant
-$ sudo su - postgres -c "echo \"GRANT ALL PRIVILEGES ON DATABASE sesai_pdsi TO desenv;\" |psql -U postgres -d postgres" vagrant
+sudo su - postgres -c "echo \"CREATE USER desenv WITH SUPERUSER CREATEDB CREATEROLE ENCRYPTED PASSWORD 'rapadura';\" |psql -U postgres -d postgres" vagrant
+sudo su - postgres -c "echo \"CREATE DATABASE sesai_pdsi;\" |psql -U postgres -d postgres" vagrant
+sudo su - postgres -c "echo \"GRANT ALL PRIVILEGES ON DATABASE sesai_pdsi TO desenv;\" |psql -U postgres -d postgres" vagrant
 ```
-
 
 ### Configurando / inicializando o banco de dados
 
@@ -58,23 +47,23 @@ Edite o arquivo config/database.yml (crie se não existir) com o conteúdo de ac
 com o config/database.yml.sample. Utilize o usuário root e a senha rapadura.
 
 ```
-$ rake db:create
-$ rake db:migrate
-$ rake db:seed
+rake db:create
+rake db:migrate
+rake db:seed
 ```
 
 Copie os arquivos samples de configuração **usando root** e reinicie o server postgresql:
 
 ```
-$ sudo cp samples/postgresql.conf /etc/postgresql/9.3/main/
-$ sudo cp samples/pg_hba.conf /etc/postgresql/9.3/main/
-$ sudo service postgresql restart
+sudo cp samples/postgresql.conf /etc/postgresql/9.3/main/
+sudo cp samples/pg_hba.conf /etc/postgresql/9.3/main/
+sudo service postgresql restart
 ```
 
 ### Rodando a aplicação localmente
 
 ```
-$ rails server -b 0.0.0.0
+rails server -b 0.0.0.0
 ```
 
 e agora acesse seu navegador em http://localhost:3000
@@ -89,20 +78,20 @@ sudo apt-get install nodejs npm
 
 ## Heroku
 ```
-$ git push heroku rc:master
+git push heroku rc:master
 ```
 
 ### Comandos Heroku
 ```
-$  git push heroku rc:master
-$  heroku run rails console
-$  heroku run bash
+git push heroku rc:master
+heroku run rails console
+heroku run bash
 ```
 
 ##DigitalOcean
 ### Comandos DigitalOcean
 ```
-$  mina development deploy
+mina development deploy
 ```
 
 
@@ -116,10 +105,10 @@ $  mina development deploy
 
 Gera o ERD do modelo do banco de dados, baseado nos models e seus relacionamentos
 ```
-$ rake erd
+rake erd
 ```
 
 Gera o diagrama de classes
 ```
-$ rake diagram:all
+rake diagram:all
 ```
