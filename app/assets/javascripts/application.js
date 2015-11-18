@@ -23,5 +23,7 @@
 //= require jquery.maskMoney.min.js
 //= require jquery.maskedinput.min.js
 //= require html.sortable.min.js
+//= require moment.js
+//= require pikaday.js
 //= require_tree .
 //= require turbolinks
