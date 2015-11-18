@@ -74,6 +74,12 @@ h2.section-title Custeio
           - bcf = r.value
         - else
           - bcf = 0
+        table.table-minimal.budget-table.investiment
+          thead
+            tr 
+              th Saldo para Custeio de Edificações e Contratos
+              th = text_field_tag '', number_with_precision(bf.object.budget_forecast, precision: 2) || 0, class: 'currency-input'
+
         .item-content.animated data-index="#{i+1}" 
           table.table-minimal.budget-table.investiment
             thead
