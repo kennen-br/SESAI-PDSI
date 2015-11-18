@@ -8,7 +8,18 @@ $(document).ready ->
     $page = $(this)
 
     applyDateMask = ($elements) ->
-      $elements.mask("99/99/9999")
+      $elements.each ->
+        picker = new Pikaday
+          field: $(this)[0]
+          format: 'DD/MM/YYYY'
+          yearRange: [2000,2020]
+          i18n:
+            previousMonth : 'Mês Antarior',
+            nextMonth     : 'Próximo Mês',
+            months        : ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            weekdays      : ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+            weekdaysShort : ['Dom','Seg','Ter','Qua','Qui','Sex','Sab']
+        return
       return
 
     # SHOW PACE LOADING
