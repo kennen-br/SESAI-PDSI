@@ -55,6 +55,7 @@ Rails.application.routes.draw do
     post '/:id/resultados-esperados/resultado-especifico',           to: 'results_special#specific_result',   as: :results_special_specific_result
     post '/:id/resultados-esperados/resultado-especifico/atualizar', to: 'results_special#specific_update',   as: :results_special_specific_update
     post '/:id/resultados-esperados/ordenar-produtos',               to: 'results_special#products_order',    as: :results_special_products_order
+    post '/:id/resultados-esperados/ver-comentario',                 to: 'results_special#see_comment',       as: :results_special_see_comment
 
     # Resultados Específicos
     get '/:id/resultados-especificos', defaults: { section: 'resultados-esperados', tab: 'especificos' }, to: 'specific_results#edit',  as: :edit_specific_results

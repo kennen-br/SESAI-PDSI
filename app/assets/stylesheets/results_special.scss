@@ -389,6 +389,23 @@
                 color: #666;
               }
             }
+            .unread-comment {
+              color       : #F00;
+              font-size   : 0.56278em;
+              line-height : 1em;
+              margin-top  : 7px;
+
+              .fa {
+                cursor      : auto;
+                display     : inline;
+                margin-left : -3px;
+              }
+              .date {
+                font-size      : .55em;
+                letter-spacing : -1px;
+                margin         : 0 0 0 -12px;
+              }
+            }
             .toggle-children {
               color: #666;
 

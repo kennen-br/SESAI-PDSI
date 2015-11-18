@@ -26,4 +26,8 @@ class Responsability < ActiveRecord::Base
   def people_names
     people.map(&:name).join(', ')
   end
+
+  def last_comment
+    responsability_comments.last
+  end
 end

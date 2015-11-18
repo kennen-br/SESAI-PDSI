@@ -1,13 +1,12 @@
-- unless responsability.responsability_level.name == 'Resultado'
-  = render 'responsability_actions', { resp: responsability }
-  = render 'modal_comments', { resp: responsability }
+= render 'responsability_actions', { resp: responsability }
+= render 'modal_comments', { resp: responsability }
 
 table.tables.responsability-result.body
   tbody
     tr
       td = text_area_tag '', responsability.name, class: 'product-name colored-border', data: { field: 'name', type: 'Resultado' }
-      td = text_field_tag '', responsability.initial_date? ? l(responsability.initial_date) : '', class: 'product-date date-field colored-border', data: { field: 'initial_date', type: 'Resultado' }
-      td = text_field_tag '', responsability.deadline? ? l(responsability.deadline) : '', class: 'product-date date-field colored-border', data: { field: 'deadline', type: 'Resultado' }
+      td = text_field_tag '', responsability.initial_date? ? responsability.initial_date.strftime('%d/%m/%y') : '', class: 'product-date date-field colored-border', data: { field: 'initial_date', type: 'Resultado' }
+      td = text_field_tag '', responsability.deadline? ? responsability.deadline.strftime('%d/%m/%y') : '', class: 'product-date date-field colored-border', data: { field: 'deadline', type: 'Resultado' }
       td
         .people.colored-border.single
           = text_field_tag '', nil, { class: 'colored-border search', placeholder: 'Insira o responsável'}
