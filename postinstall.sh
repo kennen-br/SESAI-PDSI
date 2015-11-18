@@ -17,14 +17,15 @@ aptitude install -y \
   build-essential \
   curl \
   git \
-  #mysql-server-5.5 \
-  #libmysqlclient-dev \
-  postgresql \
+  postgresql-9.3 \
+  postgresql-client \
+  libpq-dev \
   libxslt1-dev \
   libxml2-dev \
   libpq-dev \
   nodejs \
   nodejs-dev \
+  npm \
   tmux \
   vim \
   wget \
