@@ -6,18 +6,18 @@ manage_element = (element) ->
   element.parents('.destiny-transport').find('fieldset').toggle()
   return
 
-calculate_parent_total = (parent_id) ->
+calculate_parent_total = (parent_id, check_id) ->
   subtotal = 0.0
   console.log "Recalculating subtotals by group #{parent_id}"
 
   $(document).find(".#{parent_id}").each (item) ->
-    input_value = $(this).prop("value").toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.')
+    if check_id
+      input_value = parseFloat($(this).prop("value").toString().replace(/(^R\$|)/g, '').replace(/\,/, '.'))
+    else
+      input_value = parseFloat($(this).prop("value").toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
     console.log "input_value: #{input_value}"
 
-    if parent_id.substring(0, 4) == "2016"
-      subtotal += parseFloat(input_value)
-    else
-      subtotal += (parseFloat(input_value))/100
+    subtotal += parseFloat(input_value)
     console.log "subtotal: #{subtotal}"
     return
 
@@ -286,7 +286,7 @@ $(document).ready ->
       $(el).val(new_val.toFixed(2))
 
       if idx > 10
-        calculate_parent_total(year_parent_id)
+        calculate_parent_total(year_parent_id, 1)
 
     return
 
@@ -296,7 +296,7 @@ $(document).ready ->
     year_cost_id = $(this).attr('year_cost_id')
     value = $(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.')
     #$("#hidden-#{year_cost_id}").attr("value", value)
-    calculate_parent_total(year_parent_id)
+    calculate_parent_total(year_parent_id, 0)
     return
 
   return
