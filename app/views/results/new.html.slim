@@ -1,3 +1,4 @@
-h1 Cadastrar resultado
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: 'Resultados Esperados', path: results_path }, { name: 'Cadastrar resultado', path: nil }]
 
 == render 'form'

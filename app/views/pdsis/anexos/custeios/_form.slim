@@ -1,1 +1,4 @@
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: '7. Anexos', path: pdsis_path(section: 'anexos')}, { name: "Custeios", path: nil}]
+
 = render "pdsis/anexos/custeios/form_#{current_user.dsei? ? 'dsei' : 'sesai'}", f: f

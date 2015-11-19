@@ -1,3 +1,6 @@
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: section_name(@section), path: pdsis_path(section: @section_url) }]
+
 .accordion-tabs-minimal
   .tab-content style="display: block; border: 0;"
     h2.section-title ANEXOS
@@ -57,7 +60,7 @@
       br
       br
 
-      = link_to edit_anexos_path(@pdsi, section: 'anexos', subsection: 'investimentos'), class: 'button pull-right' do
+      = link_to edit_anexos_path(@pdsi, section: 'anexos', subsection: 'custeios'), class: 'button pull-right' do
           i.fa.fa-pencil
           | Alterar Custeios
       h2.section-title Dimensionamento de Necessidades - Custeios

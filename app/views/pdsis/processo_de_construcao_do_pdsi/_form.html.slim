@@ -1,3 +1,6 @@
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: section_name(@section), path: pdsis_path(section: @section_url) }]
+
 .my-text
   h3
     | Escreva aqui o seu parágrafo.

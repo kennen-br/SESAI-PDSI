@@ -1,3 +1,6 @@
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: section_name(@section), path: pdsis_path(section: @section_url) }]
+
 ul.accordion
   li
     a.js-accordion-trigger[href="javascript:void(0)"]

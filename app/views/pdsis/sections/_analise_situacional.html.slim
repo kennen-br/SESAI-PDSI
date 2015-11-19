@@ -1,3 +1,6 @@
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: section_name(@section), path: pdsis_path(section: @section_url) }]
+
 ul.accordion-tabs-minimal
   li.tab-header-and-content
     a.tab-link.is-active[href="#"]

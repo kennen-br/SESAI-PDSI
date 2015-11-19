@@ -1,3 +1,6 @@
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: 'Dotação orçamentaria', path: nil }]
+
 h1 = @pdsi.dsei.name
 
 = f.fields_for :category_budgets, @pdsi.category_budgets_with_values do |item|
