@@ -1,6 +1,5 @@
-h1.page-title
-  .breadcrumb-icon
-  = breadcrumbs [{ name: 'PDSI', path: pdsis_path(section: 'estrutura') }, { name: '3. Caracterização do DSEI', path: pdsis_path(section: 'caracterizacao-do-dsei')}, { name: '3.1. Dados Demográficos', path: nil }]
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: '3. Caracterização do DSEI', path: pdsis_path(section: 'caracterizacao-do-dsei')}, { name: '3.1.B - Dados Demográficos', path: nil }]
 
 = form_for @demographic_data do |f|
   - if @demographic_data.errors.any?

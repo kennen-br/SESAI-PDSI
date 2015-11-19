@@ -1,3 +1,6 @@
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: '3. Caracterização do DSEI', path: pdsis_path(section: 'caracterizacao-do-dsei')}, { name: '3.2.B - Dimensionamento da força de trabalho', path: nil}]
+
 #pdsi_human_resources
   = f.fields_for :pdsi_human_resources do |ib|
     == render 'pdsis/recursos_humanos/pdsi_human_resource_fields', f: ib

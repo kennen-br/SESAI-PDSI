@@ -1,3 +1,6 @@
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: section_name(@section), path: pdsis_path(section: @section_url) }]
+
 /
   .pull-right
     = link_to edit_pdsi_path(@pdsi, section: 'resultados-esperados-introducao'), class: 'button' do
@@ -44,7 +47,7 @@ h2.section-title Resultados Esperados 2016-2019
 		  a.resultado9 href="javascript:void(0)" data-index="8"
 	        | CONTROLE SOCIAL
 
-	  .expected-results-show 
+	  .expected-results-show
 	  	.carousel-items
 		    - ResultAxis.includes(:result_strategies).order(:id).each_with_index do |axis, index|
 		      - i = index+1
@@ -54,11 +57,11 @@ h2.section-title Resultados Esperados 2016-2019
 		            = icon 'pencil'
 		            | Definir Resultados
 		        h3 #{i}. #{axis.name}
-		
+
 		        - axis.result_strategies.each do |strategy|
 		          .strategy
 		            .strategy-title Estratégia #{i}: #{strategy.name}
-		
+
 		            - j = 0
 		            - (@pdsi.pdsi_results_to_section_with_values(axis.section_name) + @dsei.specific_pdsi_results).each do |pdsi_result|
 		              - next if pdsi_result.result.dsei_not_apply?(@dsei)
@@ -80,14 +83,14 @@ h2.section-title Resultados Esperados 2016-2019
 		                  .tooltip
 		                    p
 		                      = pdsi_result.result.orientacoes_dsei
-		
+
 		              .result-products
 		                .years
 		                  - (2016..2019).map do |year|
 		                    .year
 		                      h4 = year
 		                      .value == pdsi_result.compose_value year
-		
+
 		                - unless pdsi_result.products.blank?
 		                  .show-more
 		                    span.more
@@ -96,7 +99,7 @@ h2.section-title Resultados Esperados 2016-2019
 		                    span.less
 		                      = icon 'chevron-up'
 		                      | &nbsp;Plano Anual
-		
+
 		              - unless pdsi_result.products.blank?
 		                .plano-anual
 		                  table.tables.product

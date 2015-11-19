@@ -1,3 +1,4 @@
-h2 1. Introdução
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: section_name(@section), path: pdsis_path(section: @section_url) }]
 
 == @pdsi.introducao_1

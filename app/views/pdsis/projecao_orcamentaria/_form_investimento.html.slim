@@ -1,41 +1,76 @@
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: '6. Projeção orçamentária', path: pdsis_path(section: 'projecao-orcamentaria')}, { name: "Investimentos", path: nil}]
+
 h2.section-title Investimentos
-- @pdsi.category_budgets.includes(:projection_budget_category).each do |category_budget|
-  - category = category_budget.projection_budget_category
+.carousel-nav
+  .carousel-arrows
+    a.pull-left href="javascript:void(0)"
+      = icon 'angle-left'
+    a.pull-right href="javascript:void(0)"
+      = icon 'angle-right'
+  .carousel-list
+    .slider
+      a.is-active href="javascript:void(0)" data-index="2015"
+        |  2015
+      a href="javascript:void(0)" data-index="2016"
+        |  2016
+      a href="javascript:void(0)" data-index="2017"
+        |  2017
+      a href="javascript:void(0)" data-index="2018"
+        |  2018
+      a href="javascript:void(0)" data-index="2019"
+        |  2019
+  .carousel-items
+    - @pdsi.category_budgets.includes(:projection_budget_category).each do |category_budget|
+      - category = category_budget.projection_budget_category
+      .investment-form
+        fieldset
+          legend
+            strong = category.name
 
-  fieldset
-    legend
-      strong = category.name
+          = f.fields_for :projection_budgets, @pdsi.budgets_with_values(category) do |item|
+            fieldset.projection-structure-type
+              legend
+                strong = item.object.projection_budget_item.name
+              = item.fields_for :projection_budget_years do |year|
+                .item-content.animated data-index="#{year.object.year}" class=('is-active' if year.object.year == 2015)
+                  fieldset.projection-year
+                    legend
+                      strong = year.object.year
 
-    fieldset
-      legend
-        Strong Previsão orçamentária
+                    .field
+                      label = "Quantidade estimada para #{year.object.year}"
+                      = year.number_field  :quantidade_estimada, class: 'structure-qty'
 
-      .dotacao_orcamentaria_investimento
-        .center.header
-          .cell 2016
-          .cell 2017
-          .cell 2018
-          .cell 2019
-        .right
-      .dotacao_orcamentaria_investimento
-        .center
-          .cell = number_to_currency category_budget.value_2016
-          .cell = number_to_currency category_budget.value_2017
-          .cell = number_to_currency category_budget.value_2018
-          .cell = number_to_currency category_budget.value_2019
-        .right
+                    .field
+                      label = "Valor unitário estimado (R$ em #{year.object.year})"
+                      .currency-field
+                        = year.hidden_field  :valor_unitario, value: (number_with_precision(year.object.valor_unitario, :precision => 2, separator: '.', delimiter: '') || 0)
+                        = text_field_tag '', number_with_precision(year.object.valor_unitario, precision: 2) || 0, class: 'currency-input'
 
-    = f.fields_for :projection_budgets, @pdsi.budgets_with_values(category) do |item|
-      fieldset.projection-structure-type
-        legend
-          strong = item.object.projection_budget_item.name
+                    .field.total-sum style="margin-bottom: 20px;"
+                      label Valor total
+                      strong
 
-        .field
-          = item.label :quantidade_atual
-          = item.number_field :quantidade_atual, class: 'initial-value'
+                    fieldset.new-structures style=("display: none;" if year.object.projection_budget_structures.empty?)
+                      legend Novas estruturas
 
-        = item.fields_for :projection_budget_years do |year|
-          - if year.object.year == 2015
-            = render 'pdsis/projecao_orcamentaria/form_projection_budget_2015', f: year
-          - else
-            = render 'pdsis/projecao_orcamentaria/form_projection_budget', f: year, year: year.object.year
+                      table.table.nested-form
+                        thead
+                          tr
+                            th Nome
+                            th.destroy Apagar?
+
+                        - tbody_id  = "projection_budget_year_#{year.object.id}"
+                        - partial   = 'pdsis/projecao_orcamentaria/form_projection_budget_new_structure_fields'
+                        tbody id=(tbody_id)
+                          = year.fields_for :projection_budget_structures, year.object.projection_budget_structures.order(:id) do |pbs|
+                            tr.nested-fields.structure-block class=('new-object' if pbs.object.new_record?)
+                              td.field
+                                = pbs.text_field :name
+                              td.field.destroy
+                                = pbs.check_box :_destroy
+                      .hidden
+                        = link_to_add_association year, :projection_budget_structures, { data: { "association-insertion-node": "##{tbody_id}", "association-insertion-method": 'append' }, class: 'button btn-sm', partial: partial } do
+                          = icon 'plus'
+                          | Adicionar nova estrutura

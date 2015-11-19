@@ -1,4 +1,5 @@
-h1 Infraestrutura de saúde - CAPAIs
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: '3. Caracterização do DSEI', path: pdsis_path(section: 'caracterizacao-do-dsei')}, { name: '3.2.G - Infraestrutura de saúde - CAPAIs', path: nil}]
 
 #infrastructure_buildings
   = f.fields_for :capais do |ib|

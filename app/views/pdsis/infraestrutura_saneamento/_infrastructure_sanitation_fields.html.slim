@@ -27,7 +27,7 @@ fieldset style="position: relative;"
 
   .field
     = f.label :tipo_captacao_agua
-    = f.text_field :tipo_captacao_agua
+    = f.select  :tipo_captacao_agua, options_for_select(['Subterrânea', 'Superficial'], f.object.tipo_tratamento_agua), include_blank: true
 
   .field
     = f.label :nome_concessionaria

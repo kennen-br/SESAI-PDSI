@@ -1,3 +1,4 @@
-h1 Editar resultado
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: 'Resultados Esperados', path: results_path }, { name: 'Editar resultado', path: nil }]
 
 == render 'form'

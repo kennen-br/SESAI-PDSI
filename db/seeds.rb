@@ -1099,3 +1099,11 @@ if BudgetCorrectionFactor.count == 0
     { year: 2019, value: 0.025 }
   ])
 end
+
+if CategoryBudget.count == 0
+  CategoryBudget.create!([
+    {projection_budget_category_id: 1, pdsi_id: 3},
+    {projection_budget_category_id: 2, pdsi_id: 3},
+    {projection_budget_category_id: 3, pdsi_id: 3}
+  ])
+end
