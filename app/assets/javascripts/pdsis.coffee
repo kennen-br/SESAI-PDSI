@@ -6,6 +6,20 @@ manage_element = (element) ->
   element.parents('.destiny-transport').find('fieldset').toggle()
   return
 
+calculate_funding_balance = ->
+  for year in [2016..2019]
+    console.log "Year #{year}"
+    subtotal = 0.0
+    el1 = "#input-#{year}-3"
+    el2 = "#input-#{year}-10"
+    subtotal = parseFloat($(el1).val().toString().replace(/(^R\$|)/g, '').replace(/\,/, '.'))
+    console.log(subtotal)
+    subtotal += parseFloat($(el2).val().toString().replace(/(^R\$|)/g, '').replace(/\,/, '.'))
+    #TODO: Add negative calculations from second column
+
+    $("#input-#{year}-0").val(subtotal.toFixed(2))
+  return
+
 calculate_parent_total = (parent_id, check_id) ->
   subtotal = 0.0
   console.log "Recalculating subtotals by group #{parent_id}"
@@ -36,8 +50,8 @@ calculate_parent_total = (parent_id, check_id) ->
   subtotal += parseFloat($(el4).val().toString().replace(/(^R\$|)/g, '').replace(/\,/, '.'))
   subtotal += parseFloat($(el5).val().toString().replace(/(^R\$|)/g, '').replace(/\,/, '.'))
   console.log subtotal
-  $("#input-#{parent_id.substring(0,4)}-10").val(subtotal.toFixed(2));
-
+  $("#input-#{parent_id.substring(0,4)}-10").val(subtotal.toFixed(2))
+  #calculate_funding_balance()
   #$("#hidden-#{parent_id}").attr("value", parseFloat(subtotal).toFixed(2))
   return
 
