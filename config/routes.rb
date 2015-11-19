@@ -77,5 +77,5 @@ Rails.application.routes.draw do
   get '/health',            to: 'application#health'
   post  '/selecionar-dsei', to: 'application#set_dsei_and_pdsi_to_sesai', as: :set_dsei_and_pdsi_to_sesai
 
-  root 'pdsis#index', defaults: { section: 'estrutura' }
+  root 'users#home'
 end

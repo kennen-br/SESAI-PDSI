@@ -1,3 +1,6 @@
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: 'Pessoas do DSEI', path: nil }, { name: 'Cadastrar pessoa', path: nil }]
+
 h1 Cadastrar pessoa
 
 == render 'form'

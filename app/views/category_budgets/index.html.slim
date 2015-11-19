@@ -1,5 +1,5 @@
-h1
-  | Dotações orçamentarias por DSEI
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: 'Dotações orçamentarias por DSEI', path: nil }]
 
 table
   thead
@@ -8,7 +8,7 @@ table
       th Ações
 
   tbody
-    - @dseis.each do |dsei|
+    - @dseis.where.not(id: 35).each do |dsei|
       tr
         td = dsei.name
         td

@@ -1,3 +1,4 @@
-h1 Alterar pessoa
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: 'Pessoas do DSEI', path: people_path }, { name: 'Alterar pessoa', path: nil }]
 
 == render 'form'

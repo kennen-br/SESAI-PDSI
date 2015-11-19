@@ -1,4 +1,6 @@
-h2 Introdução
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: 'Templates e modelos', path: text_templates_path }, { name: 'Introdução', path: nil }]
+
 .field
   = f.label :introducao_1
   label DICA: Utilize a tag [NOME_DSEI] para substituição no texto pelo nome do distrito.
