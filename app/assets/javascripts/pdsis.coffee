@@ -22,6 +22,22 @@ calculate_parent_total = (parent_id, check_id) ->
     return
 
   $("#input-#{parent_id}").attr("value", parseFloat(subtotal).toFixed(2))
+  console.log "#input-#{parent_id.substring(0,4)}-10"
+
+  # Contratos
+  el1 = "#input-#{parent_id.substring(0,4)}-11"
+  el2 = "#input-#{parent_id.substring(0,4)}-15"
+  el3 = "#input-#{parent_id.substring(0,4)}-17"
+  el4 = "#input-#{parent_id.substring(0,4)}-21"
+  el5 = "#input-#{parent_id.substring(0,4)}-30"
+  subtotal = parseFloat($(el1).val().toString().replace(/(^R\$|)/g, '').replace(/\,/, '.'))
+  subtotal += parseFloat($(el2).val().toString().replace(/(^R\$|)/g, '').replace(/\,/, '.'))
+  subtotal += parseFloat($(el3).val().toString().replace(/(^R\$|)/g, '').replace(/\,/, '.'))
+  subtotal += parseFloat($(el4).val().toString().replace(/(^R\$|)/g, '').replace(/\,/, '.'))
+  subtotal += parseFloat($(el5).val().toString().replace(/(^R\$|)/g, '').replace(/\,/, '.'))
+  console.log subtotal
+  $("#input-#{parent_id.substring(0,4)}-10").val(subtotal.toFixed(2));
+
   #$("#hidden-#{parent_id}").attr("value", parseFloat(subtotal).toFixed(2))
   return
 
