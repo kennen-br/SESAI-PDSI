@@ -11,10 +11,13 @@ calculate_parent_total = (parent_id) ->
   console.log "Recalculating subtotals by group #{parent_id}"
 
   $(document).find(".#{parent_id}").each (item) ->
-    input_value = $(this).attr("value").toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.')
+    input_value = $(this).prop("value").toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.')
     console.log "input_value: #{input_value}"
 
-    subtotal += parseFloat(input_value)
+    if parent_id.substring(0, 4) == "2016"
+      subtotal += parseFloat(input_value)
+    else
+      subtotal += (parseFloat(input_value))/100
     console.log "subtotal: #{subtotal}"
     return
 
