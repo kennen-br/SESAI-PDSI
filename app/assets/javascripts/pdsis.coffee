@@ -5,20 +5,71 @@
 manage_element = (element) ->
   element.parents('.destiny-transport').find('fieldset').toggle()
   return
+#Calculate funding balance for both columns TODO
+calculate_funding_balance = ->
+  console.log "Calculating funding balance"
+  for year in [2016..2019]
+    console.log "Year #{year}"
+    subtotal = 0.0
+    el1 = "#input-#{year}-3"
+    el2 = "#input-#{year}-10"
+    subtotal = parseFloat($(el1).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+    console.log "Subtotal el1: #{subtotal}"
+    subtotal += parseFloat($(el2).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+    console.log "Subtotal el2: #{subtotal}"
+    # Negative values
+    el1 = "#input-#{year}-3-2"
+    el2 = "#input-#{year}-10-2"
+    subtotal -= parseFloat($(el1).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+    console.log "Subtotal -el1: #{subtotal}"
+    subtotal -= parseFloat($(el2).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+    console.log "Subtotal -el2: #{subtotal}"
+    if subtotal>0
+      $("#input-#{year}-0").val("R$#{(subtotal).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+      $("#input-#{year}-0").css({'color' : 'green'})
+    else
+      $("#input-#{year}-0").val("- R$#{(subtotal).toFixed(2).replace('-','').replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+      $("#input-#{year}-0").css({'color' : 'red'})
+
+  return
 
 calculate_parent_total = (parent_id) ->
-  subtotal = 0.0
+  subtotal2 = 0.0
   console.log "Recalculating subtotals by group #{parent_id}"
 
   $(document).find(".#{parent_id}").each (item) ->
-    input_value = $(this).attr("value").toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.')
+    input_value = parseFloat($(this).prop("value").toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
     console.log "input_value: #{input_value}"
 
-    subtotal += parseFloat(input_value)
-    console.log "subtotal: #{subtotal}"
+    subtotal2 += parseFloat(input_value)
+    console.log "subtotal: #{subtotal2}"
     return
+  # Value for hidden form (subitems)
+  $("#hidden-#{parent_id}-2").val(parseFloat(subtotal2).toFixed(2))
+  console.log "#input-#{parent_id.substring(0,4)}-10-2"
 
-  $("#input-#{parent_id}").attr("value", parseFloat(subtotal).toFixed(2))
+  # Value for show form (subitems)
+  $("#input-#{parent_id}-2").val("R$#{(subtotal2).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+
+  # Contratos
+  el1 = "#input-#{parent_id.substring(0,4)}-11-2"
+  el2 = "#input-#{parent_id.substring(0,4)}-15-2"
+  el3 = "#input-#{parent_id.substring(0,4)}-17-2"
+  el4 = "#input-#{parent_id.substring(0,4)}-21-2"
+  el5 = "#input-#{parent_id.substring(0,4)}-30-2"
+  subtotal = parseFloat($(el1).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+  subtotal += parseFloat($(el2).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+  subtotal += parseFloat($(el3).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+  subtotal += parseFloat($(el4).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+  subtotal += parseFloat($(el5).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+  #Value for hidden form (contracts)
+  $("#hidden-#{parent_id.substring(0,4)}-10-2").val(subtotal.toFixed(2))
+
+  # Value for show form (contracts)
+  $("#input-#{parent_id.substring(0,4)}-10-2").val("R$#{(subtotal).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+
+  calculate_funding_balance()
+
   #$("#hidden-#{parent_id}").attr("value", parseFloat(subtotal).toFixed(2))
   return
 
@@ -280,10 +331,18 @@ $(document).ready ->
       new_val = val + (val*cf)
 
       console.log "Recalculating #{el} using correction factor #{cf}: #{new_val}"
+      # Value for hidden form
       $(el).val(new_val.toFixed(2))
 
-      if idx > 10
+      # Value for show form
+      $(el).val("R$#{(new_val).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+
+      value_index = $(el).attr('value_index')
+
+      if value_index > 10
         calculate_parent_total(year_parent_id)
+      if (value_index == '3' || value_index == '10')
+        calculate_funding_balance()
 
     return
 
