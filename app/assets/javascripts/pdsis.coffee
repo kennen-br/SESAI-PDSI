@@ -45,7 +45,7 @@ calculate_parent_total = (parent_id) ->
     console.log "subtotal: #{subtotal2}"
     return
   # Value for hidden form (subitems)
-  $("#input-#{parent_id}-2").val(parseFloat(subtotal2).toFixed(2))
+  $("#hidden-#{parent_id}-2").val(parseFloat(subtotal2).toFixed(2))
   console.log "#input-#{parent_id.substring(0,4)}-10-2"
 
   # Value for show form (subitems)
@@ -63,7 +63,7 @@ calculate_parent_total = (parent_id) ->
   subtotal += parseFloat($(el4).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
   subtotal += parseFloat($(el5).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
   #Value for hidden form (contracts)
-  $("#input-#{parent_id.substring(0,4)}-10-2").val(subtotal.toFixed(2))
+  $("#hidden-#{parent_id.substring(0,4)}-10-2").val(subtotal.toFixed(2))
 
   # Value for show form (contracts)
   $("#input-#{parent_id.substring(0,4)}-10-2").val("R$#{(subtotal).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
