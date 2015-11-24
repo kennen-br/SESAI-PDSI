@@ -7,17 +7,28 @@ manage_element = (element) ->
   return
 #Calculate funding balance for both columns TODO
 calculate_funding_balance = ->
+  console.log "Calculating funding balance"
   for year in [2016..2019]
     console.log "Year #{year}"
     subtotal = 0.0
     el1 = "#input-#{year}-3"
     el2 = "#input-#{year}-10"
     subtotal = parseFloat($(el1).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
-    console.log(subtotal)
+    console.log "Subtotal el1: #{subtotal}"
     subtotal += parseFloat($(el2).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
-    #TODO: Add negative calculations from second column
+    console.log "Subtotal el2: #{subtotal}"
+    # Negative values
+    el1 = "#input-#{year}-3-2"
+    el2 = "#input-#{year}-10-2"
+    subtotal -= parseFloat($(el1).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+    console.log "Subtotal -el1: #{subtotal}"
+    subtotal -= parseFloat($(el2).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+    console.log "Subtotal -el2: #{subtotal}"
+    if subtotal>0
+      $("#input-#{year}-0").val("R$#{(subtotal).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+    else
+      $("#input-#{year}-0").val("- R$#{(subtotal).toFixed(2).replace('-','').replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
 
-    $("#input-#{year}-0").val(subtotal.toFixed(2))
   return
 
 calculate_parent_total = (parent_id) ->
@@ -36,7 +47,7 @@ calculate_parent_total = (parent_id) ->
   console.log "#input-#{parent_id.substring(0,4)}-10-2"
 
   # Value for show form (subitems)
-  $("#input-#{parent_id}-2").val("R$ #{(subtotal2).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+  $("#input-#{parent_id}-2").val("R$#{(subtotal2).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
 
   # Contratos
   el1 = "#input-#{parent_id.substring(0,4)}-11-2"
@@ -53,9 +64,10 @@ calculate_parent_total = (parent_id) ->
   $("#input-#{parent_id.substring(0,4)}-10-2").val(subtotal.toFixed(2))
 
   # Value for show form (contracts)
-  $("#input-#{parent_id.substring(0,4)}-10-2").val("R$ #{(subtotal).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+  $("#input-#{parent_id.substring(0,4)}-10-2").val("R$#{(subtotal).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
 
-  #calculate_funding_balance()
+  calculate_funding_balance()
+
   #$("#hidden-#{parent_id}").attr("value", parseFloat(subtotal).toFixed(2))
   return
 
@@ -321,10 +333,14 @@ $(document).ready ->
       $(el).val(new_val.toFixed(2))
 
       # Value for show form
-      $(el).val("R$ #{(new_val).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+      $(el).val("R$#{(new_val).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
 
-      if $(el).attr('value_index') > 10
+      value_index = $(el).attr('value_index')
+
+      if value_index > 10
         calculate_parent_total(year_parent_id)
+      if (value_index == '3' || value_index == '10')
+        calculate_funding_balance()
 
     return
 
