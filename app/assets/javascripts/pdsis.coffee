@@ -26,8 +26,10 @@ calculate_funding_balance = ->
     console.log "Subtotal -el2: #{subtotal}"
     if subtotal>0
       $("#input-#{year}-0").val("R$#{(subtotal).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+      $("#input-#{year}-0").css({'color' : 'green'})
     else
       $("#input-#{year}-0").val("- R$#{(subtotal).toFixed(2).replace('-','').replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+      $("#input-#{year}-0").css({'color' : 'red'})
 
   return
 
