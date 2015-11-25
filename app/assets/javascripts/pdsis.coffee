@@ -332,7 +332,7 @@ $(document).ready ->
 
       console.log "Recalculating #{el} using correction factor #{cf}: #{new_val}"
       # Value for hidden form
-      $(el).val(new_val.toFixed(2))
+      $("#hidden-#{year}-#{idx}").val(new_val.toFixed(2))
 
       # Value for show form
       $(el).val("R$#{(new_val).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
