@@ -20,9 +20,7 @@ h2.section-title Custeio
         | 2019
 
   .carousel-items
-              
       - (2016..2019).map.with_index do |year, i|
-
         - if year > 2016 then
           - r = BudgetCorrectionFactor.find_by(year: year)
           - bcf = r.value
@@ -59,10 +57,9 @@ h2.section-title Custeio
                     = "% SUPERIOR A "
                     = year-1
                 th Previsão do DSEI (em R$)
-                /!
-                  th 
-                    = if (year == 2016) then "Dotação" else "Previsão" 
-                    = " atualizada (em R$)"
+                th 
+                  = if (year == 2016) then "Dotação" else "Previsão" 
+                  = " atualizada (em R$)"
               = f.fields_for :budget_forecasts, @pdsi.budget_forecasts_with_values do |bf|
 
                 - if bf.object.cost.parent_id.blank?
@@ -70,21 +67,17 @@ h2.section-title Custeio
                     td = bf.object.cost.name
 
                     td
-                      = bf.hidden_field "initial_forecast_#{year}", value: (number_with_precision(eval("bf.object.initial_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0), value_index: "#{bf.object.cost.id}"
-                      - if bf.object.cost.id == 10
-                        = text_field_tag '', number_with_precision(eval("bf.object.initial_forecast_#{year}"), precision: 2) || 0, class: "currency-input #{year}-budget-value", id: "input-#{year}-#{bf.object.cost.id}", input_index: "#{bf.object.cost.id}", correction_factor: "#{bcf}", value_index: "#{bf.object.cost.id}"
-                      - else
-                        = text_field_tag '', number_with_precision(eval("bf.object.initial_forecast_#{year}"), precision: 2) || 0, class: "currency-input #{year}-budget-value", id: "input-#{year}-#{bf.object.cost.id}", input_index: "#{bf.object.cost.id}", correction_factor: "#{bcf}", value_index: "#{bf.object.cost.id}"
+                      = bf.hidden_field "initial_forecast_#{year}", value: (number_with_precision(eval("bf.object.initial_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0), value_index: "#{bf.object.cost.id}", id: "hidden-#{year}-#{bf.object.cost.id}"
+                      = text_field_tag '', number_with_precision(eval("bf.object.initial_forecast_#{year}"), precision: 2) || 0, class: "currency-input #{year}-budget-value", id: "input-#{year}-#{bf.object.cost.id}", input_index: "#{bf.object.cost.id}", correction_factor: "#{bcf}", value_index: "#{bf.object.cost.id}", :disabled => (current_user.user_type.menu_name == "dsei" ? true : false)
                     td
                       = bf.hidden_field "dsei_forecast_#{year}", value: (number_with_precision(eval("bf.object.dsei_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0), id: "hidden-#{year}-#{bf.object.cost.id}-2"
                       - if bf.object.cost.id == 10
                         = text_field_tag '', number_with_precision(eval("bf.object.dsei_forecast_#{year}"), precision: 2) || 0, class: "currency-input #{year}-budget-value", id: "input-#{year}-#{bf.object.cost.id}-2", input_index: "#{bf.object.cost.id}-2", correction_factor: "#{bcf}", value_index: "#{bf.object.cost.id}", disabled:true
                       - else
-                        = text_field_tag '', number_with_precision(eval("bf.object.dsei_forecast_#{year}"), precision: 2) || 0, class: "currency-input #{year}-budget-value", id: "input-#{year}-#{bf.object.cost.id}-2", input_index: "#{bf.object.cost.id}-2", correction_factor: "#{bcf}", value_index: "#{bf.object.cost.id}"
-                    /!
-                      td 
-                        = bf.hidden_field "revised_forecast_#{year}", value: (number_with_precision(eval("bf.object.revised_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
-                        = text_field_tag '', number_with_precision(eval("bf.object.revised_forecast_#{year}"), precision: 2) || 0, class: 'currency-input'
+                        = text_field_tag '', number_with_precision(eval("bf.object.dsei_forecast_#{year}"), precision: 2) || 0, class: "currency-input #{year}-budget-value", id: "input-#{year}-#{bf.object.cost.id}-2", input_index: "#{bf.object.cost.id}-2", correction_factor: "#{bcf}", value_index: "#{bf.object.cost.id}", :disabled => (current_user.user_type.menu_name == "dsei" ? false: true)
+                    td 
+                      = bf.hidden_field "revised_forecast_#{year}", value: (number_with_precision(eval("bf.object.revised_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0), id: "hidden-#{year}-#{bf.object.cost.id}-3"
+                      = text_field_tag '', number_with_precision(eval("bf.object.revised_forecast_#{year}"), precision: 2) || 0, class: "currency-input #{year}-budget-value", id: "input-#{year}-#{bf.object.cost.id}-3", input_index: "#{bf.object.cost.id}-3", correction_factor: "#{bcf}", value_index: "#{bf.object.cost.id}", :disabled => (current_user.user_type.menu_name == "dsei" ? true : false)
 
                 - elsif bf.object.cost.parent_id == 10
                   tr.item data-category=("#{bf.object.cost.id}") data-index=("#{year}-#{bf.object.cost.id}")
@@ -100,10 +93,10 @@ h2.section-title Custeio
                     td 
                       = bf.hidden_field "dsei_forecast_#{year}", value: (number_with_precision(eval("bf.object.dsei_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0), id: "hidden-#{year}-#{bf.object.cost.id}-2"
                       = text_field_tag '', number_with_precision(eval("bf.object.dsei_forecast_#{year}"), precision: 2) || 0, class: "currency-input #{year}-budget-value", id: "input-#{year}-#{bf.object.cost.id}-2", input_index: "#{bf.object.cost.id}-2", correction_factor: "#{bcf}", value_index: "#{bf.object.cost.id}", disabled: true
-                    /!
-                      td 
-                        = bf.hidden_field "revised_forecast_#{year}", value: (number_with_precision(eval("bf.object.revised_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
-                        = text_field_tag '', number_with_precision(eval("bf.object.revised_forecast_#{year}"), precision: 2) || 0, class: 'currency-input'
+                    td 
+                      /!
+                        = bf.hidden_field "revised_forecast_#{year}", value: (number_with_precision(eval("bf.object.revised_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0), id: "hidden-#{year}-#{bf.object.cost.id}-3"
+                        = text_field_tag '', number_with_precision(eval("bf.object.revised_forecast_#{year}"), precision: 2) || 0, class: 'currency-input', disabled: true
 
                 - else 
                   tr.structure data-index=("#{year}-#{bf.object.cost.parent_id}") style="display: none;"
@@ -116,8 +109,8 @@ h2.section-title Custeio
                     td 
                         = bf.hidden_field "dsei_forecast_#{year}", value: (number_with_precision(eval("bf.object.dsei_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0), id: "hidden-#{year}-#{bf.object.cost.id}-2"
                         = text_field_tag '', number_with_precision(eval("bf.object.dsei_forecast_#{year}"), precision: 2) || 0, class: "currency-input #{year}-budget-value #{year}-group-value #{year}-#{bf.object.cost.parent_id}", id: "input-#{year}-#{bf.object.cost.id}-2", group_parent_id: "#{bf.object.cost.parent.id}", year_parent_id: "#{year}-#{bf.object.cost.parent_id}", input_index: "#{bf.object.cost.id}-2", correction_factor: "#{bcf}",
-                          year_cost_id: "#{year}-#{bf.object.cost.id}", value_index: "#{bf.object.cost.id}"
-                    /!
-                      td 
-                        = bf.hidden_field "revised_forecast_#{year}", value: (number_with_precision(eval("bf.object.revised_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
-                        = text_field_tag '', number_with_precision(eval("bf.object.revised_forecast_#{year}"), precision: 2) || 0, class: 'currency-input'
+                          year_cost_id: "#{year}-#{bf.object.cost.id}", value_index: "#{bf.object.cost.id}", :disabled => (current_user.user_type.menu_name == "dsei" ? false: true)
+                    td 
+                      /!
+                        = bf.hidden_field "revised_forecast_#{year}", value: (number_with_precision(eval("bf.object.revised_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0), id: "hidden-#{year}-#{bf.object.cost.id}-3"
+                        = text_field_tag '', number_with_precision(eval("bf.object.revised_forecast_#{year}"), precision: 2) || 0, class: 'currency-input', :disabled => (current_user.user_type.menu_name == "dsei" ? true : false)

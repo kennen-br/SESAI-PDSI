@@ -13,16 +13,20 @@ calculate_funding_balance = ->
     subtotal = 0.0
     el1 = "#input-#{year}-3"
     el2 = "#input-#{year}-10"
-    subtotal = parseFloat($(el1).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+    if (!isNaN(parseFloat($(el1).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))))
+      subtotal = isNaN(parseFloat($(el1).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.')))
     console.log "Subtotal el1: #{subtotal}"
-    subtotal += parseFloat($(el2).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+    if (!isNaN(parseFloat($(el2).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))))
+      subtotal += parseFloat($(el2).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
     console.log "Subtotal el2: #{subtotal}"
     # Negative values
     el1 = "#input-#{year}-3-2"
     el2 = "#input-#{year}-10-2"
-    subtotal -= parseFloat($(el1).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+    if (!isNaN(parseFloat($(el1).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))))
+      subtotal -= parseFloat($(el1).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
     console.log "Subtotal -el1: #{subtotal}"
-    subtotal -= parseFloat($(el2).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+    if (!isNaN(parseFloat($(el2).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))))
+      subtotal -= parseFloat($(el2).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
     console.log "Subtotal -el2: #{subtotal}"
     if subtotal>0
       $("#input-#{year}-0").val("R$#{(subtotal).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
@@ -40,8 +44,8 @@ calculate_parent_total = (parent_id) ->
   $(document).find(".#{parent_id}").each (item) ->
     input_value = parseFloat($(this).prop("value").toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
     console.log "input_value: #{input_value}"
-
-    subtotal2 += parseFloat(input_value)
+    if (!isNaN(input_value))
+      subtotal2 += parseFloat(input_value)
     console.log "subtotal: #{subtotal2}"
     return
   # Value for hidden form (subitems)
@@ -69,8 +73,6 @@ calculate_parent_total = (parent_id) ->
   $("#input-#{parent_id.substring(0,4)}-10-2").val("R$#{(subtotal).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
 
   calculate_funding_balance()
-
-  #$("#hidden-#{parent_id}").attr("value", parseFloat(subtotal).toFixed(2))
   return
 
 $(document).on 'click', '.radio_destination_class', (e) ->
