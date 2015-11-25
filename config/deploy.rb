@@ -112,9 +112,27 @@ end
 task after_callback: :environment do
 end
 
-# For help in making your deploy script, see the Mina documentation:
-#
-#  - http://nadarei.co/mina
-#  - http://nadarei.co/mina/tasks
-#  - http://nadarei.co/mina/settings
-#  - http://nadarei.co/mina/helpers
+desc "Rolls back the latest release"
+task :rollback => :environment do
+  queue! %[echo "-----> Rolling back to previous release for instance: #{domain}"]
+
+  # Delete existing sym link and create a new symlink pointing to the previous release
+  queue %[echo -n "-----> Creating new symlink from the previous release: "]
+  queue "echo `cat #{deploy_to}/last_version` | ruby -e 'p gets.to_i-1'"
+  queue! "echo `cat #{deploy_to}/last_version` | ruby -e 'p gets.to_i-1' | xargs -I active ln -nfs '#{deploy_to}/releases/active' '#{deploy_to}/current'"
+
+  # Remove latest release folder (active release)
+  queue %[echo -n "-----> Deleting active release: "]
+  queue "echo `cat #{deploy_to}/last_version`"
+  queue! "echo `cat #{deploy_to}/last_version` | xargs -I active rm -rf #{deploy_to}/releases/active"
+
+  # Update the "last_version" file
+  queue %[echo -n "-----> Updating last_version file. "]
+  queue! "mv #{deploy_to}/last_version #{deploy_to}/del_version"
+  queue! "echo `cat #{deploy_to}/del_version` | ruby -e 'p gets.to_i-1' > #{deploy_to}/last_version"
+  queue! "rm #{deploy_to}/del_version"
+
+  to :launch do
+    invoke :'unicorn:restart'
+  end
+end
