@@ -52,11 +52,11 @@ task deploy: :environment do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
-    invoke :'deploy:cleanup'
-    invoke :'nginx:restart'
+    invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
     #invoke :'whenever:update'
-    invoke :'rails:db_migrate'
+    invoke :'deploy:cleanup'
+    invoke :'nginx:restart'
 
     to :launch do
       invoke :'unicorn:restart'
