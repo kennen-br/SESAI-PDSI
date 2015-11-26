@@ -330,14 +330,14 @@ $(document).ready ->
       el = "#input-#{year}-#{idx}"
       cf = $(el).attr('correction_factor')
       year_parent_id = "#{year}-#{group_parent_id}"
-      new_val = val + (val*cf)
+      val += val*cf
 
-      console.log "Recalculating #{el} using correction factor #{cf}: #{new_val}"
+      console.log "Recalculating #{el} using correction factor #{cf}: #{val}"
       # Value for hidden form
-      $("#hidden-#{year}-#{idx}").val(new_val.toFixed(2))
+      $("#hidden-#{year}-#{idx}").val(val.toFixed(2))
 
       # Value for show form
-      $(el).val("R$#{(new_val).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+      $(el).val("R$#{(val).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
 
       value_index = $(el).attr('value_index')
 
