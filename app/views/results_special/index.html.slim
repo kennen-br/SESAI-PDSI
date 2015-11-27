@@ -27,23 +27,32 @@
       .carousel-list
         .slider
           a.is-active.resultado-1 href="javascript:void(0)" data-index="0"
-            | ATENÇÃO À SAÚDE
+            = image_tag "resultados_1.jpg", class: "eixos-resultados "
+            span.tooltip ATENÇÃO À SAÚDE
           a.resultado-2 href="javascript:void(0)" data-index="1"
-            | SANEAMENTO AMBIENTAL
+            = image_tag "resultados_2.jpg", class: "eixos-resultados "
+            span.tooltip SANEAMENTO AMBIENTAL
           a.resultado-3 href="javascript:void(0)" data-index="2"
-            | LOGÍSTICA E INFRAESTRUTURA
+            = image_tag "resultados_3.jpg", class: "eixos-resultados "
+            span.tooltip LOGÍSTICA E INFRAESTRUTURA
           a.resultado-4 href="javascript:void(0)" data-index="3"
-            | MODELO DE GESTÃO
+            = image_tag "resultados_4.jpg", class: "eixos-resultados "
+            span.tooltip MODELO DE GESTÃO
           a.resultado-5 href="javascript:void(0)" data-index="4"
-            | PLANEJAMENTO E GESTÃO DA INFORMAÇÃO
+            = image_tag "resultados_5.jpg", class: "eixos-resultados "
+            span.tooltip PLANEJAMENTO E GESTÃO DA INFORMAÇÃO
           a.resultado-6 href="javascript:void(0)" data-index="5"
-            | QUALIFICAÇÃO DO GASTO PÚBLICO
+            = image_tag "resultados_6.jpg", class: "eixos-resultados "
+            span.tooltip QUALIFICAÇÃO DO GASTO PÚBLICO
           a.resultado-7 href="javascript:void(0)" data-index="6"
-            | COMUNICAÇÃO
+            = image_tag "resultados_7.jpg", class: "eixos-resultados "
+            span.tooltip COMUNICAÇÃO
           a.resultado-8 href="javascript:void(0)" data-index="7"
-            | ARTICULAÇÃO INTERFEDERATIVA
+            = image_tag "resultados_8.jpg", class: "eixos-resultados "
+            span.tooltip ARTICULAÇÃO INTERFEDERATIVA
           a.resultado-9 href="javascript:void(0)" data-index="8"
-            | CONTROLE SOCIAL
+            = image_tag "resultados_9.png", class: "eixos-resultados "
+            span.tooltip CONTROLE SOCIAL
 
       .expected-results-show
         .carousel-items
@@ -81,7 +90,8 @@
                             = icon 'info-circle'
                             .tooltip
                               p
-                                = pdsi_result.result.orientacoes_dsei
+                                = pdsi_result.result.orientacoes_dsei? ? pdsi_result.result.orientacoes_dsei : "Não há orientações"
+                                 
 
                       .result-products style="display: none;"
                         .years
@@ -110,7 +120,7 @@
                             table.tables.responsability-result.head
                               thead
                                 tr
-                                  th RESULTADO
+                                  th RESULTADO 2016
                                   th INÍCIO
                                   th TÉRMINO
                                   th RESPONSÁVEL

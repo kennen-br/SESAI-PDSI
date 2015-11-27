@@ -28,11 +28,13 @@ body{
 }
 
 #select_dsei_menu{
-  padding     : 10px;
+  padding: 3px;
+  float: right;
+  font-size: .8em;
 
   select{
     display     : inline;
-    margin-left : 10px;
+    margin:4px 10px;
   }
 }
 
@@ -93,20 +95,78 @@ span.white_color{
   }
 }
 
+@-webkit-keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.flash-alert i.fa, .flash-error i.fa, .flash-notice i.fa, .flash-success i.fa {
+  display:none;
+}
+
+.flash-alert, .flash-error, .flash-notice, .flash-success {
+  background-position: 15px center;
+  background-repeat: no-repeat;
+  -moz-border-radius: 3px 3px 3px 3px;
+  -webkit-border-radius: 3px 3px 3px 3px;
+  border-radius: 3px 3px 3px 3px;
+  -moz-box-shadow: 0 0 12px #999999;
+  -webkit-box-shadow: 0 0 12px #999999;
+  -o-box-shadow: 0 0 12px #999999;
+  box-shadow: 0 0 12px #999999;
+  color: #FFFFFF;
+  margin: 0 0 6px;
+  filter: alpha(opacity=80);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  opacity: 0;
+  padding: 15px 15px 15px 50px;
+  width: 300px;
+
+  position: fixed;
+  z-index: 9999;
+  right:25px;
+  top:15px;
+  -webkit-animation: fadeOut 4s;
+  animation: fadeOut 4s;
+  opacity: 0;
+}
+
 .flash-alert {
   @include flash($alert-color);
+
 }
 
 .flash-error {
   @include flash($error-color);
+
 }
 
 .flash-notice {
   @include flash($notice-color);
+
 }
 
 .flash-success {
   @include flash($success-color);
+    
 }
 
 button#menu-button{
@@ -242,6 +302,7 @@ button#menu-button{
   @include transform(translateX(-400px));
   background-color: #E6E7E9;
   width: auto;
+  min-width: 250px;
   li {
     a {
 
@@ -279,4 +340,11 @@ tr.table_result_infos{
     background-color  : #fff;
     padding           : 10px;
   }
+}
+.user-bar {
+    color: #FFF;
+    font-size: 12px;
+    float: right;
+    padding-top: 24px;
+    padding-right: 16px;
 }

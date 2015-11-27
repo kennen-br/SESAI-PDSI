@@ -58,7 +58,6 @@ class ApplicationController < ActionController::Base
   def current_pdsi
     view_context.current_pdsi
   end
-
 private
   def determine_layout
     current_user ? "private" : "public"

@@ -44,19 +44,28 @@ $blue: #66C;
     a {
       @include margin(null 10px null null);
 
-      border-bottom : 2px solid transparent;
+       
       color         : $gray;
       float         : left;
       font-size     : modular-scale(-1);
-      padding: 0 4px;
+      padding: 0px 18px;
+      opacity: .6;
 
       &.is-active {
         border-bottom : 2px solid;
         color         : $blue;
+        opacity: 1;
       }
 
       &:last-child {
         @include margin(0);
+      }
+      span{
+        position:absolute;
+        display:none;
+        z-index: 99999;
+        background:#FFF;
+        padding:2px 3px;
       }
     }
   }
