@@ -1107,3 +1107,31 @@ if CategoryBudget.count == 0
     {projection_budget_category_id: 3, pdsi_id: 3}
   ])
 end
+
+if Investment.count == 0
+  Investment.create!([
+    { name: 'Obras de Edificações' },
+    { name: 'Obras de Saneamento' },
+    { name: 'Equipamentos' },
+
+    { name: 'CASAI', parent_id: 1},
+    { name: 'UNIDADE BÁSICA DE SAÚDE INDÍGENA (UBSI) - Tipo I', parent_id: 1 },
+    { name: 'UNIDADE BÁSICA DE SAÚDE INDÍGENA (UBSI) - Tipo II', parent_id: 1 },
+    { name: 'UNIDADE BÁSICA DE SAÚDE INDÍGENA (UBSI) - Tipo III', parent_id: 1 },
+    { name: 'SEDE DO NÚCLEO DISTRITAL DA SESAI', parent_id: 1 },
+    { name: 'PÓLO-BASE', parent_id: 1 },
+    { name: 'REFORMAS', parent_id: 1 },
+
+    { name: 'SISTEMA DE ABASTECIMENTO DE ÁGUA (SAA)', parent_id: 2 },
+    { name: 'MELHORIAS SANITÁRIAS DOMICILIARES (MSD)', parent_id: 2 },
+    { name: 'ESGOTAMENTO SANITÁRIO', parent_id: 2 },
+
+    { name: 'VEÍCULOS', parent_id: 3 },
+    { name: 'BARCOS', parent_id: 3 },
+    { name: 'MOTORES DE BARCO', parent_id: 3 },
+    { name: 'GERADORES', parent_id: 3 },
+    { name: 'EQUIPAMENTOS MÉDICO-HOSPITALARES (EMH)', parent_id: 3 },
+    { name: 'EQUIPAMENTOS DE SANEAMENTO', parent_id: 3 },
+    { name: 'MOBILIÁRIO', parent_id: 3 }
+  ])
+end

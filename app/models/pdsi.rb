@@ -72,6 +72,9 @@ class Pdsi < ActiveRecord::Base
   has_many  :budget_forecasts
   accepts_nested_attributes_for :budget_forecasts, reject_if: :all_blank, allow_destroy: true
 
+  has_many  :budget_investments
+  accepts_nested_attributes_for :budget_investments, reject_if: :all_blank, allow_destroy: true
+
   has_attached_file :map, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :map, content_type: /\Aimage\/.*\Z/
 
@@ -124,7 +127,7 @@ class Pdsi < ActiveRecord::Base
   end
 
   def infrastructure_building_to_building_type(building_type)
-    items = infrastructure_buildings.where(infrastructure_building_type: building_type) 
+    items = infrastructure_buildings.where(infrastructure_building_type: building_type)
 
     if building_type.name == 'Sede do DSEI'
       return items unless items.blank?
@@ -287,6 +290,17 @@ class Pdsi < ActiveRecord::Base
     end
 
     responsabilities_with_values axis
+  end
+
+  def budget_investments_with_values
+    items = budget_investments
+    return items.includes(:investment).order(:investment_id) unless budget_investments.blank?
+
+    Investment.all.each do |investment|
+      budget_investments << BudgetInvestment.new(investment: investment)
+    end
+
+    budget_investments_with_values
   end
 
 private

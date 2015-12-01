@@ -10,67 +10,32 @@ h2.section-title Investimentos
       = icon 'angle-right'
   .carousel-list
     .slider
-      a.is-active href="javascript:void(0)" data-index="2015"
-        |  2015
-      a href="javascript:void(0)" data-index="2016"
-        |  2016
-      a href="javascript:void(0)" data-index="2017"
-        |  2017
-      a href="javascript:void(0)" data-index="2018"
-        |  2018
-      a href="javascript:void(0)" data-index="2019"
-        |  2019
+      a.is-active href="javascript:void(0)" data-index="0"
+        | 2016
+      a href="javascript:void(0)" data-index="1"
+        | 2017
+      a href="javascript:void(0)" data-index="2"
+        | 2018
+      a href="javascript:void(0)" data-index="3"
+        | 2019
   .carousel-items
-    - @pdsi.category_budgets.includes(:projection_budget_category).each do |category_budget|
-      - category = category_budget.projection_budget_category
-      .investment-form
-        fieldset
-          legend
-            strong = category.name
-
-          = f.fields_for :projection_budgets, @pdsi.budgets_with_values(category) do |item|
-            fieldset.projection-structure-type
-              legend
-                strong = item.object.projection_budget_item.name
-              = item.fields_for :projection_budget_years do |year|
-                .item-content.animated data-index="#{year.object.year}" class=('is-active' if year.object.year == 2015)
-                  fieldset.projection-year
-                    legend
-                      strong = year.object.year
-
-                    .field
-                      label = "Quantidade estimada para #{year.object.year}"
-                      = year.number_field  :quantidade_estimada, class: 'structure-qty'
-
-                    .field
-                      label = "Valor unitário estimado (R$ em #{year.object.year})"
-                      .currency-field
-                        = year.hidden_field  :valor_unitario, value: (number_with_precision(year.object.valor_unitario, :precision => 2, separator: '.', delimiter: '') || 0)
-                        = text_field_tag '', number_with_precision(year.object.valor_unitario, precision: 2) || 0, class: 'currency-input'
-
-                    .field.total-sum style="margin-bottom: 20px;"
-                      label Valor total
-                      strong
-
-                    fieldset.new-structures style=("display: none;" if year.object.projection_budget_structures.empty?)
-                      legend Novas estruturas
-
-                      table.table.nested-form
-                        thead
-                          tr
-                            th Nome
-                            th.destroy Apagar?
-
-                        - tbody_id  = "projection_budget_year_#{year.object.id}"
-                        - partial   = 'pdsis/projecao_orcamentaria/form_projection_budget_new_structure_fields'
-                        tbody id=(tbody_id)
-                          = year.fields_for :projection_budget_structures, year.object.projection_budget_structures.order(:id) do |pbs|
-                            tr.nested-fields.structure-block class=('new-object' if pbs.object.new_record?)
-                              td.field
-                                = pbs.text_field :name
-                              td.field.destroy
-                                = pbs.check_box :_destroy
-                      .hidden
-                        = link_to_add_association year, :projection_budget_structures, { data: { "association-insertion-node": "##{tbody_id}", "association-insertion-method": 'append' }, class: 'button btn-sm', partial: partial } do
-                          = icon 'plus'
-                          | Adicionar nova estrutura
+      - (2016..2019).map.with_index do |year, i|
+        .item-content.animated data-index="#{i}" class=('is-active' if i == 0)
+          table.table-minimal.budget-table.investiment
+            thead
+              tr
+                th
+                th QUANTIDADE ESTIMADA PARA #{year}
+                th VALOR UNITÁRIO ESTIMADO (R$ em #{year})
+                th PREVISÃO ORÇAMENTÁRIA (R$ em #{year})
+            tbody
+              = f.fields_for :budget_investments, @pdsi.budget_investments_with_values do |bi|
+                - if bi.object.investment.parent_id.blank?
+                  tr.category data-category=(bi.object.id)
+                    td = bi.object.investment.name
+                    td &nbsp;
+                    td &nbsp;
+                    td inf Sesai
+                - elsif bi.object.investment.parent_id == 1
+                  tr.item data-category=("#{bi.object.investment.id}") data-index=("#{year}-#{bi.object.investment.id}")
+                    td foo
