@@ -12,7 +12,9 @@ table
     - @costs.each do |cost|
       tr
         td = cost.name
-        td = cost.parent_id
+        td 
+          - if cost.parent_id
+            = @costs.find(cost.parent_id).name
         - if cost.cost_type == 1
           td = "Grupo"
         - elsif cost.cost_type == 2
