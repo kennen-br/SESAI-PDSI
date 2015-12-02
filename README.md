@@ -24,13 +24,14 @@ Verificar se versão compativel: Postgree 9.3
 
 ### Instalando as dependências do projeto
 ```
+sudo apt-get install nodejs npm libxml2-dev libxslt1-dev
 gem install nokogiri -v '1.6.6.2' -- --use-system-libraries
 bundle install
 ```
 
 ### Criar banco de dados manualmente
 ```
-$ psql -h localhost -U desenv sesai_pdsi
+psql -h localhost -U desenv sesai_pdsi
 ```
 Senha: rapadura
 Caso não funcionar, tem que rodar manualmente as 3 últimas linhas do postinstall.sh
@@ -67,11 +68,6 @@ rails server -b 0.0.0.0
 ```
 
 e agora acesse seu navegador em http://localhost:3000
-
-### Caso de erro em ExecJS Instalação NodeJS
-```
-sudo apt-get install nodejs npm
-```
 
 
 # Deploy ambiente Desenvolvimento (dese.knn)

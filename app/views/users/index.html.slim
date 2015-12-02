@@ -1,6 +1,10 @@
 - content_for :breadcrumb do
   = breadcrumbs [{ name: 'Usuários do sistema', path: nil }]
 
+= link_to new_user_path, class: 'button' do
+  i.fa.fa-plus
+  | Cadastrar usuário
+  
 table
   thead
     tr

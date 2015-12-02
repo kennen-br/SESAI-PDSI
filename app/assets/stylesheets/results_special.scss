@@ -1,7 +1,10 @@
 // Place all the styles related to the Results controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.left{
+  float:left;
 
+}
 #result-index {
   .carousel-nav {
     .carousel-list {
@@ -216,6 +219,7 @@
                 transform: translateX(-48%);
                 left: 50%;
                 right: initial;
+                font-size: .6em;
               }
             }
           }
@@ -381,9 +385,10 @@
               cursor : pointer;
             }
             .toggle-comments {
-              color       : #ccc;
-              font-size   : 19px;
-              margin-left : -3px;
+              color: #ccc;
+              font-size: 19px;
+              margin-left: -1px;
+              margin-top: 6px;
 
               &:hover {
                 color: #666;
@@ -408,6 +413,8 @@
             }
             .toggle-children {
               color: #666;
+              bottom: 0px;
+              position: absolute;
 
               &:hover {
                 color: #000;
@@ -415,7 +422,9 @@
             }
             .delete-responsability {
               @include position(absolute, null null 0 0);
-
+              position: absolute;
+              top: 0;
+              left: 0;
               color: #666;
               font-size: 23px;
 
@@ -425,7 +434,7 @@
             }
             .sortable-icon {
               font-size: 19px;
-              margin: 20px 0 0 -3px;
+              margin: 30px 0 0 -1px;
             }
           }
 
