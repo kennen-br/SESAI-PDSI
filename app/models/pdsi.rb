@@ -262,7 +262,7 @@ class Pdsi < ActiveRecord::Base
     items = budget_forecasts
     return items.includes(:cost).order(:cost_id) unless budget_forecasts.blank?
 
-    Cost.all.each { |cost| budget_forecasts << BudgetForecast.new(cost: cost) }
+     Cost.all.each { |cost| budget_forecasts << BudgetForecast.new(cost: cost) }
 
     budget_forecasts_with_values
   end

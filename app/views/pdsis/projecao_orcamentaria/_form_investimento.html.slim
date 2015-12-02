@@ -29,13 +29,26 @@ h2.section-title Investimentos
                 th VALOR UNITÁRIO ESTIMADO (R$ em #{year})
                 th PREVISÃO ORÇAMENTÁRIA (R$ em #{year})
             tbody
-              = f.fields_for :budget_investments, @pdsi.budget_investments_with_values do |bi|
-                - if bi.object.investment.parent_id.blank?
-                  tr.category data-category=(bi.object.id)
-                    td = bi.object.investment.name
+              = f.fields_for :budget_investments, @pdsi.budget_investments_with_values, wrapper: false do |b|
+                - if b.object.investment.parent_id.blank?
+                  tr.category data-category=("#{b.object.id}-#{year}")
+                    td = b.object.investment.name
                     td &nbsp;
                     td &nbsp;
                     td inf Sesai
-                - elsif bi.object.investment.parent_id == 1
-                  tr.item data-category=("#{bi.object.investment.id}") data-index=("#{year}-#{bi.object.investment.id}")
-                    td foo
+                - elsif b.object.investment.parent_id == 1..3
+                  tr.item data-category=("c#{b.object.investment.parent_id}-#{year}") data-index=("#{year}-#{b.object.investment.id}")
+                    td
+                      = icon 'plus-square-o', class: 'toggle-structures', id: "c#{b.object.investment.parent_id}-#{year}", onclick: 'new_investment(this.id)'
+                      | &nbsp;&nbsp;
+                      = b.object.investment.name
+                    td
+                      = b.text_field "quantity_#{year}"
+                    td
+                      = b.hidden_field "unitary_amount_#{year}", value: (number_with_precision(eval("b.object.unitary_amount_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
+                      = text_field_tag '', number_with_precision(eval("b.object.unitary_amount_#{year}"), precision: 2) || 0, class: 'currency-input'
+
+                    td
+                      = b.hidden_field "forecast_amount_#{year}", value: (number_with_precision(eval("b.object.forecast_amount_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
+                      = text_field_tag '', number_with_precision(eval("b.object.forecast_amount_#{year}"), precision: 2) || 0, class: 'currency-input'
+

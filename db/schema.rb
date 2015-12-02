@@ -115,18 +115,18 @@ ActiveRecord::Schema.define(version: 20151201121952) do
     t.integer  "pdsi_id"
     t.integer  "quantity_2016"
     t.decimal  "unitary_amount_2016"
-    t.decimal  "forecast_amout_2016"
+    t.decimal  "forecast_amount_2016"
     t.integer  "quantity_2017"
     t.decimal  "unitary_amount_2017"
-    t.decimal  "forecast_amout_2017"
+    t.decimal  "forecast_amount_2017"
     t.integer  "quantity_2018"
     t.decimal  "unitary_amount_2018"
-    t.decimal  "forecast_amout_2018"
+    t.decimal  "forecast_amount_2018"
     t.integer  "quantity_2019"
     t.decimal  "unitary_amount_2019"
-    t.decimal  "forecast_amout_2019"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.decimal  "forecast_amount_2019"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.integer  "investment_id"
   end
 
