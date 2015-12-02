@@ -1,17 +1,11 @@
 Rails.application.routes.draw do
 
-  get 'costs/edit'
-
-  get 'costs/index'
-
-  get 'costs/new'
-
-  get 'costs/show'
 
   resources :sesai_people,  path: 'pessoas-sesai',  path_names: { new: 'cadastrar', edit: 'alterar', destroy: 'excluir' }
   resources :people,        path: 'pessoas',        path_names: { new: 'cadastrar', edit: 'alterar', destroy: 'excluir' }
 
   resources :budget_correction_factors
+  resources :costs
 
   post '/image-upload',     to: 'application#image_upload', as: :image_upload
   post '/procurar-pessoa',  to: 'people#search',            as: :search

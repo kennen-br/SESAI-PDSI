@@ -1,2 +1,6 @@
-h1 Costs#show
-p Find me in app/views/costs/show.html.slim
+p#notice = notice
+
+
+= link_to 'Editar', edit_cost_path(@cost)
+'|
+= link_to 'Voltar', costs_path

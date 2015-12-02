@@ -1,20 +1,62 @@
 class CostsController < ApplicationController
-  before_action :cost, only: [:show, :edit, :update, :destroy]
+  before_action :set_cost, only: [:show, :edit, :update, :destroy]
 
-  #GET /costs/index
+  #GET /costs
   def index
   	@costs = Cost.all
   end
 
-  #GET /costs/edit
+  # GET /costs/1
+  def show
+  end
+
+  # GET /costs/new
+  def new
+    @cost = Cost.new
+  end
+
+  # GET /costs/1/edit
   def edit
   end
 
-  #GET /costs/new
-  def new
+  # POST /costs
+  def create
+    @cost = Cost.new(cost_params)
+    @cost.data_type = "money"
+
+    if @cost.save
+      #redirect_to @cost, notice: 'Cost was successfully created.'
+      redirect_to costs_url
+    else
+      render :new
+    end
   end
 
-  #GET /costs/1
-  def show
+  # PATCH/PUT /costs/1
+  def update
+    if @cost.update(cost_params)
+      #redirect_to @cost, notice: 'Cost was successfully updated.'
+      redirect_to costs_url, notice: 'Custo atualizado com sucesso.'
+    else
+      render :edit
+    end
   end
+
+  # DELETE /costs/1
+  def destroy
+    @cost.destroy
+    redirect_to costs_url, notice: 'Custo foi destruído com sucesso.'
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_cost
+      @cost = Cost.find(params[:id])
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    def cost_params
+      params.require(:cost).permit(:name, :parent_id, :type)
+    end
+
 end
