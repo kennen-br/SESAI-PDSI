@@ -18,4 +18,7 @@
     = f.label :tipo
     = f.select :cost_type, options_for_select([["Grupo", "1"], ["Subgrupo", "2"], ["Item", "3"]], @cost.cost_type), :prompt => 'Selecione um tipo'
 
+    /Hidden value
+    = f.hidden_field :data_type, value: "money"
+
   .actions = f.submit "Atualizar"

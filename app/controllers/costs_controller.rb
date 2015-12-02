@@ -22,8 +22,6 @@ class CostsController < ApplicationController
   # POST /costs
   def create
     @cost = Cost.new(cost_params)
-    @cost.data_type = "money"
-
     if @cost.save
       #redirect_to @cost, notice: 'Cost was successfully created.'
       redirect_to costs_url
@@ -56,7 +54,7 @@ class CostsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def cost_params
-      params.require(:cost).permit(:name, :parent_id, :type)
+      params.require(:cost).permit(:name, :parent_id, :cost_type, :data_type)
     end
 
 end
