@@ -49,7 +49,7 @@ $blue: #66C;
       float         : left;
       font-size     : modular-scale(-1);
       padding: 0px 18px;
-      opacity: .6;
+      
 
       &.is-active {
         border-bottom : 2px solid;
@@ -60,12 +60,23 @@ $blue: #66C;
       &:last-child {
         @include margin(0);
       }
+      img{
+        opacity: .6;
+      }
+      &:hover{
+        opacity: .8;
+      }
       span{
         position:absolute;
         display:none;
         z-index: 99999;
         background:#FFF;
-        padding:2px 3px;
+        padding: 3px 10px;
+        top: -35px;
+        overflow: visible;
+        border: 1px solid;
+        border-radius: 7px;
+        opacity: 1;
       }
     }
   }

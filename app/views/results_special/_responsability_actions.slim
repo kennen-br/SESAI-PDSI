@@ -1,7 +1,7 @@
 .responsability-actions
   - if %w'Produto Ação'.include?(resp.responsability_level.name)
-    = icon 'arrows', class: 'sortable-icon'
     = icon 'trash-o', class: 'delete-responsability'
+    = icon 'arrows', class: 'sortable-icon'
   = icon 'comment', class: 'toggle-comments'
   - if !resp.last_comment.nil? && !resp.last_comment.seen_by_user?(current_user)
     .unread-comment data-comment-id="#{resp.last_comment.id}"
