@@ -8,15 +8,36 @@ class CostsController < ApplicationController
 
   # GET /costs/1
   def show
+    @costs = Cost.all
+    @parent_costs = Array.new
+    @costs.each do |cost|
+      unless cost.cost_type == 3 || !cost.cost_type
+        @parent_costs << cost
+      end
+    end
   end
 
   # GET /costs/new
   def new
     @cost = Cost.new
+    @costs = Cost.all
+    @parent_costs = Array.new
+    @costs.each do |cost|
+      unless cost.cost_type == 3 || !cost.cost_type
+        @parent_costs << cost
+      end
+    end
   end
 
   # GET /costs/1/edit
   def edit
+    @costs = Cost.all
+    @parent_costs = Array.new
+    @costs.each do |cost|
+      unless cost.cost_type == 3 || !cost.cost_type
+        @parent_costs << cost
+      end
+    end
   end
 
   # POST /costs
