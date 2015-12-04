@@ -180,10 +180,14 @@ private
         :initial_forecast_2019, :dsei_forecast_2019, :revised_forecast_2019,
       ],
       budget_investments_attributes: [
-         :id, :quantity_2016, :quantity_2017, :quantity_2018, :quantity_2019,
-         :unitary_amount_2016, :unitary_amount_2017, :unitary_amount_2018, :unitary_amount_2019,
-         :forecast_amount_2016, :forecast_amount_2017, :forecast_amount_2018, :forecast_amount_2019,
-         investment_attributes: [:name, :type, :parent_id]
+        :id, :quantity_2016, :quantity_2017, :quantity_2018, :quantity_2019,
+        :unitary_amount_2016, :unitary_amount_2017, :unitary_amount_2018, :unitary_amount_2019,
+        :forecast_amount_2016, :forecast_amount_2017, :forecast_amount_2018, :forecast_amount_2019,
+        investment_items_attributes: [:id, :name, :quantity_2016, :unitary_amount_2016,
+         :forecast_amount_2016, :quantity_2017, :unitary_amount_2017, :forecast_amount_2017,
+         :quantity_2018, :unitary_amount_2018, :forecast_amount_2018, :quantity_2019,
+         :unitary_amount_2019, :forecast_amount_2019, :_destroy
+        ]
       ]
     )
   end
