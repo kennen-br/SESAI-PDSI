@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151201121952) do
+ActiveRecord::Schema.define(version: 20151203192623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -412,9 +412,29 @@ ActiveRecord::Schema.define(version: 20151201121952) do
   add_index "infrastructure_sanitations", ["pdsi_id"], name: "index_infrastructure_sanitations_on_pdsi_id", using: :btree
   add_index "infrastructure_sanitations", ["village_id"], name: "index_infrastructure_sanitations_on_village_id", using: :btree
 
+  create_table "investment_items", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "quantity_2016"
+    t.decimal  "unitary_amount_2016"
+    t.decimal  "forecast_amount_2016"
+    t.integer  "quantity_2017"
+    t.decimal  "unitary_amount_2017"
+    t.decimal  "forecast_amount_2017"
+    t.integer  "quantity_2018"
+    t.decimal  "unitary_amount_2018"
+    t.decimal  "forecast_amount_2018"
+    t.integer  "quantity_2019"
+    t.decimal  "unitary_amount_2019"
+    t.decimal  "forecast_amount_2019"
+    t.integer  "budget_investment_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "investment_items", ["budget_investment_id"], name: "index_investment_items_on_budget_investment_id", using: :btree
+
   create_table "investments", force: :cascade do |t|
     t.string   "name"
-    t.integer  "type"
     t.integer  "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -883,6 +903,7 @@ ActiveRecord::Schema.define(version: 20151201121952) do
   add_foreign_key "infrastructure_buildings", "villages"
   add_foreign_key "infrastructure_sanitations", "pdsis"
   add_foreign_key "infrastructure_sanitations", "villages"
+  add_foreign_key "investment_items", "budget_investments"
   add_foreign_key "investments", "investments", column: "parent_id"
   add_foreign_key "pdsi_attached_files", "pdsis"
   add_foreign_key "pdsi_base_polo_data", "base_polos"
