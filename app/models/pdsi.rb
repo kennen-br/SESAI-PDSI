@@ -241,8 +241,7 @@ class Pdsi < ActiveRecord::Base
   end
 
   def costs_with_values
-    items  = pdsi_costs
-    return  pdsi_costs.includes(:cost).order(:id) unless pdsi_costs.blank?
+    return  items.includes(:cost).order(:id) unless pdsi_costs.blank?
 
     Cost.all.each { |cost| pdsi_costs << PdsiCost.new(cost: cost) }
 
@@ -250,7 +249,6 @@ class Pdsi < ActiveRecord::Base
   end
 
   def need_costs_with_values
-    items  = pdsi_need_costs
     return  pdsi_need_costs.includes(:cost).order(:id) unless pdsi_need_costs.blank?
 
     Cost.all.each { |cost| pdsi_need_costs << PdsiNeedCost.new(cost: cost) }
@@ -294,7 +292,8 @@ class Pdsi < ActiveRecord::Base
 
   def budget_investments_with_values
     items = budget_investments
-    return items.includes(:investment).order(:investment_id) unless budget_investments.blank?
+    return items.includes([:investment, :investment_items])
+                .order(:investment_id) unless budget_investments.blank?
 
     Investment.all.each do |investment|
       budget_investments << BudgetInvestment.new(investment: investment)

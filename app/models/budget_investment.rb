@@ -6,5 +6,7 @@ class BudgetInvestment < ActiveRecord::Base
   end
 
   has_many  :investment_items
-  accepts_nested_attributes_for :investment_items, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :investment_items,
+                                reject_if: lambda { |attr| attr[:name].blank? },
+                                allow_destroy: true
 end
