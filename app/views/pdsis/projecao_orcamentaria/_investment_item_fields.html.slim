@@ -1,7 +1,15 @@
-tr.item data-category=("c#{f.object.id}")
+tr.item data-category=("c#{f.object.budget_investment.investment.parent_id}-#{year}") class=('new-object' if f.object.new_record?)
+  td.action
+    = icon 'trash-o'
+    = f.check_box :_destroy
   td.field
     = f.text_field :name
-  td.field.destroy
-    = f.check_box :_destroy
-  td.field -
-  td.field -
+  td
+    = f.text_field "quantity_#{year}"
+  td
+    = f.hidden_field "unitary_amount_#{year}", value: (number_with_precision(eval("f.object.unitary_amount_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
+    = text_field_tag '', number_with_precision(eval("f.object.unitary_amount_#{year}"), precision: 2) || 0, class: 'currency-input'
+  td
+    = f.hidden_field "forecast_amount_#{year}", value: (number_with_precision(eval("f.object.forecast_amount_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
+    = text_field_tag '', number_with_precision(eval("f.object.forecast_amount_#{year}"), precision: 2) || 0, class: 'currency-input'
+

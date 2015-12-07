@@ -24,6 +24,7 @@ h2.section-title Investimentos
           table.table-minimal.budget-table.investiment
             thead
               tr
+                th[style="width: 15px;"]
                 th
                 th QUANTIDADE ESTIMADA PARA #{year}
                 th VALOR UNITÁRIO ESTIMADO (R$ em #{year})
@@ -31,22 +32,22 @@ h2.section-title Investimentos
             tbody
               = f.fields_for :budget_investments, @pdsi.budget_investments_with_values do |b|
                 - tbody_id  = "investment_item_#{b.object.id}"
-                - partial   = 'pdsis//investment_item_fields'
+                - partial   = 'pdsis/projecao_orcamentaria/investment_item_fields'
 
                 - if b.object.investment.parent_id.blank?
                   tr.category data-category=("#{b.object.id}-#{year}")
-                    td = b.object.investment.name
+                    td.action colspan=2
+                      = b.object.investment.name
                     td &nbsp;
                     td &nbsp;
                     td inf Sesai
                 - elsif b.object.investment.parent_id === 1..3
                   - item_id = "#{b.object.object_id}"
                   tr.item data-category=("c#{b.object.investment.parent_id}-#{year}") data-index=("#{year}-#{b.object.investment.id}") id=("i#{item_id}")
-                    td
+                    td.action
                       = link_to '#'  do
-                        = icon 'plus', class: "#{b.object.investment.id}-#{year}",  id: item_id
-                        |
-                      | &nbsp;&nbsp;
+                        = icon 'plus', class: "#{b.object.investment.id}-#{year}", id: item_id
+                    td
                       = b.object.investment.name
                     td
                       = b.text_field "quantity_#{year}"
