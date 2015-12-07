@@ -24,7 +24,6 @@ addNewItem = (elId, elClass)->
   """
   $("#i#{elId}").after html
   index++
-  console.log(elId + index)
 
 $(document).ready ->
   for year in [2016..2019]

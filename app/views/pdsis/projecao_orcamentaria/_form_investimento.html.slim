@@ -35,7 +35,7 @@ h2.section-title Investimentos
                 - partial   = 'pdsis/projecao_orcamentaria/investment_item_fields'
 
                 - if b.object.investment.parent_id.blank?
-                  tr.category data-category=("#{b.object.id}-#{year}")
+                  tr.category data-category=("#{b.object.investment_id}-#{year}")
                     td.action colspan=2
                       = b.object.investment.name
                     td &nbsp;
