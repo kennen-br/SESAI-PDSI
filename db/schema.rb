@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203192623) do
+ActiveRecord::Schema.define(version: 20151207191327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -429,6 +429,7 @@ ActiveRecord::Schema.define(version: 20151203192623) do
     t.integer  "budget_investment_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.string   "year_reference"
   end
 
   add_index "investment_items", ["budget_investment_id"], name: "index_investment_items_on_budget_investment_id", using: :btree
