@@ -48,7 +48,8 @@
                     td 
                       = number_to_currency(eval("bf.revised_forecast_#{year}"))
                       br
-                      = bf.updated_at.strftime("Atualizada em %m/%d/%Y")
+                      - if bf.updated_at
+                        = bf.updated_at.strftime("Atualizada em %m/%d/%Y")
                 - elsif cost.parent_id == 10
                   tr.item data-category=("#{cost.id}") data-index=("#{year}-#{cost.id}")
                     td
@@ -61,7 +62,8 @@
                     td 
                       = number_to_currency(eval("bf.revised_forecast_#{year}"))
                       br
-                      = bf.updated_at.strftime("Atualizada em %m/%d/%Y")
+                      - if bf.updated_at
+                        = bf.updated_at.strftime("Atualizada em %m/%d/%Y")
 
                 - else 
                     tr.structure data-index=("#{year}-#{cost.parent_id}") style="display: none;"
@@ -71,7 +73,8 @@
                       td 
                         = number_to_currency(eval("bf.revised_forecast_#{year}"))
                         br
-                        = bf.updated_at.strftime("Atualizada em %m/%d/%Y")
+                        - if bf.updated_at
+                          = bf.updated_at.strftime("Atualizada em %m/%d/%Y")
 
       .item-content.animated data-index="5"
         table.table-minimal.budget-table.investiment
