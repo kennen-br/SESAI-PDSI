@@ -35,7 +35,7 @@ h2.section-title Investimentos
                 - partial   = 'pdsis/projecao_orcamentaria/investment_item_fields'
 
                 - if b.object.investment.parent_id.blank?
-                  tr.category data-category=("#{b.object.id}-#{year}")
+                  tr.category data-category=("#{b.object.investment_id}-#{year}")
                     td.action colspan=2
                       = b.object.investment.name
                     td &nbsp;
@@ -43,7 +43,7 @@ h2.section-title Investimentos
                     td inf Sesai
                 - elsif b.object.investment.parent_id === 1..3
                   - item_id = "#{b.object.object_id}"
-                  tr.item data-category=("c#{b.object.investment.parent_id}-#{year}") data-index=("#{year}-#{b.object.investment.id}") id=("i#{item_id}")
+                  tr.item data-category=("c#{b.object.investment.parent_id}-#{year}") id=("i#{item_id}")
                     td.action
                       = link_to '#'  do
                         = icon 'plus', class: "#{b.object.investment.id}-#{year}", id: item_id
@@ -59,4 +59,4 @@ h2.section-title Investimentos
                       = text_field_tag '', number_with_precision(eval("b.object.forecast_amount_#{year}"), precision: 2) || 0, class: 'currency-input'
 
                 = b.fields_for :investment_items  do |item|
-                  = render partial,  f: item, year: year
+                  = render partial,  f: item, year: year if item.object.year_reference == year.to_s
