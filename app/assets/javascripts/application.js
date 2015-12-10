@@ -25,5 +25,6 @@
 //= require html.sortable.min.js
 //= require moment.js
 //= require pikaday.js
+//= require vue.js
 //= require_tree .
 //= require turbolinks
