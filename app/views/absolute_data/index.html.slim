@@ -1,6 +1,5 @@
-h1
-  | Dados absolutos
-  /= AbsoluteDatum.model_name.human.pluralize
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: 'Dados absolutos', path: nil }]
 
 table
   thead

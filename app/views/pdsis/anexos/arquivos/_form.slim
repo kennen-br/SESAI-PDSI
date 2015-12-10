@@ -1,4 +1,6 @@
-h1 Arquivos
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: '7. Anexos', path: pdsis_path(section: 'anexos')}, { name: "Arquivos", path: nil}]
+
 - partial = 'pdsis/anexos/arquivos/pdsi_attached_files_fields'
 = f.fields_for :pdsi_attached_files do |item|
   = render partial, f: item

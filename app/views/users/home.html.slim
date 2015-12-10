@@ -1,5 +1,6 @@
-h1 PDSI 2016-2019
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: 'Estrutura e conteúdo', path: root_path }]
 
-javascript:
-  $('.sliding-menu-content').addClass('is-visible')
-  $('header .js-menu-trigger.sliding-menu-button').hide()
+nav.menu_estrutura
+  ul
+    == render "menu_#{current_user.user_type.menu_name}"

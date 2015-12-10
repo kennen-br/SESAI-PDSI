@@ -1,4 +1,6 @@
-h2 Análise situacional
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: 'Templates e modelos', path: text_templates_path }, { name: 'Análise situacional', path: nil }]
+
 .field
   = f.label :analise_situacional_4
   = f.text_area :analise_situacional_4, { class: 'basic-editable', data: { limit: 2500 } }

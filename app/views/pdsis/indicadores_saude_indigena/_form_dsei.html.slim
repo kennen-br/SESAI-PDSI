@@ -1,3 +1,6 @@
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: '4. Análise Situacional', path: pdsis_path(section: 'analise-situacional')}, { name: "4.1 Indicadores - DSEI", path: nil}]
+
 fieldset
 
   = f.fields_for :absolute_data_dseis, @pdsi.absolute_data_dseis_with_values do |item|

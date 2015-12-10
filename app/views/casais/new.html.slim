@@ -1,3 +1,4 @@
-h1 Cadastrar CASAI
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: 'CASAIs', path: casais_path }, { name: 'Cadastrar CASAI', path: nil }]
 
 == render 'form'

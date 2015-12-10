@@ -1,3 +1,6 @@
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: '5. Resultados Esperados 2016-2019', path: results_path }]
+
 #result-index
   = hidden_field_tag '', results_special_edit_path(current_dsei.pdsi), { id: 'result-edit-url' }
   = hidden_field_tag '', results_special_loop_path(current_dsei.pdsi), { id: 'result-loop-url' }
@@ -13,11 +16,7 @@
   = hidden_field_tag '', results_special_link_product_dsei_path(current_dsei.pdsi), { id: 'result-link-product-dsei-url' }
 
   = render 'modal_dsei'
-  h1.page-title
-    .breadcrumb-icon
-    = breadcrumbs [{ name: 'PDSI', path: pdsis_path(section: 'estrutura') }, { name: '5. Resultados Esperados 2016-2019', path: results_path }]
 
-  h2.section-title Resultados Esperados 2016-2019
   .section-description
     .carousel-nav
       .carousel-arrows
@@ -28,23 +27,32 @@
       .carousel-list
         .slider
           a.is-active.resultado-1 href="javascript:void(0)" data-index="0"
-            | ATENÇÃO À SAÚDE
+            = image_tag "resultados_1.jpg", class: "eixos-resultados "
+            span.tooltip ATENÇÃO À SAÚDE
           a.resultado-2 href="javascript:void(0)" data-index="1"
-            | SANEAMENTO AMBIENTAL
+            = image_tag "resultados_2.jpg", class: "eixos-resultados "
+            span.tooltip SANEAMENTO AMBIENTAL
           a.resultado-3 href="javascript:void(0)" data-index="2"
-            | LOGÍSTICA E INFRAESTRUTURA
+            = image_tag "resultados_3.jpg", class: "eixos-resultados "
+            span.tooltip LOGÍSTICA E INFRAESTRUTURA
           a.resultado-4 href="javascript:void(0)" data-index="3"
-            | MODELO DE GESTÃO
+            = image_tag "resultados_4.jpg", class: "eixos-resultados "
+            span.tooltip MODELO DE GESTÃO
           a.resultado-5 href="javascript:void(0)" data-index="4"
-            | PLANEJAMENTO E GESTÃO DA INFORMAÇÃO
+            = image_tag "resultados_5.jpg", class: "eixos-resultados "
+            span.tooltip PLANEJAMENTO E GESTÃO DA INFORMAÇÃO
           a.resultado-6 href="javascript:void(0)" data-index="5"
-            | QUALIFICAÇÃO DO GASTO PÚBLICO
+            = image_tag "resultados_6.jpg", class: "eixos-resultados "
+            span.tooltip QUALIFICAÇÃO DO GASTO PÚBLICO
           a.resultado-7 href="javascript:void(0)" data-index="6"
-            | COMUNICAÇÃO
+            = image_tag "resultados_7.jpg", class: "eixos-resultados "
+            span.tooltip COMUNICAÇÃO
           a.resultado-8 href="javascript:void(0)" data-index="7"
-            | ARTICULAÇÃO INTERFEDERATIVA
+            = image_tag "resultados_8.jpg", class: "eixos-resultados "
+            span.tooltip ARTICULAÇÃO INTERFEDERATIVA
           a.resultado-9 href="javascript:void(0)" data-index="8"
-            | CONTROLE SOCIAL
+            = image_tag "resultados_9.png", class: "eixos-resultados "
+            span.tooltip CONTROLE SOCIAL
 
       .expected-results-show
         .carousel-items
@@ -66,14 +74,14 @@
                     .result-container id=("result-#{pdsi_result.result.id}") data-id="#{pdsi_result.id}" data-result-id="#{pdsi_result.result.id}"
                       .result
                         h4 Resultado #{j}
-                        .result-name == pdsi_result.compose_value(2019)
+                        .result-name #{pdsi_result.result.name}
                         .show-more
-                          span.more
-                            = icon 'chevron-down'
-                            | &nbsp;Ver Mais
-                          span.less
+                          span.more style="display: none;"
                             = icon 'chevron-up'
                             | &nbsp;Ver Menos
+                          span.less style="display: inline;"
+                            = icon 'chevron-down'
+                            | &nbsp;Ver Mais
                         .helpers
                           .dsei-false-result data-result-id="#{pdsi_result.result.id}" data-dsei-id="#{current_dsei.id}"
                             = icon (pdsi_result.result.dsei_not_apply?(current_dsei) ? 'check-square' : 'square')
@@ -82,9 +90,10 @@
                             = icon 'info-circle'
                             .tooltip
                               p
-                                = pdsi_result.result.orientacoes_dsei
+                                = pdsi_result.result.orientacoes_dsei? ? pdsi_result.result.orientacoes_dsei : "Não há orientações"
+                                 
 
-                      .result-products
+                      .result-products style="display: none;"
                         .years
                           - (2016..2019).map do |year|
                             .year
@@ -111,12 +120,51 @@
                             table.tables.responsability-result.head
                               thead
                                 tr
-                                  th RESULTADO
+                                  th RESULTADO 2016
                                   th INÍCIO
                                   th TÉRMINO
                                   th RESPONSÁVEL
                                   th CORRESPONSÁVEIS
-                            = render 'responsability', { responsability: responsability }
+                             
+                            = render 'responsability_actions', { resp: responsability }
+                            = render 'modal_comments', { resp: responsability }
+                            table.tables.responsability-result.body
+                              tbody
+                                tr
+                                  td = text_area_tag '', pdsi_result.result.name,  class: 'product-name colored-border', data: { field: 'name', type: 'Resultado' }, disabled: "disabled"
+                                  td = text_field_tag '', responsability.initial_date? ? responsability.initial_date.strftime('%d/%m/%y') : '', class: 'product-date date-field colored-border', data: { field: 'initial_date', type: 'Resultado' }
+                                  td = text_field_tag '', responsability.deadline? ? responsability.deadline.strftime('%d/%m/%y') : '', class: 'product-date date-field colored-border', data: { field: 'deadline', type: 'Resultado' }
+                                  td
+                                    .people.colored-border.single
+                                      = text_field_tag '', nil, { class: 'colored-border search', placeholder: 'Insira o responsável'}
+                                      = icon 'times', class: 'clear-search'
+                                      = icon 'circle-o-notch', class: 'loading fa-spin'
+                                      ul
+                                        - unless responsability.person.nil?
+                                          li.person
+                                            label.people-checkbox
+                                              = check_box_tag '', '', true, { data: { person_id: responsability.person.id }}
+                                              strong = responsability.person.name
+                                              | &nbsp;
+                                              span
+                                                | (#{responsability.person.location})
+                                  td
+                                    .people.colored-border.multiple
+                                      = text_field_tag '', nil, { class: 'colored-border search', placeholder: 'Insira o corresponsável'}
+                                      = icon 'times', class: 'clear-search'
+                                      = icon 'circle-o-notch', class: 'loading fa-spin'
+                                      ul
+                                        - responsability.corresponsabilities.includes(:person).each do |person|
+                                          li.person
+                                            label.people-checkbox
+                                              = check_box_tag '', '', true, { data: { person_id: person.person.id, id: person.id }}
+                                              strong = person.person.name
+                                              | &nbsp;
+                                              span
+                                                | (#{person.person.location})
+
+                            
+
                             .children class=('hidden' if responsability.children.blank?)
                               table.tables.responsability-result.head
                                 thead
