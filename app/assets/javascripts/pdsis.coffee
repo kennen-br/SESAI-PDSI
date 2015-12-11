@@ -2,6 +2,14 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+# VueJS functions come here
+$(window).load ->
+  vm = new Vue
+    el: '#apptest'
+    data: {
+      message: 'Hello Vue.js!'
+    }
+
 manage_element = (element) ->
   element.parents('.destiny-transport').find('fieldset').toggle()
   return

@@ -209,6 +209,7 @@ ActiveRecord::Schema.define(version: 20151208133228) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.integer  "parent_id"
+    t.integer  "cost_type"
   end
 
   create_table "demographic_datas", force: :cascade do |t|
