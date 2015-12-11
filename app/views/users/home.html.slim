@@ -1,6 +1,3 @@
-- content_for :breadcrumb do
-  = breadcrumbs [{ name: 'Estrutura e conteúdo', path: root_path }]
-
 nav.menu_estrutura
   ul
     == render "menu_#{current_user.user_type.menu_name}"
