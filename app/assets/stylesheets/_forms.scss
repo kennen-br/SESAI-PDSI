@@ -93,6 +93,15 @@ form {
   }
 #sticky-wrapper {
   margin-bottom: 20px;
+  float: right;
+  width: 100%;
+
+  &:after {
+    content: ".";
+    display: block;
+    height: 0px;
+    clear: both;
+  };
 }
   .actions {
     margin: 0 0px 20px;

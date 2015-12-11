@@ -3,26 +3,7 @@
 
 .field
   = f.label  :city_name
-  = f.select :city_name, options_for_select(@base_polo.cities, f.object.city_name), include_blank: true
-
-.field
-  = f.label :pt_fluency, class: 'checkbox'
-  label.checkbox
-    = f.radio_button :pt_fluency, 'Plena'
-    | Plena
-    span.description Comunidades em que toda a população tem pleno domínio da língua portuguesa.
-  label.checkbox
-    = f.radio_button :pt_fluency, 'Suficiente'
-    | Suficiente
-    span.description Comunidades em que a maior parte da população consegue se comunicar em português, ainda que cotidianamente se comuniquem  através de línguas indígena. Em situações específicas pode ser necessário o apoio de intérprete para a realização de ações de saúde com certos grupos.
-  label.checkbox
-    = f.radio_button :pt_fluency, 'Parcial'
-    | Parcial
-    span.description Comunidades em que parcela importante da população (por exemplo mulheres e/ou crianças) não entende ou tem dificuldades em se comunicar em português, motivo pelo qual é necessário o apoio de intérprete para a realização de ações de saúde.
-  label.checkbox
-    = f.radio_button :pt_fluency, 'Limitada'
-    | Limitada
-    span.description Comunidades onde a comunicação em português é muito limitada ou inexistente, fazendo-se necessário apoio de intérprete para a realização de todas as ações de saúde.
+  = text_field_tag 'city_name', @base_polo.cities, disabled: true
 
 br
 
@@ -88,3 +69,22 @@ br
 
 = render 'pdsis/dados_fisiograficos/etnias',  f: f
 = render 'pdsis/dados_fisiograficos/idiomas', f: f
+
+.field
+  = f.label :pt_fluency, class: 'checkbox'
+  label.checkbox
+    = f.radio_button :pt_fluency, 'Plena'
+    | Plena
+    span.description Comunidades em que toda a população tem pleno domínio da língua portuguesa.
+  label.checkbox
+    = f.radio_button :pt_fluency, 'Suficiente'
+    | Suficiente
+    span.description Comunidades em que a maior parte da população consegue se comunicar em português, ainda que cotidianamente se comuniquem  através de línguas indígena. Em situações específicas pode ser necessário o apoio de intérprete para a realização de ações de saúde com certos grupos.
+  label.checkbox
+    = f.radio_button :pt_fluency, 'Parcial'
+    | Parcial
+    span.description Comunidades em que parcela importante da população (por exemplo mulheres e/ou crianças) não entende ou tem dificuldades em se comunicar em português, motivo pelo qual é necessário o apoio de intérprete para a realização de ações de saúde.
+  label.checkbox
+    = f.radio_button :pt_fluency, 'Limitada'
+    | Limitada
+    span.description Comunidades onde a comunicação em português é muito limitada ou inexistente, fazendo-se necessário apoio de intérprete para a realização de todas as ações de saúde.

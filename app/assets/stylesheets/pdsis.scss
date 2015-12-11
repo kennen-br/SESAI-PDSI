@@ -16,6 +16,7 @@
 
 .edit-section {
   @include clearfix;
+  clear: right;
 }
 .section-title {
   border-bottom : 2px solid #999;

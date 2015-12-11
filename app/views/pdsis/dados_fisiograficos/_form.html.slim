@@ -23,7 +23,7 @@ h1 POLO BASE: #{@base_polo.name}
 
           .field
             = item.label  :city_name
-            = item.select :city_name, options_for_select(@base_polo.cities, item.object.city_name), include_blank: true
+            = text_field_tag 'city_name', @base_polo.cities, disabled: true
 
         - @base_polo.villages.each do |village|
           fieldset
