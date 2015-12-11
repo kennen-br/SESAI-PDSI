@@ -9,9 +9,6 @@
         - @demographic_data.errors.full_messages.each do |message|
           li = message
 
-  fieldset
-    == render 'form', f: f
-
   .actions
     a.button href="javascript:void(0)" onclick="$(this).closest('form').submit()"
       i.fa.fa-save
@@ -22,3 +19,9 @@
     = link_to 'javascript:history.back()', class: 'button' do
       i.fa.fa-warning
       | Cancelar
+
+  p Informações que não são passíveis de alteração no PDSInfo deverão ser alteradas diretamente no SIASI.
+  fieldset
+    == render 'form', f: f
+
+

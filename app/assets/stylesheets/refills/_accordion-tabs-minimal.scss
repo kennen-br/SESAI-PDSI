@@ -8,7 +8,8 @@
   $dark-gray: #333 !default;
   $medium-screen: em(640) !default;
   //////////////////////////////////////////////////////////////////////////////////
-
+  clear: both;
+  margin-top: 40px;
   $tab-link-color: $dark-gray;
   $tab-border: 1px solid $base-border-color;
   $tab-active-background: $base-background-color;

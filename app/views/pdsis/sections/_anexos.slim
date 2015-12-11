@@ -9,7 +9,7 @@
 
       = link_to edit_anexos_path(@pdsi, section: 'anexos', subsection: 'arquivos'), class: 'button pull-right' do
           i.fa.fa-pencil
-          | Alterar Arquivos
+          | Editar Arquivos
       h2.section-title Arquivos Anexos
 
       table.tables
@@ -31,7 +31,7 @@
 
       = link_to edit_anexos_path(@pdsi, section: 'anexos', subsection: 'investimentos'), class: 'button pull-right' do
           i.fa.fa-pencil
-          | Alterar Investimentos
+          | Editar Investimentos
       h2.section-title Dimensionamento de Necessidades - Investimentos
       - ProjectionBudgetCategory.all.each do |category|
         strong = category.name
@@ -62,7 +62,7 @@
 
       = link_to edit_anexos_path(@pdsi, section: 'anexos', subsection: 'custeios'), class: 'button pull-right' do
           i.fa.fa-pencil
-          | Alterar Custeios
+          | Editar Custeios
       h2.section-title Dimensionamento de Necessidades - Custeios
 
       table.tables.pdsi-result-table

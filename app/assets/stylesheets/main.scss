@@ -166,7 +166,7 @@ span.white_color{
 
 .flash-success {
   @include flash($success-color);
-    
+
 }
 
 button#menu-button{
@@ -285,12 +285,49 @@ button#menu-button{
 }
 
 .menu_estrutura {
-	width: 50%;
     padding: 1em;
 	ul{
 		list-style:none;
+
+    li:first-child{
+      display:none;
+    }
 		.child  {
 			margin-left:50px;
+      a {
+        list-style: none;
+        width: 33%;
+        margin: 0;
+        min-height: 150px;
+        line-height: 1.4em;
+        font-size: 1.2em;
+        display: inline-table;
+        padding-right: 15%;
+        padding-left: 1%;
+        font-weight: lighter;
+        padding-top: 13px;
+
+      &:hover {
+        background-color: rgba(77,116,205,.75);
+        color: #FFF;
+        }
+
+      &:first-child, &:nth-child(2), &:nth-child(4), &:nth-child(5){
+        border-bottom:1px solid #ccc;
+        border-right:1px solid #ccc;
+        }
+      &:nth-child(3), &:nth-child(6) {
+        border-bottom:1px solid #ccc;
+        }
+      &:nth-child(7){
+        border-right:1px solid #ccc;
+        }
+      span:before {
+        content: "\a ";
+        white-space: pre;
+        }
+      }
+
 		}
 		li a{
 			display:block;

@@ -1,10 +1,14 @@
 - content_for :breadcrumb do
   = breadcrumbs [{ name: section_name(@section), path: pdsis_path(section: @section_url) }]
 
-== @pdsi.compose_item_2 || 'Não informado'
-
 .right-align
   = link_to edit_pdsi_path(@pdsi, section: 'processo-de-construcao-do-pdsi'), class: 'button' do
     i.fa.fa-pencil
-    | Alterar
+    | Editar
 |&nbsp;
+
+.sample-text
+  == @pdsi.sample :processo_construcao_pdsi_2
+
+== @pdsi.compose_item_2 || 'Não informado'
+

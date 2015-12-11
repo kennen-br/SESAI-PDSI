@@ -144,6 +144,9 @@ $(document).on 'click', '.add_person', (e) ->
 
   return
 $(document).ready ->
+  $(".actions").sticky({topSpacing:0, className:"actions-fixed"});
+
+  $(".menu_estrutura ul .child a").innerHeight($(window).innerHeight()/4)
 
   # Add new behavior to cocoon add_fields button
   $('.expected-result.responsabilities').each  ->

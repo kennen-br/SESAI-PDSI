@@ -33,6 +33,7 @@
   display: inline-block;
   margin-bottom: 0;
   text-align: left;
+  float: left;
 
   a {
     background-color : $breadcrumb-background;
@@ -48,7 +49,7 @@
     padding          : 0 ($breadcrumb-height / 4) 0 ($breadcrumb-height / 2);
     position         : relative;
     text-decoration  : none;
-    
+
     vertical-align   : 6px;
 
     &:first-child {
@@ -64,7 +65,7 @@
       border-top-right-radius: $base-border-radius;
       color: $breadcrumb-color-active;
       padding-right: $breadcrumb-height / 2;
-    
+
       font-weight: bold;
     }
 
@@ -96,11 +97,11 @@
     }
 
     &:before {
-       
+
       z-index: 1;
     }
     &:after {
-        
+
     }
 
     @include media($medium-screen) {

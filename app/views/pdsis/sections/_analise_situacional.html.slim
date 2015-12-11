@@ -11,7 +11,7 @@ ul.accordion-tabs-minimal
       .right-align
         = link_to edit_pdsi_path(@pdsi, section: 'analise-situacional'), class: 'button' do
           i.fa.fa-pencil
-          | Alterar
+          | Editar
       |&nbsp;
   li.tab-header-and-content
     a.tab-link[href="#"]
@@ -25,7 +25,7 @@ ul.accordion-tabs-minimal
           .accordion-content
             = link_to health_indicators_path(@pdsi, subsection: 'dsei'), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
-              | Alterar
+              | Editar
             == render 'pdsis/indicadores_saude_indigena/show_dsei'
 
         li
@@ -34,7 +34,7 @@ ul.accordion-tabs-minimal
           .accordion-content
             = link_to health_indicators_path(@pdsi, subsection: 'base-polo'), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
-              | Alterar
+              | Editar
             == render 'pdsis/indicadores_saude_indigena/show_base_polo'
 
         li
@@ -43,7 +43,7 @@ ul.accordion-tabs-minimal
           .accordion-content
             = link_to health_indicators_path(@pdsi, subsection: 'casai'), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
-              | Alterar
+              | Editar
             == render 'pdsis/indicadores_saude_indigena/show_casai'
 
       |&nbsp;
@@ -57,6 +57,6 @@ ul.accordion-tabs-minimal
       .right-align
         = link_to edit_pdsi_path(@pdsi, section: 'principais-desafios'), class: 'button' do
           i.fa.fa-pencil
-          | Alterar
+          | Editar
       |&nbsp;
 

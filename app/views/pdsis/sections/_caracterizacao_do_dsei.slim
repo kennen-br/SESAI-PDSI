@@ -13,7 +13,7 @@ ul.accordion-tabs-minimal
       .right-align
         = link_to edit_pdsi_path(@pdsi, section: 'caracterizacao-do-dsei'), class: 'button' do
           i.fa.fa-pencil
-          | Alterar
+          | Editar
       |&nbsp;
   li.tab-header-and-content
     a.tab-link[href="#"]
@@ -29,7 +29,7 @@ ul.accordion-tabs-minimal
           	  |Destacar a localização da sede do Distrito, dos polos-base e aspectos geográficos (rios, estradas, limites territoriais, políticos).
             = link_to edit_pdsi_path(@pdsi, section: 'mapa'), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
-              | Alterar
+              | Editar
             = image_tag @pdsi.map.url
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
@@ -37,7 +37,7 @@ ul.accordion-tabs-minimal
           .accordion-content
             = link_to edit_demographic_data_path(@demographic_data), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
-              | Alterar
+              | Editar
             == render 'demographic_datas/show'
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
@@ -45,7 +45,7 @@ ul.accordion-tabs-minimal
           .accordion-content
             = link_to edit_pdsi_path(@pdsi, section: 'dados-fisiograficos', base_polo: @dsei.base_polos.order(:id).first), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
-              | Alterar
+              | Editar
             == render 'pdsis/dados_fisiograficos/show'
 
   li.tab-header-and-content
@@ -59,7 +59,7 @@ ul.accordion-tabs-minimal
           .accordion-content
             = link_to edit_pdsi_path(@pdsi, section: 'destinos', base_polo: @dsei.base_polos.order(:id).first), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
-              | Alterar
+              | Editar
             == render 'pdsis/destinos/show'
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
@@ -67,7 +67,7 @@ ul.accordion-tabs-minimal
           .accordion-content
             = link_to edit_pdsi_path(@pdsi, section: 'recursos-humanos'), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
-              | Alterar
+              | Editar
             == render 'pdsis/recursos_humanos/show'
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
@@ -75,7 +75,7 @@ ul.accordion-tabs-minimal
           .accordion-content
             = link_to edit_pdsi_path(@pdsi, section: 'capacidade-instalada', base_polo: @dsei.base_polos.order(:id).first), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
-              | Alterar
+              | Editar
             == render 'pdsis/capacidade_instalada/show'
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
@@ -83,7 +83,7 @@ ul.accordion-tabs-minimal
           .accordion-content
             = link_to edit_pdsi_path(@pdsi, section: 'rede-servicos', base_polo: @dsei.base_polos.order(:id).first), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
-              | Alterar
+              | Editar
             == render 'pdsis/rede_servicos/show'
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
@@ -91,7 +91,7 @@ ul.accordion-tabs-minimal
           .accordion-content
             = link_to edit_pdsi_path(@pdsi, section: 'infraestrutura-edificacoes'), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
-              | Alterar
+              | Editar
             == render 'pdsis/infraestrutura_edificacoes/show'
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
@@ -99,7 +99,7 @@ ul.accordion-tabs-minimal
           .accordion-content
             = link_to edit_pdsi_path(@pdsi, section: 'infraestrutura-saneamento'), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
-              | Alterar
+              | Editar
             == render 'pdsis/infraestrutura_saneamento/show'
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
@@ -107,5 +107,5 @@ ul.accordion-tabs-minimal
           .accordion-content
             = link_to edit_pdsi_path(@pdsi, section: 'capais'), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
-              | Alterar
+              | Editar
             == render 'pdsis/capais/show'

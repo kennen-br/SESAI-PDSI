@@ -91,14 +91,26 @@ form {
       color: #000;
     }
   }
-
+#sticky-wrapper {
+  margin-bottom: 20px;
+}
   .actions {
-    @include margin(20px null null);
-    @include padding(10px null null);
+    margin: 0 0px 20px;
+    padding: 0 10px 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: right;
+    z-index: 99999;
+    background: #FFF;
 
-    border-top: 1px solid #ccc;
+    .button {
+      margin-top: 15px;
+    }
   }
-
+  .actions-fixed > {
+    height: 60px;
+    padding-top: 15px;
+    border: 1px solid #ccc;
+  }
   .parent-block {
     .child {
       @include padding(10px 10px 10px 20px);

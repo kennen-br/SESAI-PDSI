@@ -22,7 +22,7 @@ html lang="#{I18n.locale}"
         = render 'form_select_dsei'
         = render 'notices'
         .page-content
-          h1.page-title
+          - if content_for? :breadcrumb
             .breadcrumb-icon
             = yield :breadcrumb
           = yield
