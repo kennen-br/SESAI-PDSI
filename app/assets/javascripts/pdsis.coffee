@@ -184,6 +184,15 @@ $(document).ready ->
     $(".budget-table.investiment .structure[data-index='#{index}']").toggle()
     return
 
+   # Toggle Structures on Projeção Orçamentária show (supergroup / group)
+   ###
+  $('.budget-table.investiment .toggle-structures').click ->
+    $(this).toggleClass('fa-plus-square-o').toggleClass 'fa-minus-square-o'
+    index = $(this).parents('tr.item').data 'index'
+    $(".budget-table.investiment .structure[data-index='#{index}']").toggle()
+    return
+  ###
+
   # Sum up all investiments to years 2016-2019 on a final table
   $('.budget-table.investiment.total').each ->
     $total    = $(this)
