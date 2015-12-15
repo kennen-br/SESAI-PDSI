@@ -18,45 +18,67 @@ h2.section-title Investimentos
         | 2018
       a href="javascript:void(0)" data-index="3"
         | 2019
-  .carousel-items
-      - (2016..2019).map.with_index do |year, i|
-        .item-content.animated data-index="#{i}" class=('is-active' if i == 0)
-          table.table-minimal.budget-table.investiment
-            thead
-              tr
-                th[style="width: 15px;"]
-                th
-                th QUANTIDADE ESTIMADA PARA #{year}
-                th VALOR UNITÁRIO ESTIMADO (R$ em #{year})
-                th PREVISÃO ORÇAMENTÁRIA (R$ em #{year})
-            tbody
-              = f.fields_for :budget_investments, @pdsi.budget_investments_with_values do |b|
-                - tbody_id  = "investment_item_#{b.object.id}"
-                - partial   = 'pdsis/projecao_orcamentaria/investment_item_fields'
+  .carousel-items[id="form-investment"]
+    - (2016..2019).map.with_index do |year, i|
+      .item-content.animated data-index="#{i}" class=('is-active' if i == 0)
+        table.table-minimal.budget-table.investiment
+          thead
+            tr
+              th[style="width: 15px;"]
+              th
+              th QUANTIDADE ESTIMADA PARA #{year}
+              th VALOR UNITÁRIO ESTIMADO (R$ em #{year})
+              th PREVISÃO ORÇAMENTÁRIA (R$ em #{year})
+          tbody
+            = f.fields_for :budget_investments, @pdsi.budget_investments_with_values do |b|
+              - tbody_id  = "investment_item_#{b.object.id}"
+              - partial   = 'pdsis/projecao_orcamentaria/investment_item_fields'
 
-                - if b.object.investment.parent_id.blank?
-                  tr.category data-category=("#{b.object.investment_id}-#{year}")
-                    td.action colspan=2
-                      = b.object.investment.name
-                    td &nbsp;
-                    td &nbsp;
-                    td inf Sesai
-                - elsif b.object.investment.parent_id === 1..3
-                  - item_id = "#{b.object.object_id}"
-                  tr.item data-category=("c#{b.object.investment.parent_id}-#{year}") id=("i#{item_id}")
+              - if b.object.investment.parent_id.blank?
+                tr.category data-category=("#{b.object.investment_id}-#{year}")
+                  td.action colspan=2
+                    = b.object.investment.name
+                  td &nbsp;
+                  td &nbsp;
+                  td
+                    = b.number_field "forecast_amount_#{year}",
+                    id: "gc#{b.object.id}y#{year}"
+              - elsif b.object.investment.parent_id === 1..3
+                - item_id = "#{b.object.object_id}"
+                tr.item data-category=("c#{b.object.investment.parent_id}-#{year}") id=("i#{item_id}")
+                  td.action
+                    = link_to '#'  do
+                      = icon 'plus', class: "#{b.object.investment.id}-#{year}", id: item_id
+                  td
+                    = b.object.investment.name
+                  td
+                    = b.text_field "quantity_#{year}", id: "qc#{b.object.id}y#{year}"
+                  td
+                    = b.number_field "unitary_amount_#{year}",
+                    id: "uc#{b.object.id}y#{year}"
+                  td
+                    = b.number_field "forecast_amount_#{year}", class: "fc#{b.object.id}y#{year}",
+                    id: "fc#{b.object.id}y#{year}"
+
+              = b.fields_for :investment_items do |item|
+                - if item.object.year_reference == year.to_s
+                  tr.item data-category=("c#{item.object.budget_investment.investment.parent_id}-#{year}")
                     td.action
-                      = link_to '#'  do
-                        = icon 'plus', class: "#{b.object.investment.id}-#{year}", id: item_id
+                      = icon 'trash-o'
+                      = item.check_box :_destroy, class: "dc#{item.object.budget_investment.id}y#{year}"
+                    td.field
+                      = item.text_field :name
                     td
-                      = b.object.investment.name
+                      = item.number_field "quantity_#{year}",
+                      id: "qid#{item.object.id}c#{item.object.budget_investment.id}y#{year}",
+                      class: "qc#{item.object.budget_investment.id}y#{year} investment-input"
                     td
-                      = b.text_field "quantity_#{year}"
+                      = item.number_field "unitary_amount_#{year}",
+                      id: "uid#{item.object.id}c#{item.object.budget_investment.id}y#{year}",
+                      class: "uc#{item.object.budget_investment.id}y#{year} investment-input"
                     td
-                      = b.hidden_field "unitary_amount_#{year}", value: (number_with_precision(eval("b.object.unitary_amount_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
-                      = text_field_tag '', number_with_precision(eval("b.object.unitary_amount_#{year}"), precision: 2) || 0, class: 'currency-input'
-                    td
-                      = b.hidden_field "forecast_amount_#{year}", value: (number_with_precision(eval("b.object.forecast_amount_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0)
-                      = text_field_tag '', number_with_precision(eval("b.object.forecast_amount_#{year}"), precision: 2) || 0, class: 'currency-input'
+                      = item.number_field "forecast_amount_#{year}",
+                      id: "fid#{item.object.id}c#{item.object.budget_investment.id}y#{year}",
+                      class: "fc#{item.object.budget_investment.id}y#{year} investment-input"
 
-                = b.fields_for :investment_items  do |item|
-                  = render partial,  f: item, year: year if item.object.year_reference == year.to_s
+
