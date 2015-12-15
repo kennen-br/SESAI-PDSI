@@ -123,7 +123,7 @@ h2.section-title Custeio
                               = bf_child_s.hidden_field "revised_forecast_#{year}", value: (number_with_precision(eval("bf_child_s.object.revised_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0), id: "hidden-#{year}-#{bf_child_s.object.cost.id}-3"
                               = text_field_tag '', number_with_precision(eval("bf_child_s.object.revised_forecast_#{year}"), precision: 2) || 0, class: 'currency-input', :disabled => (current_user.user_type.menu_name == "dsei" ? true : false) 
                     - elsif bf_child.object.cost.cost_type == 3
-                      tr.structure data-index=("#{year}-#{bf_child.object.cost.parent_id}") style="display: none;"
+                      tr.structure data-index=("#{year}-#{bf_child.object.cost.parent_id}")
                         td = bf_child.object.cost.name
                     
                         td

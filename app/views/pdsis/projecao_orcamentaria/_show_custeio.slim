@@ -35,13 +35,12 @@
                 th Previsão orçamentária (em R$)
                 th Previsão do DSEI (em R$)
                 th Previsão atualizada (em R$)
+
             tbody
-              - @pdsi.budget_forecasts_with_values.each.with_index do |bf, idx|
-                - cost = Cost.find(bf.cost_id)
-
-                - if cost.parent_id.blank? then
-                  tr data-category=("#{cost.id}") data-index=("#{cost.id}")
-                    td = cost.name
+              - @pdsi.budget_forecasts_with_values_no_child(@pdsi.id).each do |bf|
+                - if bf.cost.cost_type == 3
+                  tr data-category=("#{bf.cost.id}") data-index=("#{bf.cost.id}")
+                    td = bf.cost.name
 
                     td = number_to_currency(eval("bf.initial_forecast_#{year}"))
                     td = number_to_currency(eval("bf.dsei_forecast_#{year}"))
@@ -50,13 +49,10 @@
                       br
                       - if bf.updated_at
                         = bf.updated_at.strftime("Atualizada em %m/%d/%Y")
-                - elsif cost.parent_id == 10
-                  tr.item data-category=("#{cost.id}") data-index=("#{year}-#{cost.id}")
-                    td
-                      = icon 'plus-square-o', class: 'toggle-structures' 
-                      | &nbsp;&nbsp;
-                      = cost.name
-                
+                - elsif bf.cost.cost_type == 1
+                  tr data-category=("#{bf.cost.id}") data-index=("#{bf.cost.id}")
+                    td = bf.cost.name
+
                     td = number_to_currency(eval("bf.initial_forecast_#{year}"))
                     td = number_to_currency(eval("bf.dsei_forecast_#{year}"))
                     td 
@@ -64,17 +60,42 @@
                       br
                       - if bf.updated_at
                         = bf.updated_at.strftime("Atualizada em %m/%d/%Y")
+                  - @pdsi.bf_with_values_children(@pdsi.id, bf.cost.id).each do |bf_child|
+                    - if bf_child.cost.cost_type == 2
+                      tr.item data-category=("#{bf_child.cost.id}") data-index=("#{year}-#{bf_child.cost.id}")
+                        td
+                          = icon 'plus-square-o', class: 'toggle-structures' 
+                          | &nbsp;&nbsp;
+                          = bf_child.cost.name
+                    
+                        td = number_to_currency(eval("bf_child.initial_forecast_#{year}"))
+                        td = number_to_currency(eval("bf_child.dsei_forecast_#{year}"))
+                        td 
+                          = number_to_currency(eval("bf_child.revised_forecast_#{year}"))
+                          br
+                          - if bf_child.updated_at
+                            = bf_child.updated_at.strftime("Atualizada em %m/%d/%Y")
+                      -  @pdsi.bf_with_values_children(@pdsi.id, bf_child.cost.id).each do |bf_child_s|
+                        tr.structure data-index=("#{year}-#{bf_child_s.cost.parent_id}") style="display: none;"
+                          td = bf_child_s.cost.name
+                          td = number_to_currency(eval("bf_child_s.initial_forecast_#{year}"))
+                          td = number_to_currency(eval("bf_child_s.dsei_forecast_#{year}"))
+                          td 
+                            = number_to_currency(eval("bf_child_s.revised_forecast_#{year}"))
+                            br
+                            - if bf_child_s.updated_at
+                              = bf_child_s.updated_at.strftime("Atualizada em %m/%d/%Y")
+                    - elsif bf_child.cost.cost_type == 3
+                      tr.structure data-index=("#{year}-#{bf_child.cost.parent_id}")
+                        td = bf_child.cost.name
+                        td = number_to_currency(eval("bf_child.initial_forecast_#{year}"))
+                        td = number_to_currency(eval("bf_child.dsei_forecast_#{year}"))
+                        td 
+                          = number_to_currency(eval("bf_child.revised_forecast_#{year}"))
+                          br
+                          - if bf_child.updated_at
+                            = bf_child.updated_at.strftime("Atualizada em %m/%d/%Y")
 
-                - else 
-                    tr.structure data-index=("#{year}-#{cost.parent_id}") style="display: none;"
-                      td = cost.name
-                      td = number_to_currency(eval("bf.initial_forecast_#{year}"))
-                      td = number_to_currency(eval("bf.dsei_forecast_#{year}"))
-                      td 
-                        = number_to_currency(eval("bf.revised_forecast_#{year}"))
-                        br
-                        - if bf.updated_at
-                          = bf.updated_at.strftime("Atualizada em %m/%d/%Y")
 
       .item-content.animated data-index="5"
         table.table-minimal.budget-table.investiment
