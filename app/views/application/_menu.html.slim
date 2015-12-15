@@ -11,14 +11,19 @@ header.navigation role="banner"
       .subtitle PDSInfo
 
     - if user_signed_in?
+       
       .navigation-tools
         == link_to raw('Sair ' + icon('sign-out')), destroy_user_session_path, { method: :delete, class: 'sign-up' }
+      
+      .user-bar  
+        = current_user.user_type.name + " | "
+        = current_user.profile.name + " | "
+        = current_user.username
 
 - if user_signed_in?
   nav.js-menu.sliding-menu-content
     ul
-      li
-        = link_to 'Início', root_path
+      
       li
         = link_to 'Alterar Senha', edit_password_path
 

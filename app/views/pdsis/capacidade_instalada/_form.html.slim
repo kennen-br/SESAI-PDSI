@@ -1,3 +1,6 @@
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: '3. Caracterização do DSEI', path: pdsis_path(section: 'caracterizacao-do-dsei')}, { name: '3.2.C - Capacidade instalada', path: nil}]
+
 h1 POLO BASE: #{@base_polo.name}
 
 = render 'hidden_fields'

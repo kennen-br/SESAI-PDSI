@@ -1,2 +1,5 @@
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: '4. Análise Situacional', path: pdsis_path(section: 'analise-situacional')}, { name: "4.2 Principais desafios", path: nil}]
+
 .field
   = f.text_area :principais_desafios_4_2, { class: 'basic-editable', data: { limit: 10000 } }

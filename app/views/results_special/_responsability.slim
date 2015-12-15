@@ -4,7 +4,7 @@
 table.tables.responsability-result.body
   tbody
     tr
-      td = text_area_tag '', responsability.name, class: 'product-name colored-border', data: { field: 'name', type: 'Resultado' }
+      td = text_area_tag '', responsability.name,  class: 'product-name colored-border', data: { field: 'name', type: 'Resultado' }
       td = text_field_tag '', responsability.initial_date? ? responsability.initial_date.strftime('%d/%m/%y') : '', class: 'product-date date-field colored-border', data: { field: 'initial_date', type: 'Resultado' }
       td = text_field_tag '', responsability.deadline? ? responsability.deadline.strftime('%d/%m/%y') : '', class: 'product-date date-field colored-border', data: { field: 'deadline', type: 'Resultado' }
       td

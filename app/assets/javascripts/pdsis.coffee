@@ -5,29 +5,24 @@
 manage_element = (element) ->
   element.parents('.destiny-transport').find('fieldset').toggle()
   return
-#Calculate funding balance for both columns TODO
+
 calculate_funding_balance = ->
   console.log "Calculating funding balance"
   for year in [2016..2019]
-    console.log "Year #{year}"
     subtotal = 0.0
     el1 = "#input-#{year}-3"
     el2 = "#input-#{year}-10"
     if (!isNaN(parseFloat($(el1).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))))
-      subtotal = isNaN(parseFloat($(el1).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.')))
-    console.log "Subtotal el1: #{subtotal}"
+      subtotal = parseFloat($(el1).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
     if (!isNaN(parseFloat($(el2).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))))
       subtotal += parseFloat($(el2).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
-    console.log "Subtotal el2: #{subtotal}"
     # Negative values
     el1 = "#input-#{year}-3-2"
     el2 = "#input-#{year}-10-2"
     if (!isNaN(parseFloat($(el1).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))))
       subtotal -= parseFloat($(el1).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
-    console.log "Subtotal -el1: #{subtotal}"
     if (!isNaN(parseFloat($(el2).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))))
       subtotal -= parseFloat($(el2).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
-    console.log "Subtotal -el2: #{subtotal}"
     if subtotal>0
       $("#input-#{year}-0").val("R$#{(subtotal).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
       $("#input-#{year}-0").css({'color' : 'green'})
@@ -43,34 +38,18 @@ calculate_parent_total = (parent_id) ->
 
   $(document).find(".#{parent_id}").each (item) ->
     input_value = parseFloat($(this).prop("value").toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
-    console.log "input_value: #{input_value}"
     if (!isNaN(input_value))
       subtotal2 += parseFloat(input_value)
-    console.log "subtotal: #{subtotal2}"
     return
   # Value for hidden form (subitems)
   $("#hidden-#{parent_id}-2").val(parseFloat(subtotal2).toFixed(2))
-  console.log "#input-#{parent_id.substring(0,4)}-10-2"
 
   # Value for show form (subitems)
   $("#input-#{parent_id}-2").val("R$#{(subtotal2).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
 
-  # Contratos
-  el1 = "#input-#{parent_id.substring(0,4)}-11-2"
-  el2 = "#input-#{parent_id.substring(0,4)}-15-2"
-  el3 = "#input-#{parent_id.substring(0,4)}-17-2"
-  el4 = "#input-#{parent_id.substring(0,4)}-21-2"
-  el5 = "#input-#{parent_id.substring(0,4)}-30-2"
-  subtotal = parseFloat($(el1).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
-  subtotal += parseFloat($(el2).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
-  subtotal += parseFloat($(el3).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
-  subtotal += parseFloat($(el4).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
-  subtotal += parseFloat($(el5).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
-  #Value for hidden form (contracts)
-  $("#hidden-#{parent_id.substring(0,4)}-10-2").val(subtotal.toFixed(2))
-
-  # Value for show form (contracts)
-  $("#input-#{parent_id.substring(0,4)}-10-2").val("R$#{(subtotal).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+  #Calculate parent totals
+  if ($("#input-#{parent_id}-2").attr('cost_type') == '2')
+    calculate_parent_total $("#input-#{parent_id}-2").attr('year_parent_id')
 
   calculate_funding_balance()
   return
@@ -341,9 +320,9 @@ $(document).ready ->
 
       value_index = $(el).attr('value_index')
 
-      if value_index > 10
+      if group_parent_id > 0
         calculate_parent_total(year_parent_id)
-      if (value_index == '3' || value_index == '10')
+      if value_index == "3"
         calculate_funding_balance()
 
     return

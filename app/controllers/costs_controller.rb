@@ -3,12 +3,12 @@ class CostsController < ApplicationController
 
   #GET /costs
   def index
-  	@costs = Cost.all
+  	@costs = Cost.all.order(:id)
   end
 
   # GET /costs/1
   def show
-    @costs = Cost.all
+    @costs = Cost.all.order(:id)
     @parent_costs = Array.new
     @costs.each do |cost|
       unless cost.cost_type == 3 || !cost.cost_type
@@ -20,7 +20,7 @@ class CostsController < ApplicationController
   # GET /costs/new
   def new
     @cost = Cost.new
-    @costs = Cost.all
+    @costs = Cost.all.order(:id)
     @parent_costs = Array.new
     @costs.each do |cost|
       unless cost.cost_type == 3 || !cost.cost_type
@@ -31,7 +31,7 @@ class CostsController < ApplicationController
 
   # GET /costs/1/edit
   def edit
-    @costs = Cost.all
+    @costs = Cost.all.order(:id)
     @parent_costs = Array.new
     @costs.each do |cost|
       unless cost.cost_type == 3 || !cost.cost_type
@@ -43,7 +43,12 @@ class CostsController < ApplicationController
   # POST /costs
   def create
     @cost = Cost.new(cost_params)
+    @cost.id = Cost.last.id+1
     if @cost.save
+      Pdsi.all.each do |pdsi|
+        @budget_forecast = BudgetForecast.new(id: (BudgetForecast.last.id+1), cost_id: @cost.id, pdsi_id: pdsi.id)
+        @budget_forecast.save
+      end
       #redirect_to @cost, notice: 'Cost was successfully created.'
       redirect_to costs_url
     else
@@ -75,7 +80,7 @@ class CostsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def cost_params
-      params.require(:cost).permit(:name, :parent_id, :cost_type, :data_type)
+      params.require(:cost).permit(:id, :name, :parent_id, :cost_type, :data_type)
     end
 
 end

@@ -1,8 +1,10 @@
 class Cost < ActiveRecord::Base
   include Parentable
   auditable
-
-  belongs_to  :parent,  class_name: 'Cost'
+  has_many :cost_items, class_name: 'Cost',
+  						foreign_key: 'parent_id'
+  belongs_to  :parent,  class_name: 'Cost',
+  						foreign_key: 'parent_id'
 
   has_many  :pdsi_costs
   has_many  :pdsi_needs_costs

@@ -1,7 +1,3 @@
-h1.page-title
-  .breadcrumb-icon
-  = breadcrumbs [{ name: 'PDSI', path: pdsis_path(section: 'estrutura') }] + section_path(@section)
-
 = form_for @pdsi, url: pdsi_path(@pdsi, section: @section_url), html: { multipart: true } do |f|
   - if @pdsi.errors.any?
     #error_explanation.flash-error

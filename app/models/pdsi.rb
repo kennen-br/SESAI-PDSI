@@ -72,6 +72,9 @@ class Pdsi < ActiveRecord::Base
   has_many  :budget_forecasts
   accepts_nested_attributes_for :budget_forecasts, reject_if: :all_blank, allow_destroy: true
 
+  has_many  :budget_investments
+  accepts_nested_attributes_for :budget_investments, reject_if: :all_blank, allow_destroy: true
+
   has_attached_file :map, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :map, content_type: /\Aimage\/.*\Z/
 
@@ -124,7 +127,7 @@ class Pdsi < ActiveRecord::Base
   end
 
   def infrastructure_building_to_building_type(building_type)
-    items = infrastructure_buildings.where(infrastructure_building_type: building_type) 
+    items = infrastructure_buildings.where(infrastructure_building_type: building_type)
 
     if building_type.name == 'Sede do DSEI'
       return items unless items.blank?
@@ -238,8 +241,7 @@ class Pdsi < ActiveRecord::Base
   end
 
   def costs_with_values
-    items  = pdsi_costs
-    return  pdsi_costs.includes(:cost).order(:id) unless pdsi_costs.blank?
+    return  items.includes(:cost).order(:id) unless pdsi_costs.blank?
 
     Cost.all.each { |cost| pdsi_costs << PdsiCost.new(cost: cost) }
 
@@ -247,7 +249,6 @@ class Pdsi < ActiveRecord::Base
   end
 
   def need_costs_with_values
-    items  = pdsi_need_costs
     return  pdsi_need_costs.includes(:cost).order(:id) unless pdsi_need_costs.blank?
 
     Cost.all.each { |cost| pdsi_need_costs << PdsiNeedCost.new(cost: cost) }
@@ -262,6 +263,30 @@ class Pdsi < ActiveRecord::Base
     Cost.all.each { |cost| budget_forecasts << BudgetForecast.new(cost: cost) }
 
     budget_forecasts_with_values
+  end
+
+  def budget_forecasts_with_values_no_child(pdsi_id)
+    bfs = BudgetForecast.includes(:cost).order(:cost_id).where(["pdsi_id = :pdsi_id", pdsi_id: pdsi_id]).references(:budget_forecast).where("parent_id IS NULL").references(:cost)
+    return bfs
+  end
+
+  def bf_with_values_children(pdsi_id, cost_id)
+    bf_children = BudgetForecast.includes(:cost).order(:cost_id).where(["pdsi_id = :pdsi_id", pdsi_id: pdsi_id]).references(:budget_forecast).where(["parent_id = :cost_id", cost_id: cost_id]).references(:cost)
+    return bf_children
+  end
+
+  def budget_forecasts_with_values_for_json(id)
+    treeview = []
+    budget_forecasts = {}
+    budget_forecasts = BudgetForecast.joins(:cost).order(:cost_id).where(["pdsi_id = :id", id: id]).references(:budget_forecast).where(parent_id => nil).references(:cost)
+    budget_forecasts.each_with_index do |bf, idx|
+      temp_bf = Array.new()
+      temp_bf.push :teste => "Teste 2"
+      treeview[idx] = Array.new()
+      treeview[idx].push :teste => "Teste 2"
+      treeview[idx].push :teste3 => "Teste 4"
+    end
+    return treeview
   end
 
   def need_investiments_with_values(category)
@@ -287,6 +312,18 @@ class Pdsi < ActiveRecord::Base
     end
 
     responsabilities_with_values axis
+  end
+
+  def budget_investments_with_values
+    items = budget_investments
+    return items.includes([:investment, :investment_items])
+                .order(:investment_id) unless budget_investments.blank?
+
+    Investment.all.each do |investment|
+      budget_investments << BudgetInvestment.new(investment: investment)
+    end
+
+    budget_investments_with_values
   end
 
 private
