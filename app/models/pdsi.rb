@@ -260,9 +260,33 @@ class Pdsi < ActiveRecord::Base
     items = budget_forecasts
     return items.includes(:cost).order(:cost_id) unless budget_forecasts.blank?
 
-     Cost.all.each { |cost| budget_forecasts << BudgetForecast.new(cost: cost) }
+    Cost.all.each { |cost| budget_forecasts << BudgetForecast.new(cost: cost) }
 
     budget_forecasts_with_values
+  end
+
+  def budget_forecasts_with_values_no_child(pdsi_id)
+    bfs = BudgetForecast.includes(:cost).order(:cost_id).where(["pdsi_id = :pdsi_id", pdsi_id: pdsi_id]).references(:budget_forecast).where("parent_id IS NULL").references(:cost)
+    return bfs
+  end
+
+  def bf_with_values_children(pdsi_id, cost_id)
+    bf_children = BudgetForecast.includes(:cost).order(:cost_id).where(["pdsi_id = :pdsi_id", pdsi_id: pdsi_id]).references(:budget_forecast).where(["parent_id = :cost_id", cost_id: cost_id]).references(:cost)
+    return bf_children
+  end
+
+  def budget_forecasts_with_values_for_json(id)
+    treeview = []
+    budget_forecasts = {}
+    budget_forecasts = BudgetForecast.joins(:cost).order(:cost_id).where(["pdsi_id = :id", id: id]).references(:budget_forecast).where(parent_id => nil).references(:cost)
+    budget_forecasts.each_with_index do |bf, idx|
+      temp_bf = Array.new()
+      temp_bf.push :teste => "Teste 2"
+      treeview[idx] = Array.new()
+      treeview[idx].push :teste => "Teste 2"
+      treeview[idx].push :teste3 => "Teste 4"
+    end
+    return treeview
   end
 
   def need_investiments_with_values(category)

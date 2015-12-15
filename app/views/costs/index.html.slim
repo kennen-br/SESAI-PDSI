@@ -1,0 +1,27 @@
+h1 Custos
+
+table
+  thead
+    tr
+      th Nome
+      th Parente
+      th Tipo
+      th
+
+  tbody
+    - @costs.each do |cost|
+      tr
+        td = cost.name
+        td 
+          - if cost.parent_id
+            = @costs.find(cost.parent_id).name
+        - if cost.cost_type == 1
+          td = "Grupo"
+        - elsif cost.cost_type == 2
+          td = "Subgrupo"
+        - elsif cost.cost_type == 3
+          td = "Item"
+        - else
+          td
+        td = link_to 'Editar', edit_cost_path(cost)
+p = link_to 'Novo custo', new_cost_path

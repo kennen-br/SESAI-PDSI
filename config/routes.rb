@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
 
+
   resources :sesai_people,  path: 'pessoas-sesai',  path_names: { new: 'cadastrar', edit: 'alterar', destroy: 'excluir' }
   resources :people,        path: 'pessoas',        path_names: { new: 'cadastrar', edit: 'alterar', destroy: 'excluir' }
 
   resources :budget_correction_factors
+  resources :costs
 
   post '/image-upload',     to: 'application#image_upload', as: :image_upload
   post '/procurar-pessoa',  to: 'people#search',            as: :search
@@ -22,6 +24,7 @@ Rails.application.routes.draw do
   end
 
   scope '/meu-pdsi' do
+    get '/:id/alterar/projecao-orcamentaria/costs_json',                   to: 'pdsis#costs_json',                                                   as: :pdsis_costs_json
     get '/:id/alterar/projecao-orcamentaria/:subsection',                   defaults: { section: 'projecao-orcamentaria' }, to: 'pdsis#edit',         as: :edit_budget_projection
     get '/:id/alterar/resultados-esperados/:subsection',                    defaults: { section: 'resultados-esperados', tab: 'resultados' },         to: 'pdsis#edit',  as: :edit_results
     get '/:id/alterar/resultados-esperados/responsabilidades/:subsection',  defaults: { section: 'resultados-esperados', tab: 'responsabilidades' },  to: 'pdsis#edit',  as: :edit_responsabilities

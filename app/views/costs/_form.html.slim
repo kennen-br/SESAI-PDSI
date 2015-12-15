@@ -1,0 +1,24 @@
+= form_for @cost do |f|
+  - if @cost.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@cost.errors.count, "error")} prohibited this cost from being saved:"
+      ul
+        - @cost.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :nome
+    = f.text_field :name
+
+  .field
+    = f.label "Grupo/Subgrupo"
+    = f.select :parent_id, options_from_collection_for_select(@parent_costs, 'id', 'name'), :include_blank => true
+
+  .field
+    = f.label :tipo
+    = f.select :cost_type, options_for_select([["Grupo", "1"], ["Subgrupo", "2"], ["Item", "3"]], @cost.cost_type), :prompt => 'Selecione um tipo'
+
+    /Hidden value
+    = f.hidden_field :data_type, value: "money"
+
+  .actions = f.submit "Atualizar"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151207191327) do
+ActiveRecord::Schema.define(version: 20151208133228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -209,6 +209,7 @@ ActiveRecord::Schema.define(version: 20151207191327) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.integer  "parent_id"
+    t.integer  "cost_type"
   end
 
   create_table "demographic_datas", force: :cascade do |t|
@@ -414,21 +415,21 @@ ActiveRecord::Schema.define(version: 20151207191327) do
 
   create_table "investment_items", force: :cascade do |t|
     t.string   "name"
-    t.integer  "quantity_2016"
+    t.integer  "quantity_2016",        default: 1
     t.decimal  "unitary_amount_2016"
     t.decimal  "forecast_amount_2016"
-    t.integer  "quantity_2017"
+    t.integer  "quantity_2017",        default: 1
     t.decimal  "unitary_amount_2017"
     t.decimal  "forecast_amount_2017"
-    t.integer  "quantity_2018"
+    t.integer  "quantity_2018",        default: 1
     t.decimal  "unitary_amount_2018"
     t.decimal  "forecast_amount_2018"
-    t.integer  "quantity_2019"
+    t.integer  "quantity_2019",        default: 1
     t.decimal  "unitary_amount_2019"
     t.decimal  "forecast_amount_2019"
     t.integer  "budget_investment_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "year_reference"
   end
 

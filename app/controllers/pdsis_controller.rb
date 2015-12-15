@@ -32,6 +32,14 @@ class PdsisController < ApplicationController
     render :edit
   end
 
+  def costs_json
+    @pdsi = Pdsi.find params[:id]
+    budget_forecasts = @pdsi.budget_forecasts_with_values_for_json(@pdsi.id)
+    respond_to do |format|
+      format.json { render json: budget_forecasts }
+    end
+  end
+
   def update
     if @pdsi.update(pdsi_params)
       redirect_after_save
