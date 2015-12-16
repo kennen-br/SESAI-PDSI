@@ -71,7 +71,7 @@ $(document).ready ->
 
     $('.carousel-list .slider a img').hover -> $(this).next().toggle( "visible" );
 
-    
+
 
     # LINK PRODUCT TO ANOTHER DSEI
     $('.modal.link-product-dsei .dsei-list li', $page).click ->

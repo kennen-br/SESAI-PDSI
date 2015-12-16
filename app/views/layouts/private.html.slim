@@ -25,6 +25,7 @@ html lang="#{I18n.locale}"
           - if content_for? :breadcrumb
             .breadcrumb-icon
             = yield :breadcrumb
+            .clearleft
           = yield
 
 
