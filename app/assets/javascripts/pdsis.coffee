@@ -2,6 +2,18 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+# SHOW PACE LOADING
+startLoading = ->
+  $pace = $('<div></div>', { class: 'pace pace-active results-loading'})
+  $pace.append $('<div></div>', { class: 'pace-activity' })
+  $('body').prepend $pace
+  return
+
+# HIDE PACE LOADING
+stopLoading = ->
+  $('.pace.results-loading').remove()
+  return
+
 manage_element = (element) ->
   element.parents('.destiny-transport').find('fieldset').toggle()
   return
