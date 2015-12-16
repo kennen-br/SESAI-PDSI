@@ -39,7 +39,7 @@ forecast_sum = (class_item) ->
     subtotal += $(this).val()*1
     return
   $("##{class_item}").val(subtotal)
-  $("##{forecast}").val(subtotal * quant)
+  $("##{forecast}").val(subtotal)
   group_sum(class_item)
 
 quantity_sum = (class_item) ->
@@ -116,7 +116,7 @@ $(document).ready ->
     elId = $(this).attr('id')
     addNewItem(elId, elClass)
 
-    # Remove item not saved
+    # Remove not saved item
     $ ->
       $('input.new-item:checkbox').click ->
         if $(this).is(':checked')
