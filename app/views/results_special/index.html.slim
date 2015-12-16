@@ -24,7 +24,7 @@
           = icon 'angle-left'
         a.pull-right href="javascript:void(0)"
           = icon 'angle-right'
-      .carousel-list
+      .carousel-list.special-list
         .slider
           a.is-active.resultado-1 href="javascript:void(0)" data-index="0"
             = image_tag "resultados_1.jpg", class: "eixos-resultados "
@@ -91,7 +91,7 @@
                             .tooltip
                               p
                                 = pdsi_result.result.orientacoes_dsei? ? pdsi_result.result.orientacoes_dsei : "Não há orientações"
-                                 
+
 
                       .result-products style="display: none;"
                         .years
@@ -125,15 +125,15 @@
                                   th TÉRMINO
                                   th RESPONSÁVEL
                                   th CORRESPONSÁVEIS
-                             
+
                             = render 'responsability_actions', { resp: responsability }
                             = render 'modal_comments', { resp: responsability }
                             table.tables.responsability-result.body
                               tbody
                                 tr
                                   td = text_area_tag '', pdsi_result.result.name,  class: 'product-name colored-border', data: { field: 'name', type: 'Resultado' }, disabled: "disabled"
-                                  td = text_field_tag '', responsability.initial_date? ? responsability.initial_date.strftime('%d/%m/%y') : '', class: 'product-date date-field colored-border', data: { field: 'initial_date', type: 'Resultado' }
-                                  td = text_field_tag '', responsability.deadline? ? responsability.deadline.strftime('%d/%m/%y') : '', class: 'product-date date-field colored-border', data: { field: 'deadline', type: 'Resultado' }
+                                  td = text_field_tag '', responsability.initial_date? ? responsability.initial_date.strftime('%d/%m/%y') : '', placeholder: '01/01/2016', class: 'product-date date-field colored-border', data: { field: 'initial_date', type: 'Resultado' }
+                                  td = text_field_tag '', responsability.deadline? ? responsability.deadline.strftime('%d/%m/%y') : '', placeholder: '31/12/2016', class: 'product-date date-field colored-border', data: { field: 'deadline', type: 'Resultado' }
                                   td
                                     .people.colored-border.single
                                       = text_field_tag '', nil, { class: 'colored-border search', placeholder: 'Insira o responsável'}
@@ -163,7 +163,7 @@
                                               span
                                                 | (#{person.person.location})
 
-                            
+
 
                             .children class=('hidden' if responsability.children.blank?)
                               table.tables.responsability-result.head
