@@ -1,12 +1,13 @@
+# Add new item
 index = 1
 addNewItem = (elId, elClass)->
   item = elClass.split('-')[0]
   year = elClass.split('-')[1]
   html = """
-  <tr class="item new-item" data-category="c1-2016">
+  <tr class="item new-item" id="input-new-item">
     <td class="action">
       <i class="fa fa-trash-o"></i>
-      <input name="pdsi[budget_investments_attributes][#{item-1}][investment_items_attributes][#{elId+index}][_destroy]" type="hidden" value="0"><input type="checkbox" value="1" name="pdsi[budget_investments_attributes][#{item-1}][investment_items_attributes][#{elId+index}][_destroy]">
+      <input name="pdsi[budget_investments_attributes][#{item-1}][investment_items_attributes][#{elId+index}][_destroy]" type="hidden" value="0"><input type="checkbox" class="new-item dc#{item}y#{year}" value="1" name="pdsi[budget_investments_attributes][#{item-1}][investment_items_attributes][#{elId+index}][_destroy]">
     </td>
     <td class="field">
       <input type="text" name="pdsi[budget_investments_attributes][#{item-1}][investment_items_attributes][#{elId+index}][name]">
@@ -28,6 +29,7 @@ addNewItem = (elId, elClass)->
   quantity_sum("qc#{item}y#{year}")
   index++
 
+# Subgroup sum
 forecast_sum = (class_item) ->
   q = class_item.replace(/u/, 'q')
   forecast = class_item.replace(/u/, 'f')
@@ -47,6 +49,7 @@ quantity_sum = (class_item) ->
     return
   $("##{class_item}").val(subtotal)
 
+# Group sum
 group_sum = (class_item) ->
   group1y2016 = 0
   group2y2016 = 0
@@ -93,24 +96,54 @@ group_sum = (class_item) ->
 
 
 $(document).ready ->
+  # Sort by group
   for year in [2016..2019]
     $("[data-category='1-#{year}']").after $("[data-category='c1-#{year}']")
     $("[data-category='2-#{year}']").after $("[data-category='c2-#{year}']")
     $("[data-category='3-#{year}']").after $("[data-category='c3-#{year}']")
 
-  $(document).on 'change', ".investment-input", ->
+  # Sum all fields on modification
+  $(document).on 'keyup', ".investment-input", ->
     for year in [2016..2019]
       for categorie in [1..20]
         forecast_sum("uc#{categorie}y#{year}")
     return
 
+  # Add new item
   $('.fa-plus').click (event) ->
     event.preventDefault()
     elClass = $(this).attr('class').split(' ')[2]
     elId = $(this).attr('id')
     addNewItem(elId, elClass)
 
-  $('input[type="checkbox"]').click ->
-    if $(this).is(':checked')
-      console.log $(this).attr('class')
+    # Remove item not saved
+    $ ->
+      $('input.new-item:checkbox').click ->
+        if $(this).is(':checked')
+          $('#input-new-item').remove()
+          class_item = $(this).attr('class').slice(-8)
+          class_unitary = class_item.replace(/d/, 'u')
+          class_quantity = class_item.replace(/d/, 'q')
+          quantity_sum(class_quantity)
+          forecast_sum(class_unitary)
+
+  # Remove saved item
+  $ ->
+    $('#form-investment input:checkbox').click ->
+      $('#form-investment input:checkbox').not(this).prop('checked', false) # only one item at time
+      if $(this).is(':checked')
+        class_item = $(this).attr('class')
+        # Confirmation
+        toastr.warning("<div><button type='button' class='button' id='okBtn'>Sim</button>" , 'Deseja excluir este ítem?')
+        $ ->
+          $('#okBtn').click ->
+            item_quantity = class_item.replace(/u/, 'q')
+            $("##{class_item}").val(0)
+            $("##{item_quantity}").val(0)
+            class_unitary = 'u' + class_item.slice(-7)
+            class_quantity = 'q' + class_item.slice(-7)
+            quantity_sum(class_quantity)
+            forecast_sum(class_unitary)
+            $('form').submit()
+
 
