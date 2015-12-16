@@ -65,7 +65,7 @@ h2.section-title Investimentos
                   tr.item data-category=("c#{item.object.budget_investment.investment.parent_id}-#{year}")
                     td.action
                       = icon 'trash-o'
-                      = item.check_box :_destroy, class: "dc#{item.object.budget_investment.id}y#{year}"
+                      = item.check_box :_destroy, class: "uid#{item.object.id}c#{item.object.budget_investment.id}y#{year}"
                     td.field
                       = item.text_field :name
                     td
