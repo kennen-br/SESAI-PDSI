@@ -303,7 +303,7 @@ $(document).ready ->
   # Recalculate values for 2017-2019 based on 2016 and correction factors
   $(document).on 'change', '.2016-budget-value', ->
     console.log 'Recalculating budgets for years 2017-2019'
-    
+
     idx = $(this).attr('input_index')
     val = parseFloat($(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
     group_parent_id = $(this).attr('group_parent_id')
@@ -377,8 +377,16 @@ $(document).ready ->
       </tr>
       <input type="hidden" value="bcf-id" name="pdsi[budget_forecasts_atributes][?][id]" id="pdsi_budget_forecasts_atributes_?_id">
       """
-      console.log $("#tr-#{year}-#{parent_id}").attr('data-index')
       $("#tr-#{year}-#{last_id}").after html[year]
+      $("#input-#{year}-#{id}-2").on 'change', =>
+        $this = $(this)
+        value = $this.val().replace(/^R\$/g, '').replace(/\./g, '').replace(',', '.')
+        $this.prev().val value
+        return
+      $("#input-#{year}-#{id}-2").maskMoney
+        prefix: 'R$'
+        thousands: '.'
+        decimal: ','
 
     return
 
