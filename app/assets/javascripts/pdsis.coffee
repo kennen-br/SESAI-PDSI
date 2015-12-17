@@ -362,7 +362,7 @@ $(document).ready ->
       html[year] = """
       <tr class="structure" data-index="#{year}-#{parent_id}" id="#{id}" style#{style}>
         <td>
-          Apenas um teste
+          <input type="text" id="input-nome-custo-#{id}">
         </td>
         <td>
           
