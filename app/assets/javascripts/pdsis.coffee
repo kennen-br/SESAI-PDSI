@@ -2,18 +2,6 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-# SHOW PACE LOADING
-startLoading = ->
-  $pace = $('<div></div>', { class: 'pace pace-active results-loading'})
-  $pace.append $('<div></div>', { class: 'pace-activity' })
-  $('body').prepend $pace
-  return
-
-# HIDE PACE LOADING
-stopLoading = ->
-  $('.pace.results-loading').remove()
-  return
-
 manage_element = (element) ->
   element.parents('.destiny-transport').find('fieldset').toggle()
   return
@@ -315,7 +303,7 @@ $(document).ready ->
   # Recalculate values for 2017-2019 based on 2016 and correction factors
   $(document).on 'change', '.2016-budget-value', ->
     console.log 'Recalculating budgets for years 2017-2019'
-
+    
     idx = $(this).attr('input_index')
     val = parseFloat($(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
     group_parent_id = $(this).attr('group_parent_id')
@@ -349,6 +337,49 @@ $(document).ready ->
     value = $(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.')
     #$("#hidden-#{year_cost_id}").attr("value", value)
     calculate_parent_total(year_parent_id)
+    return
+
+  # Add new rows to the tables 
+  $('.add_new_row').click ->
+    console.log $(this).parents('tr').attr('id')
+    parent_id = $(this).attr('id')
+    id = 99 #tempvalue
+    html = {}
+    last_id = 0
+    $(document).find(".2016-#{parent_id}").each (item) ->
+      if $(this).attr('value_index') > last_id
+        last_id = $(this).attr('value_index')
+    for year in [2016..2019]
+      style = ''
+      #check if element is hidden
+      if $("#tr-#{year}-#{last_id}").css('display') == 'none'
+        style = '="display: none;"'
+      #bcf
+      if year!=2016
+        bcf = $("#bcf-#{year}").attr('bcf')
+      else
+        bcf = 0
+      html[year] = """
+      <tr class="structure" data-index="#{year}-#{parent_id}" id="#{id}" style#{style}>
+        <td>
+          Apenas um teste
+        </td>
+        <td>
+          
+        </td>
+        <td>
+          <input value="0" id="hidden-#{year}-#{id}-2" type="hidden" name="pdsi[budget_forecasts_atributes][?][dsei_forecast_#{year}]" >
+          <input type="text" name id="input-#{year}-#{id}-2" value="0" class="currency-input #{year}-budget-value #{year}-group-value #{year}-#{parent_id}" group_parent_id="#{parent_id}" year_parent_id="#{year}-#{parent_id}" input_index="#{id}-2" correction_factor="#{bcf}" year_cost_id="#{year}-#{id}" value_index="#{id}" cost_type="3" >
+        </td>
+        <td>
+
+        </td>
+      </tr>
+      <input type="hidden" value="bcf-id" name="pdsi[budget_forecasts_atributes][?][id]" id="pdsi_budget_forecasts_atributes_?_id">
+      """
+      console.log $("#tr-#{year}-#{parent_id}").attr('data-index')
+      $("#tr-#{year}-#{last_id}").after html[year]
+
     return
 
   return

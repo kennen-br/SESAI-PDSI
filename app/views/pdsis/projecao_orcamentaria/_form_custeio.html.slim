@@ -31,13 +31,13 @@ h2.section-title Custeio
           table.table-minimal.budget-table.investiment
             tbody
               - if year == 2017
-                  td style="width: 400px;"
+                  td style="width: 400px;" id="bcf-#{year}" bcf="#{bcf}"
                     = bcf
               - elsif year == 2018
-                  td style="width: 400px;"
+                  td style="width: 400px;" id="bcf-#{year}" bcf="#{bcf}"
                     = bcf
               - elsif year == 2019
-                  td style="width: 400px;"
+                  td style="width: 400px;" id="bcf-#{year}" bcf="#{bcf}"
                     = bcf
               - else
                 td style="width: 400px;"
@@ -62,7 +62,7 @@ h2.section-title Custeio
                   = " atualizada (em R$)"
               = f.fields_for :budget_forecasts, @pdsi.budget_forecasts_with_values_no_child(@pdsi.id) do |bf|
                 - if bf.object.cost.cost_type == 3 && bf.object.cost.parent_id.blank?
-                  tr data-category=("#{bf.object.cost.id}") data-index=("#{year}-#{bf.object.cost.id}")
+                  tr data-category=("#{bf.object.cost.id}") data-index=("#{year}-#{bf.object.cost.id}") id=("tr-#{year}-#{bf.object.cost.id}")
                       td = bf.object.cost.name
 
                       td
@@ -76,10 +76,10 @@ h2.section-title Custeio
                         = text_field_tag '', number_with_precision(eval("bf.object.revised_forecast_#{year}"), precision: 2) || 0, class: "currency-input #{year}-budget-value", id: "input-#{year}-#{bf.object.cost.id}-3", input_index: "#{bf.object.cost.id}-3", correction_factor: "#{bcf}", value_index: "#{bf.object.cost.id}", :disabled => (current_user.user_type.menu_name == "dsei" ? true : false), cost_type: "#{bf.object.cost.cost_type}"
 
                 - elsif bf.object.cost.cost_type == 1
-                  tr data-category=("#{bf.object.cost.id}") data-index=("#{year}-#{bf.object.cost.id}")
+                  tr data-category=("#{bf.object.cost.id}") data-index=("#{year}-#{bf.object.cost.id}") id=("tr-#{year}-#{bf.object.cost.id}")
                     td
                       = link_to '#'  do
-                        = icon 'plus', class: "#{bf.object.cost.id}"
+                        = icon 'plus', class: "add_new_row", id: bf.object.cost.id
                       | &nbsp;&nbsp;
                       = bf.object.cost.name
 
@@ -94,10 +94,10 @@ h2.section-title Custeio
                         = text_field_tag '', number_with_precision(eval("bf.object.revised_forecast_#{year}"), precision: 2) || 0,  :disabled => (current_user.user_type.menu_name == "dsei" ? true : false)
                   = f.fields_for :budget_forecasts, @pdsi.bf_with_values_children(@pdsi.id, bf.object.cost.id) do |bf_child|
                     - if bf_child.object.cost.cost_type == 2
-                      tr.item data-category=("#{bf_child.object.cost.id}") data-index=("#{year}-#{bf_child.object.cost.id}") 
+                      tr.item data-category=("#{bf_child.object.cost.id}") data-index=("#{year}-#{bf_child.object.cost.id}") id=("tr-#{year}-#{bf_child.object.cost.id}")
                         td
                           = link_to '#'  do
-                            = icon 'plus', class: "#{bf_child.object.cost.id}"
+                            = icon 'plus', class: "add_new_row", id: bf_child.object.cost.id
                           | &nbsp;&nbsp;
                           = icon 'plus-square-o', class: 'toggle-structures' 
                           | &nbsp;&nbsp;
@@ -115,7 +115,7 @@ h2.section-title Custeio
                             = bf_child.hidden_field "revised_forecast_#{year}", value: (number_with_precision(eval("bf_child.object.revised_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0), id: "hidden-#{year}-#{bf_child.object.cost.id}-3"
                             = text_field_tag '', number_with_precision(eval("bf_child.object.revised_forecast_#{year}"), precision: 2) || 0, class: 'currency-input', disabled: true  
                       = f.fields_for :budget_forecasts, @pdsi.bf_with_values_children(@pdsi.id, bf_child.object.cost.id) do |bf_child_s|     
-                        tr.structure data-index=("#{year}-#{bf_child_s.object.cost.parent_id}") style="display: none;"
+                        tr.structure data-index=("#{year}-#{bf_child_s.object.cost.parent_id}") id=("tr-#{year}-#{bf_child_s.object.cost.id}") style="display: none;"
                           td = bf_child_s.object.cost.name
                       
                           td
@@ -130,7 +130,7 @@ h2.section-title Custeio
                               = bf_child_s.hidden_field "revised_forecast_#{year}", value: (number_with_precision(eval("bf_child_s.object.revised_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0), id: "hidden-#{year}-#{bf_child_s.object.cost.id}-3"
                               = text_field_tag '', number_with_precision(eval("bf_child_s.object.revised_forecast_#{year}"), precision: 2) || 0, class: 'currency-input', :disabled => (current_user.user_type.menu_name == "dsei" ? true : false) 
                     - elsif bf_child.object.cost.cost_type == 3
-                      tr.structure data-index=("#{year}-#{bf_child.object.cost.parent_id}")
+                      tr.structure data-index=("#{year}-#{bf_child.object.cost.parent_id}") id=("tr-#{year}-#{bf_child.object.cost.id}")
                         td = bf_child.object.cost.name
                     
                         td
