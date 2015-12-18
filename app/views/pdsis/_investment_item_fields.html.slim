@@ -1,0 +1,28 @@
+tr.item data-category=("c#{f.object.budget_investment.investment.parent_id}-#{year}")
+  td.action
+  td.field
+    = f.text_field :name
+  td.field
+    = f.text_field :city
+    /= f.collection_select :city, InvestmentCity.all, :id, :name, include_blank: true
+  td
+    = f.text_field :village
+    /= f.collection_select :village, InvestmentVillage.all, :id, :name, include_blank: true
+  td.field
+    /= f.text_field :pole_base
+    = f.collection_select :pole_base, InvestmentPoleBase.all, :id, :name, include_blank: true
+  td.field
+    = f.number_field "quantity_#{year}",
+    id: "qid#{f.object.id}c#{f.object.budget_investment.id}y#{year}",
+    class: "qc#{f.object.budget_investment.id}y#{year} investment-input",
+    readonly: true
+  td.field
+    = f.number_field "unitary_amount_#{year}",
+    id: "uid#{f.object.id}c#{f.object.budget_investment.id}y#{year}",
+    class: "uc#{f.object.budget_investment.id}y#{year} investment-input"
+    = f.hidden_field :year_reference, value: "#{year}"
+  td
+    = icon 'trash-o'
+    = f.check_box :_destroy, class: "uid#{f.object.id}c#{f.object.budget_investment.id}y#{year}"
+
+
