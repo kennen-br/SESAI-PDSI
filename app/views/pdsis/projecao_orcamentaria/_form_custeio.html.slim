@@ -78,8 +78,9 @@ h2.section-title Custeio
                 - elsif bf.object.cost.cost_type == 1
                   tr data-category=("#{bf.object.cost.id}") data-index=("#{year}-#{bf.object.cost.id}") id=("tr-#{year}-#{bf.object.cost.id}")
                     td
-                      = link_to '#'  do
-                        = icon 'plus', class: "add_new_row", id: bf.object.cost.id
+                      - if current_user.user_type.menu_name == "sesai_central"
+                        = link_to '#'  do
+                          = icon 'plus', class: "add_new_row", id: bf.object.cost.id
                       | &nbsp;&nbsp;
                       = bf.object.cost.name
 
@@ -96,8 +97,9 @@ h2.section-title Custeio
                     - if bf_child.object.cost.cost_type == 2
                       tr.item data-category=("#{bf_child.object.cost.id}") data-index=("#{year}-#{bf_child.object.cost.id}") id=("tr-#{year}-#{bf_child.object.cost.id}")
                         td
-                          = link_to '#'  do
-                            = icon 'plus', class: "add_new_row", id: bf_child.object.cost.id
+                          - if current_user.user_type.menu_name == "sesai_central"
+                            = link_to '#'  do
+                              = icon 'plus', class: "add_new_row", id: bf.object.cost.id
                           | &nbsp;&nbsp;
                           = icon 'plus-square-o', class: 'toggle-structures' 
                           | &nbsp;&nbsp;
