@@ -275,20 +275,6 @@ class Pdsi < ActiveRecord::Base
     return bf_children
   end
 
-  def budget_forecasts_with_values_for_json(id)
-    treeview = []
-    budget_forecasts = {}
-    budget_forecasts = BudgetForecast.joins(:cost).order(:cost_id).where(["pdsi_id = :id", id: id]).references(:budget_forecast).where(parent_id => nil).references(:cost)
-    budget_forecasts.each_with_index do |bf, idx|
-      temp_bf = Array.new()
-      temp_bf.push :teste => "Teste 2"
-      treeview[idx] = Array.new()
-      treeview[idx].push :teste => "Teste 2"
-      treeview[idx].push :teste3 => "Teste 4"
-    end
-    return treeview
-  end
-
   def need_investiments_with_values(category)
     items = pdsi_need_investiments.joins(:projection_budget_item)
                               .where('projection_budget_items.projection_budget_category_id = ?', category.id)

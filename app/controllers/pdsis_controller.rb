@@ -32,12 +32,31 @@ class PdsisController < ApplicationController
     render :edit
   end
 
-  def costs_json
-    @pdsi = Pdsi.find params[:id]
-    budget_forecasts = @pdsi.budget_forecasts_with_values_for_json(@pdsi.id)
-    respond_to do |format|
-      format.json { render json: budget_forecasts }
+  # Add new budget_forecast to all PDSIs by new cost
+  def new_budget_forecast_by_cost
+    logger.debug "Huh?"
+    prepare_int = (Cost.last.id+1).to_s
+    @new_cost = Cost.create(id: (Cost.last.id+1), parent_id: params['parent_id'], cost_type: params['cost_type'], data_type: 'money', name: "Novo custo #{prepare_int}")
+    # Each PDSI for ID
+    Pdsi.all.each do |pfi|
+      new_budget_forecast = BudgetForecast.create(id: (BudgetForecast.last.id+1), cost_id: @new_cost.id, pdsi_id: pfi.id)
     end
+    bf = BudgetForecast.where(pdsi_id: params[:id], cost_id: @new_cost.id).take
+    bfcount = BudgetForecast.where(pdsi_id: params[:id]).count
+    bfcount = bfcount-1
+    response = { status: true, id: bf.id, bfcount: bfcount, cost_id: @new_cost.id }
+    render json: response
+  end
+
+  def update_cost_name
+    @cost = Cost.find(params['cost_id'])
+    @cost.name = params['cost_name']
+    if @cost.save
+      response = { status: true }
+    else
+      response = { status: false }
+    end
+    render json: response
   end
 
   def update
@@ -115,7 +134,7 @@ private
   def pdsi_params
     params.require(:pdsi).permit(
       :user_id, :processo_construcao_pdsi_2, :caracterizacao_do_dsei_3, :map, :analise_situacional_4, :principais_desafios_4_2, :resultados_esperados_introducao_5,
-
+      costs_atributes: [:id, :name, :parent_id, :cost_type, :data_type],
       pdsi_base_polo_data_attributes: [:id, :base_polo_id, :city_name],
       physiographic_datas_attributes: [
         :id, :vilage_id, :pt_fluency, :m_1, :m_1_4, :m_5_9, :m_10_49, :m_50_59, :m_60, :w_1, :w_1_4, :w_5_9, :w_10_49, :w_50_59, :w_60, :city_name,

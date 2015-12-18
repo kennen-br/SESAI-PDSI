@@ -2,6 +2,18 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+turl = window.location.href
+
+startLoading = ->
+  $pace = $('<div></div>', { class: 'pace pace-active results-loading'})
+  $pace.append $('<div></div>', { class: 'pace-activity' })
+  $('body').prepend $pace
+  return
+
+stopLoading = ->
+  $('.pace.results-loading').remove()
+  return
+
 manage_element = (element) ->
   element.parents('.destiny-transport').find('fieldset').toggle()
   return
@@ -339,55 +351,107 @@ $(document).ready ->
     calculate_parent_total(year_parent_id)
     return
 
-  # Add new rows to the tables 
+  # Add new rows to the tables and bind events to new fields
   $('.add_new_row').click ->
+    # Start showing loading
+    startLoading()
     console.log $(this).parents('tr').attr('id')
+    turl = window.location.href
+    if turl.lastIndexOf("?") > 0
+      url = turl.substr(0, turl.lastIndexOf("?")) + '/new_budget_forecast_by_cost'
+    else
+      url = turl.substr(0, turl.lastIndexOf("/")+1) + 'new_budget_forecast_by_cost'
+    # Prepare POST params
+    params = {}
+    params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
     parent_id = $(this).attr('id')
-    id = 99 #tempvalue
-    html = {}
-    last_id = 0
-    $(document).find(".2016-#{parent_id}").each (item) ->
-      if $(this).attr('value_index') > last_id
-        last_id = $(this).attr('value_index')
-    for year in [2016..2019]
-      style = ''
-      #check if element is hidden
-      if $("#tr-#{year}-#{last_id}").css('display') == 'none'
-        style = '="display: none;"'
-      #bcf
-      if year!=2016
-        bcf = $("#bcf-#{year}").attr('bcf')
-      else
-        bcf = 0
-      html[year] = """
-      <tr class="structure" data-index="#{year}-#{parent_id}" id="#{id}" style#{style}>
-        <td>
-          <input type="text" id="input-nome-custo-#{id}">
-        </td>
-        <td>
-          
-        </td>
-        <td>
-          <input value="0" id="hidden-#{year}-#{id}-2" type="hidden" name="pdsi[budget_forecasts_atributes][?][dsei_forecast_#{year}]" >
-          <input type="text" name id="input-#{year}-#{id}-2" value="0" class="currency-input #{year}-budget-value #{year}-group-value #{year}-#{parent_id}" group_parent_id="#{parent_id}" year_parent_id="#{year}-#{parent_id}" input_index="#{id}-2" correction_factor="#{bcf}" year_cost_id="#{year}-#{id}" value_index="#{id}" cost_type="3" >
-        </td>
-        <td>
+    params['parent_id'] = parent_id
+    params['cost_type'] = 3
+    $.post url, params, (data) ->
+      console.log data
+      id = data.cost_id
+      html = {}
+      last_id = 0
+      bfcount = data.bfcount * 4
+      $(document).find(".2016-#{parent_id}").each (item) ->
+        console.log "Last id: #{last_id}. Pointing now to: #{$(this).attr('value_index')}"
+        if parseInt($(this).attr('value_index')) > parseInt(last_id)
+          last_id = $(this).attr('value_index')
+      for year in [2016..2019]
+        style = ''
+        #check if element is hidden
+        if $("#tr-#{year}-#{last_id}").css('display') == 'none'
+          style = '="display: none;"'
+        #bcf
+        if year!=2016
+          bcf = $("#bcf-#{year}").attr('bcf')
+        else
+          bcf = 0
+        html[year] = """
+        <tr class="structure" data-index="#{year}-#{parent_id}" id="#{id}" style#{style}>
+          <td>
+            <input type="text" id="input-nome-custo-#{id}-#{year}" cost_id="#{id}">
+          </td>
+          <td>
+            
+          </td>
+          <td>
+            <input value="0" id="hidden-#{year}-#{id}-2" type="hidden" name="pdsi[budget_forecasts_attributes][#{bfcount}][dsei_forecast_#{year}]" >
+            <input type="text" name id="input-#{year}-#{id}-2" value="0,00" class="currency-input #{year}-budget-value #{year}-group-value #{year}-#{parent_id}" group_parent_id="#{parent_id}" year_parent_id="#{year}-#{parent_id}" input_index="#{id}-2" correction_factor="#{bcf}" year_cost_id="#{year}-#{id}" value_index="#{id}" cost_type="3" >
+          </td>
+          <td>
 
-        </td>
-      </tr>
-      <input type="hidden" value="bcf-id" name="pdsi[budget_forecasts_atributes][?][id]" id="pdsi_budget_forecasts_atributes_?_id">
-      """
-      $("#tr-#{year}-#{last_id}").after html[year]
-      $("#input-#{year}-#{id}-2").on 'change', =>
-        $this = $(this)
-        value = $this.val().replace(/^R\$/g, '').replace(/\./g, '').replace(',', '.')
-        $this.prev().val value
-        return
-      $("#input-#{year}-#{id}-2").maskMoney
-        prefix: 'R$'
-        thousands: '.'
-        decimal: ','
+          </td>
+        </tr>
+        <input type="hidden" value="#{data.id}" name="pdsi[budget_forecasts_attributes][#{bfcount}][id]" id="pdsi_budget_forecasts_atributes_#{bfcount}_id">
+        """
+        bfcount++
+        # Insert HTML
+        $("#tr-#{year}-#{last_id}").after html[year]
+        # Update cost name on change (event binding)
+        $("#input-nome-custo-#{id}-#{year}").on 'change', ->
+          id = $(this).attr('cost_id')
+          startLoading()
+          params = {}
+          console.log $(this).val()
+          params['cost_name'] = $(this).val()
+          params['cost_id'] = $(this).attr('cost_id')
+          console.log "Nome: #{params['cost_name']}, id: #{params['cost_id']}"
+          if turl.lastIndexOf("?") > 0
+            url = turl.substr(0, turl.lastIndexOf("?")) + '/update_cost_name'
+          else
+            url = turl.substr(0, turl.lastIndexOf("/")+1) + 'update_cost_name'
+          params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+          $.post url, params, (data2) ->
+            if data2.status
+              # Find all fields and update them
+              for year in [2016..2019]
+                $("#input-nome-custo-#{params['cost_id']}-#{year}").val(params['cost_name'])
+              stopLoading()
+            else
+              # Alert the user it couldn't save on database
+              alert "Não foi possível mudar o nome"
+              stopLoading()
+            return
+
+
+          return
+        # Money mask and hidden field data update
+        $("#input-#{year}-#{id}-2").on 'change', ->
+          $this = $(this)
+          value = $this.val().replace(/^R\$/g, '').replace(/\./g, '').replace(',', '.')
+          $this.prev().val value
+          return
+        $("#input-#{year}-#{id}-2").maskMoney
+          prefix: 'R$'
+          thousands: '.'
+          decimal: ','
+        # Stop showing loading
+        stopLoading()
 
     return
 
   return
+
+
+
