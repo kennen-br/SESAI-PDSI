@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151208133228) do
+ActiveRecord::Schema.define(version: 20151217223052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -413,6 +413,12 @@ ActiveRecord::Schema.define(version: 20151208133228) do
   add_index "infrastructure_sanitations", ["pdsi_id"], name: "index_infrastructure_sanitations_on_pdsi_id", using: :btree
   add_index "infrastructure_sanitations", ["village_id"], name: "index_infrastructure_sanitations_on_village_id", using: :btree
 
+  create_table "investment_cities", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "investment_items", force: :cascade do |t|
     t.string   "name"
     t.integer  "quantity_2016",        default: 1
@@ -431,9 +437,24 @@ ActiveRecord::Schema.define(version: 20151208133228) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.string   "year_reference"
+    t.string   "city"
+    t.string   "village"
+    t.string   "pole_base"
   end
 
   add_index "investment_items", ["budget_investment_id"], name: "index_investment_items_on_budget_investment_id", using: :btree
+
+  create_table "investment_pole_bases", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "investment_villages", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "investments", force: :cascade do |t|
     t.string   "name"
