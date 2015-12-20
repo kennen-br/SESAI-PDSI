@@ -53,7 +53,7 @@ h2.section-title Investimentos
                 - item_id = "#{b.object.object_id}"
                 tr.item data-category=("c#{b.object.investment.parent_id}-#{year}") id=("i#{item_id}")
                   td.action
-                    = link_to_add_association b, :investment_items,  data: { "association-insertion-node": "#i#{item_id}", "association-insertion-method": 'after' }, render_options: {locals: { year: year }} do
+                    = link_to_add_association b, :investment_items,  data: { "association-insertion-node": "#i#{item_id}", "association-insertion-method": 'after' }, render_options: {locals: { year: year }}, class: "qc#{b.object.id}y#{year}" do
                       = icon 'plus'
                   td
                     = b.object.investment.name
@@ -80,13 +80,13 @@ h2.section-title Investimentos
                   td
                   td
                   td
-                    = b.text_field "quantity_#{year}", id: "qc#{b.object.id}y#{year}"
+                    = b.text_field "quantity_#{year}", id: "qc#{b.object.id}y#{year}",
+                    class: "group2-input qc#{b.object.id}y#{year}"
                   td
-                    = b.number_field "unitary_amount_#{year}",
-                    id: "uc#{b.object.id}y#{year}"
+                    = b.number_field "unitary_amount_#{year}", id: "uc#{b.object.id}y#{year}",
+                    class: "group2-input uc#{b.object.id}y#{year}"
                   td
-                    = b.number_field "forecast_amount_#{year}", class: "fc#{b.object.id}y#{year}",
-                    id: "fc#{b.object.id}y#{year}"
+                    = b.number_field "forecast_amount_#{year}", id: "fc#{b.object.id}y#{year}"
 
               = b.fields_for :investment_items do |item|
                 - if item.object.year_reference == year.to_s
