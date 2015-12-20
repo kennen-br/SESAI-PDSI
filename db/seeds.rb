@@ -45,10 +45,10 @@ if Dsei.count == 0
     {name: "XINGU", sesai_id:  33  },
     {name: "YANOMAMI", sesai_id:  34  },
     {name: "SESAI CENTRAL", sesai_id:  35  }
-
   ])
 end
 
+# BasePolo Seeds
 if BasePolo.count == 0
   BasePolo.create!([
     {dsei_id: 1, name: "KARIRI-XOKÓ", sesai_id: 1588},
@@ -411,39 +411,97 @@ end
 
 # VILLAGE Seeds
 if Village.count == 0
-
-seed_path = File.join(Rails.root, 'db', 'seeds', 'villages.seed.csv')
-sql = <<COPY_PSQL
-  COPY villages(base_polo_id,"name",sesai_id,"city_name",city_sesai_id,created_at,updated_at)
-  FROM '#{seed_path}'
-  WITH DELIMITER ','
-  CSV HEADER
-COPY_PSQL
-ActiveRecord::Base.connection.execute(sql)
+  seed_path = File.join(Rails.root, 'db', 'seeds', 'villages.seed.csv')
+  sql = <<-COPY_PSQL
+    COPY villages(base_polo_id, name, sesai_id, city_name, city_sesai_id, created_at, updated_at)
+    FROM '#{seed_path}'
+    WITH DELIMITER ','
+    CSV HEADER
+  COPY_PSQL
+  ActiveRecord::Base.connection.execute(sql)
 end
 
 if Ethnicity.count == 0
+  # ETHNICITY Seeds
+  seed_path = File.join(Rails.root, 'db', 'seeds', 'ethnicities.seed.csv')
+  sql = <<-COPY_PSQL
+    COPY ethnicities(name , sesai_id, created_at, updated_at)
+    FROM '#{seed_path}'
+    WITH DELIMITER ','
+    CSV HEADER
+  COPY_PSQL
+  ActiveRecord::Base.connection.execute(sql)
 
-# ETHNICITY Seeds
-seed_path = File.join(Rails.root, 'db', 'seeds', 'ethnicities.seed.csv')
-sql = <<COPY_PSQL
-  COPY ethnicities("name",sesai_id,created_at,updated_at)
-  FROM '#{seed_path}'
-  WITH DELIMITER ','
-  CSV HEADER
-COPY_PSQL
-ActiveRecord::Base.connection.execute(sql)
+  # ETHNICITY_VILLAGE Seeds
+  seed_path = File.join(Rails.root, 'db', 'seeds', 'ethnicities_villages.seed.csv')
+  sql = <<-COPY_PSQL
+    COPY ethnicities_villages(ethnicity_id, village_id)
+    FROM '#{seed_path}'
+    WITH DELIMITER ','
+    CSV HEADER
+  COPY_PSQL
+  ActiveRecord::Base.connection.execute(sql)
+end
 
-# ETHNICITY_VILLAGE Seeds
-seed_path = File.join(Rails.root, 'db', 'seeds', 'ethnicities_villages.seed.csv')
-sql = <<COPY_PSQL
-  COPY ethnicities_villages(ethnicity_id,village_id)
-  FROM '#{seed_path}'
-  WITH DELIMITER ','
-  CSV HEADER
-COPY_PSQL
-ActiveRecord::Base.connection.execute(sql)
 
+# PEOPLE Seeds
+if People.count == 0
+  seed_path = File.join(Rails.root, 'db', 'seeds', 'people.seed.csv')
+  sql = <<-COPY_PSQL
+    COPY people(dsei_id, is_sesai_central, name, location, bond, created_at, updated_at)
+      FROM '#{seed_path}'
+      WITH
+        DELIMITER ','
+        NULL 'null'
+        CSV
+          HEADER
+    COPY_PSQL
+  ActiveRecord::Base.connection.execute(sql)
+end
+
+# InvestmentPoleBase Seeds
+if InvestmentPoleBase.count == 0
+  seed_path = File.join(Rails.root, 'db', 'seeds', 'investment_pole_base.seed.csv')
+  sql = <<-COPY_PSQL
+    COPY investment_pole_bases(name, created_at, updated_at)
+      FROM '#{seed_path}'
+      WITH
+        DELIMITER ','
+        NULL 'null'
+        CSV
+          HEADER
+    COPY_PSQL
+  ActiveRecord::Base.connection.execute(sql)
+end
+
+# InvestmentCity Seeds
+if InvestmentCity.count == 0
+  seed_path = File.join(Rails.root, 'db', 'seeds', 'investment_cities.seed.csv')
+  sql = <<-COPY_PSQL
+    COPY investment_cities(name, created_at, updated_at)
+      FROM '#{seed_path}'
+      WITH
+        DELIMITER ','
+        NULL 'null'
+        CSV
+          HEADER
+    COPY_PSQL
+  ActiveRecord::Base.connection.execute(sql)
+end
+
+# InvestmentVillage Seeds
+if InvestmentVillage.count == 0
+  seed_path = File.join(Rails.root, 'db', 'seeds', 'investment_villages.seed.csv')
+  sql = <<-COPY_PSQL
+    COPY investment_villages(name, created_at, updated_at)
+      FROM '#{seed_path}'
+      WITH
+        DELIMITER ','
+        NULL 'null'
+        CSV
+          HEADER
+    COPY_PSQL
+  ActiveRecord::Base.connection.execute(sql)
 end
 
 if UserType.count == 0
@@ -506,41 +564,40 @@ end
 
 if Pdsi.count == 0
     Pdsi.create!([
-        { id: 1, dsei_id:1, user_id: User.find(5)},
-        { id: 2, dsei_id:2, user_id: User.find(6)},
-        { id: 3, dsei_id:3, user_id: User.find(7)},
-        { id: 4, dsei_id:4, user_id: User.find(8)},
-        { id: 5, dsei_id:5, user_id: User.find(9)},
-        { id: 6, dsei_id:6, user_id: User.find(10)},
-        { id: 7, dsei_id:7, user_id: User.find(11)},
-        { id: 8, dsei_id:8, user_id: User.find(12)},
-        { id: 9, dsei_id:9, user_id: User.find(13)},
-        { id: 10, dsei_id:10, user_id: User.find(14)},
-        { id: 11, dsei_id:11, user_id: User.find(15)},
-        { id: 12, dsei_id:12, user_id: User.find(16)},
-        { id: 13, dsei_id:13, user_id: User.find(17)},
-        { id: 14, dsei_id:14, user_id: User.find(18)},
-        { id: 15, dsei_id:15, user_id: User.find(19)},
-        { id: 16, dsei_id:16, user_id: User.find(20)},
-        { id: 17, dsei_id:17, user_id: User.find(21)},
-        { id: 18, dsei_id:18, user_id: User.find(22)},
-        { id: 19, dsei_id:19, user_id: User.find(23)},
-        { id: 20, dsei_id:20, user_id: User.find(24)},
-        { id: 21, dsei_id:21, user_id: User.find(25)},
-        { id: 22, dsei_id:22, user_id: User.find(26)},
-        { id: 23, dsei_id:23, user_id: User.find(27)},
-        { id: 24, dsei_id:24, user_id: User.find(28)},
-        { id: 25, dsei_id:25, user_id: User.find(29)},
-        { id: 26, dsei_id:26, user_id: User.find(30)},
-        { id: 27, dsei_id:27, user_id: User.find(31)},
-        { id: 28, dsei_id:28, user_id: User.find(32)},
-        { id: 29, dsei_id:29, user_id: User.find(33)},
-        { id: 30, dsei_id:30, user_id: User.find(34)},
-        { id: 31, dsei_id:31, user_id: User.find(35)},
-        { id: 32, dsei_id:32, user_id: User.find(36)},
-        { id: 33, dsei_id:33, user_id: User.find(37)},
-        { id: 34, dsei_id:34, user_id: User.find(38)}
-
+      { id: 1, dsei_id:1, user_id: User.find(5)},
+      { id: 2, dsei_id:2, user_id: User.find(6)},
+      { id: 3, dsei_id:3, user_id: User.find(7)},
+      { id: 4, dsei_id:4, user_id: User.find(8)},
+      { id: 5, dsei_id:5, user_id: User.find(9)},
+      { id: 6, dsei_id:6, user_id: User.find(10)},
+      { id: 7, dsei_id:7, user_id: User.find(11)},
+      { id: 8, dsei_id:8, user_id: User.find(12)},
+      { id: 9, dsei_id:9, user_id: User.find(13)},
+      { id: 10, dsei_id:10, user_id: User.find(14)},
+      { id: 11, dsei_id:11, user_id: User.find(15)},
+      { id: 12, dsei_id:12, user_id: User.find(16)},
+      { id: 13, dsei_id:13, user_id: User.find(17)},
+      { id: 14, dsei_id:14, user_id: User.find(18)},
+      { id: 15, dsei_id:15, user_id: User.find(19)},
+      { id: 16, dsei_id:16, user_id: User.find(20)},
+      { id: 17, dsei_id:17, user_id: User.find(21)},
+      { id: 18, dsei_id:18, user_id: User.find(22)},
+      { id: 19, dsei_id:19, user_id: User.find(23)},
+      { id: 20, dsei_id:20, user_id: User.find(24)},
+      { id: 21, dsei_id:21, user_id: User.find(25)},
+      { id: 22, dsei_id:22, user_id: User.find(26)},
+      { id: 23, dsei_id:23, user_id: User.find(27)},
+      { id: 24, dsei_id:24, user_id: User.find(28)},
+      { id: 25, dsei_id:25, user_id: User.find(29)},
+      { id: 26, dsei_id:26, user_id: User.find(30)},
+      { id: 27, dsei_id:27, user_id: User.find(31)},
+      { id: 28, dsei_id:28, user_id: User.find(32)},
+      { id: 29, dsei_id:29, user_id: User.find(33)},
+      { id: 30, dsei_id:30, user_id: User.find(34)},
+      { id: 31, dsei_id:31, user_id: User.find(35)},
+      { id: 32, dsei_id:32, user_id: User.find(36)},
+      { id: 33, dsei_id:33, user_id: User.find(37)},
+      { id: 34, dsei_id:34, user_id: User.find(38)}
     ])
 end
 
@@ -556,20 +613,16 @@ if Cost.count == 0
     { name: 'SERVIDORES PÚBLICO FEDERAIS', id: 8, ask_distribution: true, data_type: 'money', cost_type: 3 },
     { name: 'COMBUSTÍVEL', id: 9, ask_distribution: true, data_type: 'money', cost_type: 3 },
     { name: 'CONTRATOS', id: 10, ask_distribution: true, data_type: 'money', cost_type: 1 },
-
     { name: 'ALIMENTAÇÃO', id: 11, ask_distribution: true, data_type: 'money', parent_id: 10, cost_type: 2 },
     { name: '3.3.90.30.07 - Gêneros de Alimentação', id: 12, ask_distribution: true, data_type: 'money', parent_id: 11, cost_type: 3 },
     { name: '3.3.90.36.23 - Fornecimento de Alimentação (Outros Serviços de Terceiros - Pessoa Física)', id: 13, ask_distribution: true, data_type: 'money', parent_id: 11, cost_type: 3 },
     { name: '3.3.90.39.41 - Fornecimento de Alimentação (Outros Serviço de Terceiros - Pessoa Jurídica)', id: 14, ask_distribution: true, data_type: 'money', parent_id: 11, cost_type: 3 },
-
     { name: 'HORAS VÔO', id: 15, ask_distribution: false, data_type: 'money', parent_id: 10, cost_type: 2 },
     { name: '3.3.90.33.03 - Horas Vôo', id: 16, ask_distribution: true, data_type: 'money', parent_id: 15, cost_type: 3 },
-
     { name: 'LOCAÇÃO DE VEÍCULOS', id: 17, ask_distribution: true, data_type: 'money', parent_id: 10 , cost_type: 2},
     { name: '3.3.90.33.03 - Locação de Veículos', id: 18, ask_distribution: true, data_type: 'money', parent_id: 17, cost_type: 3 },
     { name: '3.3.90.33.05 - Locomoção Urbana', id: 19, ask_distribution: true, data_type: 'money', parent_id: 17 , cost_type: 3},
     { name: '3.3.90.33.09 - Transporte de Servidores', id: 20, ask_distribution: true, data_type: 'money', parent_id: 17 , cost_type: 3},
-
     { name: 'LOCAÇÃO DE MÃO DE OBRA', id: 21, ask_distribution: true, data_type: 'money', parent_id: 10 , cost_type: 2},
     { name: '3.3.90.37.01 - Secretária e Recepcionista', id: 22, ask_distribution: true, data_type: 'money', parent_id: 21 , cost_type: 3},
     { name: '3.3.90.37.01 - Motorista', id: 23, ask_distribution: true, data_type: 'money', parent_id: 21 , cost_type: 3},
@@ -579,7 +632,6 @@ if Cost.count == 0
     { name: '3.3.90.37.03 - Vigilância Ostensiva', id: 27, ask_distribution: true, data_type: 'money', parent_id: 21 , cost_type: 3},
     { name: '3.3.90.37.05 - Serviço de Copa e Cozinha ', id: 28, ask_distribution: true, data_type: 'money', parent_id: 21 , cost_type: 3},
     { name: '3.3.90.37.06 - Manutenção e Conservação de Bens Movéis', id: 29, ask_distribution: true, data_type: 'money', parent_id: 21 , cost_type: 3},
-
     { name: 'OUTROS CONTRATOS', id: 30, ask_distribution: false, data_type: 'money', parent_id: 10 , cost_type: 2},
     { name: '3.3.90.30.03 - Combustíveis e Outros Materiais Lubrificantes', id: 31, ask_distribution: true, data_type: 'money', parent_id: 30 , cost_type: 3},
     { name: '3.3.90.30.04 - Gás e Outros Materiais Engarrafados', id: 32, ask_distribution: true, data_type: 'money', parent_id: 30 , cost_type: 3},
@@ -1041,7 +1093,6 @@ if TextTemplate.count == 0
   ])
 end
 
-
 if ResponsabilityLevel.count == 0
   ResponsabilityLevel.create!([
     { name: 'Resultado' },
@@ -1050,33 +1101,15 @@ if ResponsabilityLevel.count == 0
   ])
 end
 
-# PEOPLE Seeds
-if People.count == 0
-
-seed_path = File.join(Rails.root, 'db', 'seeds', 'people.seed.csv')
-sql = <<COPY_PSQL
-  COPY people(dsei_id,is_sesai_central,"name","location","bond",created_at,updated_at)
-    FROM '#{seed_path}'
-    WITH
-      DELIMITER ','
-      NULL 'null'
-      CSV
-        HEADER
-COPY_PSQL
-ActiveRecord::Base.connection.execute(sql)
-
-end
-
 if BudgetForecast.count == 0
-
-seed_path = File.join(Rails.root, 'db', 'seeds', 'budget_forecasts.seed.csv')
-sql = <<COPY_PSQL
-  COPY budget_forecasts(cost_id,pdsi_id,initial_forecast_2016)
-  FROM '#{seed_path}'
-  WITH DELIMITER ','
-  CSV HEADER
-COPY_PSQL
-ActiveRecord::Base.connection.execute(sql)
+  seed_path = File.join(Rails.root, 'db', 'seeds', 'budget_forecasts.seed.csv')
+  sql = <<-COPY_PSQL
+    COPY budget_forecasts(cost_id, pdsi_id, initial_forecast_2016)
+    FROM '#{seed_path}'
+    WITH DELIMITER ','
+    CSV HEADER
+  COPY_PSQL
+  ActiveRecord::Base.connection.execute(sql)
 
   # Create empty records for all costs
   (31..73).map do |cost_id|
@@ -1084,8 +1117,8 @@ ActiveRecord::Base.connection.execute(sql)
       BudgetForecast.create!([{ cost_id: cost_id, pdsi_id: pdsi_id, initial_forecast_2016: 0 }])
     end
   end
-
 end
+
 
 # Update initial forecasts for 2017-2019 based on correction factors of each year
 BudgetForecast.find_by_sql("update budget_forecasts set initial_forecast_2017 = initial_forecast_2016 + (initial_forecast_2016*0.017)")
@@ -1113,7 +1146,6 @@ if Investment.count == 0
     { name: 'Obras de Edificações' },
     { name: 'Obras de Saneamento' },
     { name: 'Equipamentos' },
-
     { name: 'CASAI', parent_id: 1},
     { name: 'UNIDADE BÁSICA DE SAÚDE INDÍGENA (UBSI) - Tipo I', parent_id: 1 },
     { name: 'UNIDADE BÁSICA DE SAÚDE INDÍGENA (UBSI) - Tipo II', parent_id: 1 },
@@ -1121,11 +1153,9 @@ if Investment.count == 0
     { name: 'SEDE DO NÚCLEO DISTRITAL DA SESAI', parent_id: 1 },
     { name: 'PÓLO-BASE', parent_id: 1 },
     { name: 'REFORMAS', parent_id: 1 },
-
     { name: 'SISTEMA DE ABASTECIMENTO DE ÁGUA (SAA)', parent_id: 2 },
     { name: 'MELHORIAS SANITÁRIAS DOMICILIARES (MSD)', parent_id: 2 },
     { name: 'ESGOTAMENTO SANITÁRIO', parent_id: 2 },
-
     { name: 'VEÍCULOS', parent_id: 3 },
     { name: 'BARCOS', parent_id: 3 },
     { name: 'MOTORES DE BARCO', parent_id: 3 },

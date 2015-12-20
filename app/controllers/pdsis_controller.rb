@@ -22,10 +22,10 @@ class PdsisController < ApplicationController
   def health_indicators
     if @subsection == 'casai'
       if params.key?(:casai)
-        @casai  = Casai.find params[:casai]
+        @casai = Casai.find params[:casai]
       else
-        @casai  = @dsei.casais.order(:id).first
-        @casai  = Casai.new(dsei: @dsei) if @casai.nil?
+        @casai = @dsei.casais.order(:id).first
+        @casai = Casai.new(dsei: @dsei) if @casai.nil?
       end
     end
 
@@ -69,14 +69,14 @@ class PdsisController < ApplicationController
 
   def delete_map
     @pdsi.update map: nil
-
-    notice  = {notice: 'Mapa excluído com sucesso.'}
+    notice  = { notice: 'Mapa excluído com sucesso.' }
     args    = { section: 'mapa' }
 
     redirect_to edit_pdsi_path(@pdsi, args), notice
   end
 
-private
+  private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_pdsi
     if @section == 'dotacao_orcamentaria'
@@ -110,7 +110,7 @@ private
   def redirect_after_save
     return redirect_to_indicadores if params[:section] == 'indicadores-saude-indigena'
 
-    notice = {notice: 'Dados atualizados com sucesso.'}
+    notice = { notice: 'Dados atualizados com sucesso.' }
 
     args = { section: params[:section] }
     args.merge!(base_polo: params[:base_polo]) if params[:base_polo]
@@ -213,7 +213,8 @@ private
         investment_items_attributes: [:id, :_destroy, :name, :quantity_2016, :unitary_amount_2016,
          :forecast_amount_2016, :quantity_2017, :unitary_amount_2017, :forecast_amount_2017,
          :quantity_2018, :unitary_amount_2018, :forecast_amount_2018, :quantity_2019,
-         :unitary_amount_2019, :forecast_amount_2019, :year_reference
+         :unitary_amount_2019, :forecast_amount_2019, :year_reference, :city,
+         :pole_base, :village
         ]
       ]
     )

@@ -1,36 +1,5 @@
-# Add new item
-index = 1
-addNewItem = (elId, elClass)->
-  item = elClass.split('-')[0]
-  year = elClass.split('-')[1]
-  html = """
-  <tr class="item new-item" id="input-new-item">
-    <td class="action">
-      <i class="fa fa-trash-o"></i>
-      <input name="pdsi[budget_investments_attributes][#{item-1}][investment_items_attributes][#{elId+index}][_destroy]" type="hidden" value="0"><input type="checkbox" class="new-item dc#{item}y#{year}" value="1" name="pdsi[budget_investments_attributes][#{item-1}][investment_items_attributes][#{elId+index}][_destroy]">
-    </td>
-    <td class="field">
-      <input type="text" name="pdsi[budget_investments_attributes][#{item-1}][investment_items_attributes][#{elId+index}][name]">
-    </td>
-    <td>
-      <input type="number" value="1" name="pdsi[budget_investments_attributes][#{item-1}][investment_items_attributes][#{elId+index}][quantity_2016]" id="qid#{index+10}c#{item}y#{year}" class="qc#{item}y#{year} investment-input" disabled>
-    </td>
-    <td>
-      <input value="0" type="text" name="pdsi[budget_investments_attributes][#{item-1}][investment_items_attributes][#{elId+index}][unitary_amount_2016]" id="uid#{index+10}c#{item}y#{year}" class="uc#{item}y#{year} investment-input">
-    </td>
-    <td>
-      <input value="0" type="text" name="pdsi[budget_investments_attributes][#{item-1}][investment_items_attributes][#{elId+index}][forecast_amount_2016]" id="fid#{index+10}c#{item}y#{year}" class="fc#{item}y#{year}">
-      <input type="hidden" value="#{year}"name="pdsi[budget_investments_attributes][#{item-1}][investment_items_attributes][#{elId+index}][year_reference]">
-    </td>
-  </tr>
-
-  """
-  $("#i#{elId}").after html
-  quantity_sum("qc#{item}y#{year}")
-  index++
-
-# Subgroup sum
-forecast_sum = (class_item) ->
+# Subgroup1 sum
+group1_sum = (class_item) ->
   q = class_item.replace(/u/, 'q')
   forecast = class_item.replace(/u/, 'f')
   quant = $("##{q}").val()
@@ -39,9 +8,31 @@ forecast_sum = (class_item) ->
     subtotal += $(this).val()*1
     return
   $("##{class_item}").val(subtotal)
-  $("##{forecast}").val(subtotal * quant)
+  $("##{forecast}").val(subtotal)
   group_sum(class_item)
 
+# Subgroup2 sum
+group2_sum = (class_item) ->
+  subtotal = 0
+  item = class_item.attr('id').slice(1,9)
+  unit = 'u' + item
+  unit_val = $("##{unit}").val()*1
+  quant = 'q' + item
+  quant_val = $("##{quant}").val()*1
+  fore = 'f' + item
+  subtotal = quant_val * unit_val
+  $("##{fore}").val(subtotal)
+  group_sum(class_item)
+
+# Increase quantity and sum
+quantity_plus = (class_item) ->
+  subtotal = 1
+  $(document).find(".#{class_item}").each (item) ->
+    subtotal += $(this).val()*1
+    return
+  $("##{class_item}").val(subtotal)
+
+# Decrease quantity and sum
 quantity_sum = (class_item) ->
   subtotal = 0
   $(document).find(".#{class_item}").each (item) ->
@@ -102,48 +93,66 @@ $(document).ready ->
     $("[data-category='2-#{year}']").after $("[data-category='c2-#{year}']")
     $("[data-category='3-#{year}']").after $("[data-category='c3-#{year}']")
 
-  # Sum all fields on modification
-  $(document).on 'keyup', ".investment-input", ->
+  # Sum group1 fields on modification
+  $(document).on 'keyup', ".group1-input", ->
     for year in [2016..2019]
       for categorie in [1..20]
-        forecast_sum("uc#{categorie}y#{year}")
+        group1_sum("uc#{categorie}y#{year}")
     return
 
-  # Add new item
-  $('.fa-plus').click (event) ->
-    event.preventDefault()
-    elClass = $(this).attr('class').split(' ')[2]
-    elId = $(this).attr('id')
-    addNewItem(elId, elClass)
+  # Sum group2 fields on modification
+  $(document).on 'keyup', ".group2-input", ->
+    modify_element = $(this)
+    group2_sum(modify_element)
+    return
 
-    # Remove item not saved
-    $ ->
-      $('input.new-item:checkbox').click ->
-        if $(this).is(':checked')
-          $('#input-new-item').remove()
-          class_item = $(this).attr('class').slice(-8)
-          class_unitary = class_item.replace(/d/, 'u')
-          class_quantity = class_item.replace(/d/, 'q')
-          quantity_sum(class_quantity)
-          forecast_sum(class_unitary)
+  # Insert Items
+  $(document).on 'click', '#form-investment .fa-plus', ->
+    class_item = $(this).parent().attr('class').slice(0,9)
+    quantity_plus(class_item)
 
-  # Remove saved item
-  $ ->
-    $('#form-investment input:checkbox').click ->
-      $('#form-investment input:checkbox').not(this).prop('checked', false) # only one item at time
+  # Remove items
+  $(document).on 'click', '#form-investment input:checkbox', ->
+    class_item = $(this).attr('class').slice(-8).replace(/\s+/g, '')
+    quant = 'q' + class_item
+    fore  = 'u' + class_item
+
+    # Remove unsaved items
+    if $(this).hasClass("new-record")
+      $(this).parent().parent().remove()
+      quantity_sum(quant)
+      group1_sum(fore)
+    else
+      # Remove saved items
       if $(this).is(':checked')
-        class_item = $(this).attr('class')
-        # Confirmation
-        toastr.warning("<div><button type='button' class='button' id='okBtn'>Sim</button>" , 'Deseja excluir este ítem?')
+        $('#form-investment input:checkbox').not(this).prop('checked', false)
+        $prevtd = $(this).parent().prev('td').find('input')
+        $prevprevtd = $(this).parent().prev('td').prev('td').find('input')
+        toastr.warning("<div><button type='button' class='button' id='okBtn'>Sim</button>" , 'Deseja excluir este ítem?', {preventDuplicates: true})
         $ ->
           $('#okBtn').click ->
-            item_quantity = class_item.replace(/u/, 'q')
-            $("##{class_item}").val(0)
-            $("##{item_quantity}").val(0)
-            class_unitary = 'u' + class_item.slice(-7)
-            class_quantity = 'q' + class_item.slice(-7)
-            quantity_sum(class_quantity)
-            forecast_sum(class_unitary)
+            $prevtd.val(0)
+            $prevprevtd.val(0)
+            quantity_sum(quant)
+            group1_sum(fore)
             $('form').submit()
 
-
+  # Save form if no errors
+  $('#pdsi_save_button').prop('onclick',null)
+  $(document).on 'click','#pdsi_save_button', ->
+    errors = 0
+    $('.new-record:input[type="text"]').map ->
+      if !$(this).val()
+        $(this).parent().css
+          'border-style': 'solid'
+          'border-color': 'red'
+        errors++
+      else if $(this).val()
+        $(this).parent().css
+          'border-style': 'none'
+      return
+    if errors > 0
+      toastr.warning('Nome do ítem é obrigatório' , 'ERRO!')
+      return false
+    $('form').submit()
+    return
