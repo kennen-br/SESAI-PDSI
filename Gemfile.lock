@@ -273,6 +273,8 @@ GEM
     seed_dump (3.2.2)
       activerecord (~> 4)
       activesupport (~> 4)
+    select2-rails (4.0.0)
+      thor (~> 0.14)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
     simplecov (0.10.0)
@@ -387,6 +389,7 @@ DEPENDENCIES
   rubocop
   sass-rails (~> 5.0)
   seed_dump
+  select2-rails
   shoulda-matchers
   simplecov
   slim-rails

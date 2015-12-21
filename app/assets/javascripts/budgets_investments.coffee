@@ -100,6 +100,10 @@ $(document).ready ->
         group1_sum("uc#{categorie}y#{year}")
     return
 
+  $('#form-investment').on 'cocoon:after-insert', ->
+    $('.select2').select2()
+    return
+
   # Sum group2 fields on modification
   $(document).on 'keyup', ".group2-input", ->
     modify_element = $(this)
@@ -156,3 +160,5 @@ $(document).ready ->
       return false
     $('form').submit()
     return
+
+  $('.select2').select2()
