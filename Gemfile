@@ -20,7 +20,7 @@ gem 'dynamic_form'
 gem "paperclip",                    '~> 4.3'
 
 gem 'mailchimp-api',                require: 'mailchimp'
-
+gem 'select2-rails'
 # Copy records and its associations
 gem 'amoeba'
 
