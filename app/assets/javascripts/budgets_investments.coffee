@@ -101,7 +101,7 @@ $(document).ready ->
     return
 
   $('#form-investment').on 'cocoon:after-insert', ->
-    $('.select2').select2()
+    $('.select2').select2({ dropdownAutoWidth: true })
     return
 
   # Sum group2 fields on modification
@@ -161,4 +161,4 @@ $(document).ready ->
     $('form').submit()
     return
 
-  $('.select2').select2()
+  $('.select2').select2({ dropdownAutoWidth : true })
