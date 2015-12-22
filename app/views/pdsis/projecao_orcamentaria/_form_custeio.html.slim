@@ -99,7 +99,7 @@ h2.section-title Custeio
                         td
                           - if current_user.user_type.menu_name == "sesai_central"
                             = link_to '#'  do
-                              = icon 'plus', class: "add_new_row", id: bf.object.cost.id
+                              = icon 'plus', class: "add_new_row", id: bf_child.object.cost.id
                           | &nbsp;&nbsp;
                           = icon 'plus-square-o', class: 'toggle-structures' 
                           | &nbsp;&nbsp;

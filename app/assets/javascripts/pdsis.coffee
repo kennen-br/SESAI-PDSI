@@ -355,7 +355,6 @@ $(document).ready ->
   $('.add_new_row').click ->
     # Start showing loading
     startLoading()
-    console.log $(this).parents('tr').attr('id')
     turl = window.location.href
     if turl.lastIndexOf("?") > 0
       url = turl.substr(0, turl.lastIndexOf("?")) + '/new_budget_forecast_by_cost'
@@ -368,13 +367,11 @@ $(document).ready ->
     params['parent_id'] = parent_id
     params['cost_type'] = 3
     $.post url, params, (data) ->
-      console.log data
       id = data.cost_id
       html = {}
       last_id = 0
       bfcount = data.bfcount * 4
       $(document).find(".2016-#{parent_id}").each (item) ->
-        console.log "Last id: #{last_id}. Pointing now to: #{$(this).attr('value_index')}"
         if parseInt($(this).attr('value_index')) > parseInt(last_id)
           last_id = $(this).attr('value_index')
       for year in [2016..2019]
@@ -397,7 +394,7 @@ $(document).ready ->
           </td>
           <td>
             <input value="0" id="hidden-#{year}-#{id}-2" type="hidden" name="pdsi[budget_forecasts_attributes][#{bfcount}][dsei_forecast_#{year}]" >
-            <input type="text" name id="input-#{year}-#{id}-2" value="0,00" class="currency-input #{year}-budget-value #{year}-group-value #{year}-#{parent_id}" group_parent_id="#{parent_id}" year_parent_id="#{year}-#{parent_id}" input_index="#{id}-2" correction_factor="#{bcf}" year_cost_id="#{year}-#{id}" value_index="#{id}" cost_type="3" >
+            <input type="text" name id="input-#{year}-#{id}-2" value="0,00" class="currency-input #{year}-budget-value #{year}-group-value #{year}-#{parent_id}" group_parent_id="#{parent_id}" year_parent_id="#{year}-#{parent_id}" input_index="#{id}-2" correction_factor="#{bcf}" year_cost_id="#{year}-#{id}" value_index="#{id}" cost_type="3" disabled="disabled">
           </td>
           <td>
 
