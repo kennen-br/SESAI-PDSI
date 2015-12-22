@@ -302,7 +302,7 @@ class Pdsi < ActiveRecord::Base
 
   def budget_investments_with_values
     items = budget_investments
-    return items.includes([:investment, :investment_items])
+    return items.includes([:investment, { investment_items: :budget_investment }])
                 .order(:investment_id) unless budget_investments.blank?
 
     Investment.all.each do |investment|
