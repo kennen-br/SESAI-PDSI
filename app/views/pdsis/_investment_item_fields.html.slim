@@ -1,0 +1,35 @@
+tr.item data-category=("c#{f.object.budget_investment.investment.parent_id}-#{year}")
+  td.action
+  - if f.object.new_record?
+    td.field
+      div.err
+        = f.text_field :name, class: 'new-record'
+  - else
+    td.field
+      = f.text_field :name
+  td.field
+    /= f.text_field :city
+    = f.collection_select :city, InvestmentCity.all, :id, :name, { include_blank: true }, { class: 'select2' }
+  td
+    = f.text_field :village
+    /= f.collection_select :village, InvestmentVillage.all, :id, :name, include_blank: true
+  td.field
+    /= f.text_field :pole_base
+    = f.collection_select :pole_base, InvestmentPoleBase.all, :id, :name, { include_blank: true }, { class: 'select2' }
+  td.field
+    = f.number_field "quantity_#{year}",
+    class: "qc#{f.object.budget_investment.id}y#{year} group1-input",
+    readonly: true
+  td.field
+    = f.number_field "unitary_amount_#{year}",
+    class: "uc#{f.object.budget_investment.id}y#{year} group1-input"
+    = f.hidden_field :year_reference, value: "#{year}"
+  - if f.object.new_record?
+    td
+      = icon 'trash-o'
+      = f.check_box :_destroy, class: "new-record c#{f.object.budget_investment.id}y#{year}"
+  - else
+    td
+      = icon 'trash-o'
+      = f.check_box :_destroy, class: "c#{f.object.budget_investment.id}y#{year}"
+
