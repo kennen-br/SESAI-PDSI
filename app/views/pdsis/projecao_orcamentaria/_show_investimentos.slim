@@ -87,12 +87,12 @@
                     td.field
                       = item.name
                     td.field
-                      = InvestmentCity.find("#{item.city}").name unless item.city.blank?
+                      = city_name(item.city)
                     td
-                      = item.village
+                      = village_name(item.village)
                     td.field
                       /= item.pole_base
-                      = InvestmentPoleBase.find("#{item.pole_base}").name unless item.pole_base.blank?
+                      = pole_base_name(item.pole_base)
                     td.field
                       = item.send("quantity_#{year}")
                     td.field
