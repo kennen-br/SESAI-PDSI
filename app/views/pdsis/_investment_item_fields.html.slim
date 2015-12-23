@@ -8,13 +8,10 @@ tr.item data-category=("c#{f.object.budget_investment.investment.parent_id}-#{ye
     td.field
       = f.text_field :name
   td.field
-    /= f.text_field :city
     = f.collection_select :city, InvestmentCity.all, :id, :name, { include_blank: true }, { class: 'select2' }
   td
-    = f.text_field :village
-    /= f.collection_select :village, InvestmentVillage.all, :id, :name, include_blank: true
+    = f.select :village, {"#{village_name(f.object.village)}": "#{village_id(f.object.village)}"}, {}, { class: 'village-select' }
   td.field
-    /= f.text_field :pole_base
     = f.collection_select :pole_base, InvestmentPoleBase.all, :id, :name, { include_blank: true }, { class: 'select2' }
   td.field
     = f.number_field "quantity_#{year}",
