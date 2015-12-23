@@ -102,6 +102,21 @@ $(document).ready ->
 
   $('#form-investment').on 'cocoon:after-insert', ->
     $('.select2').select2({ dropdownAutoWidth: true })
+    $('.village-select').select2
+      dropdownAutoWidth : true
+      minimumInputLength: 1
+      minimumResultsForSearch: 100
+      ajax:
+        url: '/locations/villages.json'
+        dataType: 'json'
+        type: 'GET'
+        data: (params) ->
+          queryParameters = term: params.term
+          queryParameters
+        processResults: (data) ->
+          results: $.map data, (item) ->
+            { text: item.name, id: item.id }
+    $('.village-select').next('span').next('span').remove()
     return
 
   # Sum group2 fields on modification
@@ -162,3 +177,18 @@ $(document).ready ->
     return
 
   $('.select2').select2({ dropdownAutoWidth : true })
+
+  $('.village-select').select2
+    dropdownAutoWidth : true
+    minimumInputLength: 1
+    minimumResultsForSearch: 100
+    ajax:
+      url: '/locations/villages.json'
+      dataType: 'json'
+      type: 'GET'
+      data: (params) ->
+        queryParameters = term: params.term
+        queryParameters
+      processResults: (data) ->
+        results: $.map data, (item) ->
+          { text: item.name, id: item.id }
