@@ -27,7 +27,7 @@ module ApplicationHelper
       Dsei.order(:name),
       :id,
       :name,
-      { prompt: true, selected: current_dsei }
+      { prompt: true, selected: current_dsei.id }
     )
   end
 
