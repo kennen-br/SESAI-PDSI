@@ -1,0 +1,12 @@
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+    - 'vendor/**/*'
+  DisplayCopNames: true
+
+BlockDelimiters:
+  EnforcedStyle: semantic
+
+Metrics/LineLength:
+  Max: 100
+
