@@ -27,13 +27,13 @@ module ApplicationHelper
       Dsei.order(:name),
       :id,
       :name,
-      { prompt: true, selected: current_dsei.id }
+      { prompt: true, selected: session[:dsei] }
     )
   end
 
   def current_dsei
     return unless session[:dsei]
-    Dsei.find session[:dsei]
+    Dsei.find(session[:dsei])
   end
 
   def current_pdsi
