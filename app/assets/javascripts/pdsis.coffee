@@ -2,6 +2,9 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+$ ->
+  calculate_funding_balance()
+
 turl = window.location.href
 
 startLoading = ->
@@ -334,10 +337,9 @@ $(document).ready ->
       $(el).val("R$#{(val).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
 
       value_index = $(el).attr('value_index')
-
       if group_parent_id > 0
         calculate_parent_total(year_parent_id)
-      if value_index == "3"
+      if value_index == "3" || value_index == "10"
         calculate_funding_balance()
 
     return
