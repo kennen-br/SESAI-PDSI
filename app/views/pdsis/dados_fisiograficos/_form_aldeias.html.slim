@@ -3,7 +3,7 @@
 
 .field
   = f.label  :city_name
-  = text_field_tag 'city_name', @base_polo.cities, disabled: true
+  = f.text_field :city_name, { readonly: true }
 
 br
 
