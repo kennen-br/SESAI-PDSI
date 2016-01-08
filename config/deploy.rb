@@ -112,22 +112,26 @@ end
 task after_callback: :environment do
 end
 
-desc "Rolls back the latest release"
-task :rollback => :environment do
-  queue! %[echo "-----> Rolling back to previous release for instance: #{domain}"]
+desc 'Rolls back the latest release'
+task rollback: :environment do
+  queue! %(echo "-----> Rolling back to previous release for instance: #{domain}")
 
   # Delete existing sym link and create a new symlink pointing to the previous release
-  queue %[echo -n "-----> Creating new symlink from the previous release: "]
+  queue %(echo -n "-----> Creating new symlink from the previous release: ")
   queue "echo `cat #{deploy_to}/last_version` | ruby -e 'p gets.to_i-1'"
-  queue! "echo `cat #{deploy_to}/last_version` | ruby -e 'p gets.to_i-1' | xargs -I active ln -nfs '#{deploy_to}/releases/active' '#{deploy_to}/current'"
+  queue! %(echo `cat #{deploy_to}/last_version`
+    | ruby -e 'p gets.to_i-1'
+    | xargs -I active ln -nfs
+    '#{deploy_to}/releases/active'
+    '#{deploy_to}/ucurrent')
 
   # Remove latest release folder (active release)
-  queue %[echo -n "-----> Deleting active release: "]
+  queue %(echo -n "-----> Deleting active release: ")
   queue "echo `cat #{deploy_to}/last_version`"
   queue! "echo `cat #{deploy_to}/last_version` | xargs -I active rm -rf #{deploy_to}/releases/active"
 
   # Update the "last_version" file
-  queue %[echo -n "-----> Updating last_version file. "]
+  queue %(echo -n "-----> Updating last_version file. ")
   queue! "mv #{deploy_to}/last_version #{deploy_to}/del_version"
   queue! "echo `cat #{deploy_to}/del_version` | ruby -e 'p gets.to_i-1' > #{deploy_to}/last_version"
   queue! "rm #{deploy_to}/del_version"
@@ -135,4 +139,33 @@ task :rollback => :environment do
   to :launch do
     invoke :'unicorn:restart'
   end
+end
+
+desc 'Stop server'
+task stop: :environment do
+  invoke :'unicorn:stop'
+  invoke :'nginx:stop'
+end
+
+desc 'Restart server'
+task restart: :environment do
+  invoke :'unicorn:restart'
+  invoke :'nginx:restart'
+end
+
+desc 'Drop, create, migrate and seed data base'
+task purge: :environment do
+  invoke :'unicorn:stop'
+  invoke :'nginx:stop'
+  queue! "cd #{deploy_to}/current"
+  queue %(echo -n "-----> Droping DB.")
+  queue! 'bin/rake db:drop RAILS_ENV=production'
+  queue %(echo -n "-----> Creating DB.")
+  queue! 'bin/rake db:create RAILS_ENV=production'
+  queue %(echo -n "-----> Migrating DB.")
+  queue! 'bin/rake db:migrate RAILS_ENV=production'
+  queue %(echo -n "-----> Seeding DB.")
+  queue! 'bin/rake db:seed RAILS_ENV=production'
+  invoke :'unicorn:restart'
+  invoke :'nginx:restart'
 end
