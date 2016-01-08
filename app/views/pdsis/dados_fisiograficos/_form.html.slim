@@ -22,8 +22,8 @@ h1 POLO BASE: #{@base_polo.name}
           = item.hidden_field :base_polo_id
 
           .field
-            = item.label  :city_name
-            = text_field_tag 'city_name', @base_polo.cities, disabled: true
+            = item.label 'Município do Polo Base'
+            = item.text_field :city_name, { readonly: true }
 
         - @base_polo.villages.each do |village|
           fieldset

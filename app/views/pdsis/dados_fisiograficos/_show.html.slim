@@ -1,26 +1,45 @@
 - @dsei.base_polos_with_physiographic_data.order(:id).each do |base_polo|
-  .field
-    strong
-      | Polo base
-      | &nbsp;
-    = base_polo.name
+  h1 = base_polo.name
+  table.tables.pdsi-result-table
+    thead
+      tr
+        th[style="width: 100px;"]Aldeia
+        th Fluência em português
+        th Lingua Indígena
+        th H até 1
+        th H 1 a 4
+        th H 5 a 9
+        th H 10 a 49
+        th H 50 a 59
+        th H + 60
+        th M até 1
+        th M 1 a 4
+        th M 5 a 9
+        th M 10 a 49
+        th M 50 a 59
+        th M + 60
+    tbody
+    - base_polo.villages.each do |village|
+      tr
+        td = village.name
+        td = village.physiographic_data.pt_fluency if village.physiographic_data
+        td = PhysiographicData.human_attribute_name('pt_fluency')
+        td = village.physiographic_data.m_1 if village.physiographic_data
+        td = village.physiographic_data.m_1_4 if village.physiographic_data
+        td = village.physiographic_data.m_5_9 if village.physiographic_data
+        td = village.physiographic_data.m_10_49 if village.physiographic_data
+        td = village.physiographic_data.m_50_59 if village.physiographic_data
+        td = village.physiographic_data.m_60 if village.physiographic_data
+        td = village.physiographic_data.w_1 if village.physiographic_data
+        td = village.physiographic_data.w_1_4 if village.physiographic_data
+        td = village.physiographic_data.w_5_9 if village.physiographic_data
+        td = village.physiographic_data.w_10_49 if village.physiographic_data
+        td = village.physiographic_data.w_50_59 if village.physiographic_data
+        td = village.physiographic_data.w_60 if village.physiographic_data
 
-  .field
-    strong = PdsiBasePoloDatum.human_attribute_name 'city_name'
-    | &nbsp;
-
-    - if base_polo.pdsi_base_polo_datum.nil?
-      | 'Não Informado'
-    - else
-      = base_polo.pdsi_base_polo_datum.city_name
-
-  - base_polo.villages.each do |village|
-    fieldset
-      legend
-        | Aldeia&nbsp;
-        strong = village.name
-
-      - if village.physiographic_data.nil?
-        h3 Dados da aldeia não informados
-      -else
-        = render 'pdsis/dados_fisiograficos/village_data', village: village
+      /ul
+      /  - village.physiographic_data.physiographic_data_languages.each do |language|
+      /    li = language.language
+      //
+      /- if village.physiographic_data.physiographic_data_languages.blank?
+      /  h3 Não informado
