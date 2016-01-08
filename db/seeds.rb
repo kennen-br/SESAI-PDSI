@@ -133,6 +133,7 @@ if BasePolo.count == 0
     {dsei_id: 9, name: "JUAZEIRO", sesai_id: 1636},
     {dsei_id: 9, name: "PAU BRASIL", sesai_id: 1888},
     {dsei_id: 9, name: "RIBEIRA DO POMBAL", sesai_id: 1885},
+    {dsei_id: 9, name: "FEIRA DE SANTANA", sesai_id: 1729},
     {dsei_id: 10, name: "MONSENHOR TABOSA", sesai_id: 1608},
     {dsei_id: 10, name: "CRATEÚS", sesai_id: 1616},
     {dsei_id: 10, name: "CAUCAIA", sesai_id: 1725},
@@ -299,6 +300,10 @@ if BasePolo.count == 0
     {dsei_id: 23, name: "ARAÇUAÍ", sesai_id: 1550},
     {dsei_id: 23, name: "TOPÁZIO", sesai_id: 1867},
     {dsei_id: 23, name: "COMBOIOS", sesai_id: 1507},
+    {dsei_id: 23, name: "ARACRUZ", sesai_id: 1889},
+    {dsei_id: 23, name: "MACHACALIS", sesai_id: 1890},
+    {dsei_id: 23, name: "SÃO JOÃO DAS MISSÕES", sesai_id: 1891},
+    {dsei_id: 23, name: "TEÓFILO OTONI", sesai_id: 1892},
     {dsei_id: 24, name: "SANTA MARIA", sesai_id: 1841},
     {dsei_id: 24, name: "NOVA ESPERANÇA", sesai_id: 1837},
     {dsei_id: 24, name: "VILA NOVA II", sesai_id: 1839},
@@ -407,6 +412,18 @@ if BasePolo.count == 0
     {dsei_id: 34, name: "AJARANI", sesai_id: 1763},
     {dsei_id: 34, name: "CACHOEIRA DO ARAÇÁ", sesai_id: 1580}
   ])
+end
+
+# pdsi_base_polo_data Seeds
+if PdsiBasePoloDatum.count == 0
+  seed_path = File.join(Rails.root, 'db', 'seeds', 'pdsi_base_polo_data.seed.csv')
+  sql = <<-COPY_PSQL
+    COPY pdsi_base_polo_data(pdsi_id, base_polo_id, city_name, created_at, updated_at)
+    FROM '#{seed_path}'
+    WITH DELIMITER ','
+    CSV HEADER
+  COPY_PSQL
+  ActiveRecord::Base.connection.execute(sql)
 end
 
 # VILLAGE Seeds
