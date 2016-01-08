@@ -414,18 +414,6 @@ if BasePolo.count == 0
   ])
 end
 
-# pdsi_base_polo_data Seeds
-if PdsiBasePoloDatum.count == 0
-  seed_path = File.join(Rails.root, 'db', 'seeds', 'pdsi_base_polo_data.seed.csv')
-  sql = <<-COPY_PSQL
-    COPY pdsi_base_polo_data(pdsi_id, base_polo_id, city_name, created_at, updated_at)
-    FROM '#{seed_path}'
-    WITH DELIMITER ','
-    CSV HEADER
-  COPY_PSQL
-  ActiveRecord::Base.connection.execute(sql)
-end
-
 # VILLAGE Seeds
 if Village.count == 0
   seed_path = File.join(Rails.root, 'db', 'seeds', 'villages.seed.csv')
@@ -616,6 +604,18 @@ if Pdsi.count == 0
       { id: 33, dsei_id:33, user_id: User.find(37)},
       { id: 34, dsei_id:34, user_id: User.find(38)}
     ])
+end
+
+# pdsi_base_polo_data Seeds
+if PdsiBasePoloDatum.count == 0
+  seed_path = File.join(Rails.root, 'db', 'seeds', 'pdsi_base_polo_data.seed.csv')
+  sql = <<-COPY_PSQL
+    COPY pdsi_base_polo_data(pdsi_id, base_polo_id, city_name, created_at, updated_at)
+    FROM '#{seed_path}'
+    WITH DELIMITER ','
+    CSV HEADER
+  COPY_PSQL
+  ActiveRecord::Base.connection.execute(sql)
 end
 
 if Cost.count == 0
