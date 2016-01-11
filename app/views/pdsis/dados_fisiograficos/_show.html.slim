@@ -1,45 +1,66 @@
 - @dsei.base_polos_with_physiographic_data.order(:id).each do |base_polo|
   h1 = base_polo.name
-  table.tables.pdsi-result-table
+  table.tables.pdsi-fisiographic-data
     thead
       tr
-        th[style="width: 100px;"]Aldeia
-        th Fluência em português
-        th Lingua Indígena
-        th H até 1
-        th H 1 a 4
-        th H 5 a 9
-        th H 10 a 49
-        th H 50 a 59
-        th H + 60
-        th M até 1
-        th M 1 a 4
-        th M 5 a 9
-        th M 10 a 49
-        th M 50 a 59
-        th M + 60
+        th[rowspan="2" style="width: 110px;"]Aldeia
+        th[rowspan="2"] Etnia(s)
+        th[rowspan="2"] Fluência em português
+        th[rowspan="2"]Lingua Indígena
+        th[colspan="6"] Homen
+        th[colspan="6"] Mulher
+      tr
+        th < 1
+        th 1-4
+        th 5-9
+        th 10-49
+        th 50-59
+        th ≥ 60
+        th < 1
+        th 1-4
+        th 5-9
+        th 10-49
+        th 50-59
+        th ≥ 60
     tbody
     - base_polo.villages.each do |village|
-      tr
-        td = village.name
-        td = village.physiographic_data.pt_fluency if village.physiographic_data
-        td = PhysiographicData.human_attribute_name('pt_fluency')
-        td = village.physiographic_data.m_1 if village.physiographic_data
-        td = village.physiographic_data.m_1_4 if village.physiographic_data
-        td = village.physiographic_data.m_5_9 if village.physiographic_data
-        td = village.physiographic_data.m_10_49 if village.physiographic_data
-        td = village.physiographic_data.m_50_59 if village.physiographic_data
-        td = village.physiographic_data.m_60 if village.physiographic_data
-        td = village.physiographic_data.w_1 if village.physiographic_data
-        td = village.physiographic_data.w_1_4 if village.physiographic_data
-        td = village.physiographic_data.w_5_9 if village.physiographic_data
-        td = village.physiographic_data.w_10_49 if village.physiographic_data
-        td = village.physiographic_data.w_50_59 if village.physiographic_data
-        td = village.physiographic_data.w_60 if village.physiographic_data
-
-      /ul
-      /  - village.physiographic_data.physiographic_data_languages.each do |language|
-      /    li = language.language
-      //
-      /- if village.physiographic_data.physiographic_data_languages.blank?
-      /  h3 Não informado
+      - if village.physiographic_data
+        tr
+          td = village.name
+          td
+            - village.physiographic_data.physiographic_data_ethnicities.each do |e|
+              = ethnicity_name(e.ethnicity_id)
+          td = village.physiographic_data.pt_fluency
+          td
+            - village.physiographic_data.physiographic_data_languages.each do |language|
+              = language.language
+          td = village.physiographic_data.m_1
+          td = village.physiographic_data.m_1_4
+          td = village.physiographic_data.m_5_9
+          td = village.physiographic_data.m_10_49
+          td = village.physiographic_data.m_50_59
+          td = village.physiographic_data.m_60
+          td = village.physiographic_data.w_1
+          td = village.physiographic_data.w_1_4
+          td = village.physiographic_data.w_5_9
+          td = village.physiographic_data.w_10_49
+          td = village.physiographic_data.w_50_59
+          td = village.physiographic_data.w_60
+      - else
+        tr
+          td = village.name
+          td
+          td
+          td
+          td
+          td
+          td
+          td
+          td
+          td
+          td
+          td
+          td
+          td
+          td
+          td
