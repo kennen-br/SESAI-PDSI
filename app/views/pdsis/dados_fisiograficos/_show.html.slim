@@ -22,6 +22,7 @@
         th 10-49
         th 50-59
         th ≥ 60
+        th População total
     tbody
     - base_polo.villages.each do |village|
       - if village.physiographic_data
@@ -34,21 +35,23 @@
           td
             - village.physiographic_data.physiographic_data_languages.each do |language|
               = language.language
-          td = village.physiographic_data.m_1
-          td = village.physiographic_data.m_1_4
-          td = village.physiographic_data.m_5_9
-          td = village.physiographic_data.m_10_49
-          td = village.physiographic_data.m_50_59
-          td = village.physiographic_data.m_60
-          td = village.physiographic_data.w_1
-          td = village.physiographic_data.w_1_4
-          td = village.physiographic_data.w_5_9
-          td = village.physiographic_data.w_10_49
-          td = village.physiographic_data.w_50_59
-          td = village.physiographic_data.w_60
+          td.population = village.physiographic_data.m_1
+          td.population = village.physiographic_data.m_1_4
+          td.population = village.physiographic_data.m_5_9
+          td.population = village.physiographic_data.m_10_49
+          td.population = village.physiographic_data.m_50_59
+          td.population = village.physiographic_data.m_60
+          td.population = village.physiographic_data.w_1
+          td.population = village.physiographic_data.w_1_4
+          td.population = village.physiographic_data.w_5_9
+          td.population = village.physiographic_data.w_10_49
+          td.population = village.physiographic_data.w_50_59
+          td.population = village.physiographic_data.w_60
+          td.sum-population
       - else
         tr
           td = village.name
+          td
           td
           td
           td
