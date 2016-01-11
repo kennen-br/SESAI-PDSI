@@ -2,8 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-#$ ->
-#  calculate_funding_balance()
+#Check if this script is executing from form_custeio
+$ ->
+  if $('#form-custeio').length > 0
+    calculate_funding_balance()
 
 turl = window.location.href
 
