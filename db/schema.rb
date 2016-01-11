@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151217223052) do
+ActiveRecord::Schema.define(version: 20160108230910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 20151217223052) do
     t.integer  "investment_id"
   end
 
+  add_index "budget_investments", ["investment_id"], name: "index_budget_investments_on_investment_id", using: :btree
   add_index "budget_investments", ["pdsi_id"], name: "index_budget_investments_on_pdsi_id", using: :btree
 
   create_table "capai_villages", force: :cascade do |t|
@@ -212,6 +213,8 @@ ActiveRecord::Schema.define(version: 20151217223052) do
     t.integer  "cost_type"
   end
 
+  add_index "costs", ["parent_id"], name: "index_costs_on_parent_id", using: :btree
+
   create_table "demographic_datas", force: :cascade do |t|
     t.integer  "pdsi_id"
     t.string   "extensao_territorial"
@@ -258,6 +261,8 @@ ActiveRecord::Schema.define(version: 20151217223052) do
   end
 
   add_index "destinations", ["destination_type_id"], name: "index_destinations_on_destination_type_id", using: :btree
+  add_index "destinations", ["destination_village_id"], name: "index_destinations_on_destination_village_id", using: :btree
+  add_index "destinations", ["origin_village_id"], name: "index_destinations_on_origin_village_id", using: :btree
   add_index "destinations", ["pdsi_id"], name: "index_destinations_on_pdsi_id", using: :btree
 
   create_table "dseis", force: :cascade do |t|
@@ -462,6 +467,8 @@ ActiveRecord::Schema.define(version: 20151217223052) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "investments", ["parent_id"], name: "index_investments_on_parent_id", using: :btree
 
   create_table "pdsi_attached_files", force: :cascade do |t|
     t.integer  "pdsi_id"
@@ -727,6 +734,7 @@ ActiveRecord::Schema.define(version: 20151217223052) do
     t.integer  "order"
   end
 
+  add_index "responsabilities", ["parent_id"], name: "index_responsabilities_on_parent_id", using: :btree
   add_index "responsabilities", ["pdsi_id"], name: "index_responsabilities_on_pdsi_id", using: :btree
   add_index "responsabilities", ["person_id"], name: "index_responsabilities_on_person_id", using: :btree
   add_index "responsabilities", ["responsability_level_id"], name: "index_responsabilities_on_responsability_level_id", using: :btree
@@ -867,6 +875,7 @@ ActiveRecord::Schema.define(version: 20151217223052) do
   end
 
   add_index "users", ["dsei_id"], name: "index_users_on_dsei_id", using: :btree
+  add_index "users", ["user_type_id"], name: "index_users_on_user_type_id", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   create_table "villages", force: :cascade do |t|
