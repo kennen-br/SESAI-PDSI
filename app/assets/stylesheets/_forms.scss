@@ -215,6 +215,27 @@ table.custom-head {
     }
   }
 }
+.pdsi-fisiographic-data {
+  font-size: modular-scale(-2);
+
+  &.specific {
+    tr td {
+      background: #F9FBDC;
+      font-weight: bold;
+    }
+  }
+
+  thead th, tbody td {
+    // @include padding(0.45em 0.7em);
+
+    text-align: center;
+
+    &:first-child {
+      text-align: left;
+    }
+  }
+}
+
 .result-strategy-select {
   select {
     width: 100%;

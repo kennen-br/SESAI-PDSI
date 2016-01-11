@@ -1,3 +1,10 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+$(document).ready ->
+  $('.pdsi-fisiographic-data tr').each ->
+    sum = 0
+    $(this).find('.population').each ->
+      population = $(this).text()
+      if !isNaN(population) and population.length != 0
+        sum += parseFloat(population)
+      return
+    $(this).find('.sum-population').html sum
+    return
