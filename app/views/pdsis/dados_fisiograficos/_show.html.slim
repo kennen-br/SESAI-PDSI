@@ -1,16 +1,17 @@
 - @dsei.base_polos_with_physiographic_data.order(:id).each do |base_polo|
-  h1 = base_polo.name
+  h1 Polo base: #{base_polo.name}
   table.tables.pdsi-fisiographic-data
     thead
       tr
-        th[rowspan="2" style="width: 110px;"]Aldeia
+        th[rowspan="2" style="width: 95px;"]Aldeia
         th[rowspan="2"] Etnia(s)
         th[rowspan="2"] Fluência em português
         th[rowspan="2"] Lingua Indígena
-        th[colspan="6"] Homen
-        th[colspan="6"] Mulher
+        th[colspan="6" style="border-bottom: 1px solid #ddd;"] Homens
+        th[colspan="6" style="border-bottom: 1px solid #ddd;"] Mulheres
+        th[rowspan="2"] População da aldeia
       tr
-        th < 1
+        th[style="border-left: 1px solid #ddd;"] < 1
         th 1-4
         th 5-9
         th 10-49
@@ -22,7 +23,6 @@
         th 10-49
         th 50-59
         th ≥ 60
-        th População total
     tbody
     - base_polo.villages.each do |village|
       - if village.physiographic_data
@@ -69,3 +69,4 @@
           td
           td
           td
+
