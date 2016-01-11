@@ -23,16 +23,16 @@ fieldset
     thead
       tr
         th Nome
-        th.destroy Apagar?
+        /th.destroy Apagar?
     tbody#etnias
       = f.fields_for :etnias do |etnia|
         = render 'etnia_fields', { f: etnia }
     tfoot
       tr
-        td.links.right-align colspan="2"
-          = link_to_add_association f, :etnias, { data: { "association-insertion-node": '#etnias', "association-insertion-method": 'append' }, class: 'button btn-sm' } do
-            = icon 'plus'
-            | Adicionar Etnia
+        /td.links.right-align colspan="2"
+        /  = link_to_add_association f, :etnias, { data: { "association-insertion-node": '#etnias', "association-insertion-method": 'append' }, class: 'button btn-sm' } do
+        /    = icon 'plus'
+        /    | Adicionar Etnia
 
 .field
   = f.label :numero_polos_base
