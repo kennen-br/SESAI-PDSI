@@ -6,7 +6,7 @@
         th[rowspan="2" style="width: 110px;"]Aldeia
         th[rowspan="2"] Etnia(s)
         th[rowspan="2"] Fluência em português
-        th[rowspan="2"]Lingua Indígena
+        th[rowspan="2"] Lingua Indígena
         th[colspan="6"] Homen
         th[colspan="6"] Mulher
       tr
@@ -31,10 +31,12 @@
           td
             - village.physiographic_data.physiographic_data_ethnicities.each do |e|
               = ethnicity_name(e.ethnicity_id)
+              | ,
           td = village.physiographic_data.pt_fluency
           td
             - village.physiographic_data.physiographic_data_languages.each do |language|
               = language.language
+              | ,
           td.population = village.physiographic_data.m_1
           td.population = village.physiographic_data.m_1_4
           td.population = village.physiographic_data.m_5_9
