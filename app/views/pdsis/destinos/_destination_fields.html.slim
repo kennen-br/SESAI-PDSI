@@ -2,6 +2,16 @@ fieldset
   = f.hidden_field :destination_type_id, value: destination_type.id
   = f.hidden_field :origin_village_id, value: village.id
 
+  ul.how-to-use
+    li
+      | Para apagar um transporte inserido anteriormente, marque a caixinha na coluna "Apagar?".
+      br
+      | O transporte será apagada quando você clicar no botão "Salvar" do formulário.
+
+  .right
+    = f.check_box :_destroy
+    | Apagar ?
+
   fieldset
     legend Destino
     == render "pdsis/destinos/#{destination_type.snake_name}_fields", f: f
@@ -41,3 +51,4 @@ fieldset
     fieldset id=("fields_to_fly_time_#{f.index}") style=("display: #{display}")
       = f.label       :fly_time
       = f.text_field  :fly_time
+

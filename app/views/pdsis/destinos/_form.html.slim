@@ -4,7 +4,7 @@
 .vertical-tabs-container
   .vertical-tabs style="width: 30%;"
     - @dsei.base_polos.order(:id).each do |base_polo|
-      - link_opt = [{ class: 'vertical-tab' }, {:selected_class => 'is-active'}]
+      - link_opt = [{ class: 'vertical-tab' }, { selected_class: 'is-active' }]
       = nav_link_to edit_pdsi_path(@pdsi, section: 'destinos', base_polo: base_polo), link_opt[0], link_opt[1] do
         = base_polo.name
   .vertical-tab-content-container style="width: 70%;"
@@ -32,3 +32,5 @@
                 = link_to_add_association f, :destinations, { class: 'button btn-sm', partial: partial, render_options: { locals: { destination_type: destination_type, village: village } } } do
                   = icon 'plus'
                   | Adicionar transporte
+
+

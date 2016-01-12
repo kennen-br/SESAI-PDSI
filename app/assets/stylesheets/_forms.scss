@@ -4,6 +4,10 @@ form {
       @include span-columns(12);
     }
 
+    .right {
+      float: right;
+    }
+
     .one-column {
       @include span-columns(2);
       @include pad;
