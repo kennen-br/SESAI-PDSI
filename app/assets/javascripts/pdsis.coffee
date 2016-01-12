@@ -19,10 +19,6 @@ stopLoading = ->
   $('.pace.results-loading').remove()
   return
 
-manage_element = (element) ->
-  element.parents('.destiny-transport').find('fieldset').toggle()
-  return
-
 calculate_funding_balance = ->
   console.log "Calculating funding balance"
   for year in [2016..2019]
@@ -71,103 +67,7 @@ calculate_parent_total = (parent_id) ->
   calculate_funding_balance()
   return
 
-$(document).on 'click', '.radio_destination_class', (e) ->
-  $this   = $(this)
-  parent  = $this.parent().parent().parent().parent()
-
-  if $this.val() == 'aldeia'
-    parent.children('.destination_village').show()
-    parent.children('.destination_city').hide()
-  if $this.val() == 'municipio'
-    parent.children('.destination_village').hide()
-    parent.children('.destination_city').show()
-
-  return
-
-$(document).on 'click', '.add_person', (e) ->
-  $this       = $(this)
-  $parent     = $(this).parent()
-  $select     = $parent.children 'select'
-  $add_button = $parent.children 'a'
-  $id         = $select.attr 'id'
-
-  $select.hide()
-  $add_button.hide()
-
-  $new_div        = $('<fieldset><legend>Cadastrar pessoa</legend></fieldset>')
-  $field          = $('<input type="text" />')
-  $cancel_button  = $('<button id="cancel_person_button" class="button btn-sm pull-right cancel-button">Cancelar</button>')
-  $save_button    = $('<button id="save_person_button" class="button btn-sm pull-right">Salvar</button>')
-
-  $new_div.append($('<label>Nome da pessoa</label>'))
-  $new_div.append $field
-  $new_div.append $save_button
-  $new_div.append $cancel_button
-  $parent.append $new_div
-
-  $cancel_button.click ->
-    # TODO: Functionalize this
-    $select.show()
-    $add_button.show()
-    $new_div.remove()
-    return false
-
-  $save_button.click ->
-    $.post('/pessoas/cadastrar', { "name" : $field.val() }).done (data) ->
-      # Validate response status, return false
-      if !data.status
-        alert data.message
-        $field.css('border', 'solid 1px #c00')
-        return
-
-      # TODO: Functionalize this
-      $select.show()
-      $add_button.show()
-      $new_div.remove()
-
-      $option = $('<option></option>').html(data.name).attr('value', data.id)
-
-      # $select.append $option
-      $('select.select-dsei-person').append $option
-
-      # Add new option to all selects
-      # $('select.select-dsei-person').each (index) ->
-      #   console.log index
-      #   $(this).append $option
-      #   return
-
-      # Just to current select, set val as new value
-      $select.val data.id
-    return false
-
-  return
 $(document).ready ->
-  #$(".actions").sticky({topSpacing:0, className:"actions-fixed"});
-
-  #$(".menu_estrutura ul .child a").innerHeight($(window).innerHeight()/4)
-
-  # Add new behavior to cocoon add_fields button
-  $('.expected-result.responsabilities').each  ->
-    $fieldset = $(this)
-    $original = $fieldset.find('.select-dsei-person:first')
-
-    $fieldset.on 'click', '.add_fields', (e) ->
-      $this = $(this)
-
-      method = $this.data('association-insertion-method') || 'before'
-      setTimeout( ->
-        if method == 'append'
-          $node = $this.parent().find('> :last-child')
-        else
-          $node = $this.parent().prev()
-
-        if $node.find('.select-dsei-person').find('option').length != $original.find('option').length
-          $node.find('.select-dsei-person').empty().html($original.html())
-        return
-      , 100)
-      return
-    return
-
   # Toggle Structures on Projeção Orçamentária show
   $('.budget-table.investiment .toggle-structures').click ->
     $(this).toggleClass('fa-plus-square-o').toggleClass 'fa-minus-square-o'
@@ -273,8 +173,6 @@ $(document).ready ->
           $year.find('.add_fields').click()
         return
       return
-
-
     return
 
   # Mark input for PDSI Results as red or green
@@ -290,31 +188,6 @@ $(document).ready ->
     else
       $this.addClass 'red'
 
-    return
-
-  # Generate a Default name for all new created EMSI on Capacidade Instalada form
-  $('.base-polo-emsi .add_fields').click (e) ->
-    $this = $(this)
-    node = $this.data 'association-insertion-node'
-    setTimeout( ->
-      console.log "#{node} .new.emsi-fieldset:last .emsi-name"
-      field = $("#{node} .new.emsi-fieldset:last .emsi-name")
-      count = $("#{node} .emsi-fieldset").length
-      field.val "EMSI #{field.data('base-polo')}.#{count}"
-      return
-    , 100)
-    return
-
-  $(document).on 'change', '.hide-field', (e) ->
-    $this = $(this)
-    if $this.data('equal') == $this.find(':selected').text()
-      $this.parent().parent().find(".#{$this.data('field')}").prop('selectedIndex',0).hide()
-    else
-      $this.parent().parent().find(".#{$this.data('field')}").show()
-    return
-
-  $(document).on 'change', '.destiny-transport :checkbox', ->
-    manage_element $(this)
     return
 
   # Recalculate values for 2017-2019 based on 2016 and correction factors
@@ -394,7 +267,7 @@ $(document).ready ->
             <input type="text" id="input-nome-custo-#{id}-#{year}" cost_id="#{id}">
           </td>
           <td>
-            
+
           </td>
           <td>
             <input value="0" id="hidden-#{year}-#{id}-2" type="hidden" name="pdsi[budget_forecasts_attributes][#{bfcount}][dsei_forecast_#{year}]" >
