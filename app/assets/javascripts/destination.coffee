@@ -1,7 +1,3 @@
-manage_element = (element) ->
-  element.parents('.destiny-transport').find('fieldset').toggle()
-  return
-
 $(document).on 'click', '.radio_destination_class', (e) ->
   $this   = $(this)
   parent  = $this.parent().parent().parent().parent()
@@ -12,6 +8,18 @@ $(document).on 'click', '.radio_destination_class', (e) ->
   if $this.val() == 'municipio'
     parent.children('.destination_village').hide()
     parent.children('.destination_city').show()
+  return
+
+$(document).on 'change', '.hide-field', (e) ->
+  $this = $(this)
+  if $this.data('equal') == $this.find(':selected').text()
+    $this.parent().parent().find(".#{$this.data('field')}").prop('selectedIndex',0).hide()
+  else
+    $this.parent().parent().find(".#{$this.data('field')}").show()
+  return
+
+$(document).on 'change', '.destiny-transport :checkbox', ->
+  $(this).parents('.destiny-transport').find('fieldset').toggle()
   return
 
 $(document).ready ->
@@ -26,18 +34,6 @@ $(document).ready ->
       field.val "EMSI #{field.data('base-polo')}.#{count}"
       return
     , 100)
-    return
-
-  $(document).on 'change', '.hide-field', (e) ->
-    $this = $(this)
-    if $this.data('equal') == $this.find(':selected').text()
-      $this.parent().parent().find(".#{$this.data('field')}").prop('selectedIndex',0).hide()
-    else
-      $this.parent().parent().find(".#{$this.data('field')}").show()
-    return
-
-  $(document).on 'change', '.destiny-transport :checkbox', ->
-    manage_element $(this)
     return
 
 
