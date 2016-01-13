@@ -90,6 +90,21 @@ heroku run bash
 mina development deploy
 ```
 
+## Misc
+### Parar o sevidor
+```
+mina development stop
+```
+
+### Restart o servidor
+```
+mina development restart
+```
+
+### Recriar o banco de dados e popular novamente
+```
+mina development purge
+```
 
 # Documentação
 

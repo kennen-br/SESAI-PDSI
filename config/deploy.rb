@@ -158,13 +158,13 @@ task purge: :environment do
   invoke :'unicorn:stop'
   invoke :'nginx:stop'
   queue! "cd #{deploy_to}/current"
-  queue %(echo -n "-----> Droping DB.")
+  queue %(echo -n "-----> Droping DB. ")
   queue! 'bin/rake db:drop RAILS_ENV=production'
-  queue %(echo -n "-----> Creating DB.")
+  queue %(echo -n "-----> Creating DB. ")
   queue! 'bin/rake db:create RAILS_ENV=production'
-  queue %(echo -n "-----> Migrating DB.")
+  queue %(echo -n "-----> Migrating DB. ")
   queue! 'bin/rake db:migrate RAILS_ENV=production'
-  queue %(echo -n "-----> Seeding DB.")
+  queue %(echo -n "-----> Seeding DB. ")
   queue! 'bin/rake db:seed RAILS_ENV=production'
   invoke :'unicorn:restart'
   invoke :'nginx:restart'
