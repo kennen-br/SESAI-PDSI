@@ -31,6 +31,6 @@
               .links
                 = link_to_add_association f, :destinations, { class: 'button btn-sm', partial: partial, render_options: { locals: { destination_type: destination_type, village: village } } } do
                   = icon 'plus'
-                  | Adicionar transporte
+                  | Adicionar #{destination_type.name}
 
 
