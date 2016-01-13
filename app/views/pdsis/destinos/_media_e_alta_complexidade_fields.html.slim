@@ -1,5 +1,3 @@
-= f.hidden_field :destination_class, value: 'municipio'
-
 .field
   = f.label :city_name
-  = select_city_from_dsei f, @dsei, :city_name, f.object.city_name
+  = f.text_field :city_name
