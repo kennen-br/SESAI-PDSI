@@ -1,3 +1,31 @@
+sum_total_travel = ->
+  $('.transport').each ->
+    sum = ['00:00', '00:00', '00:00']
+    $(this).find('.travel-time:input:text').each (i, e)->
+      sum[i] = $(this).val() if $(this).val()
+      return
+    $(this).find('.total-travel').val sum_time(sum[0], sum[1], sum[2])
+    return
+
+sum_time = (t1, t2, t3) ->
+  return formatTime(timestrToSec(t1) + timestrToSec(t2) + timestrToSec(t3))
+
+timestrToSec = (timestr) ->
+  parts = timestr.split(':')
+  parts[0] * 3600 + parts[1] * 60
+
+pad = (num) ->
+  if num < 10
+    '0' + num
+  else
+    '' + num
+
+formatTime = (seconds) ->
+  [
+    pad(Math.floor(seconds / 3600) % 60)
+    pad(Math.floor(seconds / 60) % 60)
+  ].join ':'
+
 $(document).on 'click', '.radio_destination_class', (e) ->
   $this   = $(this)
   parent  = $this.parent().parent().parent().parent()
@@ -22,18 +50,27 @@ $(document).on 'change', '.destiny-transport :checkbox', ->
   $(this).parents('.destiny-transport').find('fieldset').toggle()
   return
 
+$(document).on 'change', '.transport', ->
+  sum_total_travel()
+  return
+
 $(document).ready ->
   # Generate a Default name for all new created EMSI on Capacidade Instalada form
   $('.base-polo-emsi .add_fields').click (e) ->
     $this = $(this)
     node = $this.data 'association-insertion-node'
     setTimeout( ->
-      console.log "#{node} .new.emsi-fieldset:last .emsi-name"
+      # console.log "#{node} .new.emsi-fieldset:last .emsi-name"
       field = $("#{node} .new.emsi-fieldset:last .emsi-name")
       count = $("#{node} .emsi-fieldset").length
       field.val "EMSI #{field.data('base-polo')}.#{count}"
       return
     , 100)
+    return
+
+  sum_total_travel()
+  $('form').on 'cocoon:after-insert', ->
+    $(".travel-time").mask("99:99")
     return
 
 

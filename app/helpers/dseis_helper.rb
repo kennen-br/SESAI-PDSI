@@ -6,7 +6,7 @@ module DseisHelper
 
   def select_village_from_dsei(f, dsei, field_name, field_value)
     opts  = select_village_opts(dsei, field_value)
-    return f.select field_name, opts, include_blank: true
+    return f.select field_name, opts, include_blank: false
   end
 
   def select_person_from_dsei(f, dsei, field_name, field_value)
