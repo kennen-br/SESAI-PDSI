@@ -14,20 +14,15 @@
           legend
             | Aldeia de Origem:&nbsp;
             strong = village.name
-
           .field
             label Muncípio da aldeia: #{village.city_name}
-
           - DestinationType.order(:id).each do |destination_type|
-
             fieldset
               legend
                 strong = destination_type.name
-
               - partial = 'pdsis/destinos/destination_fields'
               = f.fields_for :destinations, @pdsi.destinations.where(destination_type: destination_type, origin_village: village) do |destination|
                 == render partial,  f: destination, destination_type: destination_type, village: village
-
               .links
                 = link_to_add_association f, :destinations, { class: 'button btn-sm', partial: partial, render_options: { locals: { destination_type: destination_type, village: village } } } do
                   = icon 'plus'

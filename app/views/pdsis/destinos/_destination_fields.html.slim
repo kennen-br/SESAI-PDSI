@@ -1,45 +1,37 @@
-fieldset
+fieldset.transport
   = f.hidden_field :destination_type_id, value: destination_type.id
   = f.hidden_field :origin_village_id, value: village.id
-
   ul.how-to-use
     li
       | Para apagar um transporte inserido anteriormente, marque a caixinha "Apagar?".
       br
       | O transporte será apagado quando você clicar no botão "Salvar" do formulário.
-
   .right
     = f.check_box :_destroy
     | Apagar ?
-
   fieldset
     legend Destino
     == render "pdsis/destinos/#{destination_type.snake_name}_fields", f: f
-
   br
   .field.destiny-transport
     label Transporte fluvial?
     label.label-switch
       = check_box_tag "use_boat_#{f.index}", "use_checkox_#{f.index}", f.object.use_boat?, data: { type: 'boat' }
       .checkbox
-
     - display = f.object.use_boat? ? 'block' : 'none'
     fieldset id=("fields_to_boat_time_#{f.index}") style=("display: #{display}")
       = f.label       :boat_time
-      = f.text_field  :boat_time
-
+      = f.text_field  :boat_time, class: 'travel-time'
   br
   .field.destiny-transport
     label Transporte rodoviário?
     label.label-switch
       = check_box_tag "use_road_#{f.index}", "use_checkox_#{f.index}", f.object.use_road?, data: { type: 'road' }
       .checkbox
-
     - display = f.object.use_road? ? 'block' : 'none'
     fieldset id=("fields_to_road_time_#{f.index}") style=("display: #{display}")
       = f.label       :road_time
-      = f.text_field  :road_time
-
+      = f.text_field  :road_time, class: 'travel-time'
   br
   .field.destiny-transport
     label Transporte aéreo?
@@ -50,5 +42,8 @@ fieldset
     - display = f.object.use_fly? ? 'block' : 'none'
     fieldset id=("fields_to_fly_time_#{f.index}") style=("display: #{display}")
       = f.label       :fly_time
-      = f.text_field  :fly_time
-
+      = f.text_field  :fly_time, class: 'travel-time'
+  br
+  .fieldset.total-travel
+    = f.label 'Tempo total'
+    = text_field_tag :time, '', readonly: true, class: 'total-travel'
