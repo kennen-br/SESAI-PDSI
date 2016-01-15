@@ -72,5 +72,3 @@ $(document).ready ->
   $('form').on 'cocoon:after-insert', ->
     $(".travel-time").mask("99:99")
     return
-
-
