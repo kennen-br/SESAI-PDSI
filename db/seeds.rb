@@ -838,4 +838,16 @@ if Casai.count == 0
   COPY_PSQL
   ActiveRecord::Base.connection.execute(sql)
 end
+
+if City.count == 0
+  seed_path = File.join(Rails.root, 'db', 'seeds', 'cities.seed.csv')
+  sql = <<-COPY_PSQL
+    COPY cities(cod_uf,name_uf,cod_city,city,created_at,updated_at)
+    FROM '#{seed_path}'
+    WITH DELIMITER ','
+    CSV HEADER
+  COPY_PSQL
+  ActiveRecord::Base.connection.execute(sql)
+end
+
 puts '------>> Done!.'
