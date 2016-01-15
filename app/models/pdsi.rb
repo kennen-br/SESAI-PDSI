@@ -119,7 +119,7 @@ class Pdsi < ActiveRecord::Base
   end
 
   def destinations_types
-    DestinationType.all
+    DestinationType.includes(:destinations)
   end
 
   def destinations_with_villages

@@ -20,14 +20,19 @@
         table.tables.pdsi-result-table
           thead
             tr
-              th Aldeia de origem
-              th Muncípio
-              th Destino
-              th Município
-              th Fluvial
+              th[colspan="8" style="border-bottom: 1px solid #ddd; text-align: center;"]
+                = destination_type.name
+            tr
+              th[rowspan="2"] Aldeia de origem
+              th[rowspan="2"] Muncípio
+              th[rowspan="2"] Destino
+              th[rowspan="2"] Município
+              th[colspan="3" style="border-bottom: 1px solid #ddd;"] Meio de transporte
+              th[rowspan="2"] Total da Viagem
+            tr
+              th[style="border-left: 1px solid #ddd; text-align: center;"] Fluvial
               th Rodoviário
               th Aéreo
-              th Total da Viagem
           tbody
             - destination_type.destinations.each do |destination|
               tr
