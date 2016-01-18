@@ -20,15 +20,11 @@ class Dsei < ActiveRecord::Base
   validates :sesai_id,  numericality: true, uniqueness: true
 
   def base_polos_with_emsis
-    base_polos.includes(:pdsi_base_polo_datum, :emsis)
+    base_polos.includes(:emsis)
   end
 
   def base_polos_with_physiographic_data(include_polo_base = true)
-    if include_polo_base
-      base_polos.includes(:pdsi_base_polo_datum, villages: [physiographic_data: [:physiographic_data_languages]])
-    else
       base_polos.includes(villages: [physiographic_data: [:physiographic_data_languages]])
-    end
   end
 
   def base_polos_with_service_networks
@@ -52,10 +48,13 @@ class Dsei < ActiveRecord::Base
 
   def cities
     return @cities unless @cities.nil?
-
     @cities = []
 
-    Village.select('DISTINCT city_name').joins(:base_polo).where('base_polos.dsei_id = ?', Dsei.first.id).order('city_name').each { |city| @cities <<  city.city_name }
+    Village.select('city_name')
+           .joins(:base_polo)
+           .where('base_polos.dsei_id = ?', Dsei.first.id)
+           .order('city_name')
+           .uniq.each { |city| @cities <<  city.city_name }
 
     @cities
   end
