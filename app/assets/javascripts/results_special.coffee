@@ -71,6 +71,13 @@ $(document).ready ->
 
     $('.carousel-list .slider a img').hover -> $(this).next().toggle( "visible" );
 
+    $('.show-default-values').click ->
+      current_id = $(this).attr("default-values-result-id")
+      for year in [2016..2019]
+        if $("#data_value_#{current_id}_#{year}").val() != $("#data_value_#{current_id}_#{year}").attr("data-limit")
+          $("#data_value_#{current_id}_#{year}").val($("#data_value_#{current_id}_#{year}").attr("data-limit"))
+          $("#data_value_#{current_id}_#{year}").change()
+
 
 
     # LINK PRODUCT TO ANOTHER DSEI

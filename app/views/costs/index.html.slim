@@ -23,5 +23,7 @@ table
           td = "Item"
         - else
           td
-        td = link_to 'Editar', edit_cost_path(cost)
+        td
+          - if cost.name != "CONTRATOS" && cost.name != "CUSTEIO DE EDIFICAÇÕES" 
+            = link_to 'Editar', edit_cost_path(cost)
 p = link_to 'Novo custo', new_cost_path
