@@ -83,6 +83,7 @@
                             = icon 'chevron-down'
                             | &nbsp;Ver Mais
                         .helpers
+                          .pointer.show-default-values default-values-result-id="#{pdsi_result.result.id}" Restaurar valores de referência
                           .dsei-false-result data-result-id="#{pdsi_result.result.id}" data-dsei-id="#{current_dsei.id}"
                             = icon (pdsi_result.result.dsei_not_apply?(current_dsei) ? 'check-square' : 'square')
                             | não se aplica ao DSEI
@@ -105,7 +106,7 @@
                                     - checked = pdsi_result.send("value_#{year}") == 0 ? false : true
                                     = check_box_tag '', '1', checked, { data: { field: "value_#{year}" }}
                                 -else
-                                  = text_field_tag '', pdsi_result.send("value_#{year}"), { class: 'result-field colored-border', data: { field: "value_#{year}", limit: pdsi_result.result.send("value_#{year}") }}
+                                  = text_field_tag "data_value_#{pdsi_result.result.id}_#{year}", pdsi_result.send("value_#{year}"), { class: 'result-field colored-border', data: { field: "value_#{year}", limit: pdsi_result.result.send("value_#{year}") }}
                                   span
                                     == pdsi_result.editable_value year
                         .plano-anual
