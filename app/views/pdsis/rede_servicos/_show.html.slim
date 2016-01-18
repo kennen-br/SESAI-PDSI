@@ -11,22 +11,14 @@
         th Atenção Especializada
     tbody
       - base_polo.service_networks.each do |service_network|
-        tr
-          td = base_polo.city_name
-          - if service_network
+        - service_network.service_network_cities.each do |city|
+          tr
+            td = base_polo.city_name
             td = service_network.city_name
-            - if service_network.service_network_cities.present?
-              - service_network.service_network_cities.each do |city|
-                td
-                  = select_city_name(city.city_name)
-                td
-                  - city.health_establishments.each do |item|
-                    = item.name
-                td
-                  - city.health_specializeds.each do |item|
-                    = item.name
-            - else
-              td
-              td
-              td
-
+            td = select_city_name(city.city_name)
+            td
+              - city.health_establishments.each do |item|
+                = item.name
+            td
+              - city.health_specializeds.each do |item|
+                = item.name
