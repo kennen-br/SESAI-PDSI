@@ -1,30 +1,32 @@
 - @dsei.base_polos_with_service_networks.order(:id).each do |base_polo|
-  fieldset
-    legend
-      |Polo Base &nbsp;
-      strong = base_polo.name
-
-    - base_polo.service_networks.each do |service_network|
-      fieldset
-        legend
-          |Município de &nbsp;
-          strong = service_network.city_name
-
-        fieldset
-          legend Municípios de referência
-
-          - service_network.service_network_cities.each do |city|
-            fieldset
-              legend = city.city_name
-
-              fieldset
-                legend Estabelecimentos de saúde (Complementariedade da Atenção Básica)
-                ul.default
+  table.tables.pdsi-result-table
+    thead
+      tr
+        th[rowspan="2"] Polo Base
+        th[rowspan="2"] Muncípio
+        th[rowspan="2"] Muncípio Referência
+        th[colspan="2" style="border-bottom: 1px solid #ddd;"] Estabelecimentos de Saúde
+      tr
+        th[style="border-left: 1px solid #ddd; text-align: center;"] Atenção Básica
+        th Atenção Especializada
+    tbody
+      - base_polo.service_networks.each do |service_network|
+        tr
+          td = base_polo.city_name
+          - if service_network
+            td = service_network.city_name
+            - if service_network.service_network_cities.present?
+              - service_network.service_network_cities.each do |city|
+                td
+                  = select_city_name(city.city_name)
+                td
                   - city.health_establishments.each do |item|
-                    li = item.name
-
-              fieldset
-                legend Estabelecimentos de saúde (Atenção Especializada)
-                ul.default
+                    = item.name
+                td
                   - city.health_specializeds.each do |item|
-                    li = item.name
+                    = item.name
+            - else
+              td
+              td
+              td
+
