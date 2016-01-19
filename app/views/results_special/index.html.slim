@@ -74,7 +74,11 @@
                     .result-container id=("result-#{pdsi_result.result.id}") data-id="#{pdsi_result.id}" data-result-id="#{pdsi_result.result.id}"
                       .result
                         h4 Resultado #{j}
-                        .result-name #{pdsi_result.result.name}
+                        - if !pdsi_result.result.is_boolean
+                          = text_field_tag "", pdsi_result.send("value_global"), { class: 'result-field colored-border global-value-cs', data: { field: "value_global", limit: pdsi_result.result.send("value_global"), result_id: pdsi_result.result.id }}
+                          .result-name #{pdsi_result.editable_value_global}
+                        - else
+                          .result-name #{pdsi_result.result.name}
                         .show-more
                           span.more style="display: none;"
                             = icon 'chevron-up'
@@ -132,7 +136,7 @@
                             table.tables.responsability-result.body
                               tbody
                                 tr
-                                  td = text_area_tag '', pdsi_result.result.name,  class: 'product-name colored-border', data: { field: 'name', type: 'Resultado' }, disabled: "disabled"
+                                  td = text_area_tag "textfield_for_2016_#{pdsi_result.result.id}", pdsi_result.value_global_text(pdsi_result.send("value_2016")),  class: 'product-name colored-border', data: { field: 'name', type: 'Resultado', result_text: pdsi_result.result.name }, disabled: "disabled"
                                   td = text_field_tag '', responsability.initial_date? ? responsability.initial_date.strftime('%d/%m/%y') : '', placeholder: '01/01/2016', class: 'product-date date-field colored-border', data: { field: 'initial_date', type: 'Resultado' }
                                   td = text_field_tag '', responsability.deadline? ? responsability.deadline.strftime('%d/%m/%y') : '', placeholder: '31/12/2016', class: 'product-date date-field colored-border', data: { field: 'deadline', type: 'Resultado' }
                                   td

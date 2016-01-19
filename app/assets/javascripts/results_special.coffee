@@ -606,7 +606,6 @@ $(document).ready ->
         return
 
       $field.on 'change', ->
-
         if $(this).val() < $(this).data('limit')
           toastr.error "Valor não pode ser menor do que #{$(this).data('limit')}."
           $(this).val($(this).data('limit')).focus()
@@ -624,6 +623,46 @@ $(document).ready ->
           toastr.success 'Informação atualizada.'
           if field == 'value_2019'
             $field.parents('.result-container:eq(0)').find('> .result .result-name span.value').text(new_value)
+          if field == 'value_2016'
+            result_text = $("#textfield_for_2016_#{result_id}").attr('data-result-text')
+            console.log new_value
+            result_text = result_text.replace(/\[VALUE\]/, new_value.toString())
+            $("#textfield_for_2016_#{result_id}").val(result_text)
+          return
+        , (data) ->
+          return
+        return
+      return
+
+    # POST A FIELD CHANGE (VALUE_GLOBAL)
+    $('.global-value-cs').each ->
+      $field = $(this)
+
+      field     = $field.data 'field'
+      result_id = $field.data 'result-id'
+      value     = $field.val()
+
+      $field.on 'keyup', (e) ->
+        e.stopPropagation()
+        return
+
+      $field.on 'change', ->
+        if $(this).val() < $(this).data('limit')
+          toastr.error "Valor não pode ser menor do que #{$(this).data('limit')}."
+          $(this).val($(this).data('limit')).focus()
+          flashField $(this)
+          return false
+
+        new_value = $(this).val()
+
+        params = {}
+        params['pdsi_results_attributes'] = [{}]
+        console.log result_id
+        params['pdsi_results_attributes'][0]['id']  = result_id
+        params['pdsi_results_attributes'][0][field] = new_value
+
+        runAjaxRequest $field, params, (data) ->
+          toastr.success 'Informação atualizada.'
           return
         , (data) ->
           return
