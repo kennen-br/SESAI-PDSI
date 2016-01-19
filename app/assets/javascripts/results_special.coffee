@@ -71,14 +71,16 @@ $(document).ready ->
 
     $('.carousel-list .slider a img').hover -> $(this).next().toggle( "visible" );
 
+    # RESET TO DEFAULT VALUES
     $('.show-default-values').click ->
       current_id = $(this).attr("default-values-result-id")
       for year in [2016..2019]
         if $("#data_value_#{current_id}_#{year}").val() != $("#data_value_#{current_id}_#{year}").attr("data-limit")
           $("#data_value_#{current_id}_#{year}").val($("#data_value_#{current_id}_#{year}").attr("data-limit"))
           $("#data_value_#{current_id}_#{year}").change()
-
-
+      if $("#global_#{current_id}").val() !=  $("#global_#{current_id}").attr("data-limit")
+        $("#global_#{current_id}").val($("#global_#{current_id}").attr("data-limit"))
+        $("#global_#{current_id}").change()
 
     # LINK PRODUCT TO ANOTHER DSEI
     $('.modal.link-product-dsei .dsei-list li', $page).click ->
@@ -657,7 +659,6 @@ $(document).ready ->
 
         params = {}
         params['pdsi_results_attributes'] = [{}]
-        console.log result_id
         params['pdsi_results_attributes'][0]['id']  = result_id
         params['pdsi_results_attributes'][0][field] = new_value
 
