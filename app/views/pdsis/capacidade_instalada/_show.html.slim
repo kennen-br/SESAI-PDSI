@@ -1,65 +1,40 @@
-- @dsei.base_polos_with_emsis.each do |base_polo|
-  fieldset
-    legend
-      |Polo Base &nbsp;
-      strong = base_polo.name
-
-    - base_polo.emsis.each do |emsi|
-      fieldset
-        legend
-          |EMSI &nbsp;
-          strong = emsi.name
-
-        .field
-          p
-            strong #{Emsi.human_attribute_name :name}:&nbsp;
-            = emsi.name
-
-          strong Número de Profissionais
-          .simple-list
-            .item
-              strong #{Emsi.human_attribute_name :numero_medicos}:&nbsp;
-              = emsi.numero_medicos
-            .item
-              strong #{Emsi.human_attribute_name :numero_enfermeiros}:&nbsp;
-              = emsi.numero_enfermeiros
-            .item
-              strong #{Emsi.human_attribute_name :numero_odontologistas}:&nbsp;
-              = emsi.numero_odontologistas
-            .item
-              strong #{Emsi.human_attribute_name :numero_tecnicos_enfermagem}:&nbsp;
-              = emsi.numero_tecnicos_enfermagem
-            .item
-              strong #{Emsi.human_attribute_name :asb}:&nbsp;
-              = emsi.asb
-            .item
-              strong #{Emsi.human_attribute_name :ais}:&nbsp;
-              = emsi.ais
-
-        .field
-          p
-            strong #{Emsi.human_attribute_name :aisan}:&nbsp;
-            = emsi.aisan
-
-        .field
-          p
-            strong #{Emsi.human_attribute_name :aldeias_atendidas}:&nbsp;
-            = emsi.aldeias_atendidas
-
-        strong Tempo de permanência em aldeia (dias por mês)
-        .simple-list
-          .item
-            strong #{Emsi.human_attribute_name :permanencia_medicos}:&nbsp;
-            = emsi.permanencia_medicos
-          .item
-            strong #{Emsi.human_attribute_name :permanencia_enfermeiros}:&nbsp;
-            = emsi.permanencia_enfermeiros
-          .item
-            strong #{Emsi.human_attribute_name :permanencia_odontologistas}:&nbsp;
-            = emsi.permanencia_odontologistas
-          .item
-            strong #{Emsi.human_attribute_name :permanencia_tecnicos_enfermagem}:&nbsp;
-            = emsi.permanencia_tecnicos_enfermagem
-          .item
-            strong #{Emsi.human_attribute_name :permanencia_asb}:&nbsp;
-            = emsi.permanencia_asb
+table.tables.pdsi-result-table
+  thead
+    tr
+      th[rowspan="2"] Polo Base
+      th[rowspan="2"] EMSI
+      th[colspan="7" style="border-bottom: 1px solid #ddd;"] Número de Profissionais
+      th[rowspan="2"] Aldeias Atendidas
+      th[colspan="5" style="border-bottom: 1px solid #ddd;"] Tempo de permanência em aldeia (dias por mês)
+    tr
+      th[style="border-left: 1px solid #ddd; text-align: center;"] Méd
+      th Enf
+      th Odon
+      th Téc/Aux Enf
+      th ASB
+      th AIS
+      th AISAN
+      th[style="border-left: 1px solid #ddd; text-align: center;"] Méd
+      th Enf
+      th Odon
+      th Téc/Aux Enf
+      th ASB
+  tbody
+    - @dsei.base_polos_with_emsis.each do |base_polo|
+      - base_polo.emsis.each do |emsi|
+        tr
+          td = base_polo.name
+          td = emsi.name
+          td = emsi.numero_medicos
+          td = emsi.numero_enfermeiros
+          td = emsi.numero_odontologistas
+          td = emsi.numero_tecnicos_enfermagem
+          td = emsi.asb
+          td = emsi.ais
+          td = emsi.aisan
+          td = emsi.aldeias_atendidas
+          td = emsi.permanencia_medicos
+          td = emsi.permanencia_enfermeiros
+          td = emsi.permanencia_odontologistas
+          td = emsi.permanencia_tecnicos_enfermagem
+          td = emsi.permanencia_asb
