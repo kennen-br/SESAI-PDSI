@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160115153144) do
+ActiveRecord::Schema.define(version: 20160119015426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -588,12 +588,13 @@ ActiveRecord::Schema.define(version: 20160115153144) do
   create_table "pdsi_results", force: :cascade do |t|
     t.integer  "pdsi_id"
     t.integer  "result_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "value_2016"
     t.integer  "value_2017"
     t.integer  "value_2018"
     t.integer  "value_2019"
+    t.integer  "value_global"
   end
 
   add_index "pdsi_results", ["pdsi_id"], name: "index_pdsi_results_on_pdsi_id", using: :btree
@@ -808,6 +809,7 @@ ActiveRecord::Schema.define(version: 20160115153144) do
     t.integer  "value_2019"
     t.text     "orientacoes_dsei"
     t.text     "orientacoes_sistema"
+    t.integer  "value_global"
   end
 
   add_index "results", ["result_level_id"], name: "index_results_on_result_level_id", using: :btree
