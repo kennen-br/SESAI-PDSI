@@ -1,7 +1,6 @@
 module DseisHelper
   def select_city_from_dsei(f, dsei, field_name, field_value)
-
-    f.select field_name, options_for_select(dsei.cities, field_value), include_blank: true
+    f.select field_name, options_for_select(dsei.cities, field_value), include_blank: false
   end
 
   def select_village_from_dsei(f, dsei, field_name, field_value)
