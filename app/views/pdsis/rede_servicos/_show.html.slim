@@ -1,24 +1,28 @@
-- @dsei.base_polos_with_service_networks.order(:id).each do |base_polo|
-  table.tables.pdsi-result-table
-    thead
-      tr
-        th[rowspan="2"] Polo Base
-        th[rowspan="2"] Muncípio
-        th[rowspan="2"] Muncípio Referência
-        th[colspan="2" style="border-bottom: 1px solid #ddd;"] Estabelecimentos de Saúde
-      tr
-        th[style="border-left: 1px solid #ddd; text-align: center;"] Atenção Básica
-        th Atenção Especializada
+table.tables.pdsi-result-table
+  thead
+    tr
+      th[rowspan="2"] Polo Base
+      th[rowspan="2"] Muncípio
+      th[rowspan="2"] Muncípio Referência
+      th[colspan="2" style="border-bottom: 1px solid #ddd;"] Estabelecimentos de Saúde
+    tr
+      th[style="border-left: 1px solid #ddd; text-align: center;"] Atenção Básica
+      th Atenção Especializada
     tbody
-      - base_polo.service_networks.each do |service_network|
-        - service_network.service_network_cities.each do |city|
-          tr
-            td = base_polo.city_name
-            td = service_network.city_name
-            td = select_city_name(city.city_name)
-            td
-              - city.health_establishments.each do |item|
-                = item.name
-            td
-              - city.health_specializeds.each do |item|
-                = item.name
+      - @dsei.base_polos_with_service_networks.order(:id).each do |base_polo|
+        - base_polo.service_networks.each do |service_network|
+          - if service_network.service_network_cities.any?
+            - service_network.service_network_cities.each do |city|
+              tr
+                td = base_polo.city_name
+                td = service_network.city_name
+                td = select_city_name(city.city_name)
+                td
+                  - city.health_establishments.each do |item|
+                    = item.name
+                td
+                  - city.health_specializeds.each do |item|
+                    = item.name
+          - else
+            tr
+              td[colspan="5" style="text-align: center"] Nenhum dado disponível
