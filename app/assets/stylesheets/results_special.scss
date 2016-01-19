@@ -188,12 +188,25 @@
             font-weight    : 400;
             text-transform : uppercase;
           }
+          .global-value-cs{
+            float         : left;
+            background-color:transparent;
+            border-radius : 0;
+            color         : white;
+            display       : inline;
+            margin        : 1px 2px 0 0;
+            font-size     : 15px;
+            padding       : 1px 0;
+            text-align    : center;
+            border        : 1px solid #fff !important;
+            width         : 35px;
+          }
           .result-name {
             @include clearfix;
 
             font-weight    : 300;
             text-transform : uppercase;
-            margin-bottom: 2em;
+            margin-bottom  : 2em;
 
           }
           .helpers {

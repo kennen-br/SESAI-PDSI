@@ -75,7 +75,7 @@
                       .result
                         h4 Resultado #{j}
                         - if !pdsi_result.result.is_boolean
-                          = text_field_tag "", pdsi_result.send("value_global"), { class: 'result-field colored-border global-value-cs', data: { field: "value_global", limit: pdsi_result.result.send("value_global"), result_id: pdsi_result.result.id }}
+                          = text_field_tag "", pdsi_result.send("value_global"), { class: 'global-value-cs', data: { field: "value_global", limit: pdsi_result.result.send("value_global"), result_id: pdsi_result.result.id }}
                           .result-name #{pdsi_result.editable_value_global}
                         - else
                           .result-name #{pdsi_result.result.name}
