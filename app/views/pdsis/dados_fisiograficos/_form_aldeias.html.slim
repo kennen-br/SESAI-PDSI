@@ -3,8 +3,7 @@
 
 .field
   = f.label  :city_name
-  = f.text_field :city_name, { readonly: true }
-
+  = f.select :city_name, {"#{f.object.city_name}": f.object.city_name}, {}, { class: 'city-select' }
 br
 
 .field.inline_field

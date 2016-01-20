@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160115153144) do
+ActiveRecord::Schema.define(version: 20160120124905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "absolute_data", force: :cascade do |t|
     t.integer  "absolute_datum_level_id"

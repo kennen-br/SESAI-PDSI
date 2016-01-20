@@ -12,7 +12,7 @@ class LocationsController < ApplicationController
 
   def cities
     results = City
-              .where('city ILIKE ?', "%#{params[:term]}%")
+              .where('unaccent(city) ILIKE ?', "%#{params[:term]}%")
               .order(:city)
               .limit(100)
 
