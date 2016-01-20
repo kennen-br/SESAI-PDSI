@@ -2,16 +2,21 @@
   = breadcrumbs [{ name: '3. Caracterização do DSEI', path: pdsis_path(section: 'caracterizacao-do-dsei')}, { name: '3.2.E - Infraestrutura de saúde - Edificações', path: nil}]
 
 #infrastructure_buildings
-  - InfrastructureBuildingType.order(:id).all.each do |building_type|
-    fieldset
-      legend
-        strong = building_type.name
+  ul.accordion-tabs-minimal
+    - InfrastructureBuildingType.order(:id).all.each do |building_type|
+      li.tab-header-and-content
+        a.tab-link
+          = building_type.name
+        .tab-content
+          fieldset
+            legend
+              strong = building_type.name
 
-      = f.fields_for :infrastructure_buildings, @pdsi.infrastructure_building_to_building_type(building_type) do |ib|
-        == render 'pdsis/infraestrutura_edificacoes/infrastructure_building_fields', { f: ib, building_type: building_type }
+            = f.fields_for :infrastructure_buildings, @pdsi.infrastructure_building_to_building_type(building_type) do |ib|
+              == render 'pdsis/infraestrutura_edificacoes/infrastructure_building_fields', { f: ib, building_type: building_type }
 
-      - unless building_type.name == 'Sede do DSEI'
-        .links
-          = link_to_add_association f, :infrastructure_buildings, class: 'button btn-sm', partial: 'pdsis/infraestrutura_edificacoes/infrastructure_building_fields', render_options: { locals: { building_type: building_type }} do
-            = icon 'plus'
-            | Adicionar Estabelecimento
+            - unless building_type.name == 'Sede do DSEI'
+              .links
+                = link_to_add_association f, :infrastructure_buildings, class: 'button btn-sm', partial: 'pdsis/infraestrutura_edificacoes/infrastructure_building_fields', render_options: { locals: { building_type: building_type }} do
+                  = icon 'plus'
+                  | Adicionar Estabelecimento
