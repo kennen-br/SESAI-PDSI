@@ -129,6 +129,9 @@ Rails.application.routes.draw do
     get '/',                        to: 'text_templates#index',   as: :text_templates
     patch '/:id/alterar/:section',  to: 'text_templates#update',  as: :text_template
     get '/:id/alterar/:section',    to: 'text_templates#edit',    as: :edit_text_template
+    get '/introducao-sesai',        to: 'text_templates#introducao_sesai', as: :introducao_sesai
+    get '/analise-situacional-sesai', to: 'text_templates#analise_situacional_sesai', as: :analise_situacional_sesai
+    get '/processo-de-construcao-sesai', to: 'text_templates#processo_de_construcao_sesai', as: :processo_de_construcao_sesai
   end
 
   devise_for :users, path: '', path_names: { sign_in: 'entrar',
