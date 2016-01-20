@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160120124905) do
+ActiveRecord::Schema.define(version: 20160120161038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -666,9 +666,10 @@ ActiveRecord::Schema.define(version: 20160120124905) do
     t.integer  "w_10_49"
     t.integer  "w_50_59"
     t.integer  "w_60"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.string   "city_name"
+    t.integer  "village_population"
   end
 
   add_index "physiographic_datas", ["pdsi_id"], name: "index_physiographic_datas_on_pdsi_id", using: :btree
