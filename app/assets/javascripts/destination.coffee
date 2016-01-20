@@ -12,7 +12,7 @@ select_city = ->
         queryParameters
       processResults: (data) ->
         results: $.map data, (item) ->
-          { text: item.city, id: item.id }
+          { text: item.city, id: item.city }
   return
 
 sum_total_travel = ->
