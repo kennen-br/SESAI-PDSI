@@ -1,75 +1,48 @@
-- @pdsi.infrastructure_sanitations.includes(village: [:base_polo]).each do |is|
-  fieldset
-    legend = "#{is.village.base_polo.name}/#{is.village.city_name} - #{is.village.name}"
 
-    .field
-      p
-        strong = InfrastructureSanitation.human_attribute_name 'abastecimento_agua'
-        br
-        = is.abastecimento_agua ? 'Sim' : 'Não'
-
-    .field
-      p
-        strong = InfrastructureSanitation.human_attribute_name 'abastecimento_agua_alternativo'
-        br
-        = is.abastecimento_agua_alternativo ? 'Sim' : 'Não'
-
-    .field
-      p
-        strong = InfrastructureSanitation.human_attribute_name 'saa_completo'
-        br
-        = is.saa_completo ? 'Sim' : 'Não'
-
-    .field
-      p
-        strong = InfrastructureSanitation.human_attribute_name 'nome_saa'
-        br
-        = is.nome_saa
-
-    .field
-      p
-        strong = InfrastructureSanitation.human_attribute_name 'tipo_captacao_agua'
-        br
-        = is.tipo_captacao_agua
-
-    .field
-      p
-        strong = InfrastructureSanitation.human_attribute_name 'nome_concessionaria'
-        br
-        = is.nome_concessionaria
-
-    .field
-      p
-        strong = InfrastructureSanitation.human_attribute_name 'tipo_tratamento_agua'
-        br
-        = is.tipo_tratamento_agua
-
-    .field
-      p
-        strong = InfrastructureSanitation.human_attribute_name 'abastecimento_mqa'
-        br
-        = is.abastecimento_mqa ? 'Sim' : 'Não'
-
-    .field
-      p
-        strong = InfrastructureSanitation.human_attribute_name 'saa_manutencao'
-        br
-        = is.saa_manutencao ? 'Sim' : 'Não'
-
-    .field
-      p
-        strong = InfrastructureSanitation.human_attribute_name 'qtd_msd_individual'
-        br
-        = is.qtd_msd_individual
-
-    .field
-      p
-        strong = InfrastructureSanitation.human_attribute_name 'qtd_msd_coletiva'
-        br
-        = is.qtd_msd_coletiva
-
-    .field
-      p
-        strong = InfrastructureSanitation.human_attribute_name 'esgotamento_sanitario'
-        br
-        = is.esgotamento_sanitario ? 'Sim' : 'Não'
+- @dsei.base_polos.order(:id).each do |base_polo|
+  h1 = "Polo Base: #{base_polo.name}"
+  table.tables.pdsi-infrastructure-sanitations
+    thead
+      tr
+        th Aldeia
+        th
+          p.rotate Abasteciemento de Água
+        th
+          p.rotate Abasteciemento de Água Alternativo
+        th
+          p.rotate SAA Completo
+        th
+          p.rotate Nome do SAA
+        th
+          p.rotate Tipo de Captação de Água
+        th
+          p.rotate Fornecimento de Água por Concessionária
+        th
+          p.rotate Tipo de Tratamento de Água
+        th
+          p.rotate Abasteciemento com MQA
+        th
+          p.rotate SAA com Manutenção
+        th
+          p.rotate Qte MSD individual
+        th
+          p.rotate Qte MSD coletiva
+        th
+          p.rotate Esgotamento Sanitário
+      tbody
+        - base_polo.villages.each do |vl|
+          - vl.infrastructure_sanitations.each do |is|
+            tr
+              td = is.village.name
+              td = is.abastecimento_agua ? 'Sim' : 'Não'
+              td = is.abastecimento_agua_alternativo ? 'Sim' : 'Não'
+              td = is.saa_completo ? 'Sim' : 'Não'
+              td = is.nome_saa
+              td = is.tipo_captacao_agua
+              td = is.nome_concessionaria
+              td = is.tipo_tratamento_agua
+              td = is.abastecimento_mqa ? 'Sim' : 'Não'
+              td = is.saa_manutencao ? 'Sim' : 'Não'
+              td = is.qtd_msd_individual
+              td = is.qtd_msd_coletiva
+              td = is.esgotamento_sanitario ? 'Sim' : 'Não'
