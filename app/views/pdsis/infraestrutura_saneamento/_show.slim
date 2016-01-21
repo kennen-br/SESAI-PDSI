@@ -1,14 +1,13 @@
-
-- @dsei.base_polos.order(:id).each do |base_polo|
-  h1 = "Polo Base: #{base_polo.name}"
+- @dsei.base_polos.order(:id).each do |base_pole|
+  h1 = "Polo Base: #{base_pole.name}"
   table.tables.pdsi-infrastructure-sanitations
     thead
       tr
         th Aldeia
         th
-          p.rotate Abasteciemento de Água
+          p.rotate Abastecimento de Água
         th
-          p.rotate Abasteciemento de Água Alternativo
+          p.rotate Abastecimento de Água Alternativo
         th
           p.rotate SAA Completo
         th
@@ -20,7 +19,7 @@
         th
           p.rotate Tipo de Tratamento de Água
         th
-          p.rotate Abasteciemento com MQA
+          p.rotate Abastecimento com MQA
         th
           p.rotate SAA com Manutenção
         th
@@ -30,7 +29,7 @@
         th
           p.rotate Esgotamento Sanitário
       tbody
-        - base_polo.villages.each do |vl|
+        - base_pole.villages_with_sanitations.each do |vl|
           - vl.infrastructure_sanitations.each do |is|
             tr
               td = is.village.name
@@ -46,3 +45,18 @@
               td = is.qtd_msd_individual
               td = is.qtd_msd_coletiva
               td = is.esgotamento_sanitario ? 'Sim' : 'Não'
+        tr
+          td Total: #{ village_with_sanitation(base_pole) }
+          td
+          td = village_alternative_supply(base_pole)
+          td = village_complete_saa(base_pole)
+          td
+          td
+          td
+          td
+          td = village_with_mqa(base_pole)
+          td = village_saa_suport(base_pole)
+          td = village_qtd_msd_individual(base_pole)
+          td = village_qtd_msd_coletiva(base_pole)
+          td = village_esgotamento_sanitario(base_pole)
+
