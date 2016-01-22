@@ -95,7 +95,7 @@ end
 
 
 # PEOPLE Seeds
-if People.count == 0
+if Person.count == 0
   seed_path = File.join(Rails.root, 'db', 'seeds', 'people.seed.csv')
   sql = <<-COPY_PSQL
     COPY people(dsei_id, is_sesai_central, name, location, bond, created_at, updated_at)

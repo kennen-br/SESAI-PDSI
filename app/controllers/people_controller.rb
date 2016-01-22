@@ -45,7 +45,7 @@ class PeopleController < ApplicationController
   end
 
   def search
-    results = People.where("name ILIKE ?", "%#{params[:query]}%").order(:name).limit(100)
+    results = Person.where("name ILIKE ?", "%#{params[:query]}%").order(:name).limit(100)
 
     render json: results.map{ |person| { id: person.id, name: person.name, location: person.location }}
   end
