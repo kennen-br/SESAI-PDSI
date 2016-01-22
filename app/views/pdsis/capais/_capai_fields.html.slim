@@ -1,7 +1,15 @@
 fieldset
+  .field.right
+    | Apagar CAPAI?&nbsp;
+    = f.check_box :_destroy
+
+  .field
+    = f.label 'Nome'
+    = f.text_field :name
+
   .field
     = f.label       :city_name
-    = f.text_field  :city_name
+    = select_city_from_dsei(f, @dsei, :city_name, f.object.city_name)
 
   .field
     = f.label   :uf
