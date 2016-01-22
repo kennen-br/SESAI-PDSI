@@ -4,7 +4,7 @@ fieldset
     = f.check_box :_destroy
   .field
     = f.label       :city_name
-    = f.text_field  :city_name
+    = select_city_from_dsei(f, @dsei, :city_name, f.object.city_name)
 
   .field
     = f.label   :uf
