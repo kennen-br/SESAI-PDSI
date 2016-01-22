@@ -79,13 +79,17 @@ class PdsisController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_pdsi
-    if @section == 'dotacao_orcamentaria'
+    if @section.to_s[-5,5] == 'sesai'
+      # Do nothing
+    elsif @section == 'dotacao_orcamentaria'
       @pdsi = Pdsi.find params[:id]
+      @demographic_data = @pdsi.demographic_data
+      @dsei             = current_dsei
     else
       @pdsi = current_dsei.pdsi
+      @demographic_data = @pdsi.demographic_data
+      @dsei             = current_dsei
     end
-    @demographic_data = @pdsi.demographic_data
-    @dsei             = current_dsei
   end
 
   def set_section

@@ -113,7 +113,8 @@ class ResultsSpecialController < ApplicationController
       value_2016: 0,
       value_2017: 0,
       value_2018: 0,
-      value_2019: 0
+      value_2019: 0,
+      value_global: 0
     })
     SpecificResult.create({
       result: result,
@@ -135,7 +136,8 @@ class ResultsSpecialController < ApplicationController
       value_2016: 0,
       value_2017: 0,
       value_2018: 0,
-      value_2019: 0
+      value_2019: 0,
+      value_global: 0
     })
     render layout: false
   end
@@ -205,7 +207,7 @@ class ResultsSpecialController < ApplicationController
 
     def pdsi_params
       params.permit(
-        pdsi_results_attributes: [:id, :value_2016, :value_2017, :value_2018, :value_2019],
+        pdsi_results_attributes: [:id, :value_2016, :value_2017, :value_2018, :value_2019, :value_global],
         responsabilities_attributes: [
           :id, :result_id, :name, :person_id, :initial_date, :deadline, :external_actors, :comments, :_destroy,
           corresponsabilities_attributes: [:id, :person_id, :_destroy],

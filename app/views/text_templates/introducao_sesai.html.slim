@@ -1,0 +1,14 @@
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: 'Templates e modelos', path: nil }]
+
+h2 1. Introdução
+fieldset
+  - if @text_template.introducao_1.nil?
+    | Não informado
+  - else
+    == @text_template.introducao_1
+
+  .right-align
+    = link_to edit_text_template_path(@text_template, section: 'introducao'), class: 'button' do
+      i.fa.fa-pencil
+      | Editar
