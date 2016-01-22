@@ -144,7 +144,7 @@ class PdsisController < ApplicationController
       physiographic_datas_attributes: [
         :id, :pdsi_id, :village_id, :pt_fluency, :m_1, :m_1_4, :m_5_9, :m_10_49,
         :m_50_59, :m_60, :w_1, :w_1_4, :w_5_9, :w_10_49, :w_50_59, :w_60,
-        :city_name,
+        :city_name, :village_population,
         physiographic_data_ethnicities_attributes: [:id, :physiographic_data_id, :ethnicity_id, :_destroy],
         physiographic_data_languages_attributes: [:id, :physiographic_data_id, :language, :_destroy]
       ],
@@ -161,7 +161,7 @@ class PdsisController < ApplicationController
         :id, :infrastructure_building_type_id, :name, :uf, :city_name, :village_id, :cnes, :building_status, :ground_status, :_destroy
       ],
       infrastructure_sanitations_attributes: [
-        :id, :village_id, :abastecimento_agua, :abastecimento_agua_alternativo, :saa_completo, :nome_saa, :tipo_captacao_agua, :nome_concessionaria, :tipo_tratamento_agua, :abastecimento_mqa, :saa_manutencao, :qtd_msd_individual, :qtd_msd_coletiva, :esgotamento_sanitario
+        :id, :village_id, :abastecimento_agua, :abastecimento_agua_alternativo, :saa_completo, :nome_saa, :tipo_captacao_agua, :nome_concessionaria, :tipo_tratamento_agua, :abastecimento_mqa, :saa_manutencao, :qtd_msd_individual, :qtd_msd_coletiva, :esgotamento_sanitario, :_destroy
       ],
       capais_attributes: [
         :id, :pdsi_id, :city_name, :uf, :capai_type, :host_capacity, :_destroy,

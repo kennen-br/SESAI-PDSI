@@ -155,6 +155,7 @@ Rails.application.routes.draw do
 
   scope '/locations' do
     get '/villages', to: 'locations#villages'
+    get '/cities', to: 'locations#cities'
   end
 
   root 'users#home'

@@ -48,10 +48,13 @@ class Dsei < ActiveRecord::Base
 
   def cities
     return @cities unless @cities.nil?
-
     @cities = []
 
-    Village.select('DISTINCT city_name').joins(:base_polo).where('base_polos.dsei_id = ?', Dsei.first.id).order('city_name').each { |city| @cities <<  city.city_name }
+    Village.select('city_name')
+           .joins(:base_polo)
+           .where('base_polos.dsei_id = ?', Dsei.first.id)
+           .order('city_name')
+           .uniq.each { |city| @cities <<  city.city_name }
 
     @cities
   end

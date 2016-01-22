@@ -41,7 +41,7 @@ ul.accordion-tabs-minimal
             == render 'demographic_datas/show'
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
-            | C) Equipes médicas de saúde indígena (EMSI)
+            | C) Dados Fisiográficos
           .accordion-content
             = link_to edit_pdsi_path(@pdsi, section: 'dados-fisiograficos', base_polo: @dsei.base_polos.order(:id).first), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
@@ -71,7 +71,7 @@ ul.accordion-tabs-minimal
             == render 'pdsis/recursos_humanos/show'
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
-            | C) Capacidade instalada
+            | C) Equipes médicas de saúde indígena (EMSI)
           .accordion-content
             = link_to edit_pdsi_path(@pdsi, section: 'capacidade-instalada', base_polo: @dsei.base_polos.order(:id).first), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
@@ -79,7 +79,7 @@ ul.accordion-tabs-minimal
             == render 'pdsis/capacidade_instalada/show'
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
-            | D) Redes de serviços
+            | D) Rede de complementariedade
           .accordion-content
             = link_to edit_pdsi_path(@pdsi, section: 'rede-servicos', base_polo: @dsei.base_polos.order(:id).first), class: 'button pull-right edit-link' do
               i.fa.fa-pencil

@@ -11,4 +11,16 @@ module DemographicDatasHelper
   def ethnicity_name(id)
     Ethnicity.find(id).name
   end
+
+  def select_city_name(city_string)
+    City
+      .find(city_string.to_i)
+      .city unless city_string.nil? || city_string.empty?
+  end
+
+  def select_city_id(city_string)
+    City
+      .find(city_string.to_i)
+      .id unless city_string.nil? || city_string.empty?
+  end
 end
