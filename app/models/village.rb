@@ -27,7 +27,10 @@ class Village < ActiveRecord::Base
   def count_population(physiographic_data)
     count = 0
     base_polo = BasePolo.find(physiographic_data.village.base_polo_id)
-    base_polo.villages.each {|v| count += v.physiographic_data.village_population.to_i }
+
+    base_polo.villages.each do |v|
+      count += v.physiographic_data.village_population.to_i if v.physiographic_data.present?
+    end
     # debug count
     base_polo.update(population: count)
   end
