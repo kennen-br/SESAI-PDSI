@@ -197,7 +197,8 @@
 
                   .specific-results-block
                     - @dsei.specific_pdsi_results.each do |pdsi_result|
-                      = render 'specific_result', { pdsi_result: pdsi_result }
+                      - if pdsi_result.result.result_strategy_id == axis.id
+                        = render 'specific_result', { pdsi_result: pdsi_result }
 
                   .result-container
                     .result.create-specific-result
