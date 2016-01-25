@@ -148,7 +148,11 @@
           font-size   : 1.4em;
           font-weight : 300;
         }
-
+        .center-button{
+          cursor      : pointer;
+          font-size   : 1.6em;
+          text-align  : center;
+        }
         .show-more {
           cursor      : pointer;
           font-size   : .9em;
@@ -208,6 +212,19 @@
             text-transform : uppercase;
             margin-bottom  : 2em;
 
+          }
+          .old-input textarea {
+            background     : transparent;
+            border         : 0;
+            box-shadow     : none;
+            color          : #FFF;
+            margin         : 0;
+            padding        : 0;
+            text-transform : uppercase;
+            font-weight    : 300;
+            height         : 80px;
+            margin-top     : 5px;
+            resize         : none;
           }
           .helpers {
             @include position(absolute, null 2em 0.5em null);
