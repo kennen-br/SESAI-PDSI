@@ -1,3 +1,20 @@
+select_city = ->
+  $('.city-select').select2
+    dropdownAutoWidth : true
+    minimumInputLength: 1
+    minimumResultsForSearch: 100
+    ajax:
+      url: '/locations/cities.json'
+      dataType: 'json'
+      type: 'GET'
+      data: (params) ->
+        queryParameters = term: params.term
+        queryParameters
+      processResults: (data) ->
+        results: $.map data, (item) ->
+          { text: item.city, id: item.city }
+  return
+
 sum_total_travel = ->
   $('.transport').each ->
     sum = ['00:00', '00:00', '00:00']
@@ -73,4 +90,7 @@ $(document).ready ->
     $(".travel-time").mask("99:99")
     return
 
+  $('form').on 'cocoon:after-insert', ->
+    select_city()
 
+  select_city()

@@ -16,10 +16,9 @@ fieldset style="position: relative;"
   .field
     = f.label :uf
     = select_uf f, :uf, f.object.uf
-
   .field
     = f.label :city_name
-    = f.text_field :city_name
+    = select_city_from_dsei(f, @dsei, :city_name, f.object.city_name)
 
   - if (f.object.new_record? && building_type.name != 'Sede do DSEI') || ( !f.object.new_record? && !f.object.hide_village?)
     .field.village-select style=("display: none;" if !f.object.new_record? && f.object.hide_village?)
@@ -28,12 +27,12 @@ fieldset style="position: relative;"
 
   .field
     = f.label :cnes
-    = f.text_field :cnes
+    = f.number_field :cnes
 
   .field
     = f.label :building_status
-    = f.select :building_status, options_for_select(%w{ Próprio Cedido Alugado }, f.object.building_status), include_blank: true
+    = f.select :building_status, options_for_select(%w{ Próprio Cedido Alugado }, f.object.building_status)
 
   .field
     = f.label :ground_status
-    = f.select :ground_status, options_for_select(['Regularizado', 'Não regularizado', 'Em regularização'], f.object.ground_status), include_blank: true
+    = f.select :ground_status, options_for_select(['Regularizado', 'Não regularizado', 'Em regularização'], f.object.ground_status)

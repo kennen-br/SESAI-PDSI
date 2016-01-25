@@ -46,4 +46,4 @@ fieldset.transport
   br
   .fieldset.total-travel
     = f.label 'Tempo total'
-    = text_field_tag :time, '', readonly: true, class: 'total-travel'
+    = f.text_field :total_time, readonly: true, class: 'total-travel'

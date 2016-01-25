@@ -118,6 +118,10 @@ class Pdsi < ActiveRecord::Base
     resultados_esperados_introducao_5
   end
 
+  def destinations_types
+    DestinationType.includes(:destinations)
+  end
+
   def destinations_with_villages
     DestinationType.eager_load(destinations: [:origin_village, :destination_village]).where('destinations.pdsi_id = ?', id)
   end
@@ -204,7 +208,7 @@ class Pdsi < ActiveRecord::Base
     ResultAxis.includes(:result_strategies).find_by_section_name(section_name).result_strategies.each do |strategy|
       return items if strategy.results.blank?
       strategy.results.each do |result|
-        pdsi_results << PdsiResult.new(pdsi: self, result: result, value_2016: result.value_2016, value_2017: result.value_2017, value_2018: result.value_2018, value_2019: result.value_2019)
+        pdsi_results << PdsiResult.new(pdsi: self, result: result, value_2016: result.value_2016, value_2017: result.value_2017, value_2018: result.value_2018, value_2019: result.value_2019, value_global: result.value_global)
       end
     end
 

@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160112202412) do
+ActiveRecord::Schema.define(version: 20160122141341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "absolute_data", force: :cascade do |t|
     t.integer  "absolute_datum_level_id"
@@ -77,6 +78,8 @@ ActiveRecord::Schema.define(version: 20160112202412) do
     t.integer  "sesai_id",   null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "city_name"
+    t.integer  "population"
   end
 
   add_index "base_polos", ["dsei_id"], name: "index_base_polos_on_dsei_id", using: :btree
@@ -151,6 +154,7 @@ ActiveRecord::Schema.define(version: 20160112202412) do
     t.integer  "host_capacity"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "name"
   end
 
   add_index "capais", ["pdsi_id"], name: "index_capais_on_pdsi_id", using: :btree
@@ -178,6 +182,15 @@ ActiveRecord::Schema.define(version: 20160112202412) do
 
   add_index "category_budgets", ["pdsi_id"], name: "index_category_budgets_on_pdsi_id", using: :btree
   add_index "category_budgets", ["projection_budget_category_id"], name: "index_category_budgets_on_projection_budget_category_id", using: :btree
+
+  create_table "cities", force: :cascade do |t|
+    t.integer  "cod_uf"
+    t.string   "name_uf"
+    t.integer  "cod_city"
+    t.string   "city"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "corresponsabilities", force: :cascade do |t|
     t.integer  "responsability_id"
@@ -259,6 +272,7 @@ ActiveRecord::Schema.define(version: 20160112202412) do
     t.datetime "updated_at",             null: false
     t.string   "destination_class"
     t.string   "city_name"
+    t.string   "total_time"
   end
 
   add_index "destinations", ["destination_type_id"], name: "index_destinations_on_destination_type_id", using: :btree
@@ -577,12 +591,13 @@ ActiveRecord::Schema.define(version: 20160112202412) do
   create_table "pdsi_results", force: :cascade do |t|
     t.integer  "pdsi_id"
     t.integer  "result_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "value_2016"
     t.integer  "value_2017"
     t.integer  "value_2018"
     t.integer  "value_2019"
+    t.integer  "value_global"
   end
 
   add_index "pdsi_results", ["pdsi_id"], name: "index_pdsi_results_on_pdsi_id", using: :btree
@@ -654,9 +669,10 @@ ActiveRecord::Schema.define(version: 20160112202412) do
     t.integer  "w_10_49"
     t.integer  "w_50_59"
     t.integer  "w_60"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.string   "city_name"
+    t.integer  "village_population"
   end
 
   add_index "physiographic_datas", ["pdsi_id"], name: "index_physiographic_datas_on_pdsi_id", using: :btree
@@ -797,6 +813,7 @@ ActiveRecord::Schema.define(version: 20160112202412) do
     t.integer  "value_2019"
     t.text     "orientacoes_dsei"
     t.text     "orientacoes_sistema"
+    t.integer  "value_global"
   end
 
   add_index "results", ["result_level_id"], name: "index_results_on_result_level_id", using: :btree

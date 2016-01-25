@@ -43,4 +43,8 @@ class BasePolo < ActiveRecord::Base
 
     force_service_networks(pdsi)
   end
+
+  def villages_with_sanitations
+    villages.includes(:infrastructure_sanitations)
+  end
 end

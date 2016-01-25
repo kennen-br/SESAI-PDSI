@@ -1,49 +1,44 @@
 class Dsei < ActiveRecord::Base
   auditable
-
   attr_accessor :villages, :cities
 
-  has_many  :base_polos
-  has_many  :casais
-  has_many  :users
-  has_many  :absolute_data_dseis
-  has_many  :specific_absolute_data
-  has_many  :people
-  has_one   :pdsi
+  has_one :pdsi
+  has_many :base_polos
+  has_many :casais
+  has_many :users
+  has_many :absolute_data_dseis
+  has_many :specific_absolute_data
+  has_many :people
+  has_many :false_results
+  has_many :specific_results
+  has_many :results, through: :specific_results
 
-  has_many  :false_results
-  has_many  :specific_results
-  has_many  :results, through: :specific_results
   accepts_nested_attributes_for :results, reject_if: :all_blank, allow_destroy: true
 
   validates :name, length: { maximum: 255 }, presence: true, uniqueness: true
-  validates :sesai_id,  numericality: true, uniqueness: true
+  validates :sesai_id, numericality: true, uniqueness: true
 
   def base_polos_with_emsis
-    base_polos.includes(:pdsi_base_polo_datum, :emsis)
+    base_polos.includes(:emsis)
   end
 
-  def base_polos_with_physiographic_data(include_polo_base = true)
-    if include_polo_base
-      base_polos.includes(:pdsi_base_polo_datum, villages: [physiographic_data: [:physiographic_data_languages]])
-    else
-      base_polos.includes(villages: [physiographic_data: [:physiographic_data_languages]])
-    end
+  def base_polos_with_physiographic_data(_include_polo_base = true)
+    base_polos.includes(villages: [physiographic_data: [:physiographic_data_languages]])
   end
 
   def base_polos_with_service_networks
-    base_polos.includes(service_networks: [service_network_cities: [:health_establishments, :health_specializeds]])
+    base_polos.includes(
+      service_networks: [service_network_cities: [:health_establishments, :health_specializeds]])
   end
 
   def villages
     return @villages unless @villages.nil?
-
     @villages = {}
 
     Dsei.eager_load(base_polos: [:villages]).where(id: id).first.base_polos.each do |base_polo|
-      @villages[base_polo.id]  = { name: base_polo.name, villages: {} }
+      @villages[base_polo.id] = { name: base_polo.name, villages: {} }
       base_polo.villages.each do |village|
-        @villages[base_polo.id][:villages][village.id]  = "#{village.name}, em #{village.city_name}"
+        @villages[base_polo.id][:villages][village.id] = "#{village.name}, em #{village.city_name}"
       end
     end
 
@@ -52,12 +47,11 @@ class Dsei < ActiveRecord::Base
 
   def cities
     return @cities unless @cities.nil?
-
     @cities = []
+    BasePolo.where(dsei_id: id)
+      .order('city_name').each { |city| @cities <<  city.city_name }
 
-    Village.select('DISTINCT city_name').joins(:base_polo).where('base_polos.dsei_id = ?', Dsei.first.id).order('city_name').each { |city| @cities <<  city.city_name }
-
-    @cities
+    @cities.uniq
   end
 
   def pdsi
