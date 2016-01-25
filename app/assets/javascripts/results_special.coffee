@@ -185,26 +185,19 @@ $(document).ready ->
       return
     $('.strategy .create-specific-result .new-specific-result ', $page).click ->
       $this = $(this)
-      $name = $this.parent().find('h4 :input')
-      $text = $this.parent().find('.result-name :input')
-
       strategy_id = $this.data('strategyId')
-
-      if $name.val() == $name.data('original')
-        toastr.error 'Nome do resultado em branco.'
-        return false
-
-      if $text.val() == $text.data('original')
-        toastr.error 'Texto do resultado em branco.'
-        return false
+      j_value = $("#j_#{strategy_id}").val()
+      $("#j_#{strategy_id}").val(parseInt(j_value)+1)
+      name = "Descreva o resultado específico do DSEI [#{parseInt(Math.random()*1000000)}]"
+      text = "Descreva o resultado "
 
       params = { 'specific_result' : {}}
       params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
       #RESULT NUMBER PARAM
-      params['specific_result']['result_number'] = $("#j_#{strategy_id}").val()
-      #SPECIFIC RESULT PARAMS
-      params['specific_result']['name']     = $name.val()
-      params['specific_result']['text']     = $text.val()
+      params['specific_result']['result_number'] = j_value
+      #SPECIFIC RESULT PARAMS (OLD)
+      params['specific_result']['name']     = name
+      params['specific_result']['text']     = text
       params['specific_result']['strategy'] = strategy_id
 
       startLoading()
@@ -215,8 +208,6 @@ $(document).ready ->
         id = $(data).attr 'id'
         $("#specific_block_#{strategy_id}", $page).append(data)
         toastr.success 'Resultado específico adicionado.'
-        $name.val($name.data('original'))
-        $text.val($text.data('original'))
         startSortable $(".specific-results-block ##{id}").find('.product-list'), 'PRODUTO'
         return
       return

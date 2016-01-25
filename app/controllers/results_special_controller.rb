@@ -100,8 +100,10 @@ class ResultsSpecialController < ApplicationController
   end
 
   def specific_result
+    # Value for result number
+    @j = specific_result_params.delete('result_number')
     values = specific_result_params
-    @j = specific_result_params['result_number']
+
 
     # Creates the Result and make it Specific
     level  = ResultLevel.find_by_name('DSEI')
