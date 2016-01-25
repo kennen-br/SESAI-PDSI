@@ -200,7 +200,9 @@ $(document).ready ->
 
       params = { 'specific_result' : {}}
       params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
-
+      #RESULT NUMBER PARAM
+      params['specific_result']['result_number'] = $("#j_#{strategy_id}").val()
+      #SPECIFIC RESULT PARAMS
       params['specific_result']['name']     = $name.val()
       params['specific_result']['text']     = $text.val()
       params['specific_result']['strategy'] = strategy_id
@@ -211,7 +213,7 @@ $(document).ready ->
       $.post url, params, (data) ->
         stopLoading()
         id = $(data).attr 'id'
-        $('.specific-results-block', $page).append(data)
+        $("#specific_block_#{strategy_id}", $page).append(data)
         toastr.success 'Resultado específico adicionado.'
         $name.val($name.data('original'))
         $text.val($text.data('original'))

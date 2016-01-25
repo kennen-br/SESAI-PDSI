@@ -101,6 +101,7 @@ class ResultsSpecialController < ApplicationController
 
   def specific_result
     values = specific_result_params
+    @j = specific_result_params['result_number']
 
     # Creates the Result and make it Specific
     level  = ResultLevel.find_by_name('DSEI')
@@ -179,7 +180,7 @@ class ResultsSpecialController < ApplicationController
     end
 
     def specific_result_params
-      params.require(:specific_result).permit(:name, :text, :strategy, :field, :value, :result_id)
+      params.require(:specific_result).permit(:name, :text, :strategy, :field, :value, :result_id, :result_number)
     end
 
     def link_product_params

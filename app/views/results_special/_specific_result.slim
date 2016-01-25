@@ -1,6 +1,8 @@
 .result-container.specific-result id=("result-#{pdsi_result.result.id}") data-id="#{pdsi_result.id}" data-result-id="#{pdsi_result.result.id}"
   .result
-    h4 Resultado específico
+    - if defined? @j
+      - j = @j.to_s
+    h4 = "Resultado #{j} (Específico)"
     .result-name == pdsi_result.result.name
     .show-more
       span.more

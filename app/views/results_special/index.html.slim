@@ -196,10 +196,12 @@
                                 | Fechar
 
                   .specific-results-block
-                    - @dsei.specific_pdsi_results.each do |pdsi_result|
-                      - if pdsi_result.result.result_strategy_id == axis.id
-                        = render 'specific_result', { pdsi_result: pdsi_result }
-
+                    .specific-axis id="specific_block_#{strategy.id}"
+                      - @dsei.specific_pdsi_results.each do |pdsi_result|
+                        - if pdsi_result.result.result_strategy_id == axis.id
+                          - j = j + 1
+                          = render 'specific_result', { pdsi_result: pdsi_result, j: j }
+                      = hidden_field_tag "j_#{strategy.id}", j+1
                   .result-container
                     .result.create-specific-result
                       h4
