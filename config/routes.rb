@@ -33,6 +33,14 @@ Rails.application.routes.draw do
          to: 'pdsis#new_budget_forecast_by_cost',
          as: :new_budget_forecast_by_cost
 
+    post '/:id/alterar/projecao-orcamentaria/novo-comentario',
+         to: 'budget_forecasts#new_comment',
+         as: :budget_forecast_new_comment
+
+    post '/:id/alterar/projecao-orcamentaria/ver-comentario',
+         to: 'budget_forecasts#see_comment',
+         as: :budget_forecast_see_comment
+
     post '/:id/alterar/projecao-orcamentaria/update_cost_name',
          to: 'pdsis#update_cost_name',
          as: :update_cost_name

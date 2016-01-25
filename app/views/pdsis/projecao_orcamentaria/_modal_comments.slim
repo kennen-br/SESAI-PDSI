@@ -1,0 +1,24 @@
+.modal.comments
+  input.modal-state type="checkbox" id=("comments-#{bf.id}")
+  .modal-window
+    .modal-inner
+      label.modal-close for=("comments-#{bf.id}")
+      h1
+        | Comentários
+      .comments-list.colored-border
+        - if bf.budget_forecast_comments.blank?
+          .comment.colored-border.empty
+            | Nenhum comentário
+
+        table.tables class=('hidden' if bf.budget_forecast_comments.blank?)
+          thead
+            tr
+              th Data
+              th Usuário
+              th Comentário
+          tbody
+            - bf.budget_forecast_comments.each do |comment|
+              = render 'pdsis/projecao_orcamentaria/comment', { comment: comment }
+      .new-comment
+        = text_area_tag '', '', { placeholder: 'Insira seu comentário' }
+        a.send-comment.button.colored-border.colored-bg data-id="#{bf.id}" Enviar
