@@ -186,7 +186,7 @@ $(document).ready ->
     $('.strategy .create-specific-result .new-specific-result ', $page).click ->
       $this = $(this)
       strategy_id = $this.data('strategyId')
-      j_value = $("#j_#{strategy_id}").val()
+      j_value = $("#j_#{strategy_id}").last().val()
       $("#j_#{strategy_id}").val(parseInt(j_value)+1)
       name = "Descreva o resultado específico do DSEI [#{parseInt(Math.random()*1000000)}]"
       text = "Descreva o resultado "
@@ -211,6 +211,34 @@ $(document).ready ->
         startSortable $(".specific-results-block ##{id}").find('.product-list'), 'PRODUTO'
         return
       return
+
+    # RESULT DESCRIPTION TEXT CHANGE
+    $('.specific-result-text', $page).click ->
+
+      return
+
+    # DELETE SPECIFIC RESULT
+    $('.strategy', $page).on 'click', '.delete-result', (e) ->
+      result_id = $(this).attr('data-id')
+
+      params = { 'specific_result' : {}}
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+      #RESULT NUMBER PARAM
+      params['specific_result']['id'] = result_id
+
+      startLoading()
+
+      url = $('#result-delete-specific-result-url', $page).val()
+      $.post url, params, (data) ->
+        stopLoading()
+        if data.status
+          $("#result-#{result_id}").remove()
+          toastr.success 'Resultado específico deletado com sucesso!'
+        else
+          toastr.error 'Não foi possível deletar resultado específico.'
+        return
+      return
+
     # LINK PRODUCT TO ANOTHER RESULT
     $('.strategy .modal.link-product .results-list li', $page).click ->
       $this = $(this)

@@ -3,7 +3,8 @@
     - if defined? @j
       - j = @j.to_s
     h4 = "Resultado #{j} (Específico)"
-    .result-name == pdsi_result.result.name
+    .result-name.old-input.specific-result-text
+      = text_area_tag "result_name_#{pdsi_result.id}", pdsi_result.result.name
     .show-more
       span.more
         = icon 'chevron-down'
@@ -11,6 +12,19 @@
       span.less
         = icon 'chevron-up'
         | &nbsp;Ver Menos
+    .helpers
+      .pointer.show-default-values default-values-result-id="#{pdsi_result.id}" Restaurar valores de referência
+      / REUSING CLASS
+      .tooltip-item.orientacoes-dsei.delete-result data-id="#{pdsi_result.result.id}"
+        = icon 'close'
+        .tooltip
+          p
+            = "Excluir resultado específico"
+      .tooltip-item.orientacoes-dsei
+        = icon 'info-circle'
+        .tooltip
+          p
+            = pdsi_result.result.orientacoes_dsei? ? pdsi_result.result.orientacoes_dsei : "Não há orientações"
 
   .result-products
     .years

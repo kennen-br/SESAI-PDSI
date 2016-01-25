@@ -15,6 +15,17 @@ class ResultsSpecialController < ApplicationController
     render json: response
   end
 
+  def delete_specific_result
+    logger.debug "Test"
+    logger.debug specific_result_params
+    if Result.find(specific_result_params['id']).destroy
+      response = { status: true }
+    else
+      response = { status: false }
+    end
+    render json: response
+  end
+
   def loop
     hash = loop_params
     klass = Object.const_get hash['class']
@@ -182,7 +193,7 @@ class ResultsSpecialController < ApplicationController
     end
 
     def specific_result_params
-      params.require(:specific_result).permit(:name, :text, :strategy, :field, :value, :result_id, :result_number)
+      params.require(:specific_result).permit(:name, :text, :strategy, :field, :value, :result_id, :result_number, :id)
     end
 
     def link_product_params

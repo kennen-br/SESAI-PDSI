@@ -14,6 +14,7 @@
   = hidden_field_tag '', results_special_specific_result_path(current_dsei.pdsi), { id: 'result-specific-result-url' }
   = hidden_field_tag '', results_special_specific_update_path(current_dsei.pdsi), { id: 'result-specific-update-url' }
   = hidden_field_tag '', results_special_link_product_dsei_path(current_dsei.pdsi), { id: 'result-link-product-dsei-url' }
+  = hidden_field_tag '', results_special_delete_specific_result_path(current_dsei.pdsi), { id: 'result-delete-specific-result-url'}
 
   = render 'modal_dsei'
 
@@ -66,7 +67,7 @@
                 .strategy
                   .strategy-title Estratégia #{i}: #{strategy.name}
                   .create-specific-result
-                    .center-button.new-specific-result data-strategy-id="#{strategy.id}" NOVO RESULTADO ESPECÍFICO
+                    .center-button.new-specific-result data-strategy-id="#{strategy.id}" INSERIR NOVO RESULTADO ESPECÍFICO
                   - j = 0
                   - results = @pdsi.pdsi_results_to_section_with_values(axis.section_name)
                   = render 'modal_link', { axis: axis, results: (results + @dsei.specific_pdsi_results) }
@@ -204,4 +205,4 @@
                           = render 'specific_result', { pdsi_result: pdsi_result, j: j }
                       = hidden_field_tag "j_#{strategy.id}", j+1
                   .create-specific-result
-                    .center-button.new-specific-result data-strategy-id="#{strategy.id}" NOVO RESULTADO ESPECÍFICO
+                    .center-button.new-specific-result data-strategy-id="#{strategy.id}" INSERIR NOVO RESULTADO ESPECÍFICO

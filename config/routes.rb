@@ -107,6 +107,9 @@ Rails.application.routes.draw do
     post '/:id/resultados-esperados/resultado-especifico/atualizar',
          to: 'results_special#specific_update', as: :results_special_specific_update
 
+    post '/:id/resultados-esperados/resultado-especifico/deletar',
+         to: 'results_special#delete_specific_result', as: :results_special_delete_specific_result
+
     post '/:id/resultados-esperados/ordenar-produtos',
          to: 'results_special#products_order', as: :results_special_products_order
 
