@@ -151,6 +151,7 @@ $(document).ready ->
       params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
 
       params['specific_result']['field']     = $this.data('field')
+      console.log $this.data('field')
       params['specific_result']['value']     = $this.val()
       params['specific_result']['result_id'] = $this.parents('.specific-result:eq(0)').data('resultId')
 
@@ -213,8 +214,25 @@ $(document).ready ->
       return
 
     # RESULT DESCRIPTION TEXT CHANGE
-    $('.specific-result-text', $page).click ->
+    $('.strategy', $page).on 'change', '.specific-result-text', (e) ->
+      # MIRROR FROM SPECIFIC RESULT VALUE CHANGES
+      $this = $(this)
 
+      params = { 'specific_result' : {}}
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+
+      params['specific_result']['field']     = $this.data('field')
+      params['specific_result']['value']     = $this.val()
+      params['specific_result']['result_id'] = $this.parents('.specific-result:eq(0)').data('resultId')
+
+      startLoading()
+
+      url = $('#result-specific-update-url', $page).val()
+      $.post url, params, (data) ->
+        stopLoading()
+        flashField $this
+        toastr.success 'Informação atualizada.'
+        return
       return
 
     # DELETE SPECIFIC RESULT

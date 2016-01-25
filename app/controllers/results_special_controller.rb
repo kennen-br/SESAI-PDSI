@@ -164,6 +164,8 @@ class ResultsSpecialController < ApplicationController
     if values['field'].include? 'value_'
       result.update(values['field'].to_sym => values['value'])
       result.pdsi_results.where(pdsi: @pdsi).first.update(values['field'].to_sym => values['value'])
+    elsif values['field'].include? 'name'
+      result.update(values['field'].to_sym => values['value'])
     else
       result.dsei_specific_result(@dsei).update(values['field'].to_sym => values['value'])
     end
