@@ -164,7 +164,7 @@ class PdsisController < ApplicationController
         :id, :village_id, :abastecimento_agua, :abastecimento_agua_alternativo, :saa_completo, :nome_saa, :tipo_captacao_agua, :nome_concessionaria, :tipo_tratamento_agua, :abastecimento_mqa, :saa_manutencao, :qtd_msd_individual, :qtd_msd_coletiva, :esgotamento_sanitario, :_destroy
       ],
       capais_attributes: [
-        :id, :pdsi_id, :city_name, :uf, :capai_type, :host_capacity, :_destroy,
+        :id, :pdsi_id, :city_name, :uf, :capai_type, :host_capacity, :_destroy, :name,
         capai_villages_attributes: [:id, :capai_id, :village_id, :_destroy],
       ],
       destinations_attributes: [:id, :pdsi_id, :origin_village_id, :destination_village_id, :destination_type_id, :boat_time, :road_time, :fly_time, :_destroy, :destination_class, :city_name, :total_time],

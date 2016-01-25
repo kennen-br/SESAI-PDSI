@@ -1,0 +1,5 @@
+.budget_forecasts-actions
+  = icon 'comment', class: 'toggle-comments'
+  - if !bf.last_comment.nil? && !bf.last_comment.seen_by_user?(current_user)
+    .unread-comment data-comment-id="#{bf.last_comment.id}"
+      .date = bf.last_comment.created_at.strftime('%d/%m/%y')

@@ -1,5 +1,8 @@
 h2.section-title Custeio
 
+= hidden_field_tag '', budget_forecast_new_comment_path(current_dsei.pdsi), { id: 'bf-new-comment-url' }
+= hidden_field_tag '', budget_forecast_see_comment_path(current_dsei.pdsi), { id: 'bf-see-comment-url' }
+
 .carousel-nav#form-custeio
   .carousel-arrows
     a.pull-left href="javascript:void(0)"
@@ -49,6 +52,7 @@ h2.section-title Custeio
               tr
                 th style="width: 400px;"
                   = "Ano #{year}"
+                th style="width: 25px;"
                 th
                   = if (year == 2016) then "Dotação" else "Previsão"
                   = " orçamentária (em R$) "
@@ -62,8 +66,12 @@ h2.section-title Custeio
                   = " atualizada (em R$)"
               = f.fields_for :budget_forecasts, @pdsi.budget_forecasts_with_values_no_child(@pdsi.id) do |bf|
                 - if bf.object.cost.cost_type == 3 && bf.object.cost.parent_id.blank?
-                  tr data-category=("#{bf.object.cost.id}") data-index=("#{year}-#{bf.object.cost.id}") id=("tr-#{year}-#{bf.object.cost.id}")
+                  tr.budget_forecast data-category=("#{bf.object.cost.id}") data-index=("#{year}-#{bf.object.cost.id}") id=("tr-#{year}-#{bf.object.cost.id}")
                       td = bf.object.cost.name
+
+                      td style="position: relative;"
+                        = render 'pdsis/projecao_orcamentaria/budget_forecasts_actions', { bf: bf.object }
+                        = render 'pdsis/projecao_orcamentaria/modal_comments', { bf: bf.object }
 
                       td
                         = bf.hidden_field "initial_forecast_#{year}", value: (number_with_precision(eval("bf.object.initial_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0), value_index: "#{bf.object.cost.id}", id: "hidden-#{year}-#{bf.object.cost.id}"
