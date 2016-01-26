@@ -4,7 +4,10 @@
       - j = @j.to_s
     h4 = "Resultado #{j} (Específico)"
     .result-name.old-input
-      = text_area_tag "result_name_#{pdsi_result.id}", pdsi_result.result.name, { class: 'specific-result-text', data: { field: "name" } }
+      - if defined? @j
+        = text_area_tag "result_name_#{pdsi_result.id}", "", { class: 'specific-result-text', placeholder: "Descreva o resultado específico do DSEI", data: { field: "name" } }
+      - else
+        = text_area_tag "result_name_#{pdsi_result.id}", pdsi_result.result.name, { class: 'specific-result-text', data: { field: "name" } }
     .show-more
       span.more
         = icon 'chevron-down'
