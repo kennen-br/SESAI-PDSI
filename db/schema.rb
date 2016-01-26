@@ -637,11 +637,17 @@ ActiveRecord::Schema.define(version: 20160124213146) do
   create_table "people", force: :cascade do |t|
     t.integer  "dsei_id"
     t.string   "name"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "location"
     t.string   "bond"
-    t.boolean  "is_sesai_central", default: false
+    t.boolean  "is_sesai_central",      default: false
+    t.integer  "pdsi_id"
+    t.boolean  "indigenous_worker"
+    t.string   "professional_category"
+    t.string   "role"
+    t.string   "bond_type"
+    t.string   "workplace"
   end
 
   add_index "people", ["dsei_id"], name: "index_people_on_dsei_id", using: :btree
