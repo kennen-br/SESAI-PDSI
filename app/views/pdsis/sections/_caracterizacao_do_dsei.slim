@@ -62,7 +62,7 @@ ul.accordion-tabs-minimal
               | Editar
             == render 'pdsis/destinos/show'
         li
-          a.js-accordion-trigger[href="javascript:void(0)"]
+          a.js-accordion-trigger[href="javascript:void(0)" id="workforce"]
             | B) Dimensionamento da força de trabalho
           .accordion-content
             = link_to edit_pdsi_path(@pdsi, section: 'recursos-humanos'), class: 'button pull-right edit-link' do
