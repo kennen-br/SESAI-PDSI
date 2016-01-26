@@ -1,6 +1,7 @@
 class Person < ActiveRecord::Base
   auditable
 
+  belongs_to :pdsi
   belongs_to :dsei
   has_many  :responsabilities
 

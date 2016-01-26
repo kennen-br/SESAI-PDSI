@@ -223,7 +223,11 @@ class PdsisController < ApplicationController
          :unitary_amount_2019, :forecast_amount_2019, :year_reference, :city,
          :pole_base, :village
         ]
-      ]
+      ],
+      people_attributes: [ :id, :_destroy, :name, :indigenous_worker,
+                           :professional_category, :role, :bond_type, :bond, :workplace, :location ]
     )
   end
 end
+
+

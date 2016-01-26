@@ -1,0 +1,30 @@
+fieldset.human-resources
+  .field.right
+    = f.label :_destroy, 'Apagar?'
+    = f.check_box :_destroy
+  .two-columns
+    .field
+      = f.label :name
+      = f.text_field :name
+    .field
+      = f.label 'Categoria Profissional'
+      = f.collection_select :professional_category, HumanResourceFunction.all, :id, :name
+    .field
+      = f.label 'Função'
+      = f.text_field :role
+    .field
+      = f.label 'Lotação'
+      = f.text_field :location
+    .field
+      = f.label 'Local de Trabalho'
+      = f.text_field :workplace
+    .field
+      = f.label 'Vinculo'
+      = f.select :bond, options_for_select(['ATIVO PERMANENTE', 'MISSÃO EVANGÉLICA CAIUÁ', ], f.object.bond), include_blank: true
+    .field
+      = f.label 'Tipo de Vinculo'
+      = f.text_field :bond_type
+    .field
+      = f.label 'Trabalhador Indígena'
+      = f.check_box :indigenous_worker
+
