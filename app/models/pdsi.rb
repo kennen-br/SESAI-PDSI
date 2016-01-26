@@ -74,6 +74,11 @@ class Pdsi < ActiveRecord::Base
 
   has_many  :budget_investments
   accepts_nested_attributes_for :budget_investments, reject_if: :all_blank, allow_destroy: true
+  #
+  has_many :people
+  accepts_nested_attributes_for :people, reject_if: :all_blank, allow_destroy: true
+  #
+
 
   has_attached_file :map, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :map, content_type: /\Aimage\/.*\Z/
@@ -316,7 +321,8 @@ class Pdsi < ActiveRecord::Base
     budget_investments_with_values
   end
 
-private
+  private
+
   def compose_item(sample_attr, key, value)
     default = sample(sample_attr)
 
