@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122141341) do
+ActiveRecord::Schema.define(version: 20160124213146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,18 @@ ActiveRecord::Schema.define(version: 20160122141341) do
     t.integer  "year"
     t.decimal  "value"
   end
+
+  create_table "budget_forecast_comments", force: :cascade do |t|
+    t.integer  "budget_forecast_id"
+    t.integer  "user_id"
+    t.text     "comment"
+    t.text     "users",              default: "[]"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "budget_forecast_comments", ["budget_forecast_id"], name: "index_budget_forecast_comments_on_budget_forecast_id", using: :btree
+  add_index "budget_forecast_comments", ["user_id"], name: "index_budget_forecast_comments_on_user_id", using: :btree
 
   create_table "budget_forecasts", force: :cascade do |t|
     t.integer  "cost_id"
@@ -919,6 +931,8 @@ ActiveRecord::Schema.define(version: 20160122141341) do
   add_foreign_key "absolute_data_dseis", "dseis"
   add_foreign_key "absolute_data_dseis", "pdsis"
   add_foreign_key "base_polos", "dseis"
+  add_foreign_key "budget_forecast_comments", "budget_forecasts"
+  add_foreign_key "budget_forecast_comments", "users"
   add_foreign_key "budget_forecasts", "costs"
   add_foreign_key "budget_forecasts", "pdsis"
   add_foreign_key "budget_investments", "investments"

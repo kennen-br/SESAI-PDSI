@@ -151,6 +151,7 @@ $(document).ready ->
       params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
 
       params['specific_result']['field']     = $this.data('field')
+      console.log $this.data('field')
       params['specific_result']['value']     = $this.val()
       params['specific_result']['result_id'] = $this.parents('.specific-result:eq(0)').data('resultId')
 
@@ -185,24 +186,19 @@ $(document).ready ->
       return
     $('.strategy .create-specific-result .new-specific-result ', $page).click ->
       $this = $(this)
-      $name = $this.parent().find('h4 :input')
-      $text = $this.parent().find('.result-name :input')
-
       strategy_id = $this.data('strategyId')
-
-      if $name.val() == $name.data('original')
-        toastr.error 'Nome do resultado em branco.'
-        return false
-
-      if $text.val() == $text.data('original')
-        toastr.error 'Texto do resultado em branco.'
-        return false
+      j_value = $("#j_#{strategy_id}").last().val()
+      $("#j_#{strategy_id}").val(parseInt(j_value)+1)
+      name = "Descreva o resultado específico do DSEI [#{parseInt(Math.random()*1000000)}]"
+      text = "Descreva o resultado "
 
       params = { 'specific_result' : {}}
       params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
-
-      params['specific_result']['name']     = $name.val()
-      params['specific_result']['text']     = $text.val()
+      #RESULT NUMBER PARAM
+      params['specific_result']['result_number'] = j_value
+      #SPECIFIC RESULT PARAMS (OLD)
+      params['specific_result']['name']     = name
+      params['specific_result']['text']     = text
       params['specific_result']['strategy'] = strategy_id
 
       startLoading()
@@ -211,13 +207,56 @@ $(document).ready ->
       $.post url, params, (data) ->
         stopLoading()
         id = $(data).attr 'id'
-        $('.specific-results-block', $page).append(data)
+        $("#specific_block_#{strategy_id}", $page).append(data)
         toastr.success 'Resultado específico adicionado.'
-        $name.val($name.data('original'))
-        $text.val($text.data('original'))
         startSortable $(".specific-results-block ##{id}").find('.product-list'), 'PRODUTO'
         return
       return
+
+    # RESULT DESCRIPTION TEXT CHANGE
+    $('.strategy', $page).on 'change', '.specific-result-text', (e) ->
+      # MIRROR FROM SPECIFIC RESULT VALUE CHANGES
+      $this = $(this)
+
+      params = { 'specific_result' : {}}
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+
+      params['specific_result']['field']     = $this.data('field')
+      params['specific_result']['value']     = $this.val()
+      params['specific_result']['result_id'] = $this.parents('.specific-result:eq(0)').data('resultId')
+
+      startLoading()
+
+      url = $('#result-specific-update-url', $page).val()
+      $.post url, params, (data) ->
+        stopLoading()
+        flashField $this
+        toastr.success 'Informação atualizada.'
+        return
+      return
+
+    # DELETE SPECIFIC RESULT
+    $('.strategy', $page).on 'click', '.delete-result', (e) ->
+      result_id = $(this).attr('data-id')
+
+      params = { 'specific_result' : {}}
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+      #RESULT NUMBER PARAM
+      params['specific_result']['id'] = result_id
+
+      startLoading()
+
+      url = $('#result-delete-specific-result-url', $page).val()
+      $.post url, params, (data) ->
+        stopLoading()
+        if data.status
+          $("#result-#{result_id}").remove()
+          toastr.success 'Resultado específico deletado com sucesso!'
+        else
+          toastr.error 'Não foi possível deletar resultado específico.'
+        return
+      return
+
     # LINK PRODUCT TO ANOTHER RESULT
     $('.strategy .modal.link-product .results-list li', $page).click ->
       $this = $(this)

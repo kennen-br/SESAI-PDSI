@@ -15,6 +15,17 @@ class ResultsSpecialController < ApplicationController
     render json: response
   end
 
+  def delete_specific_result
+    logger.debug "Test"
+    logger.debug specific_result_params
+    if Result.find(specific_result_params['id']).destroy
+      response = { status: true }
+    else
+      response = { status: false }
+    end
+    render json: response
+  end
+
   def loop
     hash = loop_params
     klass = Object.const_get hash['class']
@@ -100,7 +111,10 @@ class ResultsSpecialController < ApplicationController
   end
 
   def specific_result
+    # Value for result number
+    @j = specific_result_params.delete('result_number')
     values = specific_result_params
+
 
     # Creates the Result and make it Specific
     level  = ResultLevel.find_by_name('DSEI')
@@ -150,6 +164,8 @@ class ResultsSpecialController < ApplicationController
     if values['field'].include? 'value_'
       result.update(values['field'].to_sym => values['value'])
       result.pdsi_results.where(pdsi: @pdsi).first.update(values['field'].to_sym => values['value'])
+    elsif values['field'].include? 'name'
+      result.update(values['field'].to_sym => values['value'])
     else
       result.dsei_specific_result(@dsei).update(values['field'].to_sym => values['value'])
     end
@@ -179,7 +195,7 @@ class ResultsSpecialController < ApplicationController
     end
 
     def specific_result_params
-      params.require(:specific_result).permit(:name, :text, :strategy, :field, :value, :result_id)
+      params.require(:specific_result).permit(:name, :text, :strategy, :field, :value, :result_id, :result_number, :id)
     end
 
     def link_product_params

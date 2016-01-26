@@ -33,6 +33,14 @@ Rails.application.routes.draw do
          to: 'pdsis#new_budget_forecast_by_cost',
          as: :new_budget_forecast_by_cost
 
+    post '/:id/alterar/projecao-orcamentaria/novo-comentario',
+         to: 'budget_forecasts#new_comment',
+         as: :budget_forecast_new_comment
+
+    post '/:id/alterar/projecao-orcamentaria/ver-comentario',
+         to: 'budget_forecasts#see_comment',
+         as: :budget_forecast_see_comment
+
     post '/:id/alterar/projecao-orcamentaria/update_cost_name',
          to: 'pdsis#update_cost_name',
          as: :update_cost_name
@@ -106,6 +114,9 @@ Rails.application.routes.draw do
 
     post '/:id/resultados-esperados/resultado-especifico/atualizar',
          to: 'results_special#specific_update', as: :results_special_specific_update
+
+    post '/:id/resultados-esperados/resultado-especifico/deletar',
+         to: 'results_special#delete_specific_result', as: :results_special_delete_specific_result
 
     post '/:id/resultados-esperados/ordenar-produtos',
          to: 'results_special#products_order', as: :results_special_products_order
