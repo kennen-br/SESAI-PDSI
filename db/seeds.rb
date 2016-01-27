@@ -154,21 +154,6 @@ if InvestmentVillage.count == 0
   ActiveRecord::Base.connection.execute(sql)
 end
 
-# DemographicData Seeds
-if DemographicData.count == 0
-  seed_path = File.join(Rails.root, 'db', 'seeds', 'demographic_data.seed.csv')
-  sql = <<-COPY_PSQL
-    COPY demographic_datas(pdsi_id  , extensao_territorial  , municipio_sede  , endereco  , email , numero_municipios , populacao_indigena  , etnias  , numero_polos_base , numero_sede_polos_base  , numero_ubsi , numero_regioes_de_saude , numero_casais , numero_aldeias  , numero_familias , meios_de_transporte , created_at  , updated_at  , fluvial , rodoviario  , aereo)
-      FROM '#{seed_path}'
-      WITH
-        DELIMITER ','
-        NULL 'null'
-        CSV
-          HEADER
-    COPY_PSQL
-  ActiveRecord::Base.connection.execute(sql)
-end
-
 if UserType.count == 0
   UserType.create!([
     {name: "Administrador"},
@@ -468,69 +453,36 @@ if ResultAxis.count == 0
   ])
 end
 
+
+
+# ResultStrategy Seeds
 if ResultStrategy.count == 0
-  ResultStrategy.create!([
-    { name: 'Qualificação das Ações e Equipes de Saúde indígena that atuam nsa DSEI/SESAI', result_axis_id: 1 },
-    { name: 'Qualificação de serviços de saneamento ambiental ofertados', result_axis_id: 2 },
-    { name: 'Provimento de infraestrutura, equipamentos, insumos e logística adequados à execução das ações de saúde indígena pelos DSEIs', result_axis_id: 3 },
-    { name: 'Aprimoramento do modelo de gestão do Subsistema de Atenção à Saúde Indígena do SUS', result_axis_id: 4 },
-    { name: 'Estruturação e fortalecimento da cultura de planejamento e gestão da informação', result_axis_id: 5 },
-    { name: 'Ampliação da qualificação do gasto público com ganhos de eficiência do uso de recursos e efetividade das ações em saúde', result_axis_id: 6 },
-    { name: 'Reestruturação do modelo de comunicação e ampliação da sua capacidade produtiva, respeitando as especificidades dos povos indígenas', result_axis_id: 7 },
-    { name: 'Ampliação das articulações interfederativa e intersetoriais com vistas à integralidade das ações de atenção a saúde indígena', result_axis_id: 8 },
-    { name: 'Ampliação da efetividade do controle social em acompanhar e fiscalizar a PNASPI', result_axis_id: 9 },
-  ])
+  seed_path = File.join(Rails.root, 'db', 'seeds', 'result_strategy.seed.csv')
+  sql = <<-COPY_PSQL
+    COPY result_strategies(name, result_axis_id, created_at, updated_at)
+      FROM '#{seed_path}'
+      WITH
+        DELIMITER ','
+        NULL 'null'
+        CSV
+          HEADER
+    COPY_PSQL
+  ActiveRecord::Base.connection.execute(sql)
 end
 
+
 if Result.count == 0
-  Result.create!([
-    { result_strategy_id: 1 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  true  , name: '[VALUE]% das crianças menores de 5 anos com acompanhamento alimentar e nutricional realizado  ', value_2016:  70  , value_2017: 75  , value_2018: 80  , value_2019: 85  , result_text: '  [VALUE]% das crianças menores de 5 anos com acompanhamento alimentar e nutricional realizado  ', orientacoes_dsei: '    ', orientacoes_sistema: ' Texto dos resultados dos DSEIs será igual à referência nacional. Edição do percentual só poderá ser feita para cima.  ', value_global: 85},
-    { result_strategy_id: 1 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  true  , name: '[VALUE]% de gestantes com acompanhamento alimentar e nutricional realizado  ', value_2016:  70  , value_2017: 75  , value_2018: 80  , value_2019: 90  , result_text: '  [VALUE]% gestantes com acompanhamento alimentar e nutricional realizado ', orientacoes_dsei: '    ', orientacoes_sistema: ' Texto dos resultados dos DSEIs será igual à referência nacional. Edição do percentual só poderá ser feita para cima.  ', value_global: 90},
-    { result_strategy_id: 1 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  false , name: 'Plano de contingência de DDA e IRA implementado em [VALUE] DSEI.  ', value_2016:  10  , value_2017: 20  , value_2018: 34  , value_2019: 34  , result_text: '  [VALUE] DSEI contam com plano de contigência de DDA e IRA implementado  ', orientacoes_dsei: '    ', orientacoes_sistema: ' Texto dos resultados dos DSEIs será igual à referência nacional. Edição do percentual só poderá ser feita para cima.  ', value_global: 34},
-    { result_strategy_id: 1 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  true  , name: 'Acesso ao pré-natal, parto e puerpério qualificado e ampliado para [VALUE]% das gestantes com 4 consultas ou mais ', value_2016:  60  , value_2017: 70  , value_2018: 80  , value_2019: 90  , result_text: '  Acesso ao pré-natal, parto e puerpério qualificado e ampliado para [VALUE]% gestantes com 4 consultas ou mais ', orientacoes_dsei: '    ', orientacoes_sistema: ' Texto dos resultados dos DSEIs será igual à referência nacional. Edição do percentual só poderá ser feita para cima.  ', value_global: 90},
-    { result_strategy_id: 1 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  true  , name: '[VALUE]% dos óbitos materno, infantil, fetal e de mulheres em idade fértil investigados  ', value_2016:  80  , value_2017: 83  , value_2018: 86  , value_2019: 90  , result_text: '  [VALUE]% dos óbitos materno, infantil e fetal, mulheres em idade fértil investigados.   ', orientacoes_dsei: '    ', orientacoes_sistema: ' Texto dos resultados dos DSEIs será igual à referência nacional. Edição do percentual só poderá ser feita para cima.  ', value_global: 90},
-    { result_strategy_id: 1 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  true  , name: '[VALUE]% das crianças menores de 5 anos com esquema vacinal completo, de acordo com o calendário indígena de vacinação. ', value_2016:  77  , value_2017: 79.5  , value_2018: 82  , value_2019: 85  , result_text: '  [VALUE]% as crianças menores de 5 anos com esquema vacinal completo, de acordo com o calendário indígena de vacinação.  ', orientacoes_dsei: '    ', orientacoes_sistema: ' Texto dos resultados dos DSEIs será igual à referência nacional. Edição do percentual só poderá ser feita para cima.  ', value_global: 85},
-    { result_strategy_id: 1 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  true  , name: 'Reduzir em [VALUE]% os casos de suicídio nos 34 DSEIs ', value_2016:  2 , value_2017: 4 , value_2018: 7 , value_2019: 10  , result_text: '  reduzir em [VALUE]% os casos de suicídio nos 34 DSEIs tendo como linha de base os números de 2015 ', orientacoes_dsei: '    ', orientacoes_sistema: ' Texto dos resultados dos DSEIs será igual à referência nacional. Edição do percentual só poderá ser feita para cima.  ', value_global: 10},
-    { result_strategy_id: 1 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  true  , name: '[VALUE]% de cobertura da população indígena com primeira consulta odontológica programática realizada.  ', value_2016:  40  , value_2017: 50  , value_2018: 55  , value_2019: 60  , result_text: '  [VALUE]% de cobertura da população indígena com primeira consulta odontológica programática ', orientacoes_dsei: '    ', orientacoes_sistema: ' Texto dos resultados dos DSEIs será igual à referência nacional. Edição do percentual só poderá ser feita para cima.  ', value_global: 60},
-    { result_strategy_id: 1 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  true  , name: 'Incidência parasitária anual de malária reduzida para menos do que 10 por mil habitantes ', value_2016:  20  , value_2017: 20  , value_2018: 20  , value_2019: 20  , result_text: '  Reduzir a IPA 2018 em [VALUE]%  ', orientacoes_dsei: '    ', orientacoes_sistema: ' Texto dos resultados dos DSEIs será igual à referência nacional. Edição do percentual só poderá ser feita para cima.  ', value_global: 0},
-    { result_strategy_id: 1 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  true  , name: 'Coeficiente de incidência de tuberculose na população indígena reduzido em [VALUE]% (linha de base em 2014 : 56,19/100.000 casos)  ', value_2016:  3 , value_2017: 5 , value_2018: 5 , value_2019: 7 , result_text: '  Reduzir [VALUE]% do coeficiente de incidência de tuberculose na população indígena  ', orientacoes_dsei: '    ', orientacoes_sistema: ' Texto dos resultados dos DSEIs será igual à referência nacional. Edição do percentual só poderá ser feita para cima.  ', value_global: 20},
-    { result_strategy_id: 1 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  true  , name: '[VALUE]% dos trabalhadores da saúde indigena qualificados para o trabalho em contextos interculturais ', value_2016:  25  , value_2017: 50  , value_2018: 75  , value_2019: 100 , result_text: '  [VALUE]% dos trabaljhadores da saúde indigena qualificados para o trabalho em saúde nos contextos interculturais  ', orientacoes_dsei: '    ', orientacoes_sistema: ' Texto dos resultados dos DSEIs será igual à referência nacional. Edição do percentual só poderá ser feita para cima.  ', value_global: 100},
-    { result_strategy_id: 1 , result_level_id:  1 , is_boolean: true  , is_specific:  false , is_percentage:  false , name: 'Projetos para atuação em contextos interculturais implementados nos 34 DSEIS, com protagonismo indígena na promoção, prevenção e cuidado em saúde e valorização de práticas tradicionais  ', value_2016:  0 , value_2017: 0 , value_2018: 0 , value_2019: 0 , result_text: '  Projetos para atuação em contextos interculturais implementados nos 34 DSEIS, com protagonismo indígena na promoção, prevenção e cuidado em saúde e valorização de práticas tradicionais  ', orientacoes_dsei: '  - ', orientacoes_sistema: '   ', value_global: 0},
-
-    { result_strategy_id: 2 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  true  , name: '[VALUE]% das aldeias com população superior a 50 habitantes contam com Sistemas de Abastacemiento de Água em funcionamento (base 2015: 58%)  ', value_2016:  61  , value_2017: 63  , value_2018: 67  , value_2019: 70  , result_text: '  [VALUE]% das aldeias com população superior a 50 habitantes contam com Sistemas de Abastacemiento de Água em funcionamento  ', orientacoes_dsei: '  out/2015 = 2821 aldeias com mais de 50 hab. Aldeias com água = 1642 ( 58,21%) . Fonte: "dados aldeias" jul/2015. Partir de 1.642 para 1.962 no final. Serão construídos, como produtos no plano, 2016 = 80, 2017 = 80, 2018 = 80 e 2019 = 80  ', orientacoes_sistema: ' Texto dos resultados dos DSEIs será igual à referência nacional. Edição do percentual só poderá ser feita para cima.  ', value_global: 70},
-    { result_strategy_id: 2 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  true  , name: '[VALUE]% ou mais das aldeias com população inferior a 50 habitantes contam com Sistemas de Abastacemiento de Água em funcionamento (base 2015: 33%)  ', value_2016:  37  , value_2017: 38  , value_2018: 39  , value_2019: 40  , result_text: '  [VALUE]% ou mais das aldeias com população inferior a 50 habitantes contam com Sistemas de Abastacemiento de Água em funcionamento  ', orientacoes_dsei: '  out/2015 = 2142 aldeias com menos de 50 hab. Aldeias com água = 710 = 33,15%  fonte: "dados aldeias jul 2015". Partir de710 para 850 no final. Serão implantados 2016 = 35, 2017 = 35, 2018 = 35, 2019 = 30.  ', orientacoes_sistema: ' Texto dos resultados dos DSEIs será igual à referência nacional. Edição do percentual só poderá ser feita para cima. Prever possibilidade de o DSEI desagregar o resultado por SAA a ser implantado ou reformado (vinculado ao território)  ', value_global: 40},
-    { result_strategy_id: 2 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  true  , name: '[VALUE]% ou mais das aldeias contam com destinação adequada de dejetos (base 2015: 50%)  ', value_2016:  55  , value_2017: 60  , value_2018: 65  , value_2019: 70  , result_text: '  [VALUE]% ou mais das aldeias contam com destinação adequada de dejetos  ', orientacoes_dsei: '    ', orientacoes_sistema: ' Texto dos resultados dos DSEIs será igual à referência nacional. Edição do percentual só poderá ser feita para cima. Prever possibilidade de o DSEI desagregar o resultado por SAA a ser implantado ou reformado (vinculado ao território)  ', value_global: 40},
-    { result_strategy_id: 2 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  true  , name: 'Qualidade da água monitorada em [VALUE]% das aldeias com SAA implementado  ', value_2016:  55  , value_2017: 60  , value_2018: 70  , value_2019: 80  , result_text: '  Qualidade da água monitorada em [VALUE]% das aldeias com SAA implementado ', orientacoes_dsei: '    ', orientacoes_sistema: ' Texto dos resultados dos DSEIs será igual à referência nacional. Edição do percentual só poderá ser feita para cima.  ', value_global: 80},
-    { result_strategy_id: 2 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  true  , name: '[VALUE]% ou mais de aldeias contam com destino adequado de resíduos sólidos  ', value_2016:  40  , value_2017: 50  , value_2018: 60  , value_2019: 70  , result_text: '  [VALUE]% ou mais de aldeias contam com destino adequado de resíduos sólidos ', orientacoes_dsei: '    ', orientacoes_sistema: ' Texto dos resultados dos DSEIs será igual à referência nacional. Edição do percentual só poderá ser feita para cima. Prever possibilidade de o DSEI desagregar o resultado por SAA a ser implantado ou reformado (vinculado ao território)  ', value_global: 70},
-
-    { result_strategy_id: 3 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  false , name: 'Reformar/ampliar [VALUE] Casas de Saúde Indígena (CASAI).  ', value_2016:  3 , value_2017: 10  , value_2018: 10  , value_2019: 3 , result_text: '  [VALUE] CASAIS construídas ou reformadas  ', orientacoes_dsei: '    ', orientacoes_sistema: ' DSEI poderá colocar qualquer número inteiro ', value_global: 26},
-    { result_strategy_id: 3 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  false , name: '[VALUE] DSEIs contam com Rede de lógica e internet funcionando adequadamente.  ', value_2016:  4 , value_2017: 10  , value_2018: 10  , value_2019: 10  , result_text: '  [VALUE] DSEIs contam com Rede de lógica e internet funcionando adequadamente. ', orientacoes_dsei: '    ', orientacoes_sistema: ' DSEI tem liberdade para propor produtos ', value_global: 34},
-    { result_strategy_id: 3 , result_level_id:  1 , is_boolean: true  , is_specific:  false , is_percentage:  false , name: 'Equipes dos DSEI providas com os insumos necessários para executar suas ações.  ', value_2016:  0 , value_2017: 0 , value_2018: 0 , value_2019: 0 , result_text: '  Equipes dos DSEI providas com os insumos necessários para executar suas ações.  ', orientacoes_dsei: '    ', orientacoes_sistema: ' DSEI tem liberdade para propor produtos ', value_global: 0},
-    { result_strategy_id: 3 , result_level_id:  1 , is_boolean: true  , is_specific:  false , is_percentage:  false , name: 'Equipes do DSEI/SESAI equipadas para execução das ações.  ', value_2016:  0 , value_2017: 0 , value_2018: 0 , value_2019: 0 , result_text: '  Equipes do DSEI/SESAI equipadas para execução das ações.  ', orientacoes_dsei: '    ', orientacoes_sistema: ' DSEI tem liberdade para propor produtos ', value_global: 0},
-    { result_strategy_id: 3 , result_level_id:  1 , is_boolean: true  , is_specific:  false , is_percentage:  false , name: 'Os 34 DSEIs contam com logística adequada para execução das ações.  ', value_2016:  0 , value_2017: 0 , value_2018: 0 , value_2019: 0 , result_text: '  Os 34 DSEIs contam com logística adequada para execução das ações.  ', orientacoes_dsei: '    ', orientacoes_sistema: ' NÃO ENTRA NO PDSI ', value_global: 0},
-    { result_strategy_id: 3 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  false , name: '[VALUE] UBSIs construídas ou reformadas, com plena condição de oferta de serviços para a população indígena ', value_2016:  100 , value_2017: 50  , value_2018: 50  , value_2019: 50  , result_text: '  [VALUE] UBSIs construídas ou reformadas, com plena condição de oferta de serviços para a população indígena ', orientacoes_dsei: '  Reformas e construções devem ser produtos separados ', orientacoes_sistema: ' DSEI poderá colocar qualquer número inteiro, incluindo reformas e construções ', value_global: 250},
-    { result_strategy_id: 3 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  false , name: '[VALUE] Pólos base construídos e em plena condição de apoiar a oferta de serviços para a população indígena ', value_2016:  8 , value_2017: 10  , value_2018: 10  , value_2019: 10  , result_text: '  [VALUE] Pólos base construídos e em plena condição de apoiar a oferta de serviços para a população indígena  ', orientacoes_dsei: '  Reformas e construções devem ser produtos separados ', orientacoes_sistema: ' DSEI poderá colocar qualquer número inteiro, incluindo reformas e construções ', value_global: 38},
-
-    { result_strategy_id: 4 , result_level_id:  1 , is_boolean: true  , is_specific:  false , is_percentage:  false , name: 'Competências da SESAI revisadas e implementadas.  ', value_2016:  0 , value_2017: 0 , value_2018: 0 , value_2019: 0 , result_text: '  Competências da SESAI revisadas e implementadas.  ', orientacoes_dsei: '    ', orientacoes_sistema: ' NÃO ENTRA NO PDSI ', value_global: 0},
-
-    { result_strategy_id: 5 , result_level_id:  1 , is_boolean: true  , is_specific:  false , is_percentage:  false , name: '100% dos DSEIs contam com o SIASI implementado  ', value_2016:  0 , value_2017: 0 , value_2018: 0 , value_2019: 0 , result_text: '  [VALUE]% dos DSEIs contm com o SIASI implementado ', orientacoes_dsei: '    ', orientacoes_sistema: ' DSEI tem liberdade para propor produtos ', value_global: 0},
-    { result_strategy_id: 5 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  true  , name: '[VALUE]% do GEOSI desenvolvido com painel de controle funcionando.   ', value_2016:  33 , value_2017: 33 , value_2018: 33 , value_2019: 33 , result_text: '  [VALUE]% do GEOSI desenvolvido com painel de controle funcionando.   ', orientacoes_dsei: '    ', orientacoes_sistema: ' NÃO ENTRA NO PDSI ', value_global: 33},
-    { result_strategy_id: 5 , result_level_id:  1 , is_boolean: true  , is_specific:  false , is_percentage:  false , name: '100% dos DSEIs contam com sistema Hórus implementado nas sedes, pólos base e CASAI  ', value_2016:  0 , value_2017: 0 , value_2018: 0 , value_2019: 0 , result_text: '  [VALUE]% dos DSEIs contam com sistema Hórus implementado nas sedes, pólos base e CASAI  ', orientacoes_dsei: '    ', orientacoes_sistema: ' DSEI tem liberdade para propor produtos ', value_global: 0},
-    { result_strategy_id: 5 , result_level_id:  1 , is_boolean: true  , is_specific:  false , is_percentage:  false , name: 'Ações estratégicas do plano estratégicos do PDSI da SESAI central e dos DSEI monitorados. ', value_2016:  0 , value_2017: 0 , value_2018: 0 , value_2019: 0 , result_text: '  Ações estratégicas do plano estratégicos do PDSI da SESAI central e dos DSEI monitorados. ', orientacoes_dsei: '    ', orientacoes_sistema: ' NÃO ENTRA NO PDSI ', value_global: 0},
-
-    { result_strategy_id: 6 , result_level_id:  1 , is_boolean: true  , is_specific:  false , is_percentage:  false , name: 'Qualificação do gasto público com ganho de eficiência do uso de recurso e efetividade das ações em saúde. ', value_2016:  0 , value_2017: 0 , value_2018: 0 , value_2019: 0 , result_text: '  30. Qualificação do gasto público com ganho de eficiência do uso de recurso e efetividade das ações em saúde. ', orientacoes_dsei: '    ', orientacoes_sistema: ' NÃO ENTRA NO PDSI ', value_global: 0},
-    { result_strategy_id: 6 , result_level_id:  1 , is_boolean: true  , is_specific:  false , is_percentage:  false , name: 'SESAI conseguir obter melhor relação no custo x efetividade das ações de saúde. ', value_2016:  0 , value_2017: 0 , value_2018: 0 , value_2019: 0 , result_text: '  SESAI conseguir obter melhor relação no custo x efetividade das ações de saúde. ', orientacoes_dsei: '    ', orientacoes_sistema: ' NÃO ENTRA NO PDSI ', value_global: 0},
-
-    { result_strategy_id: 7 , result_level_id:  1 , is_boolean: true  , is_specific:  false , is_percentage:  false , name: 'Imagem institucional da SESAI fortalecida.  ', value_2016:  0 , value_2017: 0 , value_2018: 0 , value_2019: 0 , result_text: '  Imagem institucional da SESAI fortalecida.  ', orientacoes_dsei: '    ', orientacoes_sistema: ' NÃO ENTRA NO PDSI ', value_global: 0},
-
-    { result_strategy_id: 8 , result_level_id:  1 , is_boolean: true  , is_specific:  false , is_percentage:  false , name: '6ª CNSI realizada ', value_2016:  0 , value_2017: 0 , value_2018: 0 , value_2019: 0 , result_text: '  6ª CNSI realizada ', orientacoes_dsei: '    ', orientacoes_sistema: ' Permite produtos apenas em 2017, relacionados às conferências distritais  ', value_global: 0},
-    { result_strategy_id: 8 , result_level_id:  1 , is_boolean: true  , is_specific:  false , is_percentage:  false , name: 'Instâncias de controle social fortalecidas  ', value_2016:  0 , value_2017: 0 , value_2018: 0 , value_2019: 0 , result_text: '  Instâncias de controle social fortalecidas  ', orientacoes_dsei: '    ', orientacoes_sistema: ' DSEI tem liberdade para propor produtos ', value_global: 0},
-
-    { result_strategy_id: 9 , result_level_id:  1 , is_boolean: true  , is_specific:  false , is_percentage:  false , name: 'Articulação intersetorial efetiva para melhoria dos determinantes sociais da saúde indígena.  ', value_2016:  0 , value_2017: 0 , value_2018: 0 , value_2019: 0 , result_text: '  Articulação intersetorial efetiva para melhoria dos determinantes sociais da saúde indígena.  ', orientacoes_dsei: '    ', orientacoes_sistema: ' DSEI tem liberdade para propor produtos ', value_global: 0},
-    { result_strategy_id: 9 , result_level_id:  1 , is_boolean: true  , is_specific:  false , is_percentage:  false , name: '100% dos DSEIs inseridos no processo de regulação estadual, regional e municipal  ', value_2016:  0 , value_2017: 0 , value_2018: 0 , value_2019: 0 , result_text: '  100% dos DSEIs inseridos no processo de regulação estadual, regional e municipal  ', orientacoes_dsei: '    ', orientacoes_sistema: ' DSEI tem liberdade para propor produtos ', value_global: 0},
-    { result_strategy_id: 9 , result_level_id:  1 , is_boolean: false , is_specific:  false , is_percentage:  false , name: '[VALUE] CASAI inseridas no fluxo de regulação de estados e municipios, alcançando 100% das CASAI ', value_2016:  6 , value_2017: 10  , value_2018: 10  , value_2019: 11  , result_text: '  [VALUE]% CASAIs inseridas no fluxo de regulação de estados e municipios alcançando 100% das CASAI ', orientacoes_dsei: '    ', orientacoes_sistema: ' DSEI tem liberdade para propor produtos', value_global: 37}
-
-  ])
+    seed_path = File.join(Rails.root, 'db', 'seeds', 'result.seed.csv')
+    sql = <<-COPY_PSQL
+      COPY results(result_item,not_in,meta_ppa,result_level_id,result_strategy_id,name,result_text,is_boolean,is_specific,is_percentage,value_global,value_2016,value_2017,value_2018,value_2019,orientacoes_dsei,orientacoes_sistema,created_at,updated_at)
+        FROM '#{seed_path}'
+        WITH
+          DELIMITER ','
+          NULL 'null'
+          CSV
+            HEADER
+      COPY_PSQL
+    ActiveRecord::Base.connection.execute(sql)
 end
 
 if ProjectionBudgetCategory.count == 0
@@ -666,5 +618,23 @@ if City.count == 0
   COPY_PSQL
   ActiveRecord::Base.connection.execute(sql)
 end
+
+
+# DemographicData Seeds
+if DemographicData.count == 0
+  seed_path = File.join(Rails.root, 'db', 'seeds', 'demographic_data.seed.csv')
+  sql = <<-COPY_PSQL
+    COPY demographic_datas(pdsi_id  , extensao_territorial  , municipio_sede  , endereco  , email , numero_municipios , populacao_indigena  , etnias  , numero_polos_base , numero_sede_polos_base  , numero_ubsi , numero_regioes_de_saude , numero_casais , numero_aldeias  , numero_familias , meios_de_transporte , created_at  , updated_at  , fluvial , rodoviario  , aereo)
+      FROM '#{seed_path}'
+      WITH
+        DELIMITER ','
+        NULL 'null'
+        CSV
+          HEADER
+    COPY_PSQL
+  ActiveRecord::Base.connection.execute(sql)
+end
+
+
 
 puts '------>> Done!.'
