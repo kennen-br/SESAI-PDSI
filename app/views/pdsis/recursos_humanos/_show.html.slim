@@ -9,27 +9,27 @@ ul.accordion-tabs-minimal
     a.tab-link
       | Categoria Profissional
     .tab-content
-      - @pdsi.pdsi_human_resources.each do |hr|
-        h1 Local de trabalho
-        table.tables.pdsi-result-table
-          thead
-            tr
-              th[rowspan="2" style="width: 200px;"] Categoria Profissional
-              th[colspan="4" style="border-bottom: 1px solid #ddd;"]
-              th[colspan="7" style="border-bottom: 1px solid #ddd;"] Sede do DSEI
-            tr
-              th[style="border-left: 1px solid #ddd;"] UBSI
-              th Polo Base Tipo 1
-              th Polo Base Tipo 2
-              th CASAI
-              th SEAD
-              th SELOG
-              th SESANE
-              th SEOFI
-              th SGEP
-              th Gabinete
-              th DIASI
-          tbody
+      h1 Local de trabalho
+      table.tables.pdsi-result-table
+        thead
+          tr
+            th[rowspan="2" style="width: 200px;"] Categoria Profissional
+            th[colspan="4" style="border-bottom: 1px solid #ddd;"]
+            th[colspan="7" style="border-bottom: 1px solid #ddd;"] Sede do DSEI
+          tr
+            th[style="border-left: 1px solid #ddd;"] UBSI
+            th Polo Base Tipo 1
+            th Polo Base Tipo 2
+            th CASAI
+            th SEAD
+            th SELOG
+            th SESANE
+            th SEOFI
+            th SGEP
+            th Gabinete
+            th DIASI
+        tbody
+          - @pdsi.pdsi_human_resources.each do |hr|
             tr
               td = hr.human_resource_function.name
               td = hr.ubsi_atual
@@ -44,18 +44,19 @@ ul.accordion-tabs-minimal
               td = hr.gabinete_atual
               td = hr.diasi_atual
 
-        h1 Tipo de vínculo
-        table.tables.pdsi-result-table
-          thead
-            tr
-              th Categoria Profissional
-              th SESAI/DSEI
-              th Munícípio
-              th Estado
-              th Convênio
-              th Mais Médicos
-              th Terceirização
-          tbody
+      h1 Tipo de vínculo
+      table.tables.pdsi-result-table
+        thead
+          tr
+            th Categoria Profissional
+            th SESAI/DSEI
+            th Munícípio
+            th Estado
+            th Convênio
+            th Mais Médicos
+            th Terceirização
+        tbody
+          - @pdsi.pdsi_human_resources.each do |hr|
             tr
               td = hr.human_resource_function.name
               td = hr.sesai_dsei
@@ -65,26 +66,27 @@ ul.accordion-tabs-minimal
               td = hr.mais_medicos
               td = hr.terceirizacao
 
-        h1 Quantidade necessária para atender adequadamente o DSEI
-        table.tables.pdsi-result-table
-          thead
-            tr
-              th[rowspan="2" style="width: 200px;"] Categoria Profissional
-              th[colspan="4" style="border-bottom: 1px solid #ddd;"]
-              th[colspan="7" style="border-bottom: 1px solid #ddd;"] Sede do DSEI
-            tr
-              th[style="border-left: 1px solid #ddd;"] UBSI
-              th Polo Base Tipo 1
-              th Polo Base Tipo 2
-              th CASAI
-              th SEAD
-              th SELOG
-              th SESANE
-              th SEOFI
-              th SGEP
-              th Gabinete
-              th DIASI
-          tbody
+      h1 Quantidade necessária para atender adequadamente o DSEI
+      table.tables.pdsi-result-table
+        thead
+          tr
+            th[rowspan="2" style="width: 200px;"] Categoria Profissional
+            th[colspan="4" style="border-bottom: 1px solid #ddd;"]
+            th[colspan="7" style="border-bottom: 1px solid #ddd;"] Sede do DSEI
+          tr
+            th[style="border-left: 1px solid #ddd;"] UBSI
+            th Polo Base Tipo 1
+            th Polo Base Tipo 2
+            th CASAI
+            th SEAD
+            th SELOG
+            th SESANE
+            th SEOFI
+            th SGEP
+            th Gabinete
+            th DIASI
+        tbody
+          - @pdsi.pdsi_human_resources.each do |hr|
             tr
               td = hr.human_resource_function.name
               td = hr.ubsi_necessaria
@@ -99,16 +101,17 @@ ul.accordion-tabs-minimal
               td = hr.gabinete_necessaria
               td = hr.diasi_necessaria
 
-        h1 Totais
-        table.tables.pdsi-result-table
-          thead
-            tr
-              th Categoria Profissional
-              th RH Existente
-              th Total de indígenas
-              th Força de Trabalho Necessária
-              th Diferença entre Força de Trabalho Existente e Necessária
-          tbody
+      h1 Totais
+      table.tables.pdsi-result-table
+        thead
+          tr
+            th Categoria Profissional
+            th RH Existente
+            th Total de indígenas
+            th Força de Trabalho Necessária
+            th Diferença entre Força de Trabalho Existente e Necessária
+        tbody
+          - @pdsi.pdsi_human_resources.each do |hr|
             tr
               td = hr.human_resource_function.name
               td = hr.actual_sum
