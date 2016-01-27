@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20160126214231) do
+ActiveRecord::Schema.define(version: 20160127170907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -837,6 +836,9 @@ ActiveRecord::Schema.define(version: 20160126214231) do
     t.text     "orientacoes_dsei"
     t.text     "orientacoes_sistema"
     t.integer  "value_global"
+    t.boolean  "meta_ppa"
+    t.boolean  "not_in"
+    t.integer  "result_item"
   end
 
   add_index "results", ["result_level_id"], name: "index_results_on_result_level_id", using: :btree
