@@ -3,8 +3,29 @@ ul.accordion-tabs-minimal
     a.tab-link[id="workforce-show"]
       | Pessoas
     .tab-content
-      - @pdsi.people.each do |pp|
-        = pp.name
+      table.tables.pdsi-result-table
+        thead
+          tr
+            th Nome
+            th Categoria Profissional
+            th Função
+            th Lotação
+            th Local de Trabalho
+            th Vínculo
+            th Tipo de Vínculo
+            th Trabalhador índigena
+        tbody
+          - @pdsi.people.each do |pp|
+            tr
+              td = pp.name
+              td = pp.professional_category
+              td = pp.role
+              td = pp.location
+              td = pp.workplace
+              td = pp.bond
+              td = pp.bond_type
+              td = pp.indigenous_worker ? 'Sim' : 'Não'
+
   li.tab-header-and-content
     a.tab-link
       | Categoria Profissional
