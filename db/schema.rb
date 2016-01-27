@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126171313) do
+ActiveRecord::Schema.define(version: 20160127185818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -440,6 +440,7 @@ ActiveRecord::Schema.define(version: 20160126171313) do
     t.boolean  "esgotamento_sanitario"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.integer  "base_polo_id"
   end
 
   add_index "infrastructure_sanitations", ["pdsi_id"], name: "index_infrastructure_sanitations_on_pdsi_id", using: :btree
