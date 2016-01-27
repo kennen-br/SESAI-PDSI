@@ -117,6 +117,4 @@ ul.accordion-tabs-minimal
               td = hr.actual_sum
               td = hr.indigenous_sum
               td = hr.workforce_needed
-              td = hr.workforce_needed - hr.actual_sum if hr.workforce_needed.present? && hr.actual_sum.present?
-
-
+              td = hr.actual_sum - hr.workforce_needed
