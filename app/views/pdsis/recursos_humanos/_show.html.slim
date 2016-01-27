@@ -1,27 +1,47 @@
-- @pdsi.pdsi_human_resources.includes(:human_resource_function).all.each do |hr|
-  fieldset.human-resources.show
-    legend = hr.human_resource_function.name
-
-    fieldset
-      legend LOCAL DE TRABALHO
-      table
+ul.accordion-tabs-minimal
+  li.tab-header-and-content
+    a.tab-link[id="workforce-show"]
+      | Pessoas
+    .tab-content
+      table.tables.pdsi-result-table
         thead
           tr
-            th UBSI
+            th Nome
+            th Categoria Profissional
+            th Função
+            th Lotação
+            th Local de Trabalho
+            th Vínculo
+            th Tipo de Vínculo
+            th Trabalhador índigena
+        tbody
+          - @pdsi.people.each do |pp|
+            tr
+              td = pp.name
+              td = pp.professional_category
+              td = pp.role
+              td = pp.location
+              td = pp.workplace
+              td = pp.bond
+              td = pp.bond_type
+              td = pp.indigenous_worker ? 'Sim' : 'Não'
+
+  li.tab-header-and-content
+    a.tab-link
+      | Categoria Profissional
+    .tab-content
+      h1 Local de trabalho
+      table.tables.pdsi-result-table
+        thead
+          tr
+            th[rowspan="2" style="width: 200px;"] Categoria Profissional
+            th[colspan="4" style="border-bottom: 1px solid #ddd;"]
+            th[colspan="7" style="border-bottom: 1px solid #ddd;"] Sede do DSEI
+          tr
+            th[style="border-left: 1px solid #ddd;"] UBSI
             th Polo Base Tipo 1
             th Polo Base Tipo 2
             th CASAI
-        tbody
-          tr
-            td #{hr.ubsi_atual} / #{hr.ubsi_necessaria}
-            td #{hr.polo_base_tipo_1_atual} / #{hr.polo_base_tipo_1_necessaria}
-            td #{hr.polo_base_tipo_2} / #{hr.polo_base_tipo_2_necessaria}
-            td #{hr.casai_atual} / #{hr.casai_necessaria}
-
-      strong.text-centered style="display: block; margin-top: 10px;" Sede do DSEI
-      table
-        thead
-          tr
             th SEAD
             th SELOG
             th SESANE
@@ -30,19 +50,26 @@
             th Gabinete
             th DIASI
         tbody
-          tr
-            td #{hr.sead_atual} / #{hr.sead_necessaria}
-            td #{hr.selog_atual} / #{hr.selog_necessaria}
-            td #{hr.sesane_atual} / #{hr.sesane_necessaria}
-            td #{hr.seofi_atual} / #{hr.sead_necessaria}
-            td #{hr.sgep_atual} / #{hr.sgep_necessaria}
-            td #{hr.gabinete_atual} / #{hr.gabinete_necessaria}
-            td #{hr.diasi_atual} / #{hr.diasi_necessaria}
-    fieldset
-      legend TIPO DE VEÍCULO
-      table
+          - @pdsi.pdsi_human_resources.each do |hr|
+            tr
+              td = hr.human_resource_function.name
+              td = hr.ubsi_atual
+              td = hr.polo_base_tipo_1_atual
+              td = hr.polo_base_tipo_2_atual
+              td = hr.casai_atual
+              td = hr.sead_atual
+              td = hr.selog_atual
+              td = hr.sesane_atual
+              td = hr.seofi_atual
+              td = hr.sgep_atual
+              td = hr.gabinete_atual
+              td = hr.diasi_atual
+
+      h1 Tipo de vínculo
+      table.tables.pdsi-result-table
         thead
           tr
+            th Categoria Profissional
             th SESAI/DSEI
             th Munícípio
             th Estado
@@ -50,11 +77,65 @@
             th Mais Médicos
             th Terceirização
         tbody
-          tr
-            td #{hr.sesai_dsei}
-            td #{hr.municipio}
-            td #{hr.estado}
-            td #{hr.convenio}
-            td #{hr.mais_medicos}
-            td #{hr.terceirizacao}
+          - @pdsi.pdsi_human_resources.each do |hr|
+            tr
+              td = hr.human_resource_function.name
+              td = hr.sesai_dsei
+              td = hr.municipio
+              td = hr.estado
+              td = hr.convenio
+              td = hr.mais_medicos
+              td = hr.terceirizacao
 
+      h1 Quantidade necessária para atender adequadamente o DSEI
+      table.tables.pdsi-result-table
+        thead
+          tr
+            th[rowspan="2" style="width: 200px;"] Categoria Profissional
+            th[colspan="4" style="border-bottom: 1px solid #ddd;"]
+            th[colspan="7" style="border-bottom: 1px solid #ddd;"] Sede do DSEI
+          tr
+            th[style="border-left: 1px solid #ddd;"] UBSI
+            th Polo Base Tipo 1
+            th Polo Base Tipo 2
+            th CASAI
+            th SEAD
+            th SELOG
+            th SESANE
+            th SEOFI
+            th SGEP
+            th Gabinete
+            th DIASI
+        tbody
+          - @pdsi.pdsi_human_resources.each do |hr|
+            tr
+              td = hr.human_resource_function.name
+              td = hr.ubsi_necessaria
+              td = hr.polo_base_tipo_1_necessaria
+              td = hr.polo_base_tipo_2_necessaria
+              td = hr.casai_necessaria
+              td = hr.sead_necessaria
+              td = hr.selog_necessaria
+              td = hr.sesane_necessaria
+              td = hr.sead_necessaria
+              td = hr.sgep_necessaria
+              td = hr.gabinete_necessaria
+              td = hr.diasi_necessaria
+
+      h1 Totais
+      table.tables.pdsi-result-table
+        thead
+          tr
+            th Categoria Profissional
+            th RH Existente
+            th Total de indígenas
+            th Força de Trabalho Necessária
+            th Diferença entre Força de Trabalho Existente e Necessária
+        tbody
+          - @pdsi.pdsi_human_resources.each do |hr|
+            tr
+              td = hr.human_resource_function.name
+              td = hr.actual_sum
+              td = hr.indigenous_sum
+              td = hr.workforce_needed
+              td = hr.actual_sum - hr.workforce_needed

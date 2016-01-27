@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20160126214231) do
 
   # These are extensions that must be enabled in order to support this database
@@ -540,7 +541,7 @@ ActiveRecord::Schema.define(version: 20160126214231) do
     t.integer  "human_resource_function_id"
     t.integer  "ubsi_atual"
     t.integer  "polo_base_tipo_1_atual"
-    t.integer  "polo_base_tipo_2"
+    t.integer  "polo_base_tipo_2_atual"
     t.integer  "casai_atual"
     t.integer  "sead_atual"
     t.integer  "selog_atual"
@@ -568,6 +569,9 @@ ActiveRecord::Schema.define(version: 20160126214231) do
     t.integer  "diasi_necessaria"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.integer  "actual_sum"
+    t.integer  "indigenous_sum"
+    t.integer  "workforce_needed"
   end
 
   add_index "pdsi_human_resources", ["human_resource_function_id"], name: "index_pdsi_human_resources_on_human_resource_function_id", using: :btree

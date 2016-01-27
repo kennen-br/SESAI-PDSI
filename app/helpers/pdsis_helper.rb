@@ -43,4 +43,53 @@ module PdsisHelper
       anexos: '7. Anexos',
     }[section.to_sym]
   end
+
+  def sum_human_resources(pdsi)
+    sum_actual(pdsi)
+    sum_needed(pdsi)
+  end
+
+  private
+
+  def sum_needed(pdsi)
+    needed = pdsi.pdsi_human_resources.select(:id,
+                                              :ubsi_necessaria,
+                                              :polo_base_tipo_1_necessaria,
+                                              :polo_base_tipo_2_necessaria,
+                                              :casai_necessaria,
+                                              :sead_necessaria,
+                                              :selog_necessaria,
+                                              :sesane_necessaria,
+                                              :sead_necessaria,
+                                              :sgep_necessaria,
+                                              :gabinete_necessaria,
+                                              :diasi_necessaria)
+    needed.all.as_json.each do |nd|
+      id = nil
+      nd.slice('id').values.each { |e| id = e }
+      sum = nd.except('id').values.reject(&:nil?).sum
+      PdsiHumanResource.find(id).update_attribute(:workforce_needed, sum)
+    end
+  end
+
+  def sum_actual(pdsi)
+    actual = pdsi.pdsi_human_resources.select(:id,
+                                              :ubsi_atual,
+                                              :polo_base_tipo_1_atual,
+                                              :polo_base_tipo_2_atual,
+                                              :casai_atual,
+                                              :sead_atual,
+                                              :selog_atual,
+                                              :sesane_atual,
+                                              :seofi_atual,
+                                              :sgep_atual,
+                                              :gabinete_atual,
+                                              :diasi_atual)
+    actual.all.as_json.each do |ac|
+      id = nil
+      ac.slice('id').values.each { |e| id = e }
+      sum = ac.except('id').values.reject(&:nil?).sum
+      PdsiHumanResource.find(id).update_attribute(:actual_sum, sum)
+    end
+  end
 end
