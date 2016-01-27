@@ -154,6 +154,21 @@ if InvestmentVillage.count == 0
   ActiveRecord::Base.connection.execute(sql)
 end
 
+# DemographicData Seeds
+if DemographicData.count == 0
+  seed_path = File.join(Rails.root, 'db', 'seeds', 'demographic_data.seed.csv')
+  sql = <<-COPY_PSQL
+    COPY demographic_datas(pdsi_id  , extensao_territorial  , municipio_sede  , endereco  , email , numero_municipios , populacao_indigena  , etnias  , numero_polos_base , numero_sede_polos_base  , numero_ubsi , numero_regioes_de_saude , numero_casais , numero_aldeias  , numero_familias , meios_de_transporte , created_at  , updated_at  , fluvial , rodoviario  , aereo)
+      FROM '#{seed_path}'
+      WITH
+        DELIMITER ','
+        NULL 'null'
+        CSV
+          HEADER
+    COPY_PSQL
+  ActiveRecord::Base.connection.execute(sql)
+end
+
 if UserType.count == 0
   UserType.create!([
     {name: "Administrador"},
