@@ -1,15 +1,27 @@
 - content_for :breadcrumb do
   = breadcrumbs [{ name: '3. Caracterização do DSEI', path: pdsis_path(section: 'caracterizacao-do-dsei')}, { name: '3.2.F - Infraestrutura de saúde - Saneamento', path: nil}]
 
-#infrastructure_sanitation
+= render 'hidden_fields'
 
-  fieldset
-    legend Infraestrutura de saúde - Saneamento
+.vertical-tabs-container
+  .vertical-tabs style="width: 25%;"
+    - @dsei.base_polos.order(:id).each do |base_polo|
+      - link_opt = [{ class: 'vertical-tab' }, {:selected_class => 'is-active'}]
+      = nav_link_to edit_pdsi_path(@pdsi, section: 'infraestrutura-saneamento', base_polo: base_polo), link_opt[0], link_opt[1] do
+        = base_polo.name
+  .vertical-tab-content-container
+    .vertical-tab-content style="display: block;"
+      #infrastructure_sanitation
+        fieldset
+          legend Infraestrutura de saúde - Saneamento
+          - id = params[:base_polo] || @dsei.base_polos.order(:id).first.id
+          - @base_polo = BasePolo.find(id)
 
-    = f.fields_for :infrastructure_sanitations do |is|
-      == render 'pdsis/infraestrutura_saneamento/infrastructure_sanitation_fields', { f: is }
+          = f.fields_for :infrastructure_sanitations, @base_polo.infra_sanitation do |is|
+            == render 'pdsis/infraestrutura_saneamento/infrastructure_sanitation_fields', { f: is }
 
-    .links
-      = link_to_add_association f, :infrastructure_sanitations, class: 'button btn-sm', partial: 'pdsis/infraestrutura_saneamento/infrastructure_sanitation_fields' do
-        = icon 'plus'
-        | Adicionar Aldeia
+          .links
+            = link_to_add_association f, :infrastructure_sanitations, class: 'button btn-sm', partial: 'pdsis/infraestrutura_saneamento/infrastructure_sanitation_fields' do
+              = icon 'plus'
+              | Adicionar Aldeia
+

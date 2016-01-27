@@ -126,9 +126,12 @@ ul.accordion-tabs-minimal
       table.tables.pdsi-result-table
         thead
           tr
+            th[colspan="2" style="border-bottom: 1px solid #ddd;"] Total de indígenas
+            th[colspan="2" style="border-bottom: 1px solid #ddd;"]
+              = @pdsi.demographic_data.populacao_indigena
+          tr
             th Categoria Profissional
             th RH Existente
-            th Total de indígenas
             th Força de Trabalho Necessária
             th Diferença entre Força de Trabalho Existente e Necessária
         tbody
@@ -136,6 +139,5 @@ ul.accordion-tabs-minimal
             tr
               td = hr.human_resource_function.name
               td = hr.actual_sum
-              td = hr.indigenous_sum
               td = hr.workforce_needed
               td = hr.actual_sum - hr.workforce_needed
