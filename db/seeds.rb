@@ -154,21 +154,6 @@ if InvestmentVillage.count == 0
   ActiveRecord::Base.connection.execute(sql)
 end
 
-# DemographicData Seeds
-if DemographicData.count == 0
-  seed_path = File.join(Rails.root, 'db', 'seeds', 'demographic_data.seed.csv')
-  sql = <<-COPY_PSQL
-    COPY demographic_datas(pdsi_id  , extensao_territorial  , municipio_sede  , endereco  , email , numero_municipios , populacao_indigena  , etnias  , numero_polos_base , numero_sede_polos_base  , numero_ubsi , numero_regioes_de_saude , numero_casais , numero_aldeias  , numero_familias , meios_de_transporte , created_at  , updated_at  , fluvial , rodoviario  , aereo)
-      FROM '#{seed_path}'
-      WITH
-        DELIMITER ','
-        NULL 'null'
-        CSV
-          HEADER
-    COPY_PSQL
-  ActiveRecord::Base.connection.execute(sql)
-end
-
 if UserType.count == 0
   UserType.create!([
     {name: "Administrador"},
@@ -474,7 +459,7 @@ end
 if ResultStrategy.count == 0
   seed_path = File.join(Rails.root, 'db', 'seeds', 'result_strategy.seed.csv')
   sql = <<-COPY_PSQL
-    COPY investment_cities(name, result_axis_id)
+    COPY result_strategies(name, result_axis_id, created_at, updated_at)
       FROM '#{seed_path}'
       WITH
         DELIMITER ','
@@ -489,7 +474,7 @@ end
 if Result.count == 0
     seed_path = File.join(Rails.root, 'db', 'seeds', 'result.seed.csv')
     sql = <<-COPY_PSQL
-      COPY investment_cities(result_level_id, result_strategy_id, name, result_text, is_boolean, is_specific, is_percentage, value_global, value_2016, value_2017, value_2018, value_2019, orientacoes_dsei, orientacoes_sistema)
+      COPY results(result_item,not_in,meta_ppa,result_level_id,result_strategy_id,name,result_text,is_boolean,is_specific,is_percentage,value_global,value_2016,value_2017,value_2018,value_2019,orientacoes_dsei,orientacoes_sistema,created_at,updated_at)
         FROM '#{seed_path}'
         WITH
           DELIMITER ','
@@ -633,5 +618,23 @@ if City.count == 0
   COPY_PSQL
   ActiveRecord::Base.connection.execute(sql)
 end
+
+
+# DemographicData Seeds
+if DemographicData.count == 0
+  seed_path = File.join(Rails.root, 'db', 'seeds', 'demographic_data.seed.csv')
+  sql = <<-COPY_PSQL
+    COPY demographic_datas(pdsi_id  , extensao_territorial  , municipio_sede  , endereco  , email , numero_municipios , populacao_indigena  , etnias  , numero_polos_base , numero_sede_polos_base  , numero_ubsi , numero_regioes_de_saude , numero_casais , numero_aldeias  , numero_familias , meios_de_transporte , created_at  , updated_at  , fluvial , rodoviario  , aereo)
+      FROM '#{seed_path}'
+      WITH
+        DELIMITER ','
+        NULL 'null'
+        CSV
+          HEADER
+    COPY_PSQL
+  ActiveRecord::Base.connection.execute(sql)
+end
+
+
 
 puts '------>> Done!.'
