@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160127185818) do
+ActiveRecord::Schema.define(version: 20160126214231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -262,6 +262,7 @@ ActiveRecord::Schema.define(version: 20160127185818) do
     t.boolean  "fluvial"
     t.boolean  "rodoviario"
     t.boolean  "aereo"
+    t.string   "numero_sede_polos_base"
   end
 
   add_index "demographic_datas", ["pdsi_id"], name: "index_demographic_datas_on_pdsi_id", using: :btree
