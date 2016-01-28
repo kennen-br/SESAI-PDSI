@@ -14,7 +14,7 @@ class BudgetForecastsController < ApplicationController
 
   def new_comment
     values = new_comment_params
-    @comment = BudgetForecastComment.create(budget_forecast_id: values['bf_id'], comment: values['comment'], user: current_user)
+    @comment = BudgetForecastComment.create(budget_forecast_id: values['bf_id'], user: current_user, year: values['year'], comment: values['comment'])
     render 'pdsis/projecao_orcamentaria/new_comment', layout: false
   end
 
@@ -23,8 +23,18 @@ class BudgetForecastsController < ApplicationController
     render json: { status: comment.user_saw(current_user) }
   end
 
+  def delete_comment
+    values = delete_comment_params
+    BudgetForecastComment.find(values['id']).destroy
+    render json: { status: true }
+  end
+
   private
     def new_comment_params
-      params.require(:comment).permit(:bf_id, :comment)
+      params.require(:comment).permit(:bf_id, :year, :comment)
+    end
+
+    def delete_comment_params
+      params.require(:comment).permit(:id)
     end
 end

@@ -94,10 +94,11 @@ ActiveRecord::Schema.define(version: 20160124213146) do
   create_table "budget_forecast_comments", force: :cascade do |t|
     t.integer  "budget_forecast_id"
     t.integer  "user_id"
+    t.string   "year",        limit: 4
     t.text     "comment"
-    t.text     "users",              default: "[]"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.text     "users",       default: "[]"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   add_index "budget_forecast_comments", ["budget_forecast_id"], name: "index_budget_forecast_comments_on_budget_forecast_id", using: :btree
