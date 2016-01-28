@@ -15,6 +15,12 @@ h1 Editar usuário
       = f.label :username
       = f.text_field  :username
 
+    .field
+      = f.label :active
+      label.label-switch
+        = f.check_box :active
+        .checkbox
+
     .field.user-type
       = f.label :user_type
       = f.collection_select :user_type_id, UserType.all, :id, :name, prompt: true
@@ -22,12 +28,6 @@ h1 Editar usuário
     .field.user-dsei style=('display: none;' unless [4, 5].include? @user.user_type_id)
       = f.label :dsei_id
       = f.collection_select :dsei_id, Dsei.all.order(:name), :id, :name, prompt: true
-
-    .field
-      = f.label :active
-      label.label-switch
-        = f.check_box :active
-        .checkbox
 
     = f.fields_for :profile do |p|
       fieldset

@@ -25,6 +25,8 @@ class User < ActiveRecord::Base
 
   has_one :pdsi
 
+  has_one :people
+
   belongs_to  :dsei
 
   validates :user_type, presence: true
