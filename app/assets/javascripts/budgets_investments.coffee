@@ -178,7 +178,7 @@ $(document).ready ->
 
   $('.select2').select2({ dropdownAutoWidth : true })
 
-  $('.village-select').select2
+  $('#form-investment .village-select').select2
     dropdownAutoWidth : true
     minimumInputLength: 1
     minimumResultsForSearch: 100

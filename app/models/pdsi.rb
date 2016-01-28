@@ -74,6 +74,11 @@ class Pdsi < ActiveRecord::Base
 
   has_many  :budget_investments
   accepts_nested_attributes_for :budget_investments, reject_if: :all_blank, allow_destroy: true
+  #
+  has_many :people
+  accepts_nested_attributes_for :people, reject_if: :all_blank, allow_destroy: true
+  #
+
 
   has_attached_file :map, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :map, content_type: /\Aimage\/.*\Z/
@@ -116,6 +121,10 @@ class Pdsi < ActiveRecord::Base
 
   def compose_item_5
     resultados_esperados_introducao_5
+  end
+
+  def destinations_types
+    DestinationType.includes(:destinations)
   end
 
   def destinations_with_villages
@@ -204,7 +213,7 @@ class Pdsi < ActiveRecord::Base
     ResultAxis.includes(:result_strategies).find_by_section_name(section_name).result_strategies.each do |strategy|
       return items if strategy.results.blank?
       strategy.results.each do |result|
-        pdsi_results << PdsiResult.new(pdsi: self, result: result, value_2016: result.value_2016, value_2017: result.value_2017, value_2018: result.value_2018, value_2019: result.value_2019)
+        pdsi_results << PdsiResult.new(pdsi: self, result: result, value_2016: result.value_2016, value_2017: result.value_2017, value_2018: result.value_2018, value_2019: result.value_2019, value_global: result.value_global)
       end
     end
 
@@ -312,7 +321,8 @@ class Pdsi < ActiveRecord::Base
     budget_investments_with_values
   end
 
-private
+  private
+
   def compose_item(sample_attr, key, value)
     default = sample(sample_attr)
 

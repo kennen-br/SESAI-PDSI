@@ -14,6 +14,7 @@
   = hidden_field_tag '', results_special_specific_result_path(current_dsei.pdsi), { id: 'result-specific-result-url' }
   = hidden_field_tag '', results_special_specific_update_path(current_dsei.pdsi), { id: 'result-specific-update-url' }
   = hidden_field_tag '', results_special_link_product_dsei_path(current_dsei.pdsi), { id: 'result-link-product-dsei-url' }
+  = hidden_field_tag '', results_special_delete_specific_result_path(current_dsei.pdsi), { id: 'result-delete-specific-result-url'}
 
   = render 'modal_dsei'
 
@@ -65,7 +66,8 @@
               - axis.result_strategies.each do |strategy|
                 .strategy
                   .strategy-title Estratégia #{i}: #{strategy.name}
-
+                  .create-specific-result
+                    .center-button.new-specific-result data-strategy-id="#{strategy.id}" INSERIR NOVO RESULTADO ESPECÍFICO
                   - j = 0
                   - results = @pdsi.pdsi_results_to_section_with_values(axis.section_name)
                   = render 'modal_link', { axis: axis, results: (results + @dsei.specific_pdsi_results) }
@@ -74,7 +76,11 @@
                     .result-container id=("result-#{pdsi_result.result.id}") data-id="#{pdsi_result.id}" data-result-id="#{pdsi_result.result.id}"
                       .result
                         h4 Resultado #{j}
-                        .result-name #{pdsi_result.result.name}
+                        - if !pdsi_result.result.is_boolean
+                          = text_field_tag "global_#{pdsi_result.id}", pdsi_result.send("value_global"), { class: 'global-value-cs', data: { field: "value_global", limit: pdsi_result.result.send("value_global"), result_id: pdsi_result.id }}
+                          .result-name #{pdsi_result.editable_value_global}
+                        - else
+                          .result-name #{pdsi_result.result.name}
                         .show-more
                           span.more style="display: none;"
                             = icon 'chevron-up'
@@ -83,6 +89,7 @@
                             = icon 'chevron-down'
                             | &nbsp;Ver Mais
                         .helpers
+                          .pointer.show-default-values default-values-result-id="#{pdsi_result.id}" Restaurar valores de referência
                           .dsei-false-result data-result-id="#{pdsi_result.result.id}" data-dsei-id="#{current_dsei.id}"
                             = icon (pdsi_result.result.dsei_not_apply?(current_dsei) ? 'check-square' : 'square')
                             | não se aplica ao DSEI
@@ -105,7 +112,7 @@
                                     - checked = pdsi_result.send("value_#{year}") == 0 ? false : true
                                     = check_box_tag '', '1', checked, { data: { field: "value_#{year}" }}
                                 -else
-                                  = text_field_tag '', pdsi_result.send("value_#{year}"), { class: 'result-field colored-border', data: { field: "value_#{year}", limit: pdsi_result.result.send("value_#{year}") }}
+                                  = text_field_tag "data_value_#{pdsi_result.id}_#{year}", pdsi_result.send("value_#{year}"), { class: 'result-field colored-border', data: { field: "value_#{year}", limit: pdsi_result.result.send("value_#{year}") }}
                                   span
                                     == pdsi_result.editable_value year
                         .plano-anual
@@ -131,7 +138,7 @@
                             table.tables.responsability-result.body
                               tbody
                                 tr
-                                  td = text_area_tag '', pdsi_result.result.name,  class: 'product-name colored-border', data: { field: 'name', type: 'Resultado' }, disabled: "disabled"
+                                  td = text_area_tag "textfield_for_2016_#{pdsi_result.id}", pdsi_result.value_global_text(pdsi_result.send("value_2016")),  class: 'product-name colored-border', data: { field: 'name', type: 'Resultado', result_text: pdsi_result.result.name }, disabled: "disabled"
                                   td = text_field_tag '', responsability.initial_date? ? responsability.initial_date.strftime('%d/%m/%y') : '', placeholder: '01/01/2016', class: 'product-date date-field colored-border', data: { field: 'initial_date', type: 'Resultado' }
                                   td = text_field_tag '', responsability.deadline? ? responsability.deadline.strftime('%d/%m/%y') : '', placeholder: '31/12/2016', class: 'product-date date-field colored-border', data: { field: 'deadline', type: 'Resultado' }
                                   td
@@ -191,13 +198,11 @@
                                 | Fechar
 
                   .specific-results-block
-                    - @dsei.specific_pdsi_results.each do |pdsi_result|
-                      = render 'specific_result', { pdsi_result: pdsi_result }
-
-                  .result-container
-                    .result.create-specific-result
-                      h4
-                        = text_field_tag '', 'Inserir resultado específico do DSEI', data: { original: 'Inserir resultado específico do DSEI' }
-                      .result-name
-                        = text_area_tag '', 'Descreva o resultado', data: { original: 'Descreva o resultado' }
-                      .new-specific-result.colored-font data-strategy-id="#{strategy.id}" NOVO
+                    .specific-axis id="specific_block_#{strategy.id}"
+                      - @dsei.specific_pdsi_results.each do |pdsi_result|
+                        - if pdsi_result.result.result_strategy_id == axis.id
+                          - j = j + 1
+                          = render 'specific_result', { pdsi_result: pdsi_result, j: j }
+                      = hidden_field_tag "j_#{strategy.id}", j+1
+                  .create-specific-result
+                    .center-button.new-specific-result data-strategy-id="#{strategy.id}" INSERIR NOVO RESULTADO ESPECÍFICO

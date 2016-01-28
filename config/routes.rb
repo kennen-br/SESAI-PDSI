@@ -33,6 +33,14 @@ Rails.application.routes.draw do
          to: 'pdsis#new_budget_forecast_by_cost',
          as: :new_budget_forecast_by_cost
 
+    post '/:id/alterar/projecao-orcamentaria/novo-comentario',
+         to: 'budget_forecasts#new_comment',
+         as: :budget_forecast_new_comment
+
+    post '/:id/alterar/projecao-orcamentaria/ver-comentario',
+         to: 'budget_forecasts#see_comment',
+         as: :budget_forecast_see_comment
+
     post '/:id/alterar/projecao-orcamentaria/update_cost_name',
          to: 'pdsis#update_cost_name',
          as: :update_cost_name
@@ -107,6 +115,9 @@ Rails.application.routes.draw do
     post '/:id/resultados-esperados/resultado-especifico/atualizar',
          to: 'results_special#specific_update', as: :results_special_specific_update
 
+    post '/:id/resultados-esperados/resultado-especifico/deletar',
+         to: 'results_special#delete_specific_result', as: :results_special_delete_specific_result
+
     post '/:id/resultados-esperados/ordenar-produtos',
          to: 'results_special#products_order', as: :results_special_products_order
 
@@ -129,6 +140,9 @@ Rails.application.routes.draw do
     get '/',                        to: 'text_templates#index',   as: :text_templates
     patch '/:id/alterar/:section',  to: 'text_templates#update',  as: :text_template
     get '/:id/alterar/:section',    to: 'text_templates#edit',    as: :edit_text_template
+    get '/introducao-sesai',        to: 'text_templates#introducao_sesai', as: :introducao_sesai
+    get '/analise-situacional-sesai', to: 'text_templates#analise_situacional_sesai', as: :analise_situacional_sesai
+    get '/processo-de-construcao-sesai', to: 'text_templates#processo_de_construcao_sesai', as: :processo_de_construcao_sesai
   end
 
   devise_for :users, path: '', path_names: { sign_in: 'entrar',
@@ -152,6 +166,7 @@ Rails.application.routes.draw do
 
   scope '/locations' do
     get '/villages', to: 'locations#villages'
+    get '/cities', to: 'locations#cities'
   end
 
   root 'users#home'

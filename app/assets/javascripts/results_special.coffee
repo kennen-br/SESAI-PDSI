@@ -71,7 +71,16 @@ $(document).ready ->
 
     $('.carousel-list .slider a img').hover -> $(this).next().toggle( "visible" );
 
-
+    # RESET TO DEFAULT VALUES
+    $('.show-default-values').click ->
+      current_id = $(this).attr("default-values-result-id")
+      for year in [2016..2019]
+        if $("#data_value_#{current_id}_#{year}").val() != $("#data_value_#{current_id}_#{year}").attr("data-limit")
+          $("#data_value_#{current_id}_#{year}").val($("#data_value_#{current_id}_#{year}").attr("data-limit"))
+          $("#data_value_#{current_id}_#{year}").change()
+      if $("#global_#{current_id}").val() !=  $("#global_#{current_id}").attr("data-limit")
+        $("#global_#{current_id}").val($("#global_#{current_id}").attr("data-limit"))
+        $("#global_#{current_id}").change()
 
     # LINK PRODUCT TO ANOTHER DSEI
     $('.modal.link-product-dsei .dsei-list li', $page).click ->
@@ -142,6 +151,7 @@ $(document).ready ->
       params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
 
       params['specific_result']['field']     = $this.data('field')
+      console.log $this.data('field')
       params['specific_result']['value']     = $this.val()
       params['specific_result']['result_id'] = $this.parents('.specific-result:eq(0)').data('resultId')
 
@@ -176,24 +186,19 @@ $(document).ready ->
       return
     $('.strategy .create-specific-result .new-specific-result ', $page).click ->
       $this = $(this)
-      $name = $this.parent().find('h4 :input')
-      $text = $this.parent().find('.result-name :input')
-
       strategy_id = $this.data('strategyId')
-
-      if $name.val() == $name.data('original')
-        toastr.error 'Nome do resultado em branco.'
-        return false
-
-      if $text.val() == $text.data('original')
-        toastr.error 'Texto do resultado em branco.'
-        return false
+      j_value = $("#j_#{strategy_id}").last().val()
+      $("#j_#{strategy_id}").val(parseInt(j_value)+1)
+      name = "Descreva o resultado específico do DSEI [#{parseInt(Math.random()*1000000)}]"
+      text = "Descreva o resultado "
 
       params = { 'specific_result' : {}}
       params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
-
-      params['specific_result']['name']     = $name.val()
-      params['specific_result']['text']     = $text.val()
+      #RESULT NUMBER PARAM
+      params['specific_result']['result_number'] = j_value
+      #SPECIFIC RESULT PARAMS (OLD)
+      params['specific_result']['name']     = name
+      params['specific_result']['text']     = text
       params['specific_result']['strategy'] = strategy_id
 
       startLoading()
@@ -202,13 +207,56 @@ $(document).ready ->
       $.post url, params, (data) ->
         stopLoading()
         id = $(data).attr 'id'
-        $('.specific-results-block', $page).append(data)
+        $("#specific_block_#{strategy_id}", $page).append(data)
         toastr.success 'Resultado específico adicionado.'
-        $name.val($name.data('original'))
-        $text.val($text.data('original'))
         startSortable $(".specific-results-block ##{id}").find('.product-list'), 'PRODUTO'
         return
       return
+
+    # RESULT DESCRIPTION TEXT CHANGE
+    $('.strategy', $page).on 'change', '.specific-result-text', (e) ->
+      # MIRROR FROM SPECIFIC RESULT VALUE CHANGES
+      $this = $(this)
+
+      params = { 'specific_result' : {}}
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+
+      params['specific_result']['field']     = $this.data('field')
+      params['specific_result']['value']     = $this.val()
+      params['specific_result']['result_id'] = $this.parents('.specific-result:eq(0)').data('resultId')
+
+      startLoading()
+
+      url = $('#result-specific-update-url', $page).val()
+      $.post url, params, (data) ->
+        stopLoading()
+        flashField $this
+        toastr.success 'Informação atualizada.'
+        return
+      return
+
+    # DELETE SPECIFIC RESULT
+    $('.strategy', $page).on 'click', '.delete-result', (e) ->
+      result_id = $(this).attr('data-id')
+
+      params = { 'specific_result' : {}}
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+      #RESULT NUMBER PARAM
+      params['specific_result']['id'] = result_id
+
+      startLoading()
+
+      url = $('#result-delete-specific-result-url', $page).val()
+      $.post url, params, (data) ->
+        stopLoading()
+        if data.status
+          $("#result-#{result_id}").remove()
+          toastr.success 'Resultado específico deletado com sucesso!'
+        else
+          toastr.error 'Não foi possível deletar resultado específico.'
+        return
+      return
+
     # LINK PRODUCT TO ANOTHER RESULT
     $('.strategy .modal.link-product .results-list li', $page).click ->
       $this = $(this)
@@ -599,7 +647,6 @@ $(document).ready ->
         return
 
       $field.on 'change', ->
-
         if $(this).val() < $(this).data('limit')
           toastr.error "Valor não pode ser menor do que #{$(this).data('limit')}."
           $(this).val($(this).data('limit')).focus()
@@ -617,6 +664,45 @@ $(document).ready ->
           toastr.success 'Informação atualizada.'
           if field == 'value_2019'
             $field.parents('.result-container:eq(0)').find('> .result .result-name span.value').text(new_value)
+          if field == 'value_2016'
+            result_text = $("#textfield_for_2016_#{result_id}").attr('data-result-text')
+            console.log new_value
+            result_text = result_text.replace(/\[VALUE\]/, new_value.toString())
+            $("#textfield_for_2016_#{result_id}").val(result_text)
+          return
+        , (data) ->
+          return
+        return
+      return
+
+    # POST A FIELD CHANGE (VALUE_GLOBAL)
+    $('.global-value-cs').each ->
+      $field = $(this)
+
+      field     = $field.data 'field'
+      result_id = $field.data 'result-id'
+      value     = $field.val()
+
+      $field.on 'keyup', (e) ->
+        e.stopPropagation()
+        return
+
+      $field.on 'change', ->
+        if $(this).val() < $(this).data('limit')
+          toastr.error "Valor não pode ser menor do que #{$(this).data('limit')}."
+          $(this).val($(this).data('limit')).focus()
+          flashField $(this)
+          return false
+
+        new_value = $(this).val()
+
+        params = {}
+        params['pdsi_results_attributes'] = [{}]
+        params['pdsi_results_attributes'][0]['id']  = result_id
+        params['pdsi_results_attributes'][0][field] = new_value
+
+        runAjaxRequest $field, params, (data) ->
+          toastr.success 'Informação atualizada.'
           return
         , (data) ->
           return
