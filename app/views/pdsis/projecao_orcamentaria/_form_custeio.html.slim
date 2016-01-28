@@ -2,6 +2,7 @@ h2.section-title Custeio
 
 = hidden_field_tag '', budget_forecast_new_comment_path(current_dsei.pdsi), { id: 'bf-new-comment-url' }
 = hidden_field_tag '', budget_forecast_see_comment_path(current_dsei.pdsi), { id: 'bf-see-comment-url' }
+= hidden_field_tag '', budget_forecast_delete_comment_path(current_dsei.pdsi), { id: 'bf-delete-comment-url' }
 
 .carousel-nav#form-custeio
   .carousel-arrows
@@ -67,11 +68,11 @@ h2.section-title Custeio
             = f.fields_for :budget_forecasts, @pdsi.budget_forecasts_with_values_no_child(@pdsi.id) do |bf|
               - if bf.object.cost.cost_type == 3 && bf.object.cost.parent_id.blank?
                 tr.budget_forecast data-category=("#{bf.object.cost.id}") data-index=("#{year}-#{bf.object.cost.id}") id=("tr-#{year}-#{bf.object.cost.id}")
-                    td = bf.object.cost.name
+                    td = "#{bf.object.id} #{bf.object.cost.name}"
 
                     td.budget_forecast_actions_container
-                      = render 'pdsis/projecao_orcamentaria/budget_forecasts_actions', { bf: bf.object }
-                      = render 'pdsis/projecao_orcamentaria/modal_comments', { bf: bf.object }
+                      = render 'pdsis/projecao_orcamentaria/budget_forecasts_actions', { bf: bf.object, year: year }
+                      = render 'pdsis/projecao_orcamentaria/modal_comments', { bf: bf.object, year: year }
 
                     td
                       = bf.hidden_field "initial_forecast_#{year}", value: (number_with_precision(eval("bf.object.initial_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0), value_index: "#{bf.object.cost.id}", id: "hidden-#{year}-#{bf.object.cost.id}"
@@ -132,8 +133,8 @@ h2.section-title Custeio
 
                         - if bf_child_s.object.cost.cost_type == 3
                           td.budget_forecast_actions_container
-                            = render 'pdsis/projecao_orcamentaria/budget_forecasts_actions', { bf: bf_child_s.object }
-                            = render 'pdsis/projecao_orcamentaria/modal_comments', { bf: bf_child_s.object }
+                            = render 'pdsis/projecao_orcamentaria/budget_forecasts_actions', { bf: bf_child_s.object, year: year }
+                            = render 'pdsis/projecao_orcamentaria/modal_comments', { bf: bf_child_s.object, year: year }
                         - else
                           td
                             = ""
@@ -153,8 +154,8 @@ h2.section-title Custeio
                     tr.budget_forecast.structure data-index=("#{year}-#{bf_child.object.cost.parent_id}") id=("tr-#{year}-#{bf_child.object.cost.id}")
                       td = bf_child.object.cost.name
                       td.budget_forecast_actions_container
-                        = render 'pdsis/projecao_orcamentaria/budget_forecasts_actions', { bf: bf_child.object }
-                        = render 'pdsis/projecao_orcamentaria/modal_comments', { bf: bf_child.object }
+                        = render 'pdsis/projecao_orcamentaria/budget_forecasts_actions', { bf: bf_child.object, year: year }
+                        = render 'pdsis/projecao_orcamentaria/modal_comments', { bf: bf_child.object, year: year }
                       td
                         /!
                           = bf_child.hidden_field "initial_forecast_#{year}", value: (number_with_precision(eval("bf_child.object.initial_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0), value_index: "#{bf_child.object.cost.id}", class: "", id: "hidden-#{year}-#{bf_child.object.cost.id}"

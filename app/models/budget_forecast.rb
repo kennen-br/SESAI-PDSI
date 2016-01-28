@@ -9,6 +9,10 @@ class BudgetForecast < ActiveRecord::Base
     where(cost_id: id)
   end
 
+  def comments_by_year(year)
+    self.budget_forecast_comments.where(year: year)
+  end
+
   def last_comment
     budget_forecast_comments.last
   end

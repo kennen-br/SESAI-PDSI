@@ -69,12 +69,12 @@ calculate_parent_total = (parent_id) ->
 
 # SEND COMMENT
 $(document).on 'click', '.budget_forecast .modal.comments .send-comment', ->
-  debugger
   $this  = $(this)
   $field = $this.prev()
   $modal = $this.parents('.modal-inner:eq(0)')
 
   id = $this.data('id')
+  year = $this.data('year')
   comment = $field.val()
 
   if comment.trim() == ''
@@ -85,14 +85,13 @@ $(document).on 'click', '.budget_forecast .modal.comments .send-comment', ->
   params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
 
   params['comment']['bf_id'] = id
+  params['comment']['year'] = year
   params['comment']['comment'] = comment
 
   startLoading()
 
   url = $('#bf-new-comment-url').val()
-  console.log 'teste 1'
   $.post url, params, (data) ->
-    console.log 'teste 2'
     stopLoading()
     $field.val('')
 
@@ -101,6 +100,34 @@ $(document).on 'click', '.budget_forecast .modal.comments .send-comment', ->
     $modal.find('.comments-list table tbody').append(data)
 
     toastr.success 'Comentário enviado.'
+    return
+
+  return
+
+# DELETE COMMENT
+$(document).on 'click', '.budget_forecast .modal.comments .delete-comment', ->
+  $this  = $(this)
+  $field = $this.prev()
+  $modal = $this.parents('.modal-inner:eq(0)')
+
+  id = $this.data('id')
+
+  params = { 'comment' : {}}
+  params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+
+  params['comment']['id'] = id
+
+  startLoading()
+
+  url = $('#bf-delete-comment-url').val()
+  $.post url, params, (data) ->
+    stopLoading()
+
+    $modal.find('.comments-list .comment.empty').remove()
+    $modal.find('.comments-list table').removeClass('hidden')
+    $modal.find('.comments-list table tbody tr.comment[data-id="'+id+'"]').remove()
+
+    toastr.success 'Comentário deletado.'
     return
 
   return
