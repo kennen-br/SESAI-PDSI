@@ -1,6 +1,10 @@
 - content_for :breadcrumb do
   = breadcrumbs [{ name: '6. Projeção orçamentária', path: pdsis_path(section: 'projecao-orcamentaria')}, { name: "Investimentos", path: nil}]
 
+= hidden_field_tag '', budget_investment_new_comment_path(current_dsei.pdsi), { id: 'budget-new-comment-url' }
+= hidden_field_tag '', budget_investment_see_comment_path(current_dsei.pdsi), { id: 'budget-see-comment-url' }
+= hidden_field_tag '', budget_investment_delete_comment_path(current_dsei.pdsi), { id: 'budget-delete-comment-url' }
+
 h2.section-title Investimentos
 .carousel-nav
   .carousel-arrows
@@ -29,13 +33,14 @@ h2.section-title Investimentos
               th
               th
               th
+              th style="width: 25px;"
               th QUANTIDADE ESTIMADA PARA #{year}
               th VALOR UNITÁRIO ESTIMADO (R$ em #{year})
               th PREVISÃO ORÇAMENTÁRIA (R$ em #{year})
           tbody
             = f.fields_for :budget_investments, @pdsi.budget_investments_with_values do |b|
               - if b.object.investment.parent_id.blank?
-                tr.category data-category=("#{b.object.investment_id}-#{year}")
+                tr.budget.category data-category=("#{b.object.investment_id}-#{year}")
                   td.action colspan=2
                     = b.object.investment.name
                   td
@@ -47,11 +52,12 @@ h2.section-title Investimentos
                   td
                   td
                   td
+                  td
                     = b.number_field "forecast_amount_#{year}",
                     id: "gc#{b.object.id}y#{year}"
               - elsif b.object.investment.parent_id === 1
                 - item_id = "#{b.object.object_id}"
-                tr.item data-category=("c#{b.object.investment.parent_id}-#{year}") id=("i#{item_id}")
+                tr.budget.item data-category=("c#{b.object.investment.parent_id}-#{year}") id=("i#{item_id}")
                   td.action
                     = link_to_add_association b, :investment_items,  data: { "association-insertion-node": "#i#{item_id}", "association-insertion-method": 'after' }, render_options: {locals: { year: year }}, class: "qc#{b.object.id}y#{year}" do
                       = icon 'plus'
@@ -60,6 +66,9 @@ h2.section-title Investimentos
                   td
                   td
                   td
+                  td.budget_actions_container
+                    = render 'pdsis/projecao_orcamentaria/actions', { budget: b.object, year: year }
+                    = render 'pdsis/projecao_orcamentaria/modal_comments', { budget: b.object, year: year }
                   td
                     = b.text_field "quantity_#{year}", id: "qc#{b.object.id}y#{year}"
                   td
@@ -72,13 +81,16 @@ h2.section-title Investimentos
 
               - elsif b.object.investment.parent_id === 2..3
                 - item_id = "#{b.object.object_id}"
-                tr.item data-category=("c#{b.object.investment.parent_id}-#{year}") id=("i#{item_id}")
+                tr.budget.item data-category=("c#{b.object.investment.parent_id}-#{year}") id=("i#{item_id}")
                   td.action
                   td
                     = b.object.investment.name
                   td
                   td
                   td
+                  td.budget_actions_container
+                    = render 'pdsis/projecao_orcamentaria/actions', { budget: b.object, year: year }
+                    = render 'pdsis/projecao_orcamentaria/modal_comments', { budget: b.object, year: year }
                   td
                     = b.text_field "quantity_#{year}", id: "qc#{b.object.id}y#{year}",
                     class: "group2-input qc#{b.object.id}y#{year}"
