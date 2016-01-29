@@ -68,7 +68,7 @@ calculate_parent_total = (parent_id) ->
   return
 
 # SEND COMMENT
-$(document).on 'click', '.budget_forecast .modal.comments .send-comment', ->
+$(document).on 'click', '.budget .modal.comments .send-comment', ->
   $this  = $(this)
   $field = $this.prev()
   $modal = $this.parents('.modal-inner:eq(0)')
@@ -84,13 +84,13 @@ $(document).on 'click', '.budget_forecast .modal.comments .send-comment', ->
   params = { 'comment' : {}}
   params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
 
-  params['comment']['bf_id'] = id
+  params['comment']['budget_id'] = id
   params['comment']['year'] = year
   params['comment']['comment'] = comment
 
   startLoading()
 
-  url = $('#bf-new-comment-url').val()
+  url = $('#budget-new-comment-url').val()
   $.post url, params, (data) ->
     stopLoading()
     $field.val('')
@@ -105,7 +105,7 @@ $(document).on 'click', '.budget_forecast .modal.comments .send-comment', ->
   return
 
 # DELETE COMMENT
-$(document).on 'click', '.budget_forecast .modal.comments .delete-comment', ->
+$(document).on 'click', '.budget .modal.comments .delete-comment', ->
   $this  = $(this)
   $field = $this.prev()
   $modal = $this.parents('.modal-inner:eq(0)')
@@ -119,7 +119,7 @@ $(document).on 'click', '.budget_forecast .modal.comments .delete-comment', ->
 
   startLoading()
 
-  url = $('#bf-delete-comment-url').val()
+  url = $('#budget-delete-comment-url').val()
   $.post url, params, (data) ->
     stopLoading()
 
@@ -399,26 +399,26 @@ $(document).ready ->
     return
 
   # OPEN MODAL MODAL WITH COMMENTS
-  $(document).on 'click', '.budget-table .budget_forecasts-actions .toggle-comments', ->
+  $(document).on 'click', '.budget-table .budget-actions .toggle-comments', ->
     $this = $(this)
-    $bf = $this.parents('tr.budget_forecast:eq(0)')
-    $modal = $bf.find('> td .modal.comments')
+    $budget = $this.parents('tr.budget:eq(0)')
+    $modal = $budget.find('> td .modal.comments')
 
     $modal.find('.modal-state').click()
 
-    if $bf.find('.budget_forecasts-actions .unread-comment').length > 0
-      comment_id = $bf.find('.budget_forecasts-actions .unread-comment').data('commentId')
-      readComment(comment_id, $bf.find('.budget_forecasts-actions .unread-comment'))
+    if $budget.find('.budget-actions .unread-comment').length > 0
+      comment_id = $budget.find('.budget-actions .unread-comment').data('commentId')
+      readComment(comment_id, $budget.find('.budget-actions .unread-comment'))
 
     return
 
-  # MARK A COMMENTAS READ
+  # MARK A COMMENT AS READ
   readComment = (comment_id, $comment) ->
     params = {}
 
     params['comment'] = comment_id
     params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
-    url = $('#bf-see-comment-url').val()
+    url = $('#budget-see-comment-url').val()
 
     $.post url, params, (data) ->
       $comment.remove() if data.status

@@ -1,16 +1,16 @@
 .modal.comments
-  input.modal-state type="checkbox" id=("comments-#{bf.id}-#{year}")
+  input.modal-state type="checkbox" id=("comments-#{budget.id}-#{year}")
   .modal-window
     .modal-inner
-      label.modal-close for=("comments-#{bf.id}-#{year}")
+      label.modal-close for=("comments-#{budget.id}-#{year}")
       h1
         | Comentários
       .comments-list.colored-border
-        - if bf.comments_by_year(year).blank?
+        - if budget.comments_by_year(year).blank?
           .comment.colored-border.empty
             | Nenhum comentário
 
-        table.tables class=('hidden' if bf.comments_by_year(year).blank?)
+        table.tables class=('hidden' if budget.comments_by_year(year).blank?)
           thead
             tr
               th Data
@@ -18,8 +18,8 @@
               th Comentário
               th style="width:2em" = ""
           tbody
-            - bf.comments_by_year(year).each do |comment|
+            - budget.comments_by_year(year).each do |comment|
               = render 'pdsis/projecao_orcamentaria/comment', { comment: comment }
       .new-comment
         = text_area_tag '', '', { placeholder: 'Insira seu comentário' }
-        a.send-comment.button.colored-border.colored-bg data-id="#{bf.id}" data-year="#{year}" Enviar
+        a.send-comment.button.colored-border.colored-bg data-id="#{budget.id}" data-year="#{year}" Enviar

@@ -223,11 +223,11 @@ fieldset.expected-result {
   @include span-columns(6);
 }
 
-.budget_forecast_actions_container{
+.budget_actions_container{
   position: relative
 }
 
-.budget_forecasts-actions{
+.budget-actions{
   @include position(absolute, 0 null null null);
 
   font-size : 30px;
