@@ -1,21 +1,21 @@
 .field
   = f.label :extensao_territorial
-  = f.text_field :extensao_territorial,:readonly => true
+  = f.text_field :extensao_territorial, readonly: true
 .field
   = f.label :municipio_sede
-  = f.text_field :municipio_sede,:readonly => true
+  = f.text_field :municipio_sede, readonly: true
 .field
   = f.label :endereco
-  = f.text_field :endereco,:readonly => true
+  = f.text_field :endereco, readonly: true
 .field
   = f.label :email
-  = f.text_field :email,:readonly => true
+  = f.text_field :email, readonly: true
 .field
   = f.label :numero_municipios
-  = f.number_field :numero_municipios,:readonly => true
+  = f.number_field :numero_municipios, readonly: true
 .field
   = f.label :populacao_indigena
-  = f.number_field :populacao_indigena,:readonly => true
+  = f.number_field :populacao_indigena, readonly: true
 
 fieldset
 
@@ -27,7 +27,7 @@ fieldset
 
 .field
   = f.label :numero_polos_base
-  = f.number_field :numero_polos_base
+  = f.number_field :numero_polos_base, readonly: true
 .field
   = f.label 'Nº de Sede de Polos Base'
   = f.number_field :headquarters
