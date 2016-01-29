@@ -23,7 +23,9 @@ class Dsei < ActiveRecord::Base
   end
 
   def base_polos_with_physiographic_data(_include_polo_base = true)
-    base_polos.includes(villages: [physiographic_data: [:physiographic_data_languages]])
+    base_polos.includes(villages:
+      [physiographic_data: [:physiographic_data_languages,
+                            :physiographic_data_ethnicities]])
   end
 
   def base_polos_with_service_networks
