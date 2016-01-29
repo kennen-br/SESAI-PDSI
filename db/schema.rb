@@ -356,11 +356,10 @@ ActiveRecord::Schema.define(version: 20160129013840) do
   add_index "espinita_audits", ["user_type", "user_id"], name: "index_espinita_audits_on_user_type_and_user_id", using: :btree
 
   create_table "ethnicities", force: :cascade do |t|
-    t.string   "name",                null: false
-    t.integer  "sesai_id",            null: false
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-    t.integer  "demographic_data_id"
+    t.string   "name",       null: false
+    t.integer  "sesai_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "ethnicities_villages", force: :cascade do |t|
@@ -370,26 +369,6 @@ ActiveRecord::Schema.define(version: 20160129013840) do
 
   add_index "ethnicities_villages", ["ethnicity_id"], name: "index_ethnicities_villages_on_ethnicity_id", using: :btree
   add_index "ethnicities_villages", ["village_id"], name: "index_ethnicities_villages_on_village_id", using: :btree
-
-  create_table "ethnicity_villages", force: :cascade do |t|
-    t.integer  "ethnicity_id"
-    t.integer  "village_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "ethnicity_villages", ["ethnicity_id"], name: "index_ethnicity_villages_on_ethnicity_id", using: :btree
-  add_index "ethnicity_villages", ["village_id"], name: "index_ethnicity_villages_on_village_id", using: :btree
-
-  create_table "etnias", force: :cascade do |t|
-    t.integer  "demographic_data_id"
-    t.string   "name"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-  end
-
-  add_index "etnias", ["demographic_data_id", "name"], name: "index_etnias_on_demographic_data_id_and_name", unique: true, using: :btree
-  add_index "etnias", ["demographic_data_id"], name: "index_etnias_on_demographic_data_id", using: :btree
 
   create_table "false_results", force: :cascade do |t|
     t.integer  "dsei_id"
@@ -998,9 +977,6 @@ ActiveRecord::Schema.define(version: 20160129013840) do
   add_foreign_key "emsis", "pdsis"
   add_foreign_key "ethnicities_villages", "ethnicities"
   add_foreign_key "ethnicities_villages", "villages"
-  add_foreign_key "ethnicity_villages", "ethnicities"
-  add_foreign_key "ethnicity_villages", "villages"
-  add_foreign_key "etnias", "demographic_datas"
   add_foreign_key "false_results", "dseis"
   add_foreign_key "false_results", "results"
   add_foreign_key "health_establishments", "service_network_cities"
