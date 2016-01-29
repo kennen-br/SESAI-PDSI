@@ -58,7 +58,7 @@ $(document).on 'click', '.add_person', (e) ->
 
 $(document).ready ->
   $('#workforce').click ->
-    $('#workforce-show').click()
+    $('#workforce-show').click().parent().css({ 'border': "none"  })
     return
 
   #$(".actions").sticky({topSpacing:0, className:"actions-fixed"});

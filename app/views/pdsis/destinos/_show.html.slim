@@ -1,71 +1,58 @@
-.carousel-nav
-  .carousel-arrows
-    a.pull-left href="javascript:void(0)"
-      = icon 'angle-left'
-    a.pull-right href="javascript:void(0)"
-      = icon 'angle-right'
-  .carousel-list
-    .slider
-      a.is-active href="javascript:void(0)" data-index="0"
-        | UBSI
-      a href="javascript:void(0)" data-index="1"
-        | Polo Base
-      a href="javascript:void(0)" data-index="2"
-        | Casai
-      a href="javascript:void(0)" data-index="3"
-        | Média e Alta complexidade
-  .carousel-items
-    - @pdsi.destinations_types.each_with_index do |destination_type, i|
-      .item-content.animated data-index="#{i}" class=('is-active' if i == 0)
-        table.tables.pdsi-result-table
-          thead
-            tr
-              th[colspan="8" style="border-bottom: 1px solid #ddd; text-align: center;"]
-                = destination_type.name
-            tr
-              th[rowspan="2"] Aldeia de origem
-              th[rowspan="2"] Muncípio
-              th[rowspan="2"] Destino
-              th[rowspan="2"] Município
-              th[colspan="3" style="border-bottom: 1px solid #ddd;"] Meio de transporte
-              th[rowspan="2"] Total da Viagem
-            tr
-              th[style="border-left: 1px solid #ddd; text-align: center;"] Fluvial
-              th Rodoviário
-              th Aéreo
-          tbody
-            - destination_type.destinations.each do |destination|
+ul.accordion-tabs-minimal
+  - @pdsi.destinations_types.each_with_index do |destination_type, i|
+    li.tab-header-and-content
+      a.tab-link[id="destination-show-#{i}"]
+        = destination_type.name
+      .tab-content
+          table.tables.pdsi-result-table
+            thead
               tr
-                td
-                  = destination.origin_village.name
-                td
-                  = destination.origin_village.city_name
+                th[colspan="8" style="border-bottom: 1px solid #ddd; text-align: center;"]
+                  = destination_type.name
+              tr
+                th[rowspan="2"] Aldeia de origem
+                th[rowspan="2"] Muncípio
+                th[rowspan="2"] Destino
+                th[rowspan="2"] Município
+                th[colspan="3" style="border-bottom: 1px solid #ddd;"] Meio de transporte
+                th[rowspan="2"] Total da Viagem
+              tr
+                th[style="border-left: 1px solid #ddd; text-align: center;"] Fluvial
+                th Rodoviário
+                th Aéreo
+            tbody
+              - destination_type.destinations.each do |destination|
+                tr
+                  td
+                    = destination.origin_village.name
+                  td
+                    = destination.origin_village.city_name
 
-                - if destination.destination_type_id == 1
+                  - if destination.destination_type_id == 1
+                    td
+                      = destination.destination_village.name
+                    td
+                      = destination.destination_village.city_name
+                  - if  destination.destination_type_id == 2
+                    td
+                      = @dsei.base_polos.find(destination.city_name).name
+                    td
+                      = @dsei.base_polos.find(destination.city_name).city_name
+                  - if  destination.destination_type_id == 3
+                    td
+                      = Casai.find(destination.city_name).name
+                    td
+                      = Casai.find(destination.city_name).city_name
+                  - if  destination.destination_type_id == 4
+                    td
+                      = destination.destination_class
+                    td
+                      = destination.city_name
                   td
-                    = destination.destination_village.name
+                    = destination.boat_time
                   td
-                    = destination.destination_village.city_name
-                - if  destination.destination_type_id == 2
+                    = destination.road_time
                   td
-                    = @dsei.base_polos.find(destination.city_name).name
+                    = destination.fly_time
                   td
-                    = @dsei.base_polos.find(destination.city_name).city_name
-                - if  destination.destination_type_id == 3
-                  td
-                    = Casai.find(destination.city_name).name
-                  td
-                    = Casai.find(destination.city_name).city_name
-                - if  destination.destination_type_id == 4
-                  td
-                    = destination.destination_class
-                  td
-                    = destination.city_name
-                td
-                  = destination.boat_time
-                td
-                  = destination.road_time
-                td
-                  = destination.fly_time
-                td
-                  = destination.total_time
+                    = destination.total_time
