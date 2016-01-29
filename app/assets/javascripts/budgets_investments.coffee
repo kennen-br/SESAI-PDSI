@@ -131,7 +131,7 @@ $(document).ready ->
     quantity_plus(class_item)
 
   # Remove items
-  $(document).on 'click', '#form-investment input:checkbox', ->
+  $(document).on 'click', '#form-investment input.check_box-destroy', ->
     class_item = $(this).attr('class').slice(-8).replace(/\s+/g, '')
     quant = 'q' + class_item
     fore  = 'u' + class_item
