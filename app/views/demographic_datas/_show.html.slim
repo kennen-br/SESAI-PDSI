@@ -31,10 +31,10 @@ p
 p
   strong #{DemographicData.human_attribute_name 'etnias'}:
   br
-  - if @demographic_data.etnias.blank?
+  - if dsei_ethnicities(@dsei).blank?
     | Não informado
   - else
-    = @demographic_data.etnias.map { |item| item.name }.join ', '
+    = dsei_ethnicities(@dsei).map { |item| item }.join(', ')
 
 p
   strong #{DemographicData.human_attribute_name 'numero_polos_base'}:
