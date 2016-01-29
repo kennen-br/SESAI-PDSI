@@ -42,6 +42,11 @@ p
   = @demographic_data.numero_polos_base || 'Não informado'
 
 p
+  strong Nº de Sede de Polos Base
+  br
+  = @demographic_data.headquarters || 'Não informado'
+
+p
   strong #{DemographicData.human_attribute_name 'numero_ubsi'}:
   br
   = @demographic_data.numero_ubsi || 'Não informado'
