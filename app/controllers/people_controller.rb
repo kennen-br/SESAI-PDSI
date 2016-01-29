@@ -50,6 +50,13 @@ class PeopleController < ApplicationController
     render json: results.map{ |person| { id: person.id, name: person.name, location: person.location }}
   end
 
+  # Search for people with dsei id
+  def search_with_dsei
+    results = People.where("name ILIKE ?", "%#{params[:query]}%").where(:dsei_id => params[:dsei_id], :user_id => [nil, false]).order(:name).limit(100)
+
+    render json: results.map{ |person| { id: person.id, name: person.name, location: person.location }}
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_person

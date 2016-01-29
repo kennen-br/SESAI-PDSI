@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   post '/image-upload',     to: 'application#image_upload', as: :image_upload
   post '/procurar-pessoa',  to: 'people#search',            as: :search
+  post '/procurar-pessoa-com-dsei', to: 'people#search_with_dsei', as: :search_with_dsei
 
   get 'category_budgets/index'
 

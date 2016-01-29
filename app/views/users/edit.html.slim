@@ -30,12 +30,24 @@ h1 Editar usuário
       = f.collection_select :dsei_id, Dsei.all.order(:name), :id, :name, prompt: true
 
     = f.fields_for :profile do |p|
-      fieldset
-        legend Perfil
+      .users-people
+        fieldset
+          legend Perfil
 
-        .field
-          = p.label :name
-          = p.text_field  :name
+          .field
+            = p.label :name
+            - unless @user.people.blank?
+              = hidden_field_tag 'people_id', @user.people.id
+            - else
+              = hidden_field_tag 'people_id'
+            = p.text_field  :name, { class: 'people-search-users colored-border search' }
+            = icon 'times', class: 'clear-search users-clear-search'
+            = icon 'circle-o-notch', class: 'loading fa-spin'
+            - unless @user.people.blank?
+              p = "Selecionado: #{@user.people.location} (#{@user.people.name})"
+            - else
+              p.people-location
+            ul
 
   .actions
     a.button href="javascript:void(0)" onclick="$(this).closest('form').submit()"

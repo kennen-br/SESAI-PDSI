@@ -1,6 +1,10 @@
 .users-people {
 	@include position(relative);
 	
+	.people-location {
+		display: none;
+	}
+	
   .clear-search {
     @include position(absolute, 6px 5px null null);
     cursor    : pointer;

@@ -44,9 +44,11 @@ h1 Cadastrar usuário
 
           .field
             = p.label :name
+            = hidden_field_tag 'people_id'
             = p.text_field  :name, { class: 'people-search-users colored-border search' }
             = icon 'times', class: 'clear-search users-clear-search'
             = icon 'circle-o-notch', class: 'loading fa-spin'
+            p.people-location
             ul
   .actions
     a.button href="javascript:void(0)" onclick="$(this).closest('form').submit()"

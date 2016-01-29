@@ -4,51 +4,83 @@
 
 $(document).ready ->
 
+  $('.field').on 'click', '.new-person .people-checkbox :checkbox', (e) ->
+    $this = $(this)
+    $people = $('#user_profile_attributes_name').parent()
+
+    person  = {}
+    person['id']       = $this.data 'personId'
+    person['name']     = $this.next().text()
+    person['location'] = $this.next().next().text().replace(/[()]/g, '')
+
+    $people.find('p').show()
+    $people.find('p').text("Selecionado: #{person['location']} (#{person['name']})")
+    $('#people_id').val("#{person['id']}")
+
+    $people.find('.search').val(person['name'])
+    $people.find('ul .new-person').remove()
+    $people.find('ul').removeClass('searching')
+    $people.find('.fa').hide()
+    $people.find('ul').hide()
+
+
   # PEOPLE SEARCH
   peopleTime = null
   $('#user_profile_attributes_name').keyup (e) ->
-    
-    e.stopPropagation()
-    return false if ($('#user_dsei_id').val() < 1)
-    if $(this).val().trim() == ''
-      clearPeopleSearch($(this).parent())
+    if ($('#user_user_type_id').val()>3)
+      e.stopPropagation()
+      return false if ($('#user_dsei_id').val() < 1)
+
+      return false if (e.which < 48 || e.which > 90)
       clearTimeout(peopleTime) if peopleTime
 
-    return false if (e.which < 48 || e.which > 90)
-    clearTimeout(peopleTime) if peopleTime
+      $this = $(this)
+      $people = $this.parent()
 
-    $this = $(this)
-    $people = $this.parent()
+      return false if $this.val().trim().length < 3
+      value = $this.val()
+      dsei_id = $('#user_dsei_id').val()
 
-    return false if $this.val().trim().length < 3
-    startLoading()
-    value = $this.val()
+      unless $people.find('p').is(":visible")
+        $people.find('ul').show()
+      $people.find('.loading').show()
+      $people.find('ul').addClass 'searching'
+      $people.find('.clear-search').hide()
+      $people.find('ul .new-person').remove()
 
-    $people.find('ul').show()
-    $people.find('.loading').show()
-    $people.find('ul').addClass 'searching'
-    $people.find('.clear-search').hide()
-    $people.find('ul .new-person').remove()
+      peopleTime = setTimeout( ->
+        params = {}
+        params['query'] = value
+        params['dsei_id'] = dsei_id
+        params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+        $.post '/procurar-pessoa-com-dsei', params, (data) ->
+          $people.find('.fa').toggle()
+          if data.length == 0
+            if $people.find('p').is(":visible")
+              $people.find('ul').removeClass('searching')
+              $people.find('.fa').hide()
+              $people.find('ul').hide()
+            else
+              if $people.find('p').is(":visible")
+                $people.find('ul').show()
+              $people.find('ul').append('<li class="new-person empty">Nenhuma pessoa encontrada.</li>')
+          else
+            if $people.find('p').is(":visible")
+              $people.find('ul').show()
+            $.each data, (key, person) ->
+              $li = personSearchCheckbox(person, true)
+              if $people.find("ul .person input[data-person-id='#{person.id}']").length > 0
+                $li.find('input').prop 'checked', true
+              $people.find('ul').append($li)
+              return
+          return
+        , 'json'
+      , 1000)
+    return
 
-    peopleTime = setTimeout( ->
-      params = {}
-      params['query'] = value
-      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
-      $.post '/procurar-pessoa', params, (data) ->
-        stopLoading()
-        $people.find('.fa').toggle()
-        if data.length == 0
-          $people.find('ul').append('<li class="new-person empty">Nenhuma pessoa encontrada.</li>')
-        else
-          $.each data, (key, person) ->
-            $li = personSearchCheckbox(person, true)
-            if $people.find("ul .person input[data-person-id='#{person.id}']").length > 0
-              $li.find('input').prop 'checked', true
-            $people.find('ul').append($li)
-            return
-        return
-      , 'json'
-    , 1000)
+  # CLEAR PEOPLE ON DSEI CHANGE
+  $('#user_dsei_id').change ->
+    clearPeopleSearch($('#user_profile_attributes_name').parent())
     return
 
   # CLEAR PEOPLE SEARCH
@@ -58,11 +90,13 @@ $(document).ready ->
 
   # CLEAR PEOPLE SEARCH
   clearPeopleSearch = ($people) ->
+    $('#people_id').val('')
     $people.find('.search').val('')
     $people.find('ul .new-person').remove()
     $people.find('ul').removeClass('searching')
     $people.find('.fa').hide()
     $people.find('ul').hide()
+    $people.find('p').hide()
     return
 
   # ADD NEW PERSON CHECKBOX ON SEARCH SUCCESS
@@ -83,18 +117,6 @@ $(document).ready ->
       $person.remove()
     return
 
-  # SHOW PACE LOADING
-  startLoading = ->
-    $pace = $('<div></div>', { class: 'pace pace-active results-loading'})
-    $pace.append $('<div></div>', { class: 'pace-activity' })
-    $('body').prepend $pace
-    return
-
-  # HIDE PACE LOADING
-  stopLoading = ->
-    $('.pace.results-loading').remove()
-    return
-
   # ACCESS TYPE
   $('.user-type').each ->
     $this = $(this)
@@ -102,6 +124,7 @@ $(document).ready ->
       if parseInt($(this).val()) in [4, 5]
         $('.user-dsei').show()
       else
+        clearPeopleSearch($('#user_profile_attributes_name').parent())
         $('.user-dsei').hide()
       return
     return
