@@ -56,7 +56,8 @@
               th RESPONSÁVEL
               th CORRESPONSÁVEIS
         = render 'responsability', { responsability: responsability }
-        .children class=('hidden' if responsability.children.blank?)
+        - responsability_references = ResponsabilityReference.includes(:responsability).where(:pdsi_id => pdsi_result.pdsi_id, :result => pdsi_result.result.id)
+        .children class=('hidden' if (responsability.children.blank? && responsability_references.blank? ) )
           table.tables.responsability-result.head
             thead
               tr
@@ -80,6 +81,21 @@
                   a.button.colored-border.link-product
                     = icon 'pencil'
                     | &nbsp;Associar produto a outro resultado
+            - responsability_references.each do |reference|
+              .product.resp-item data-id="#{reference.responsability.id}"
+                = render 'responsability', { responsability: reference.responsability }
+                .children.hidden
+                  - reference.responsability.children.includes(:person, :corresponsabilities).order(:order, :id).each do |action|
+                    .action.resp-item data-id="#{action.id}"
+                      = render 'responsability', { responsability: action }
+                .actions
+                  a.button.colored-border.add-action
+                    = icon 'plus'
+                    | &nbsp;Inserir Ações
+                  a.button.colored-border.link-product
+                    = icon 'pencil'
+                    | &nbsp;Associar produto a outro resultado
+
         .actions
           a.button.colored-border.add-product
             = icon 'plus'

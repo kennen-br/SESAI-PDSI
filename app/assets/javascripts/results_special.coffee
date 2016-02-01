@@ -83,43 +83,8 @@ $(document).ready ->
         $("#global_#{current_id}").change()
 
     # LINK PRODUCT TO ANOTHER DSEI
-    $('.modal.link-product-dsei .dsei-list li', $page).click ->
-      $this = $(this)
-      $modal = $this.parents('.modal.link-product-dsei')
-
-      dsei_id    = $this.data('id')
-      product_id = $modal.find('.product-id').val()
-
-      params = { 'link_product' : {}}
-      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
-
-      params['link_product']['dsei_id']    = dsei_id
-      params['link_product']['product_id'] = product_id
-
-      startLoading()
-      url = $('#result-link-product-dsei-url', $page).val()
-
-      if $this.find('.fa-square-o').length > 0
-        callback = (data, $obj) ->
-          $obj.data 'newId', data.id
-          $obj.find('.fa').toggleClass('fa-square-o').toggleClass('fa-check-square-o')
-          toastr.success "Produto vinculado ao DSEI #{$obj.find('.name').text()}"
-          return
-      else
-        params['link_product']['_destroy'] = '1'
-        params['link_product']['product_id'] = $this.data('newId')
-        callback = (data, $obj) ->
-          $obj.find('.fa').toggleClass('fa-square-o').toggleClass('fa-check-square-o')
-          $obj.removeData('newId')
-          toastr.success "Produto desvinculado do DSEI #{$obj.find('.name').text()}"
-          return
-
-      $.post url, params, (data) ->
-        stopLoading()
-        callback data, $this
-        return
-
-      return
+    # TO-DO
+    
     # OPEN MODAL TO LINK PRODUCT TO ANOTHER DSEI
     $('.strategy', $page).on 'click', '.plano-anual .responsability .product .link-product-dsei', ->
       $this = $(this)
@@ -258,40 +223,8 @@ $(document).ready ->
       return
 
     # LINK PRODUCT TO ANOTHER RESULT
-    $('.strategy .modal.link-product .results-list li', $page).click ->
-      $this = $(this)
-      $modal = $this.parents('.modal.link-product')
+    # TO-DO
 
-      result_id = $this.data('id')
-      product_id = $modal.find('.product-id').val()
-
-      if $this.find('.fa-square-o').length > 0
-
-        params = { 'link_product' : {}}
-        params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
-        params['link_product']['product_id'] = product_id
-        params['link_product']['result_id']  = result_id
-
-        startLoading()
-
-        url = $('#result-link-product-url', $page).val()
-        $.post url, params, (data) ->
-          stopLoading()
-          $("#result-#{result_id}.result-container .plano-anual .responsability > .children").removeClass('hidden').find('.product-list').append(data)
-          $("#result-#{result_id}.result-container .plano-anual .responsability > .children .product-list").sortable('reload')
-          startSortable $(data).find('.children'), 'AÇÃO'
-          $this.data('newId', $(data).data('id'))
-          $this.find('.fa').toggleClass('fa-square-o').toggleClass('fa-check-square-o')
-          toastr.success 'Produto adicionado ao resultado escolhido'
-          return
-
-      else
-        new_id = $this.data('newId')
-        $("#result-#{result_id}.result-container .plano-anual .responsability > .children .product[data-id='#{new_id}'] .responsability-actions .delete-responsability").click()
-        $this.find('.fa').toggleClass('fa-square-o').toggleClass('fa-check-square-o')
-        $this.removeData('newId')
-
-      return
     # OPEN MODAL TO LINK PRODUCT TO ANOTHER RESULT
     $('.strategy', $page).on 'click', '.plano-anual .responsability .product .link-product', ->
       $this = $(this)

@@ -70,7 +70,7 @@
                     .center-button.new-specific-result data-strategy-id="#{strategy.id}" INSERIR NOVO RESULTADO ESPECÍFICO
                   - j = 0
                   - results = @pdsi.pdsi_results_to_section_with_values(axis.section_name)
-                  = render 'modal_link', { axis: axis, results: (results + @dsei.specific_pdsi_results) }
+                  = render 'modal_link'
                   - results.each do |pdsi_result|
                     - j = j + 1
                     .result-container id=("result-#{pdsi_result.result.id}") data-id="#{pdsi_result.id}" data-result-id="#{pdsi_result.result.id}"
@@ -171,8 +171,8 @@
                                                 | (#{person.person.location})
 
 
-
-                            .children class=('hidden' if responsability.children.blank?)
+                            - responsability_references = ResponsabilityReference.includes(:responsability).where(:pdsi_id => @dsei.id, :result => pdsi_result.result.id)
+                            .children class=('hidden' if (responsability.children.blank? && responsability_references.blank? ) )
                               table.tables.responsability-result.head
                                 thead
                                   tr
@@ -187,6 +187,14 @@
                                     = render 'responsability', { responsability: product }
                                     .children.hidden
                                       - product.children.includes(:person, :corresponsabilities).order(:order, :id).each do |action|
+                                        .action.resp-item data-id="#{action.id}"
+                                          = render 'responsability', { responsability: action }
+                                    = render 'responsability_buttons'
+                                - responsability_references.each do |reference|
+                                  .product.resp-item data-id="#{reference.responsability.id}"
+                                    = render 'responsability', { responsability: reference.responsability }
+                                    .children.hidden
+                                      - reference.responsability.children.includes(:person, :corresponsabilities).order(:order, :id).each do |action|
                                         .action.resp-item data-id="#{action.id}"
                                           = render 'responsability', { responsability: action }
                                     = render 'responsability_buttons'
