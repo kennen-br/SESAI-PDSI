@@ -1,7 +1,11 @@
 fieldset.human-resources
   .field.right
-    = f.label :_destroy, 'Apagar?'
-    = f.check_box :_destroy
+    .tooltip-item.remove
+      = icon 'trash-o remove'
+      .tooltip
+        p Apagar?
+    .hidden
+      = f.check_box :_destroy, class: 'remove-chk'
   .two-columns
     .field
       = f.label :name
