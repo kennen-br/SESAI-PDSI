@@ -251,9 +251,9 @@ $(document).ready ->
         stopLoading()
         if data.status
           $("#result-#{result_id}").remove()
-          toastr.success 'Resultado específico deletado com sucesso!'
+          toastr.success 'Resultado específico apagado com sucesso!'
         else
-          toastr.error 'Não foi possível deletar resultado específico.'
+          toastr.error 'Não foi possível apagar resultado específico.'
         return
       return
 

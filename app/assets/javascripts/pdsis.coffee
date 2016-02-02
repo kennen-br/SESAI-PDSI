@@ -127,7 +127,7 @@ $(document).on 'click', '.budget .modal.comments .delete-comment', ->
     $modal.find('.comments-list table').removeClass('hidden')
     $modal.find('.comments-list table tbody tr.comment[data-id="'+id+'"]').remove()
 
-    toastr.success 'Comentário deletado.'
+    toastr.success 'Comentário apagado.'
     return
 
   return
