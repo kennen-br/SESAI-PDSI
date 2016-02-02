@@ -1,9 +1,12 @@
 fieldset style="position: relative;"
   = f.hidden_field :base_polo_id , value: @base_polo.id
 
-  .field.delete
-    = f.label :_destroy, 'Apagar?'
-    = f.check_box :_destroy
+  - unless f.object.new_record?
+    .field.delete
+      = f.label :_destroy, 'Apagar?'
+      = icon 'trash-o remove'
+      .hidden
+        = f.check_box :_destroy, class: 'remove-chk'
 
   .field.village-select
     = f.label :village_id
