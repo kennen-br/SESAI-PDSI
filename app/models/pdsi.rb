@@ -1,86 +1,84 @@
 class Pdsi < ActiveRecord::Base
   auditable
 
-  belongs_to  :user
-  belongs_to  :dsei
+  belongs_to :user
+  belongs_to :dsei
 
   has_one :demographic_data
   accepts_nested_attributes_for :demographic_data
 
-  has_many  :physiographic_datas
+  has_many :physiographic_datas
   accepts_nested_attributes_for :physiographic_datas, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :pdsi_base_polo_data
+  has_many :pdsi_base_polo_data
   accepts_nested_attributes_for :pdsi_base_polo_data, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :emsis
+  has_many :emsis
   accepts_nested_attributes_for :emsis, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :service_networks
+  has_many :service_networks
   accepts_nested_attributes_for :service_networks, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :infrastructure_buildings
+  has_many :infrastructure_buildings
   accepts_nested_attributes_for :infrastructure_buildings, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :infrastructure_sanitations
+  has_many :infrastructure_sanitations
   accepts_nested_attributes_for :infrastructure_sanitations, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :capais
+  has_many :capais
   accepts_nested_attributes_for :capais, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :destinations
+  has_many :destinations
   accepts_nested_attributes_for :destinations, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :absolute_data_dseis
+  has_many :absolute_data_dseis
   accepts_nested_attributes_for :absolute_data_dseis, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :absolute_data_base_polos
+  has_many :absolute_data_base_polos
   accepts_nested_attributes_for :absolute_data_base_polos, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :absolute_data_casais
+  has_many :absolute_data_casais
   accepts_nested_attributes_for :absolute_data_casais, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :pdsi_human_resources
+  has_many :pdsi_human_resources
   accepts_nested_attributes_for :pdsi_human_resources, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :pdsi_results
+  has_many :pdsi_results
   accepts_nested_attributes_for :pdsi_results, reject_if: :all_blank, allow_destroy: true
   has_many :results, through: :pdsi_results
   accepts_nested_attributes_for :results, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :projection_budgets
+  has_many :projection_budgets
   accepts_nested_attributes_for :projection_budgets, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :category_budgets
+  has_many :category_budgets
   accepts_nested_attributes_for :category_budgets, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :pdsi_costs
+  has_many :pdsi_costs
   accepts_nested_attributes_for :pdsi_costs, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :responsabilities
+  has_many :responsabilities
   accepts_nested_attributes_for :responsabilities, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :pdsi_need_costs
+  has_many :pdsi_need_costs
   accepts_nested_attributes_for :pdsi_need_costs, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :pdsi_need_investiments
+  has_many :pdsi_need_investiments
   accepts_nested_attributes_for :pdsi_need_investiments, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :pdsi_attached_files
+  has_many :pdsi_attached_files
   accepts_nested_attributes_for :pdsi_attached_files, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :budget_forecasts
+  has_many :budget_forecasts
   accepts_nested_attributes_for :budget_forecasts, reject_if: :all_blank, allow_destroy: true
 
-  has_many  :budget_investments
+  has_many :budget_investments
   accepts_nested_attributes_for :budget_investments, reject_if: :all_blank, allow_destroy: true
-  #
+
   has_many :people
   accepts_nested_attributes_for :people, reject_if: :all_blank, allow_destroy: true
-  #
 
-
-  has_attached_file :map, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  has_attached_file :map, styles: { medium: '300x300>', thumb: '100x100>' }, default_url: '/images/:style/missing.png'
   validates_attachment_content_type :map, content_type: /\Aimage\/.*\Z/
 
   attr_accessor :text_template
@@ -128,7 +126,9 @@ class Pdsi < ActiveRecord::Base
   end
 
   def destinations_with_villages
-    DestinationType.eager_load(destinations: [:origin_village, :destination_village]).where('destinations.pdsi_id = ?', id)
+    DestinationType
+      .eager_load(destinations: [:origin_village, :destination_village])
+      .where('destinations.pdsi_id = ?', id)
   end
 
   def capais_with_villages
@@ -145,7 +145,7 @@ class Pdsi < ActiveRecord::Base
       items << item
     end
 
-    return items
+    items
   end
 
   def absolute_data_dseis_with_values
@@ -207,13 +207,20 @@ class Pdsi < ActiveRecord::Base
   end
 
   def pdsi_results_to_section_with_values(section_name)
-    items = pdsi_results.joins(result: [result_strategy: [:result_axis]]).where('result_axes.section_name = ? AND results.result_level_id = 1', section_name)
+    items = pdsi_results.joins(result: [result_strategy: [:result_axis]])
+                        .where('result_axes.section_name = ? AND results.result_level_id = 1', section_name)
     return items.includes(:result).order(['result_axes.id', 'result_strategies.id', 'results.id']) unless items.blank?
 
     ResultAxis.includes(:result_strategies).find_by_section_name(section_name).result_strategies.each do |strategy|
       return items if strategy.results.blank?
       strategy.results.each do |result|
-        pdsi_results << PdsiResult.new(pdsi: self, result: result, value_2016: result.value_2016, value_2017: result.value_2017, value_2018: result.value_2018, value_2019: result.value_2019, value_global: result.value_global)
+        pdsi_results << PdsiResult.new(pdsi: self,
+                                       result: result,
+                                       value_2016: result.value_2016,
+                                       value_2017: result.value_2017,
+                                       value_2018: result.value_2018,
+                                       value_2019: result.value_2019,
+                                       value_global: result.value_global)
       end
     end
 
@@ -275,28 +282,42 @@ class Pdsi < ActiveRecord::Base
   end
 
   def budget_forecasts_with_values_no_child(pdsi_id)
-    bfs = BudgetForecast.includes(:cost).order(:cost_id).where(["pdsi_id = :pdsi_id", pdsi_id: pdsi_id]).references(:budget_forecast).where("parent_id IS NULL").references(:cost)
-    return bfs
+    BudgetForecast
+      .includes(:cost)
+      .order(:cost_id)
+      .where(['pdsi_id = :pdsi_id', pdsi_id: pdsi_id])
+      .references(:budget_forecast)
+      .where('parent_id IS NULL')
+      .references(:cost)
   end
 
   def bf_with_values_children(pdsi_id, cost_id)
-    bf_children = BudgetForecast.includes(:cost).order(:cost_id).where(["pdsi_id = :pdsi_id", pdsi_id: pdsi_id]).references(:budget_forecast).where(["parent_id = :cost_id", cost_id: cost_id]).references(:cost)
-    return bf_children
+    BudgetForecast
+      .includes(:cost)
+      .order(:cost_id)
+      .where(['pdsi_id = :pdsi_id', pdsi_id: pdsi_id])
+      .references(:budget_forecast)
+      .where(['parent_id = :cost_id', cost_id: cost_id])
+      .references(:cost)
   end
 
   def need_investiments_with_values(category)
     items = pdsi_need_investiments.joins(:projection_budget_item)
-                              .where('projection_budget_items.projection_budget_category_id = ?', category.id)
+                                  .where('projection_budget_items.projection_budget_category_id = ?', category.id)
     return items.includes(:projection_budget_item).order(:id) unless pdsi_need_investiments.blank?
 
-    ProjectionBudgetItem.all.each { |item| pdsi_need_investiments << PdsiNeedInvestiment.new(projection_budget_item: item) }
+    ProjectionBudgetItem.all.each do |item|
+      pdsi_need_investiments << PdsiNeedInvestiment.new(projection_budget_item: item)
+    end
 
     need_investiments_with_values
   end
 
   def responsabilities_with_values(axis)
     level = ResponsabilityLevel.find_by_name 'Resultado'
-    items = responsabilities.joins(result: [:result_strategy]).where('result_strategies.result_axis_id = ? AND responsability_level_id = ?', axis.id, level.id)
+    items = responsabilities.joins(result: [:result_strategy])
+                            .where('result_strategies.result_axis_id = ? AND responsability_level_id = ?', axis.id, level.id)
+
     return items.includes(:children, :person, :result, :corresponsabilities).order(:id) unless items.blank?
 
     axis.result_strategies.each do |result_strategy|
