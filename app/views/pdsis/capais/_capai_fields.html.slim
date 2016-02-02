@@ -1,7 +1,9 @@
 fieldset
   .field.right
-    | Apagar CAPAI?&nbsp;
-    = f.check_box :_destroy
+    = f.label :_destroy, 'Apagar?'
+    = icon 'trash-o remove'
+    .hidden
+      = f.check_box :_destroy, class: 'remove-chk'
 
   .field
     = f.label 'Nome'
