@@ -1,7 +1,3 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-
 #Check if this script is executing from form_custeio
 $ ->
   if $('#form-custeio').length > 0
@@ -20,7 +16,7 @@ stopLoading = ->
   return
 
 calculate_funding_balance = ->
-  console.log "Calculating funding balance"
+  # console.log "Calculating funding balance"
   for year in [2016..2019]
     subtotal = 0.0
     el1 = "#input-#{year}-3"
@@ -47,7 +43,7 @@ calculate_funding_balance = ->
 
 calculate_parent_total = (parent_id) ->
   subtotal2 = 0.0
-  console.log "Recalculating subtotals by group #{parent_id}"
+  # console.log "Recalculating subtotals by group #{parent_id}"
 
   $(document).find(".#{parent_id}").each (item) ->
     input_value = parseFloat($(this).prop("value").toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
@@ -219,7 +215,7 @@ $(document).ready ->
         value = $(this).val()
 
         if $year.find('> legend').text() == '2015'
-          console.log '2015'
+          # console.log '2015'
           needed = value - ($type.find('.initial-value').val() || 0)
         else
           needed = value
@@ -257,7 +253,7 @@ $(document).ready ->
 
   # Recalculate values for 2017-2019 based on 2016 and correction factors
   $(document).on 'change', '.2016-budget-value', ->
-    console.log 'Recalculating budgets for years 2017-2019'
+    # console.log 'Recalculating budgets for years 2017-2019'
 
     idx = $(this).attr('input_index')
     val = parseFloat($(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
@@ -269,7 +265,7 @@ $(document).ready ->
       year_parent_id = "#{year}-#{group_parent_id}"
       val += val*cf
 
-      console.log "Recalculating #{el} using correction factor #{cf}: #{val}"
+      # console.log "Recalculating #{el} using correction factor #{cf}: #{val}"
       # Value for hidden form
       $("#hidden-#{year}-#{idx}").val(val.toFixed(2))
 
@@ -352,10 +348,10 @@ $(document).ready ->
           id = $(this).attr('cost_id')
           startLoading()
           params = {}
-          console.log $(this).val()
+          # console.log $(this).val()
           params['cost_name'] = $(this).val()
           params['cost_id'] = $(this).attr('cost_id')
-          console.log "Nome: #{params['cost_name']}, id: #{params['cost_id']}"
+          # console.log "Nome: #{params['cost_name']}, id: #{params['cost_id']}"
           if turl.lastIndexOf("?") > 0
             url = turl.substr(0, turl.lastIndexOf("?")) + '/update_cost_name'
           else
@@ -401,6 +397,7 @@ $(document).ready ->
   # OPEN MODAL MODAL WITH COMMENTS
   $(document).on 'click', '.budget-table .budget-actions .toggle-comments', ->
     $this = $(this)
+    # console.log($this)
     $budget = $this.parents('tr.budget:eq(0)')
     $modal = $budget.find('> td .modal.comments')
 
