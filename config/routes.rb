@@ -125,6 +125,11 @@ Rails.application.routes.draw do
     post '/:id/resultados-esperados/ver-comentario',
          to: 'results_special#see_comment', as: :results_special_see_comment
 
+    post '/:id/resultados-esperados/selecionar-links',
+         to: 'results_special#get_all_related_links', as: :results_special_get_all_related_links
+    post '/:id/resultados-esperados/retirar-link',
+          to: 'results_special#remove_link', as: :results_special_remove_link
+
     # Resultados Específicos
     get '/:id/resultados-especificos',
         defaults: { section: 'resultados-esperados', tab: 'especificos' },

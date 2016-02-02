@@ -1,4 +1,4 @@
-= content_tag :div, { data: { "id": "#{@responsability.id}" }, class: "#{@klass} resp-item" } do
+= content_tag :div, { data: { "id": "#{@responsability.id}" }, class: "#{@klass} resp-item resp-reference", id: "responsability-reference-#{@resRef.id}" } do
 
   = render 'responsability', { responsability: @responsability }
 

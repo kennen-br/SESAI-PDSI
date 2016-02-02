@@ -73,14 +73,25 @@ class ResultsSpecialController < ApplicationController
 
   def link_product
     values = link_product_params
+    valuesResRef = Hash.new
+    valuesResRef['responsability_id'] = values['product_id']
+    valuesResRef['result_id'] = values['result_id']
+    logger.debug values['pdsi_id']
+    if values['pdsi_id'] == 'current'
+      valuesResRef['pdsi_id'] = @pdsi.id
+      logger.debug @pdsi
+    else
+      valuesResRef['pdsi_id'] = values['pdsi_id']
+    end
+    @resRef = ResponsabilityReference.new(valuesResRef)
     product = Responsability.find(values['product_id'])
-    @responsability = product.amoeba_dup
+    @responsability = product
 
     result = Result.find(values['result_id'])
     result_resp = result.responsability_result(@pdsi)
 
     @responsability.parent_id = result_resp.id
-    @responsability.save
+    @resRef.save
 
     @klass          = 'product'
     params['level'] = 'Produto'
@@ -88,23 +99,18 @@ class ResultsSpecialController < ApplicationController
     render 'responsability', layout: false
   end
 
-  def link_product_dsei
-    values = link_product_params
-
-    product = Responsability.find(values['product_id'])
-    if values['_destroy'] == '1'
-      product.destroy
-      response = { status: true }
+  def remove_link
+    values = remove_link_params
+    if values['pdsi_id'] == 'current'
+      values['pdsi_id'] = @pdsi.id
+    end
+    reference = ResponsabilityReference.where(:responsability_id => values['product_id'], :result_id => values['result_id'], :pdsi_id => values['pdsi_id']).first
+    refId = reference.id
+    logger.debug reference
+    if reference.destroy
+      response = { status: true, refId: refId }
     else
-      dsei        = Dsei.find(values['dsei_id'])
-      result      = product.parent.result
-      result_resp = result.responsability_result(dsei.pdsi)
-
-      responsability = product.amoeba_dup
-      responsability.parent_id = result_resp.id
-      responsability.save
-
-      response = { status: true, id: responsability.id }
+      response = { status: false }
     end
 
     render json: response
@@ -173,6 +179,19 @@ class ResultsSpecialController < ApplicationController
     render json: {status: true}
   end
 
+  def get_all_related_links
+    logger.debug params[:pdsi_id]
+    pdsi_id = params[:pdsi_id]
+    responsability_id = params[:responsability_id]
+    if pdsi_id == 'current'
+      products = ResponsabilityReference.where(:pdsi_id => @pdsi, :responsability_id => responsability_id)
+    else
+      products = ResponsabilityReference.where(:pdsi_id => pdsi_id, :responsability_id => responsability_id)
+    end
+    original = Responsability.find(responsability_id)
+    render json: { products: products, original: original }
+  end
+
   def products_order
     params['order'].each do |item|
       values = item[1]
@@ -194,12 +213,16 @@ class ResultsSpecialController < ApplicationController
       @pdsi = current_dsei.pdsi
     end
 
+    def remove_link_params
+      params.require(:remove_link).permit(:pdsi_id, :product_id, :result_id)
+    end
+
     def specific_result_params
       params.require(:specific_result).permit(:name, :text, :strategy, :field, :value, :result_id, :result_number, :id)
     end
 
     def link_product_params
-      params.require(:link_product).permit(:product_id, :result_id, :dsei_id, :_destroy)
+      params.require(:link_product).permit(:product_id, :result_id, :dsei_id, :_destroy, :pdsi_id)
     end
 
     def delete_params
@@ -224,6 +247,7 @@ class ResultsSpecialController < ApplicationController
     def pdsi_params
       params.permit(
         pdsi_results_attributes: [:id, :value_2016, :value_2017, :value_2018, :value_2019, :value_global],
+        responsability_references_attributes: [:id, :pdsi_id, :responsability_id, :result_id],
         responsabilities_attributes: [
           :id, :result_id, :name, :person_id, :initial_date, :deadline, :external_actors, :comments, :_destroy,
           corresponsabilities_attributes: [:id, :person_id, :_destroy],

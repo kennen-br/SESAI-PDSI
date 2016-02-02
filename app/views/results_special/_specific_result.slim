@@ -82,11 +82,11 @@
                     = icon 'pencil'
                     | &nbsp;Associar produto a outro resultado
             - responsability_references.each do |reference|
-              .product.resp-item data-id="#{reference.responsability.id}"
+              .product.resp-item data-id="#{reference.responsability.id}" id="responsability-reference-#{reference.id}"
                 = render 'responsability', { responsability: reference.responsability }
                 .children.hidden
                   - reference.responsability.children.includes(:person, :corresponsabilities).order(:order, :id).each do |action|
-                    .action.resp-item data-id="#{action.id}"
+                    .action.resp-item.resp-reference data-id="#{action.id}"
                       = render 'responsability', { responsability: action }
                 .actions
                   a.button.colored-border.add-action
