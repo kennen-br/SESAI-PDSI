@@ -7,7 +7,9 @@ fieldset style="position: relative;"
   - unless building_type.name == 'Sede do DSEI' or f.object.new_record?
     .field.delete
       = f.label :_destroy, 'Apagar?'
-      = f.check_box :_destroy
+      = icon 'trash-o remove'
+      .hidden
+        = f.check_box :_destroy, class: 'remove-chk'
 
   .field
     = f.label :name
