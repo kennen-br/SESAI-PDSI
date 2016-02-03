@@ -121,10 +121,6 @@ class Pdsi < ActiveRecord::Base
     resultados_esperados_introducao_5
   end
 
-  def destinations_types
-    DestinationType.includes(:destinations)
-  end
-
   def destinations_with_villages
     DestinationType
       .eager_load(destinations: [:origin_village, :destination_village])
