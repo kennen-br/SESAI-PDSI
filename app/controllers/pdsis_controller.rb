@@ -1,19 +1,14 @@
 class PdsisController < ApplicationController
-  before_action :set_section,     only: [:index, :edit, :edit_category_budgets, :update, :health_indicators]
   before_action :set_pdsi
-  before_action :set_base_polo,   only: [:edit, :health_indicators, :update]
-  before_action :set_subsection,  only: [:edit, :edit_category_budgets, :health_indicators, :update]
+  before_action :set_section,    only: [:index, :edit, :edit_category_budgets, :update, :health_indicators]
+  before_action :set_base_polo,  only: [:edit, :health_indicators, :update]
+  before_action :set_subsection, only: [:edit, :edit_category_budgets, :health_indicators, :update]
 
-  # GET /pdsis
-  def index
-  end
+  def index; end
 
-  # GET /pdsis/1
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def edit_category_budgets
     render :edit
@@ -34,16 +29,21 @@ class PdsisController < ApplicationController
 
   # Add new budget_forecast to all PDSIs by new cost
   def new_budget_forecast_by_cost
-    logger.debug "Huh?"
-    prepare_int = (Cost.last.id+1).to_s
-    @new_cost = Cost.create(id: (Cost.last.id+1), parent_id: params['parent_id'], cost_type: params['cost_type'], data_type: 'money', name: "Novo custo #{prepare_int}")
+    prepare_int = (Cost.last.id + 1).to_s
+    @new_cost = Cost.create(id: (Cost.last.id + 1),
+                            parent_id: params['parent_id'],
+                            cost_type: params['cost_type'],
+                            data_type: 'money',
+                            name: "Novo custo #{prepare_int}")
     # Each PDSI for ID
     Pdsi.all.each do |pfi|
-      new_budget_forecast = BudgetForecast.create(id: (BudgetForecast.last.id+1), cost_id: @new_cost.id, pdsi_id: pfi.id)
+      BudgetForecast.create(id: (BudgetForecast.last.id + 1),
+                            cost_id: @new_cost.id,
+                            pdsi_id: pfi.id)
     end
     bf = BudgetForecast.where(pdsi_id: params[:id], cost_id: @new_cost.id).take
     bfcount = BudgetForecast.where(pdsi_id: params[:id]).count
-    bfcount = bfcount-1
+    bfcount -= 1
     response = { status: true, id: bf.id, bfcount: bfcount, cost_id: @new_cost.id }
     render json: response
   end
@@ -79,9 +79,9 @@ class PdsisController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_pdsi
-    if @section.to_s[-5,5] == 'sesai'
-      # Do nothing
-    elsif @section == 'dotacao_orcamentaria'
+    return if @section.to_s[-5, 5] == 'sesai'
+
+    if @section == 'dotacao_orcamentaria'
       @pdsi = Pdsi.find params[:id]
       @demographic_data = @pdsi.demographic_data
       @dsei             = current_dsei
@@ -94,18 +94,18 @@ class PdsisController < ApplicationController
 
   def set_section
     section = params[:section] || 'introducao'
-    @section_url  = section.gsub(/_/, '-')
-    @section      = section.gsub(/-/, '_')
+    @section_url  = section.tr('_', '-')
+    @section      = section.tr('-', '_')
   end
 
   def set_subsection
-    @subsection = params[:subsection].gsub(/-/, '_') if params.key?(:subsection)
-    @tab        = params[:tab].gsub(/-/, '_') if params.key?(:tab)
+    @subsection = params[:subsection].tr('-', '_') if params.key?(:subsection)
+    @tab        = params[:tab].tr('-', '_') if params.key?(:tab)
   end
 
   def set_base_polo
     # helper allowed_sections
-    if view_context.allowed_sections.include? params[:section]
+    if view_context.allowed_sections.include?(params[:section])
       id = params[:base_polo] || @dsei.base_polos.order(:id).first.id
       @base_polo = BasePolo.find id
     end
@@ -125,7 +125,7 @@ class PdsisController < ApplicationController
   end
 
   def redirect_to_indicadores
-    notice = {notice: 'Indicadores atualizados com sucesso.'}
+    notice = { notice: 'Indicadores atualizados com sucesso.' }
 
     args = { subsection: params[:subsection] }
     args.merge!(base_polo: params[:base_polo]) if params[:base_polo]
