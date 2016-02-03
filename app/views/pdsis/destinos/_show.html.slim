@@ -1,5 +1,5 @@
 ul.accordion-tabs-minimal
-  - @pdsi.destinations_types.each_with_index do |destination_type, i|
+  - @pdsi.destinations_with_villages.each_with_index do |destination_type, i|
     li.tab-header-and-content
       a.tab-link[id="destination-show-#{i}"]
         = destination_type.name
