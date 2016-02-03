@@ -1,3 +1,6 @@
+- content_for :breadcrumb do
+  = breadcrumbs [{ name: '6. Projeção orçamentária', path: pdsis_path(section: 'projecao-orcamentaria')}, { name: "Custeio", path: nil}]
+
 h2.section-title Custeio
 
 = hidden_field_tag '', budget_forecast_new_comment_path(current_dsei.pdsi), { id: 'budget-new-comment-url' }
