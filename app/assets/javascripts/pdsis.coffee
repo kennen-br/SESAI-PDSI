@@ -38,7 +38,6 @@ calculate_funding_balance = ->
     else
       $("#input-#{year}-0").val("- R$#{(subtotal).toFixed(2).replace('-','').replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
       $("#input-#{year}-0").css({'color' : 'red'})
-
   return
 
 calculate_parent_total = (parent_id) ->
@@ -50,6 +49,7 @@ calculate_parent_total = (parent_id) ->
     if (!isNaN(input_value))
       subtotal2 += parseFloat(input_value)
     return
+
   # Value for hidden form (subitems)
   $("#hidden-#{parent_id}-2").val(parseFloat(subtotal2).toFixed(2))
 
@@ -97,7 +97,6 @@ $(document).on 'click', '.budget .modal.comments .send-comment', ->
 
     toastr.success 'Comentário enviado.'
     return
-
   return
 
 # DELETE COMMENT
@@ -125,7 +124,6 @@ $(document).on 'click', '.budget .modal.comments .delete-comment', ->
 
     toastr.success 'Comentário apagado.'
     return
-
   return
 
 $(document).ready ->
@@ -223,6 +221,7 @@ $(document).ready ->
         $year.find('table tr.new-object').each ->
           $(this).remove() if $(this).find(':text').val() == ''
           return
+
         needed -= $year.find('table tbody tr').length
 
         if needed > 0
@@ -248,13 +247,11 @@ $(document).ready ->
       $this.addClass 'green'
     else
       $this.addClass 'red'
-
     return
 
   # Recalculate values for 2017-2019 based on 2016 and correction factors
   $(document).on 'change', '.2016-budget-value', ->
     # console.log 'Recalculating budgets for years 2017-2019'
-
     idx = $(this).attr('input_index')
     val = parseFloat($(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
     group_parent_id = $(this).attr('group_parent_id')
@@ -277,7 +274,6 @@ $(document).ready ->
         calculate_parent_total(year_parent_id)
       if value_index == "3" || value_index == "10"
         calculate_funding_balance()
-
     return
 
   # Update subtotals by group of contracts
@@ -327,16 +323,12 @@ $(document).ready ->
           <td>
             <input type="text" id="input-nome-custo-#{id}-#{year}" cost_id="#{id}">
           </td>
-          <td>
-
-          </td>
+          <td></td>
           <td>
             <input value="0" id="hidden-#{year}-#{id}-2" type="hidden" name="pdsi[budget_forecasts_attributes][#{bfcount}][dsei_forecast_#{year}]" >
             <input type="text" name id="input-#{year}-#{id}-2" value="0,00" class="currency-input #{year}-budget-value #{year}-group-value #{year}-#{parent_id}" group_parent_id="#{parent_id}" year_parent_id="#{year}-#{parent_id}" input_index="#{id}-2" correction_factor="#{bcf}" year_cost_id="#{year}-#{id}" value_index="#{id}" cost_type="3" disabled="disabled">
           </td>
-          <td>
-
-          </td>
+          <td></td>
         </tr>
         <input type="hidden" value="#{data.id}" name="pdsi[budget_forecasts_attributes][#{bfcount}][id]" id="pdsi_budget_forecasts_atributes_#{bfcount}_id">
         """
@@ -368,9 +360,8 @@ $(document).ready ->
               alert "Não foi possível mudar o nome"
               stopLoading()
             return
-
-
           return
+
         # Money mask and hidden field data update
         $("#input-#{year}-#{id}-2").on 'change', ->
           $this = $(this)
@@ -383,7 +374,6 @@ $(document).ready ->
           decimal: ','
         # Stop showing loading
         stopLoading()
-
     return
 
   # TOGGLE OVERLAY WHEN MODAL IS OPENED
@@ -397,9 +387,10 @@ $(document).ready ->
   # OPEN MODAL MODAL WITH COMMENTS
   $(document).on 'click', '.budget-table .budget-actions .toggle-comments', ->
     $this = $(this)
-    # console.log($this)
+
     $budget = $this.parents('tr.budget:eq(0)')
     $modal = $budget.find('> td .modal.comments')
+    comments = $budget.find('.comment.colored-border.empty')
 
     $modal.find('.modal-state').click()
 
@@ -407,6 +398,7 @@ $(document).ready ->
       comment_id = $budget.find('.budget-actions .unread-comment').data('commentId')
       readComment(comment_id, $budget.find('.budget-actions .unread-comment'))
 
+    # console.log(comments.html()) if comments.html()
     return
 
   # MARK A COMMENT AS READ
@@ -421,5 +413,12 @@ $(document).ready ->
       $comment.remove() if data.status
       return
     return
-
   return
+
+$(document).on 'click', '.modal-window', ->
+  icon =  $(this).parent().parent().find('i')
+
+  if $(this).find('.user').html()
+    icon.addClass('fa-comments red').removeClass('fa-comment')
+  else
+    icon.addClass('fa-comment').removeClass('fa-comments red')
