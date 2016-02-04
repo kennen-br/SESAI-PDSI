@@ -415,7 +415,7 @@ $(document).ready ->
     return
   return
 
-$(document).on 'click', '.modal-window', ->
+$(document).on 'click', '.modal-window.investment', ->
   icon =  $(this).parent().parent().find('i')
 
   if $(this).find('.user').html()
