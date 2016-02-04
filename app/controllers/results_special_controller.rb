@@ -60,6 +60,12 @@ class ResultsSpecialController < ApplicationController
     render layout: false
   end
 
+  def delete_comment
+    values = delete_comment_params
+    ResponsabilityComment.find(values['id']).destroy
+    render json: { status: true }
+  end
+
   def delete
     values = delete_params
     if Responsability.find(values['resp_id']).destroy
@@ -208,6 +214,10 @@ class ResultsSpecialController < ApplicationController
 
     def new_comment_params
       params.require(:comment).permit(:resp_id, :comment)
+    end
+
+    def delete_comment_params
+      params.require(:comment).permit(:id)
     end
 
     def false_result_params

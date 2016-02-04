@@ -116,6 +116,9 @@ Rails.application.routes.draw do
     post '/:id/resultados-esperados/novo-comentario',
          to: 'results_special#new_comment', as: :results_special_new_comment
 
+    post '/:id/resultados-esperados/deleta-comentario',
+         to: 'results_special#delete_comment', as: :results_special_delete_comment
+
     post '/:id/resultados-esperados/delete',
          to: 'results_special#delete', as: :results_special_delete
 
