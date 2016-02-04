@@ -371,6 +371,16 @@ ActiveRecord::Schema.define(version: 20160129145549) do
   add_index "ethnicities_villages", ["ethnicity_id"], name: "index_ethnicities_villages_on_ethnicity_id", using: :btree
   add_index "ethnicities_villages", ["village_id"], name: "index_ethnicities_villages_on_village_id", using: :btree
 
+  create_table "etnias", force: :cascade do |t|
+    t.integer  "demographic_data_id"
+    t.string   "name"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "etnias", ["demographic_data_id", "name"], name: "index_etnias_on_demographic_data_id_and_name", unique: true, using: :btree
+  add_index "etnias", ["demographic_data_id"], name: "index_etnias_on_demographic_data_id", using: :btree
+
   create_table "false_results", force: :cascade do |t|
     t.integer  "dsei_id"
     t.integer  "result_id"
@@ -978,6 +988,7 @@ ActiveRecord::Schema.define(version: 20160129145549) do
   add_foreign_key "emsis", "pdsis"
   add_foreign_key "ethnicities_villages", "ethnicities"
   add_foreign_key "ethnicities_villages", "villages"
+  add_foreign_key "etnias", "demographic_datas"
   add_foreign_key "false_results", "dseis"
   add_foreign_key "false_results", "results"
   add_foreign_key "health_establishments", "service_network_cities"

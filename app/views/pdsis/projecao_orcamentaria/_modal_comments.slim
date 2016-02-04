@@ -16,7 +16,8 @@
               th Data
               th Usuário
               th Comentário
-              th style="width:2em" = ""
+              th Nome do usuário
+              th.delete
           tbody
             - budget.comments_by_year(year).each do |comment|
               = render 'pdsis/projecao_orcamentaria/comment', { comment: comment }
