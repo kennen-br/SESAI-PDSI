@@ -1266,8 +1266,8 @@
           <Cell ss:StyleID="s238"><Data ss:Type="String"><%= base_polo.name %></Data></Cell>
           <Cell ss:StyleID="s238"><Data ss:Type="String"><%= base_polo.city_name  %></Data></Cell>
           <Cell ss:StyleID="s238"><Data ss:Type="String"><%= village.name %></Data></Cell>
-          <Cell ss:StyleID="s202"><Data ss:Type="String"><%= village.city_name %></Data></Cell>
-          <Cell ss:StyleID="s238"><Data ss:Type="String"><%= village.physiographic_data.physiographic_data_ethnicities.map do |e|
+          <Cell ss:StyleID="s238"><Data ss:Type="String"><%= village.city_name %></Data></Cell>
+          <Cell ss:StyleID="s238"><Data ss:Type="String"><%= village.physiographic_data.physiographic_data_ethnicities.includes(:ethnicity).map do |e|
                 e.ethnicity.name
               end.join(', ') %></Data>
           </Cell>
