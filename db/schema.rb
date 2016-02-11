@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160129145549) do
+ActiveRecord::Schema.define(version: 20160211142456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -371,16 +371,6 @@ ActiveRecord::Schema.define(version: 20160129145549) do
   add_index "ethnicities_villages", ["ethnicity_id"], name: "index_ethnicities_villages_on_ethnicity_id", using: :btree
   add_index "ethnicities_villages", ["village_id"], name: "index_ethnicities_villages_on_village_id", using: :btree
 
-  create_table "etnias", force: :cascade do |t|
-    t.integer  "demographic_data_id"
-    t.string   "name"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-  end
-
-  add_index "etnias", ["demographic_data_id", "name"], name: "index_etnias_on_demographic_data_id_and_name", unique: true, using: :btree
-  add_index "etnias", ["demographic_data_id"], name: "index_etnias_on_demographic_data_id", using: :btree
-
   create_table "false_results", force: :cascade do |t|
     t.integer  "dsei_id"
     t.integer  "result_id"
@@ -657,17 +647,17 @@ ActiveRecord::Schema.define(version: 20160129145549) do
   create_table "people", force: :cascade do |t|
     t.integer  "dsei_id"
     t.string   "name"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.string   "location"
     t.string   "bond"
-    t.boolean  "is_sesai_central",      default: false
+    t.boolean  "is_sesai_central",           default: false
     t.integer  "pdsi_id"
     t.boolean  "indigenous_worker"
-    t.string   "professional_category"
     t.string   "role"
     t.string   "bond_type"
     t.string   "workplace"
+    t.integer  "human_resource_function_id"
   end
 
   add_index "people", ["dsei_id"], name: "index_people_on_dsei_id", using: :btree
@@ -988,7 +978,6 @@ ActiveRecord::Schema.define(version: 20160129145549) do
   add_foreign_key "emsis", "pdsis"
   add_foreign_key "ethnicities_villages", "ethnicities"
   add_foreign_key "ethnicities_villages", "villages"
-  add_foreign_key "etnias", "demographic_datas"
   add_foreign_key "false_results", "dseis"
   add_foreign_key "false_results", "results"
   add_foreign_key "health_establishments", "service_network_cities"
@@ -1016,6 +1005,7 @@ ActiveRecord::Schema.define(version: 20160129145549) do
   add_foreign_key "pdsis", "dseis"
   add_foreign_key "pdsis", "users"
   add_foreign_key "people", "dseis"
+  add_foreign_key "people", "human_resource_functions"
   add_foreign_key "physiographic_data_ethnicities", "ethnicities"
   add_foreign_key "physiographic_data_ethnicities", "physiographic_datas"
   add_foreign_key "physiographic_data_languages", "physiographic_datas"
