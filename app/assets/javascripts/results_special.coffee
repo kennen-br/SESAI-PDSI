@@ -291,6 +291,9 @@ $(document).ready ->
           return
       # DELINK
       else
+        if $this.hasClass('original-ref')
+          alert('Esse é o produto original e não pode ser desvinculado.')
+          return false
         #$("#result-#{result_id}.result-container .plano-anual .responsability > .children .product[data-id='#{new_id}'] .responsability-actions .delete-responsability").click()
         params = { 'remove_link' : {} }
         params['remove_link']['product_id'] = product_id
@@ -325,6 +328,7 @@ $(document).ready ->
 
       $modal.find('#current_pdsi_id').val(current_pdsi_id)
       $modal.find('ul li').show().find('.fa').removeClass('fa-check-square-o').addClass('fa-square-o').removeData('newId')
+      $modal.find('li').removeClass('original-ref')
       $modal.find('input.product-id').val(product_id)
 
       params = { 'responsability_reference' : {}}
@@ -340,9 +344,9 @@ $(document).ready ->
           i = 0;
           while i<data.products.length
             $("#link-result-#{data.products[i].result_id}").find('.fa').removeClass('fa-square-o').addClass('fa-check-square-o')
-            console.log data.products[i]
             i++
-        #$("#link-result-#{data.original.result_id}").find('.fa').removeClass('fa-square-o').addClass('fa-check-square-o')
+        $("#link-result-#{data.original.result_id}").find('.fa').removeClass('fa-square-o').addClass('fa-check-square-o')
+        $("#link-result-#{data.original.result_id}").addClass('original-ref')
         stopLoading()
         $modal.find("#link-result-#{result_id}").hide()
         $modal.find('.modal-state').click()

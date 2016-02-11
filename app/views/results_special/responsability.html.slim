@@ -1,10 +1,22 @@
-= content_tag :div, { data: { "id": "#{@responsability.id}" }, class: "#{@klass} resp-item resp-reference", id: "responsability-reference-#{@resRef.id}" } do
+- if defined?@resRef
+  = content_tag :div, { data: { "id": "#{@responsability.id}" }, class: "#{@klass} resp-item resp-reference", id: "responsability-reference-#{@resRef.id}" } do
 
-  = render 'responsability', { responsability: @responsability }
+    = render 'responsability', { responsability: @responsability }
 
-  - if params['level'] == 'Produto'
-    .children class=('hidden' if @responsability.children.blank?)
+    - if params['level'] == 'Produto'
+      .children class=('hidden' if @responsability.children.blank?)
       - @responsability.children.order(:id).each do |action|
         .action.resp-item data-id="#{action.id}"
           = render 'responsability', { level: 'AÇÃO', responsability: action }
-    = render 'responsability_buttons'
+      = render 'responsability_buttons'
+- else
+  = content_tag :div, { data: { "id": "#{@responsability.id}" }, class: "#{@klass} resp-item" } do
+
+    = render 'responsability', { responsability: @responsability }
+
+    - if params['level'] == 'Produto'
+      .children class=('hidden' if @responsability.children.blank?)
+        - @responsability.children.order(:id).each do |action|
+          .action.resp-item data-id="#{action.id}"
+            = render 'responsability', { level: 'AÇÃO', responsability: action }
+      = render 'responsability_buttons'

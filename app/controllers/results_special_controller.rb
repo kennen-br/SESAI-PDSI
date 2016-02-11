@@ -188,8 +188,8 @@ class ResultsSpecialController < ApplicationController
     else
       products = ResponsabilityReference.where(:pdsi_id => pdsi_id, :responsability_id => responsability_id)
     end
-    original = Responsability.find(responsability_id)
-    render json: { products: products, original: original }
+    original = Responsability.includes(:parent).find(responsability_id)
+    render json: { products: products, original: original.parent }
   end
 
   def products_order

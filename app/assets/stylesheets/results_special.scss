@@ -94,10 +94,13 @@
         .fa {
           vertical-align: middle;
         }
-
         &:hover {
           color: #666;
         }
+      }
+      .original-ref{
+        cursor: default !important;
+        color: black !important;
       }
 
     }
