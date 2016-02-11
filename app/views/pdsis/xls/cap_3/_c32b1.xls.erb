@@ -95,7 +95,7 @@
     <Cell ss:StyleID="s342"/>
     <Cell ss:StyleID="s342"/>
    </Row>
-   <%= @pdsi.people.each do |pp| %>
+   <%= @pdsi.people.includes(:human_resource_function).each do |pp| %>
      <Row ss:AutoFitHeight="0" ss:Height="53.25">
       <Cell ss:StyleID="s343"><Data ss:Type="String"><%= pp.name %></Data></Cell>
       <Cell ss:StyleID="s344"/>
