@@ -14,6 +14,8 @@ tr.item data-category=("c#{f.object.budget_investment.investment.parent_id}-#{ye
   td.field
     = f.collection_select :pole_base, InvestmentPoleBase.all, :id, :name, { include_blank: true }, { class: 'select2' }
   td.field
+    = ""
+  td.field
     = f.number_field "quantity_#{year}",
     class: "qc#{f.object.budget_investment.id}y#{year} group1-input",
     readonly: true
@@ -24,9 +26,8 @@ tr.item data-category=("c#{f.object.budget_investment.investment.parent_id}-#{ye
   - if f.object.new_record?
     td
       = icon 'trash-o'
-      = f.check_box :_destroy, class: "new-record c#{f.object.budget_investment.id}y#{year}"
+      = f.check_box :_destroy, class: "check_box-destroy new-record c#{f.object.budget_investment.id}y#{year}"
   - else
     td
       = icon 'trash-o'
-      = f.check_box :_destroy, class: "c#{f.object.budget_investment.id}y#{year}"
-
+      = f.check_box :_destroy, class: "check_box-destroy c#{f.object.budget_investment.id}y#{year}"

@@ -45,6 +45,18 @@ Rails.application.routes.draw do
          to: 'budget_forecasts#delete_comment',
          as: :budget_forecast_delete_comment
 
+    post '/:id/alterar/projecao-orcamentaria/investimento/novo-comentario',
+         to: 'budget_investments#new_comment',
+         as: :budget_investment_new_comment
+
+    post '/:id/alterar/projecao-orcamentaria/investimento/ver-comentario',
+         to: 'budget_investments#see_comment',
+         as: :budget_investment_see_comment
+
+    post '/:id/alterar/projecao-orcamentaria/investimento/deleta-comentario',
+         to: 'budget_investments#delete_comment',
+         as: :budget_investment_delete_comment
+
     post '/:id/alterar/projecao-orcamentaria/update_cost_name',
          to: 'pdsis#update_cost_name',
          as: :update_cost_name
@@ -103,6 +115,9 @@ Rails.application.routes.draw do
 
     post '/:id/resultados-esperados/novo-comentario',
          to: 'results_special#new_comment', as: :results_special_new_comment
+
+    post '/:id/resultados-esperados/deleta-comentario',
+         to: 'results_special#delete_comment', as: :results_special_delete_comment
 
     post '/:id/resultados-esperados/delete',
          to: 'results_special#delete', as: :results_special_delete

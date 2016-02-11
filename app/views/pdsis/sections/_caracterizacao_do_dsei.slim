@@ -1,6 +1,10 @@
 - content_for :breadcrumb do
   = breadcrumbs [{ name: section_name(@section), path: pdsis_path(section: @section_url) }]
 
+.field.right
+  = link_to '/meu-pdsi/ver/caracterizacao-do-dsei.xls' do
+    = icon 'file-excel-o fa-2x'
+
 ul.accordion-tabs-minimal
   li.tab-header-and-content
     a.tab-link.is-active[href="#"]
@@ -54,7 +58,7 @@ ul.accordion-tabs-minimal
     .tab-content
       ul.accordion
         li
-          a.js-accordion-trigger[href="javascript:void(0)"]
+          a.js-accordion-trigger[href="javascript:void(0)" id="destination-show"]
             | A) Meios de Transporte para acesso dos povos indígenas aos serviços de saúde
           .accordion-content
             = link_to edit_pdsi_path(@pdsi, section: 'destinos', base_polo: @dsei.base_polos.order(:id).first), class: 'button pull-right edit-link' do

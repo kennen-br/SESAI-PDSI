@@ -251,9 +251,9 @@ $(document).ready ->
         stopLoading()
         if data.status
           $("#result-#{result_id}").remove()
-          toastr.success 'Resultado específico deletado com sucesso!'
+          toastr.success 'Resultado específico apagado com sucesso!'
         else
-          toastr.error 'Não foi possível deletar resultado específico.'
+          toastr.error 'Não foi possível apagar resultado específico.'
         return
       return
 
@@ -377,6 +377,34 @@ $(document).ready ->
         toastr.success 'Comentário enviado.'
         return
 
+      return
+
+    # DELETE COMMENT
+    $('.strategy', $page).on 'click', '.plano-anual .modal.comments .delete-comment', ->
+
+      $this  = $(this)
+      $field = $this.prev()
+      $modal = $this.parents('.modal-inner:eq(0)')
+
+      id = $this.data('id')
+
+      params = { 'comment' : {}}
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+
+      params['comment']['id'] = id
+
+      startLoading()
+
+      url = $('#result-delete-comment-url').val()
+      $.post url, params, (data) ->
+        stopLoading()
+
+        $modal.find('.comments-list .comment.empty').remove()
+        $modal.find('.comments-list table').removeClass('hidden')
+        $modal.find('.comments-list table tbody tr.comment[data-id="'+id+'"]').remove()
+
+        toastr.success 'Comentário apagado.'
+        return
       return
 
     # TOGGLE OVERLAY WHEN MODAL IS OPENED

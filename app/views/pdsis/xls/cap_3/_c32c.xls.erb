@@ -1,0 +1,92 @@
+ <Worksheet ss:Name="quadro3.2C">
+  <Table ss:ExpandedColumnCount="15" ss:ExpandedRowCount="400" x:FullColumns="1"
+   x:FullRows="1" ss:StyleID="s108" ss:DefaultColumnWidth="60"
+   ss:DefaultRowHeight="15">
+   <Column ss:StyleID="s108" ss:AutoFitWidth="0" ss:Width="77.25"/>
+   <Column ss:StyleID="s108" ss:AutoFitWidth="0" ss:Width="126.75" ss:Span="1"/>
+   <Column ss:Index="4" ss:StyleID="s108" ss:AutoFitWidth="0" ss:Width="122.25"/>
+   <Column ss:StyleID="s108" ss:AutoFitWidth="0" ss:Width="42"/>
+   <Column ss:StyleID="s108" ss:AutoFitWidth="0" ss:Width="84.75"/>
+   <Column ss:StyleID="s108" ss:AutoFitWidth="0" ss:Width="36"/>
+   <Column ss:StyleID="s108" ss:AutoFitWidth="0" ss:Width="87.75"/>
+   <Column ss:StyleID="s108" ss:AutoFitWidth="0" ss:Width="48"/>
+   <Column ss:StyleID="s108" ss:AutoFitWidth="0" ss:Width="73.5"/>
+   <Column ss:StyleID="s108" ss:AutoFitWidth="0" ss:Width="103.5"/>
+   <Column ss:StyleID="s108" ss:AutoFitWidth="0" ss:Width="96"/>
+   <Column ss:StyleID="s108" ss:AutoFitWidth="0" ss:Width="84.75"/>
+   <Column ss:StyleID="s108" ss:AutoFitWidth="0" ss:Width="107.25"/>
+   <Row ss:AutoFitHeight="0" ss:Height="40.5">
+    <Cell ss:MergeAcross="14" ss:StyleID="m339201352"><Data ss:Type="String">QUADRO 3.2C– CAPACIDADE INSTALADA E OFERTA DE AÇÕES PROGRAMADAS (recursos humanos atualmente vinculados ao trabalho das EMSI no distrito)</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="33">
+    <Cell ss:MergeDown="1" ss:StyleID="m339201372"><Data ss:Type="String">Pólo-Base</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m339201392"><Data ss:Type="String">EMSI</Data></Cell>
+    <Cell ss:MergeAcross="6" ss:StyleID="m339201412"><Data ss:Type="String">Nº de Profissionais</Data></Cell>
+    <Cell ss:MergeDown="1" ss:StyleID="m339201432"><Data ss:Type="String">Aldeias Atendidas</Data></Cell>
+    <Cell ss:MergeAcross="4" ss:StyleID="m339201452"><Data ss:Type="String">Tempo de permanência em aldeia (dias por mês)</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="32.25">
+    <Cell ss:Index="3" ss:StyleID="s450"><Data ss:Type="String">Méd.</Data></Cell>
+    <Cell ss:StyleID="s450"><Data ss:Type="String">Enf.</Data></Cell>
+    <Cell ss:StyleID="s450"><Data ss:Type="String">Odon</Data></Cell>
+    <Cell ss:StyleID="s450"><Data ss:Type="String">Téc./AuxEnfermagem</Data></Cell>
+    <Cell ss:StyleID="s450"><Data ss:Type="String">ASB</Data></Cell>
+    <Cell ss:StyleID="s450"><Data ss:Type="String">AIS</Data></Cell>
+    <Cell ss:StyleID="s462"><Data ss:Type="String">AISAN</Data></Cell>
+    <Cell ss:Index="11" ss:StyleID="s485"><Data ss:Type="String">Méd.</Data></Cell>
+    <Cell ss:StyleID="s479"><Data ss:Type="String">Enf.</Data></Cell>
+    <Cell ss:StyleID="s479"><Data ss:Type="String">Odon</Data></Cell>
+    <Cell ss:StyleID="s479"><Data ss:Type="String">Téc./AuxEnfermagem</Data></Cell>
+    <Cell ss:StyleID="s450"><Data ss:Type="String">ASB</Data></Cell>
+   </Row>
+   <%= @dsei.base_polos_with_emsis.each do |base_polo| %>
+    <%= base_polo.emsis.each do |emsi| %>
+       <Row ss:AutoFitHeight="0" ss:Height="15.75">
+        <Cell ss:StyleID="s490"><Data ss:Type="String"><%= base_polo.name %></Data></Cell>
+        <Cell ss:StyleID="s490"><Data ss:Type="String"><%= emsi.name %></Data></Cell>
+        <Cell ss:StyleID="s491"><Data ss:Type="Number"><%= emsi.numero_odontologistas %></Data></Cell>
+        <Cell ss:StyleID="s492"><Data ss:Type="Number"><%= emsi.numero_enfermeiros %></Data></Cell>
+        <Cell ss:StyleID="s492"><Data ss:Type="Number"><%= emsi.numero_odontologistas %></Data></Cell>
+        <Cell ss:StyleID="s492"><Data ss:Type="Number"><%= emsi.numero_tecnicos_enfermagem %></Data></Cell>
+        <Cell ss:StyleID="s492"><Data ss:Type="Number"><%= emsi.asb %></Data></Cell>
+        <Cell ss:StyleID="s492"><Data ss:Type="Number"><%= emsi.ais %></Data></Cell>
+        <Cell ss:StyleID="s492"><Data ss:Type="Number"><%= emsi.aisan %></Data></Cell>
+        <Cell ss:StyleID="s493"><Data ss:Type="Number"><%= emsi.aldeias_atendidas %></Data></Cell>
+        <Cell ss:StyleID="s494"><Data ss:Type="Number"><%= emsi.permanencia_medicos %></Data></Cell>
+        <Cell ss:StyleID="s494"><Data ss:Type="Number"><%= emsi.permanencia_enfermeiros %></Data></Cell>
+        <Cell ss:StyleID="s494"><Data ss:Type="Number"><%= emsi.permanencia_odontologistas %></Data></Cell>
+        <Cell ss:StyleID="s494"><Data ss:Type="Number"><%= emsi.permanencia_tecnicos_enfermagem %></Data></Cell>
+        <Cell ss:StyleID="s492"><Data ss:Type="Number"><%= emsi.permanencia_asb %></Data></Cell>
+       </Row>
+     <% end %>
+   <% end %>
+   <Row ss:Index="13" ss:AutoFitHeight="0" ss:Height="16.5"/>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Layout x:Orientation="Landscape"/>
+    <Header x:Margin="0.78749999999999998"/>
+    <Footer x:Margin="0.78749999999999998"/>
+    <PageMargins x:Bottom="1.0249999999999999" x:Left="0.78749999999999998"
+     x:Right="0.78749999999999998" x:Top="1.0249999999999999"/>
+   </PageSetup>
+   <Unsynced/>
+   <Print>
+    <ValidPrinterInfo/>
+    <PaperSizeIndex>9</PaperSizeIndex>
+    <HorizontalResolution>300</HorizontalResolution>
+    <VerticalResolution>300</VerticalResolution>
+   </Print>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>14</ActiveRow>
+     <ActiveCol>13</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+   <EnableSelection>NoSelection</EnableSelection>
+  </WorksheetOptions>
+ </Worksheet>
+

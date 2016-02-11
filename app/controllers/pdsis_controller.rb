@@ -1,19 +1,14 @@
 class PdsisController < ApplicationController
-  before_action :set_section,     only: [:index, :edit, :edit_category_budgets, :update, :health_indicators]
   before_action :set_pdsi
-  before_action :set_base_polo,   only: [:edit, :health_indicators, :update]
-  before_action :set_subsection,  only: [:edit, :edit_category_budgets, :health_indicators, :update]
+  before_action :set_section,    only: [:index, :edit, :edit_category_budgets, :update, :health_indicators]
+  before_action :set_base_polo,  only: [:edit, :health_indicators, :update]
+  before_action :set_subsection, only: [:edit, :edit_category_budgets, :health_indicators, :update]
 
-  # GET /pdsis
-  def index
-  end
+  def index; end
 
-  # GET /pdsis/1
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def edit_category_budgets
     render :edit
@@ -34,16 +29,21 @@ class PdsisController < ApplicationController
 
   # Add new budget_forecast to all PDSIs by new cost
   def new_budget_forecast_by_cost
-    logger.debug "Huh?"
-    prepare_int = (Cost.last.id+1).to_s
-    @new_cost = Cost.create(id: (Cost.last.id+1), parent_id: params['parent_id'], cost_type: params['cost_type'], data_type: 'money', name: "Novo custo #{prepare_int}")
+    prepare_int = (Cost.last.id + 1).to_s
+    @new_cost = Cost.create(id: (Cost.last.id + 1),
+                            parent_id: params['parent_id'],
+                            cost_type: params['cost_type'],
+                            data_type: 'money',
+                            name: "Novo custo #{prepare_int}")
     # Each PDSI for ID
     Pdsi.all.each do |pfi|
-      new_budget_forecast = BudgetForecast.create(id: (BudgetForecast.last.id+1), cost_id: @new_cost.id, pdsi_id: pfi.id)
+      BudgetForecast.create(id: (BudgetForecast.last.id + 1),
+                            cost_id: @new_cost.id,
+                            pdsi_id: pfi.id)
     end
     bf = BudgetForecast.where(pdsi_id: params[:id], cost_id: @new_cost.id).take
     bfcount = BudgetForecast.where(pdsi_id: params[:id]).count
-    bfcount = bfcount-1
+    bfcount -= 1
     response = { status: true, id: bf.id, bfcount: bfcount, cost_id: @new_cost.id }
     render json: response
   end
@@ -79,9 +79,9 @@ class PdsisController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_pdsi
-    if @section.to_s[-5,5] == 'sesai'
-      # Do nothing
-    elsif @section == 'dotacao_orcamentaria'
+    return if @section.to_s[-5, 5] == 'sesai'
+
+    if @section == 'dotacao_orcamentaria'
       @pdsi = Pdsi.find params[:id]
       @demographic_data = @pdsi.demographic_data
       @dsei             = current_dsei
@@ -94,18 +94,18 @@ class PdsisController < ApplicationController
 
   def set_section
     section = params[:section] || 'introducao'
-    @section_url  = section.gsub(/_/, '-')
-    @section      = section.gsub(/-/, '_')
+    @section_url  = section.tr('_', '-')
+    @section      = section.tr('-', '_')
   end
 
   def set_subsection
-    @subsection = params[:subsection].gsub(/-/, '_') if params.key?(:subsection)
-    @tab        = params[:tab].gsub(/-/, '_') if params.key?(:tab)
+    @subsection = params[:subsection].tr('-', '_') if params.key?(:subsection)
+    @tab        = params[:tab].tr('-', '_') if params.key?(:tab)
   end
 
   def set_base_polo
     # helper allowed_sections
-    if view_context.allowed_sections.include? params[:section]
+    if view_context.allowed_sections.include?(params[:section])
       id = params[:base_polo] || @dsei.base_polos.order(:id).first.id
       @base_polo = BasePolo.find id
     end
@@ -125,7 +125,7 @@ class PdsisController < ApplicationController
   end
 
   def redirect_to_indicadores
-    notice = {notice: 'Indicadores atualizados com sucesso.'}
+    notice = { notice: 'Indicadores atualizados com sucesso.' }
 
     args = { subsection: params[:subsection] }
     args.merge!(base_polo: params[:base_polo]) if params[:base_polo]
@@ -150,7 +150,7 @@ class PdsisController < ApplicationController
       ],
       emsis_attributes: [:id, :name, :base_polo_id, :pdsi_id, :numero_medicos, :numero_enfermeiros, :numero_odontologistas, :numero_tecnicos_enfermagem, :asb, :ais, :aisan, :aldeias_atendidas, :permanencia_medicos, :permanencia_enfermeiros, :permanencia_odontologistas, :permanencia_tecnicos_enfermagem, :permanencia_asb, :_destroy],
       service_networks_attributes: [
-        :id, :base_polo_id, :pdsi_id, :city_name,
+        :id, :_destroy, :base_polo_id, :pdsi_id, :city_name,
         service_network_cities_attributes: [
           :id, :city_name, :_destroy,
           health_establishments_attributes:  [:id, :service_network_id, :name, :_destroy],
@@ -168,7 +168,7 @@ class PdsisController < ApplicationController
         capai_villages_attributes: [:id, :capai_id, :village_id, :_destroy],
       ],
       destinations_attributes: [:id, :pdsi_id, :origin_village_id, :destination_village_id, :destination_type_id, :boat_time, :road_time, :fly_time, :_destroy, :destination_class, :city_name, :total_time],
-      pdsi_human_resources_attributes: [:id, :human_resource_function_id, :ubsi_atual, :polo_base_tipo_1_atual, :polo_base_tipo_2, :casai_atual, :sead_atual, :selog_atual, :sesane_atual, :seofi_atual, :sgep_atual, :gabinete_atual, :diasi_atual, :sesai_dsei, :municipio, :estado, :convenio, :mais_medicos, :terceirizacao, :ubsi_necessaria, :polo_base_tipo_1_necessaria, :polo_base_tipo_2_necessaria, :casai_necessaria, :sead_necessaria, :selog_necessaria, :sesane_necessaria, :seofi_necessaria, :sgep_necessaria, :gabinete_necessaria, :diasi_necessaria],
+      pdsi_human_resources_attributes: [:id, :human_resource_function_id, :ubsi_atual, :polo_base_tipo_1_atual, :polo_base_tipo_2, :casai_atual, :sead_atual, :selog_atual, :sesane_atual, :seofi_atual, :sgep_atual, :gabinete_atual, :diasi_atual, :sesai_dsei, :municipio, :estado, :convenio, :mais_medicos, :terceirizacao, :ubsi_necessaria, :polo_base_tipo_1_necessaria, :polo_base_tipo_2_necessaria, :casai_necessaria, :sead_necessaria, :selog_necessaria, :sesane_necessaria, :seofi_necessaria, :sgep_necessaria, :gabinete_necessaria, :diasi_necessaria, :_destroy],
       absolute_data_base_polos_attributes: [:id, :absolute_datum_id, :base_polo_id, :pdsi_id, :value],
       absolute_data_dseis_attributes: [:id, :absolute_datum_id, :dsei_id, :pdsi_id, :value],
       absolute_data_casais_attributes: [:id, :absolute_datum_id, :dsei_id, :pdsi_id, :value],
@@ -225,7 +225,7 @@ class PdsisController < ApplicationController
         ]
       ],
       people_attributes: [ :id, :_destroy, :name, :indigenous_worker,
-                           :professional_category, :role, :bond_type, :bond, :workplace, :location ]
+                           :human_resource_function_id, :role, :bond_type, :bond, :workplace, :location ]
     )
   end
 end
