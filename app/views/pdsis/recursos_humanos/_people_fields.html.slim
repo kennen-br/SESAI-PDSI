@@ -12,7 +12,7 @@ fieldset.human-resources
       = f.text_field :name
     .field
       = f.label 'Categoria Profissional'
-      = f.collection_select :professional_category, HumanResourceFunction.all, :id, :name
+      = f.collection_select :human_resource_function_id, HumanResourceFunction.all, :id, :name
     .field
       = f.label 'Função'
       = f.text_field :role

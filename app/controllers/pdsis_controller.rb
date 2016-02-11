@@ -225,7 +225,7 @@ class PdsisController < ApplicationController
         ]
       ],
       people_attributes: [ :id, :_destroy, :name, :indigenous_worker,
-                           :professional_category, :role, :bond_type, :bond, :workplace, :location ]
+                           :human_resource_function_id, :role, :bond_type, :bond, :workplace, :location ]
     )
   end
 end
