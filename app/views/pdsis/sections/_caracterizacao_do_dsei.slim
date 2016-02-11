@@ -1,7 +1,10 @@
 - content_for :breadcrumb do
   = breadcrumbs [{ name: section_name(@section), path: pdsis_path(section: @section_url) }]
-.right
-  = link_to 'Exportar para excel', '/meu-pdsi/ver/caracterizacao-do-dsei.xls'
+
+.field.right
+  = link_to '/meu-pdsi/ver/caracterizacao-do-dsei.xls' do
+    = icon 'file-excel-o fa-2x'
+
 ul.accordion-tabs-minimal
   li.tab-header-and-content
     a.tab-link.is-active[href="#"]
