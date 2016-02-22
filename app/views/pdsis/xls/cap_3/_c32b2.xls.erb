@@ -214,7 +214,7 @@
     <Cell ss:StyleID="s360"/>
     <Cell ss:StyleID="s360"/>
    </Row>
-   <%= @pdsi.pdsi_human_resources.each do |hr| %>
+   <%= @pdsi.pdsi_human_resources.includes(:human_resource_function).each do |hr| %>
      <Row ss:AutoFitHeight="0" ss:Height="32.0625">
       <Cell ss:StyleID="s421"/>
       <Cell ss:StyleID="s422"/>

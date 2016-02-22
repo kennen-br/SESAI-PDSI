@@ -15,7 +15,7 @@ ul.accordion-tabs-minimal
             th Tipo de Vínculo
             th Trabalhador índigena
         tbody
-          - @pdsi.people.each do |pp|
+          - @pdsi.people.includes(:human_resource_function).each do |pp|
             tr
               td = pp.name
               td = pp.human_resource_function.name
@@ -50,7 +50,7 @@ ul.accordion-tabs-minimal
             th Gabinete
             th DIASI
         tbody
-          - @pdsi.pdsi_human_resources.each do |hr|
+          - @pdsi.pdsi_human_resources.includes(:human_resource_function).each do |hr|
             tr
               td = hr.human_resource_function.name
               td = hr.ubsi_atual
