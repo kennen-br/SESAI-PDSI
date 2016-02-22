@@ -46,4 +46,15 @@ module DseisHelper
     base_polo.villages.each { |vl| names << [vl.name, vl.id] }
     names
   end
+
+  def dsei_ethnicities(dsei)
+    ethnicities = dsei.base_polos.includes(:villages).map do |bp|
+      bp.villages.map do |vl|
+        vl.ethnicities_villages.includes(:ethnicity).map do |ev|
+          ev.ethnicity.name
+        end
+      end
+    end
+    ethnicities.flatten.flatten.uniq
+  end
 end

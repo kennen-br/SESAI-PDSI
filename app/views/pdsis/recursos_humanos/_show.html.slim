@@ -18,7 +18,7 @@ ul.accordion-tabs-minimal
           - @pdsi.people.each do |pp|
             tr
               td = pp.name
-              td = pp.professional_category
+              td = pp.human_resource_function.name
               td = pp.role
               td = pp.location
               td = pp.workplace
@@ -117,7 +117,7 @@ ul.accordion-tabs-minimal
               td = hr.sead_necessaria
               td = hr.selog_necessaria
               td = hr.sesane_necessaria
-              td = hr.sead_necessaria
+              td = hr.seofi_necessaria
               td = hr.sgep_necessaria
               td = hr.gabinete_necessaria
               td = hr.diasi_necessaria

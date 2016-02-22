@@ -14,7 +14,7 @@ class BudgetForecastsController < ApplicationController
 
   def new_comment
     values = new_comment_params
-    @comment = BudgetForecastComment.create(budget_forecast_id: values['bf_id'], user: current_user, year: values['year'], comment: values['comment'])
+    @comment = BudgetForecastComment.create(budget_forecast_id: values['budget_id'], user: current_user, year: values['year'], comment: values['comment'])
     render 'pdsis/projecao_orcamentaria/new_comment', layout: false
   end
 
@@ -31,7 +31,7 @@ class BudgetForecastsController < ApplicationController
 
   private
     def new_comment_params
-      params.require(:comment).permit(:bf_id, :year, :comment)
+      params.require(:comment).permit(:budget_id, :year, :comment)
     end
 
     def delete_comment_params

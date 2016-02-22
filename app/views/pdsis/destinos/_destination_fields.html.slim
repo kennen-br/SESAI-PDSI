@@ -6,9 +6,13 @@ fieldset.transport
       | Para apagar um transporte inserido anteriormente, marque a caixinha "Apagar?".
       br
       | O transporte será apagado quando você clicar no botão "Salvar" do formulário.
-  .right
-    = f.check_box :_destroy
-    | Apagar ?
+  .field.right
+    .tooltip-item.remove
+      = icon 'trash-o remove'
+      .tooltip
+        p Apagar?
+    .hidden
+      = f.check_box :_destroy, class: 'remove-chk'
   fieldset
     legend Destino
     == render "pdsis/destinos/#{destination_type.snake_name}_fields", f: f

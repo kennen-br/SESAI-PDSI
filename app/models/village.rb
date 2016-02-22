@@ -9,6 +9,7 @@ class Village < ActiveRecord::Base
   has_many  :infrastructure_buildings
   has_many  :infrastructure_sanitations
   has_many  :capai_villages
+  has_many :ethnicities_villages
 
   validates :base_polo, presence: true
   validates :name, length: { maximum: 255 }, uniqueness: { scope: :base_polo }, presence: true

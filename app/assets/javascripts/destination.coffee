@@ -94,3 +94,9 @@ $(document).ready ->
     select_city()
 
   select_city()
+
+  $('#destination-show').click ->
+    $("#destination-show-0").click().parent().css({ 'border': "none"  })
+    for link in [0..2]
+      $("#destination-show-#{link}").parent().css({ 'border': "none"  })
+    return

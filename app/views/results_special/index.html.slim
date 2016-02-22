@@ -7,6 +7,7 @@
   = hidden_field_tag '', results_special_delete_path(current_dsei.pdsi), { id: 'result-delete-url' }
   = hidden_field_tag '', results_special_new_comment_path(current_dsei.pdsi), { id: 'result-new-comment-url' }
   = hidden_field_tag '', results_special_see_comment_path(current_dsei.pdsi), { id: 'result-see-comment-url' }
+  = hidden_field_tag '', results_special_delete_comment_path(current_dsei.pdsi), { id: 'result-delete-comment-url' }
   = hidden_field_tag '', results_special_false_result_path(current_dsei.pdsi), { id: 'result-false-url' }
   = hidden_field_tag '', results_special_link_product_path(current_dsei.pdsi), { id: 'result-link-product-url' }
   = hidden_field_tag '', results_special_products_order_path(current_dsei.pdsi), { id: 'result-product-order-url' }
@@ -72,130 +73,130 @@
                   - results = @pdsi.pdsi_results_to_section_with_values(axis.section_name)
                   = render 'modal_link', { axis: axis, results: (results + @dsei.specific_pdsi_results) }
                   - results.each do |pdsi_result|
-                    - j = j + 1
-                    .result-container id=("result-#{pdsi_result.result.id}") data-id="#{pdsi_result.id}" data-result-id="#{pdsi_result.result.id}"
-                      .result
-                        h4 Resultado #{j}
-                        - if !pdsi_result.result.is_boolean
-                          = text_field_tag "global_#{pdsi_result.id}", pdsi_result.send("value_global"), { class: 'global-value-cs', data: { field: "value_global", limit: pdsi_result.result.send("value_global"), result_id: pdsi_result.id }}
-                          .result-name #{pdsi_result.editable_value_global}
-                        - else
-                          .result-name #{pdsi_result.result.name}
-                        .show-more
-                          span.more style="display: none;"
-                            = icon 'chevron-up'
-                            | &nbsp;Ver Menos
-                          span.less style="display: inline;"
-                            = icon 'chevron-down'
-                            | &nbsp;Ver Mais
-                        .helpers
-                          .pointer.show-default-values default-values-result-id="#{pdsi_result.id}" Restaurar valores de referência
-                          .dsei-false-result data-result-id="#{pdsi_result.result.id}" data-dsei-id="#{current_dsei.id}"
-                            = icon (pdsi_result.result.dsei_not_apply?(current_dsei) ? 'check-square' : 'square')
-                            | não se aplica ao DSEI
-                          .tooltip-item.orientacoes-dsei
-                            = icon 'info-circle'
-                            .tooltip
-                              p
-                                = pdsi_result.result.orientacoes_dsei? ? pdsi_result.result.orientacoes_dsei : "Não há orientações"
-
-
-                      .result-products style="display: none;"
-                        .years
-                          - (2016..2019).map do |year|
-                            .year
-                              h4 = year
-                              .value
-                                - if pdsi_result.result.is_boolean
-                                  span = pdsi_result.result.name
-                                  / label.result-checkbox
-                                    - checked = pdsi_result.send("value_#{year}") == 0 ? false : true
-                                    = check_box_tag '', '1', checked, { data: { field: "value_#{year}" }}
-                                -else
-                                  = text_field_tag "data_value_#{pdsi_result.id}_#{year}", pdsi_result.send("value_#{year}"), { class: 'result-field colored-border', data: { field: "value_#{year}", limit: pdsi_result.result.send("value_#{year}") }}
-                                  span
-                                    == pdsi_result.editable_value year
-                        .plano-anual
-                          .show-more.colored-border
-                            span.more
+                    - unless pdsi_result.result.not_in
+                      .result-container id=("result-#{pdsi_result.result.id}") data-id="#{pdsi_result.id}" data-result-id="#{pdsi_result.result.id}"
+                        .result
+                          h4 Resultado #{pdsi_result.result.id}
+                          - if !pdsi_result.result.is_boolean
+                            = text_field_tag "global_#{pdsi_result.id}", pdsi_result.send("value_global"), { class: 'global-value-cs', data: { field: "value_global", limit: pdsi_result.result.send("value_global"), result_id: pdsi_result.id }}
+                            .result-name #{pdsi_result.editable_value_global}
+                          - else
+                            .result-name #{pdsi_result.result.name}
+                          .show-more
+                            span.more style="display: none;"
+                              = icon 'chevron-up'
+                              | &nbsp;Ver Menos
+                            span.less style="display: inline;"
                               = icon 'chevron-down'
-                              | &nbsp;Plano Anual
-                            h2 PLANO ANUAL
-
-                          - responsability = pdsi_result.result.responsability_result(@pdsi)
-                          .responsability.resp-item data-id="#{responsability.id}"
-                            table.tables.responsability-result.head
-                              thead
-                                tr
-                                  th RESULTADO 2016
-                                  th INÍCIO
-                                  th TÉRMINO
-                                  th RESPONSÁVEL
-                                  th CORRESPONSÁVEIS
-
-                            = render 'responsability_actions', { resp: responsability }
-                            = render 'modal_comments', { resp: responsability }
-                            table.tables.responsability-result.body
-                              tbody
-                                tr
-                                  td = text_area_tag "textfield_for_2016_#{pdsi_result.id}", pdsi_result.value_global_text(pdsi_result.send("value_2016")),  class: 'product-name colored-border', data: { field: 'name', type: 'Resultado', result_text: pdsi_result.result.name }, disabled: "disabled"
-                                  td = text_field_tag '', responsability.initial_date? ? responsability.initial_date.strftime('%d/%m/%y') : '', placeholder: '01/01/2016', class: 'product-date date-field colored-border', data: { field: 'initial_date', type: 'Resultado' }
-                                  td = text_field_tag '', responsability.deadline? ? responsability.deadline.strftime('%d/%m/%y') : '', placeholder: '31/12/2016', class: 'product-date date-field colored-border', data: { field: 'deadline', type: 'Resultado' }
-                                  td
-                                    .people.colored-border.single
-                                      = text_field_tag '', nil, { class: 'colored-border search', placeholder: 'Insira o responsável'}
-                                      = icon 'times', class: 'clear-search'
-                                      = icon 'circle-o-notch', class: 'loading fa-spin'
-                                      ul
-                                        - unless responsability.person.nil?
-                                          li.person
-                                            label.people-checkbox
-                                              = check_box_tag '', '', true, { data: { person_id: responsability.person.id }}
-                                              strong = responsability.person.name
-                                              | &nbsp;
-                                              span
-                                                | (#{responsability.person.location})
-                                  td
-                                    .people.colored-border.multiple
-                                      = text_field_tag '', nil, { class: 'colored-border search', placeholder: 'Insira o corresponsável'}
-                                      = icon 'times', class: 'clear-search'
-                                      = icon 'circle-o-notch', class: 'loading fa-spin'
-                                      ul
-                                        - responsability.corresponsabilities.includes(:person).each do |person|
-                                          li.person
-                                            label.people-checkbox
-                                              = check_box_tag '', '', true, { data: { person_id: person.person.id, id: person.id }}
-                                              strong = person.person.name
-                                              | &nbsp;
-                                              span
-                                                | (#{person.person.location})
+                              | &nbsp;Ver Mais
+                          .helpers
+                            .pointer.show-default-values default-values-result-id="#{pdsi_result.id}" Restaurar valores de referência
+                            .dsei-false-result data-result-id="#{pdsi_result.result.id}" data-dsei-id="#{current_dsei.id}"
+                              = icon (pdsi_result.result.dsei_not_apply?(current_dsei) ? 'check-square' : 'square')
+                              | não se aplica ao DSEI
+                            .tooltip-item.orientacoes-dsei
+                              = icon 'info-circle'
+                              .tooltip
+                                p
+                                  = pdsi_result.result.orientacoes_dsei? ? pdsi_result.result.orientacoes_dsei : "Não há orientações"
 
 
+                        .result-products style="display: none;"
+                          .years
+                            - (2016..2019).map do |year|
+                              .year
+                                h4 = year
+                                .value
+                                  - if pdsi_result.result.is_boolean
+                                    span = pdsi_result.result.name
+                                    / label.result-checkbox
+                                      - checked = pdsi_result.send("value_#{year}") == 0 ? false : true
+                                      = check_box_tag '', '1', checked, { data: { field: "value_#{year}" }}
+                                  -else
+                                    = text_field_tag "data_value_#{pdsi_result.id}_#{year}", pdsi_result.send("value_#{year}"), { class: 'result-field colored-border', data: { field: "value_#{year}", limit: pdsi_result.result.send("value_#{year}") }}
+                                    span
+                                      == pdsi_result.editable_value year
+                          .plano-anual
+                            .show-more.colored-border
+                              span.more
+                                = icon 'chevron-down'
+                                | &nbsp;Plano Anual
+                              h2 PLANO ANUAL
 
-                            .children class=('hidden' if responsability.children.blank?)
+                            - responsability = pdsi_result.result.responsability_result(@pdsi)
+                            .responsability.resp-item data-id="#{responsability.id}"
                               table.tables.responsability-result.head
                                 thead
                                   tr
-                                    th PRODUTO
+                                    th RESULTADO 2016
                                     th INÍCIO
                                     th TÉRMINO
                                     th RESPONSÁVEL
                                     th CORRESPONSÁVEIS
-                              .product-list
-                                - responsability.children.includes(:person, :corresponsabilities).order(:order, :id).each do |product|
-                                  .product.resp-item data-id="#{product.id}"
-                                    = render 'responsability', { responsability: product }
-                                    .children.hidden
-                                      - product.children.includes(:person, :corresponsabilities).order(:order, :id).each do |action|
-                                        .action.resp-item data-id="#{action.id}"
-                                          = render 'responsability', { responsability: action }
-                                    = render 'responsability_buttons'
-                            .actions
-                              a.button.colored-border.add-product
-                                = icon 'plus'
-                                | &nbsp;Inserir novo produto
-                              a.button.colored-border.colored-bg.close
-                                | Fechar
+
+                              = render 'responsability_actions', { resp: responsability }
+                              = render 'modal_comments', { resp: responsability }
+                              table.tables.responsability-result.body
+                                tbody
+                                  tr
+                                    td = text_area_tag "textfield_for_2016_#{pdsi_result.id}", pdsi_result.value_global_text(pdsi_result.send("value_2016")),  class: 'product-name colored-border', data: { field: 'name', type: 'Resultado', result_text: pdsi_result.result.name }, disabled: "disabled"
+                                    td = text_field_tag '', responsability.initial_date? ? responsability.initial_date.strftime('%d/%m/%y') : '', placeholder: '01/01/2016', class: 'product-date date-field colored-border', data: { field: 'initial_date', type: 'Resultado' }
+                                    td = text_field_tag '', responsability.deadline? ? responsability.deadline.strftime('%d/%m/%y') : '', placeholder: '31/12/2016', class: 'product-date date-field colored-border', data: { field: 'deadline', type: 'Resultado' }
+                                    td
+                                      .people.colored-border.single
+                                        = text_field_tag '', nil, { class: 'colored-border search', placeholder: 'Insira o responsável'}
+                                        = icon 'times', class: 'clear-search'
+                                        = icon 'circle-o-notch', class: 'loading fa-spin'
+                                        ul
+                                          - unless responsability.person.nil?
+                                            li.person
+                                              label.people-checkbox
+                                                = check_box_tag '', '', true, { data: { person_id: responsability.person.id }}
+                                                strong = responsability.person.name
+                                                | &nbsp;
+                                                span
+                                                  | (#{responsability.person.location})
+                                    td
+                                      .people.colored-border.multiple
+                                        = text_field_tag '', nil, { class: 'colored-border search', placeholder: 'Insira o corresponsável'}
+                                        = icon 'times', class: 'clear-search'
+                                        = icon 'circle-o-notch', class: 'loading fa-spin'
+                                        ul
+                                          - responsability.corresponsabilities.includes(:person).each do |person|
+                                            li.person
+                                              label.people-checkbox
+                                                = check_box_tag '', '', true, { data: { person_id: person.person.id, id: person.id }}
+                                                strong = person.person.name
+                                                | &nbsp;
+                                                span
+                                                  | (#{person.person.location})
+
+
+
+                              .children class=('hidden' if responsability.children.blank?)
+                                table.tables.responsability-result.head
+                                  thead
+                                    tr
+                                      th PRODUTO
+                                      th INÍCIO
+                                      th TÉRMINO
+                                      th RESPONSÁVEL
+                                      th CORRESPONSÁVEIS
+                                .product-list
+                                  - responsability.children.includes(:person, :corresponsabilities).order(:order, :id).each do |product|
+                                    .product.resp-item data-id="#{product.id}"
+                                      = render 'responsability', { responsability: product }
+                                      .children.hidden
+                                        - product.children.includes(:person, :corresponsabilities).order(:order, :id).each do |action|
+                                          .action.resp-item data-id="#{action.id}"
+                                            = render 'responsability', { responsability: action }
+                                      = render 'responsability_buttons'
+                              .actions
+                                a.button.colored-border.add-product
+                                  = icon 'plus'
+                                  | &nbsp;Inserir novo produto
+                                a.button.colored-border.colored-bg.close
+                                  | Fechar
 
                   .specific-results-block
                     .specific-axis id="specific_block_#{strategy.id}"
