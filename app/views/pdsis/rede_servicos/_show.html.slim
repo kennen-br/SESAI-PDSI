@@ -19,8 +19,6 @@ table.tables.pdsi-result-table
               td = base_polo.population
               td = city.city_name
               td
-                - city.health_establishments.each do |item|
-                  = item.name
+                = city.health_establishments.map { |item| item.name }.join(', ')
               td
-                - city.health_specializeds.each do |item|
-                  = item.name
+                = city.health_specializeds.map { |item| item.name }.join(', ')
