@@ -104,6 +104,16 @@ mina development restart
 mina development purge
 ```
 
+### Dump do banco
+```
+rake db:dump
+```
+
+### Restore do banco
+```
+rake db:restore
+```
+
 # Documentação
 
 * [Especificação do projeto](doc/README.markdown)
