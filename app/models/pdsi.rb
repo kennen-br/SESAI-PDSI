@@ -338,6 +338,15 @@ class Pdsi < ActiveRecord::Base
     budget_investments_with_values
   end
 
+  def human_resources_with_values
+    return pdsi_human_resources.includes(:human_resource_function) unless pdsi_human_resources.blank?
+
+    HumanResourceFunction.all.each do |human_resource_function|
+      pdsi_human_resources << PdsiHumanResource.new(human_resource_function: human_resource_function)
+    end
+    human_resources_with_values
+  end
+
   private
 
   def compose_item(sample_attr, key, value)
