@@ -51,7 +51,8 @@ module SanitationHelper
     sum = 0
     base_pole.villages_with_sanitations.each do |vl|
       vl.infrastructure_sanitations.each do |is|
-        sum += 1 if is.qtd_msd_individual
+        debug is.qtd_msd_individual
+        sum += is.qtd_msd_individual if is.qtd_msd_individual
       end
     end
     sum
@@ -61,7 +62,7 @@ module SanitationHelper
     sum = 0
     base_pole.villages_with_sanitations.each do |vl|
       vl.infrastructure_sanitations.each do |is|
-        sum += 1 if is.qtd_msd_coletiva
+        sum += is.qtd_msd_coletiva if is.qtd_msd_coletiva
       end
     end
     sum

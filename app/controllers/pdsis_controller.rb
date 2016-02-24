@@ -224,7 +224,7 @@ class PdsisController < ApplicationController
          :pole_base, :village
         ]
       ],
-      people_attributes: [ :id, :_destroy, :name, :indigenous_worker,
+      people_attributes: [ :id, :_destroy, :name, :indigenous_worker, :dsei_id,
                            :human_resource_function_id, :role, :bond_type, :bond, :workplace, :location ]
     )
   end
