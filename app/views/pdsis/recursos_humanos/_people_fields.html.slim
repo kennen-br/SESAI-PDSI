@@ -1,34 +1,22 @@
-fieldset.human-resources
-  .field.right
-    .tooltip-item.remove
-      = icon 'trash-o remove'
-      .tooltip
-        p Apagar?
+tr
+  td
+    = f.text_field :name
+  td
+    = f.collection_select :human_resource_function_id, HumanResourceFunction.order(:name).all, :id, :name, include_blank: true
+  td
+    = f.text_field :role
+  td
+    = f.text_field :location
+  td
+    = f.text_field :workplace
+  td
+    = f.select :bond, options_for_select(['ATIVO PERMANENTE', 'MISSÃO EVANGÉLICA CAIUÁ'], f.object.bond), include_blank: true
+  td
+    = f.text_field :bond_type
+  td
+    = f.check_box :indigenous_worker
+    = f.hidden_field :dsei_id, value: @pdsi.id
+  td
+    = icon 'trash-o remove'
     .hidden
       = f.check_box :_destroy, class: 'remove-chk'
-  .two-columns
-    .field
-      = f.label :name
-      = f.text_field :name
-    .field
-      = f.label 'Categoria Profissional'
-      = f.collection_select :human_resource_function_id, HumanResourceFunction.order(:name).all, :id, :name
-    .field
-      = f.label 'Função'
-      = f.text_field :role
-    .field
-      = f.label 'Lotação'
-      = f.text_field :location
-    .field
-      = f.label 'Local de Trabalho'
-      = f.text_field :workplace
-    .field
-      = f.label 'Vinculo'
-      = f.select :bond, options_for_select(['ATIVO PERMANENTE', 'MISSÃO EVANGÉLICA CAIUÁ'], f.object.bond), include_blank: true
-    .field
-      = f.label 'Tipo de Vinculo'
-      = f.text_field :bond_type
-    .field
-      = f.label 'Trabalhador Indígena'
-      = f.check_box :indigenous_worker
-
