@@ -7,11 +7,24 @@ ul.accordion-tabs-minimal
     a.tab-link
       | Pessoas
     .tab-content
-      = f.fields_for :people do |pe|
-        == render 'pdsis/recursos_humanos/people_fields', f: pe
+      table.tables.pdsi-result-table
+        thead
+          tr
+            th Nome
+            th Categoria Profissional
+            th Função
+            th Lotação
+            th Local de Trabalho
+            th Vínculo
+            th Tipo de Vínculo
+            th Trabalhador índigena
+            th Remover
+          tbody#pdsi-people
+            = f.fields_for :people, @pdsi.people.includes(:human_resource_function).order(:name) do |pe|
+              == render 'pdsis/recursos_humanos/people_fields', f: pe, pdsi: @pdsi
 
       .links
-        = link_to_add_association f, :people, { class: 'button btn-sm', partial: 'pdsis/recursos_humanos/people_fields' } do
+        = link_to_add_association f, :people, data: { "association-insertion-node": "#pdsi-people", "association-insertion-method": 'append' }, class: 'button btn-sm', partial: 'pdsis/recursos_humanos/people_fields'  do
           = icon 'plus'
           | Adicionar Pessoa
 
