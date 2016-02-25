@@ -67,8 +67,8 @@
               - axis.result_strategies.each do |strategy|
                 .strategy
                   .strategy-title Estratégia #{i}: #{strategy.name}
-                  .create-specific-result
-                    .center-button.new-specific-result data-strategy-id="#{strategy.id}" INSERIR NOVO RESULTADO ESPECÍFICO
+                  //.create-specific-result
+                    //.center-button.new-specific-result data-strategy-id="#{strategy.id}" INSERIR NOVO RESULTADO ESPECÍFICO
                   - j = 0
                   - results = @pdsi.pdsi_results_to_section_with_values(axis.section_name)
                   = render 'modal_link', { axis: axis, results: (results + @dsei.specific_pdsi_results) }

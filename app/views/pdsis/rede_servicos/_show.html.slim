@@ -4,7 +4,7 @@ table.tables.pdsi-result-table
       th[rowspan="2"] Polo Base
       th[rowspan="2"] Muncípio
       th[rowspan="2" style="width: 80px;"] População
-      th[rowspan="2"] Muncípio Referência
+      th[rowspan="2"] Muncípios de Referência
       th[colspan="2" style="border-bottom: 1px solid #ddd;"] Estabelecimentos de Saúde
     tr
       th[style="border-left: 1px solid #ddd; text-align: center;"] Atenção Básica
@@ -16,7 +16,10 @@ table.tables.pdsi-result-table
             tr
               td = base_polo.name
               td = base_polo.city_name
-              td = base_polo.population
+              - if base_polo.population
+                td = base_polo.population
+              - else
+                td = "Favor preencher os dados da tabela de Dados Fisiográficos (3.1 C)"
               td = city.city_name
               td
                 = city.health_establishments.map { |item| item.name }.join(', ')
