@@ -541,7 +541,7 @@ $(document).ready ->
       $field = $(this)
 
       field     = $field.data 'field'
-      result_id = $field.parents('.resp-item ').data 'id'
+      # result_id = $field.parents('.resp-item ').data 'id'
       value     = $field.val()
 
       item = {}
@@ -865,7 +865,11 @@ $(document).ready ->
         $person.remove()
       return
 
+    reference_id = null
     responsabilityParams = ($object, item) ->
+      parent_id = $object.parents('.responsability').data('id')
+      reference_id or= $object.parents('.resp-reference').data('result-id')
+
       # Responsability ACTION
       if $object.parents('.action').length > 0
         action = { 'children_attributes': [] }
@@ -884,7 +888,7 @@ $(document).ready ->
       else
         params = {'responsabilities_attributes': []}
         params['responsabilities_attributes'][0] = item
-        params['responsabilities_attributes'][0]['id'] = $object.parents('.responsability').data('id')
+        params['responsabilities_attributes'][0]['id'] = reference_id || parent_id
 
         params
 

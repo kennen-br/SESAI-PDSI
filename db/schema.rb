@@ -657,8 +657,8 @@ ActiveRecord::Schema.define(version: 20160211142456) do
     t.string   "role"
     t.string   "bond_type"
     t.string   "workplace"
-    t.integer  "human_resource_function_id"
     t.integer  "user_id"
+    t.integer  "human_resource_function_id"
   end
 
   add_index "people", ["dsei_id"], name: "index_people_on_dsei_id", using: :btree
