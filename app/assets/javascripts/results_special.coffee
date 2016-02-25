@@ -82,7 +82,8 @@ $(document).ready ->
         $("#global_#{current_id}").val($("#global_#{current_id}").attr("data-limit"))
         $("#global_#{current_id}").change()
 
-    # LINK PRODUCT TO ANOTHER DSEI
+    # LINK PRODUCT TO ANOTHER DSEI (OLD)
+    ### OLD CODE
     $('.modal.link-product-dsei .dsei-list li', $page).click ->
       $this = $(this)
       $modal = $this.parents('.modal.link-product-dsei')
@@ -120,6 +121,8 @@ $(document).ready ->
         return
 
       return
+    ###
+
     # OPEN MODAL TO LINK PRODUCT TO ANOTHER DSEI
     $('.strategy', $page).on 'click', '.plano-anual .responsability .product .link-product-dsei', ->
       $this = $(this)
@@ -257,20 +260,23 @@ $(document).ready ->
         return
       return
 
-    # LINK PRODUCT TO ANOTHER RESULT
+    # LINK / DELETE LINK TO PRODUCT TO ANOTHER RESULT
     $('.strategy .modal.link-product .results-list li', $page).click ->
       $this = $(this)
       $modal = $this.parents('.modal.link-product')
 
       result_id = $this.data('id')
       product_id = $modal.find('.product-id').val()
+      pdsi_id = $('#current_pdsi_id').val()
 
+      # LINK
       if $this.find('.fa-square-o').length > 0
 
         params = { 'link_product' : {}}
         params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
         params['link_product']['product_id'] = product_id
         params['link_product']['result_id']  = result_id
+        params['link_product']['pdsi_id'] = pdsi_id
 
         startLoading()
 
@@ -280,16 +286,33 @@ $(document).ready ->
           $("#result-#{result_id}.result-container .plano-anual .responsability > .children").removeClass('hidden').find('.product-list').append(data)
           $("#result-#{result_id}.result-container .plano-anual .responsability > .children .product-list").sortable('reload')
           startSortable $(data).find('.children'), 'AÇÃO'
-          $this.data('newId', $(data).data('id'))
           $this.find('.fa').toggleClass('fa-square-o').toggleClass('fa-check-square-o')
           toastr.success 'Produto adicionado ao resultado escolhido'
           return
-
+      # DELINK
       else
-        new_id = $this.data('newId')
-        $("#result-#{result_id}.result-container .plano-anual .responsability > .children .product[data-id='#{new_id}'] .responsability-actions .delete-responsability").click()
-        $this.find('.fa').toggleClass('fa-square-o').toggleClass('fa-check-square-o')
-        $this.removeData('newId')
+        if $this.hasClass('original-ref')
+          alert('Esse é o produto original e não pode ser desvinculado.')
+          return false
+        #$("#result-#{result_id}.result-container .plano-anual .responsability > .children .product[data-id='#{new_id}'] .responsability-actions .delete-responsability").click()
+        params = { 'remove_link' : {} }
+        params['remove_link']['product_id'] = product_id
+        params['remove_link']['result_id']  = result_id
+        params['remove_link']['pdsi_id'] = pdsi_id
+
+        startLoading()
+
+        url = $('#result-remove-link-url', $page).val()
+        $.post url, params, (data) ->
+          stopLoading()
+          $resp = $("#responsability-reference-#{data.refId}")
+          $parent = $resp.parents('.children:eq(0)')
+          $resp.remove()
+          if $parent.find('.resp-item').length == 0
+            $parent.addClass('hidden')
+          $this.find('.fa').toggleClass('fa-square-o').toggleClass('fa-check-square-o')
+          toastr.success 'Associação removida com sucesso'
+          return
 
       return
     # OPEN MODAL TO LINK PRODUCT TO ANOTHER RESULT
@@ -299,14 +322,35 @@ $(document).ready ->
       $modal   = $this.parents('.strategy').find('.modal.link-product')
       $product = $this.parents('.product:eq(0)')
 
-      product_id = $product.data('id')
-      result_id  = $product.parents('.result-container:eq(0)').data('resultId')
+      current_pdsi_id = "current"
+      product_id      = $product.data('id')
+      result_id       = $product.parents('.result-container:eq(0)').data('resultId')
 
+      $modal.find('#current_pdsi_id').val(current_pdsi_id)
       $modal.find('ul li').show().find('.fa').removeClass('fa-check-square-o').addClass('fa-square-o').removeData('newId')
+      $modal.find('li').removeClass('original-ref')
       $modal.find('input.product-id').val(product_id)
-      $modal.find("#link-result-#{result_id}").hide()
 
-      $modal.find('.modal-state').click()
+      params = { 'responsability_reference' : {}}
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+      params['responsability_id'] = product_id
+      params['pdsi_id'] = current_pdsi_id
+      startLoading()
+      url = $('#result-get-all-related-links-url', $page).val()
+      $.post url, params, (data) ->
+        if data.products.length == 0
+          #do nothing
+        else
+          i = 0;
+          while i<data.products.length
+            $("#link-result-#{data.products[i].result_id}").find('.fa').removeClass('fa-square-o').addClass('fa-check-square-o')
+            i++
+        $("#link-result-#{data.original.result_id}").find('.fa').removeClass('fa-square-o').addClass('fa-check-square-o')
+        $("#link-result-#{data.original.result_id}").addClass('original-ref')
+        stopLoading()
+        $modal.find("#link-result-#{result_id}").hide()
+        $modal.find('.modal-state').click()
+        return
       return
     # DELETE A RESPONSABILITY
     $('.strategy', $page).on 'click', '.plano-anual .responsability .responsability-actions .delete-responsability', ->

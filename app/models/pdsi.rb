@@ -60,7 +60,10 @@ class Pdsi < ActiveRecord::Base
   has_many :responsabilities
   accepts_nested_attributes_for :responsabilities, reject_if: :all_blank, allow_destroy: true
 
-  has_many :pdsi_need_costs
+  has_many  :responsability_references
+  accepts_nested_attributes_for :responsabilities, reject_if: :all_blank, allow_destroy: true
+
+  has_many  :pdsi_need_costs
   accepts_nested_attributes_for :pdsi_need_costs, reject_if: :all_blank, allow_destroy: true
 
   has_many :pdsi_need_investiments

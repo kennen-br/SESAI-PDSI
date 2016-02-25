@@ -1,14 +1,23 @@
 .modal.link-product
   = hidden_field_tag '', '', { class: 'product-id' }
-  input.modal-state type="checkbox" id=("link-product-result-#{axis.id}")
+  = hidden_field_tag 'current_pdsi_id', ''
+  input.modal-state type="checkbox"
   .modal-window
     .modal-inner
-      label.modal-close for=("link-product-result-#{axis.id}")
+      label.modal-close
       h1
         | Associar produto a outro resultado
       ul.results-list
-        - results.each do |result|
-          li id=("link-result-#{result.result.id}") data-id="#{result.result.id}"
-            = icon 'square-o'
-            | &nbsp;
-            = result.result.name
+        - ResultAxis.includes(:result_strategies).order(:id).each_with_index do |axis, index|
+          - i = 0
+          - axis.result_strategies.each do |strategy|
+            - i = index+1
+            br
+            h2
+              | Estratégia #{i}: #{strategy.name}
+            - results = @pdsi.pdsi_results_to_section_with_values(axis.section_name)
+            - results.each do |result|
+              li id=("link-result-#{result.result.id}") data-id="#{result.result.id}"
+                = icon 'square-o'
+                | &nbsp;
+                = result.value_global_text(result.result.send("value_global"))
