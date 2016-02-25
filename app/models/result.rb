@@ -6,6 +6,7 @@ class Result < ActiveRecord::Base
   belongs_to  :result_strategy
 
   has_many  :responsabilities, :dependent => :destroy
+  has_many  :responsability_references, :dependent => :destroy
   has_many  :specific_results, :dependent => :destroy
   has_many  :pdsi_results, :dependent => :destroy
 

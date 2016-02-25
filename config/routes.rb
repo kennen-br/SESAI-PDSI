@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   post '/image-upload',     to: 'application#image_upload', as: :image_upload
   post '/procurar-pessoa',  to: 'people#search',            as: :search
+  post '/procurar-pessoa-com-dsei', to: 'people#search_with_dsei', as: :search_with_dsei
 
   get 'category_budgets/index'
 
@@ -142,6 +143,11 @@ Rails.application.routes.draw do
 
     post '/:id/resultados-esperados/ver-comentario',
          to: 'results_special#see_comment', as: :results_special_see_comment
+
+    post '/:id/resultados-esperados/selecionar-links',
+         to: 'results_special#get_all_related_links', as: :results_special_get_all_related_links
+    post '/:id/resultados-esperados/retirar-link',
+          to: 'results_special#remove_link', as: :results_special_remove_link
 
     # Resultados Específicos
     get '/:id/resultados-especificos',

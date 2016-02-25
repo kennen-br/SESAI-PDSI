@@ -657,6 +657,7 @@ ActiveRecord::Schema.define(version: 20160211142456) do
     t.string   "role"
     t.string   "bond_type"
     t.string   "workplace"
+    t.integer  "user_id"
     t.integer  "human_resource_function_id"
   end
 
@@ -801,6 +802,14 @@ ActiveRecord::Schema.define(version: 20160211142456) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "responsability_references", force: :cascade do |t|
+    t.integer  "responsability_id"
+    t.integer  "pdsi_id"
+    t.integer  "result_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "result_axes", force: :cascade do |t|
@@ -1006,6 +1015,7 @@ ActiveRecord::Schema.define(version: 20160211142456) do
   add_foreign_key "pdsis", "users"
   add_foreign_key "people", "dseis"
   add_foreign_key "people", "human_resource_functions"
+  add_foreign_key "people", "users"
   add_foreign_key "physiographic_data_ethnicities", "ethnicities"
   add_foreign_key "physiographic_data_ethnicities", "physiographic_datas"
   add_foreign_key "physiographic_data_languages", "physiographic_datas"

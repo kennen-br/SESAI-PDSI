@@ -9,7 +9,5 @@
       ul.dsei-list
         - Dsei.where.not(id: @dsei.id).all.each do |dsei|
           li data-id="#{dsei.id}"
-            = icon 'square-o'
-            | &nbsp;
             span.name
               = dsei.name

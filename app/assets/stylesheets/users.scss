@@ -1,0 +1,62 @@
+.users-people {
+	@include position(relative);
+	
+	.people-location {
+		display: none;
+	}
+	
+  .clear-search {
+    @include position(absolute, 6px 5px null null);
+    cursor    : pointer;
+    display   : none;
+    font-size : modular-scale(-1);
+  }
+  .loading {
+		@include position(absolute, 6px 5px null null);
+
+		display: none;
+		font-size : modular-scale(-1);
+	}
+	ul {
+		@include size(100% 120px);
+		@include padding(5px null null);
+
+		display: none;
+		overflow    : auto;
+		overflow-x  : hidden;
+
+		li {
+			color       : #666;
+			line-height : 1em;
+			padding     : 2px 5px;
+			text-align  : left;
+
+			label {
+				cursor      : pointer;
+				float       : none;
+				font-size   : 0.7em;
+				font-weight : normal;
+				margin      : 2px 0;
+
+				&:hover {
+					font-weight: bold;
+				}
+
+				input {
+					@include margin(null 2px null null);
+
+					border-radius  : 0;
+					border         : 1px solid #000;
+					vertical-align : middle;
+				}
+				strong {
+					font-weight: 400;
+				}
+				span {
+					font-size: 0.8em;
+				}
+			}
+		}
+		&.searching .person { display: none; }
+	}
+}
