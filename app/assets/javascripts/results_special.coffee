@@ -71,9 +71,19 @@ $(document).ready ->
 
     $('.carousel-list .slider a img').hover -> $(this).next().toggle( "visible" );
 
+    # RESET TO DEFAULT VALUES
+    $('.show-default-values').click ->
+      current_id = $(this).attr("default-values-result-id")
+      for year in [2016..2019]
+        if $("#data_value_#{current_id}_#{year}").val() != $("#data_value_#{current_id}_#{year}").attr("data-limit")
+          $("#data_value_#{current_id}_#{year}").val($("#data_value_#{current_id}_#{year}").attr("data-limit"))
+          $("#data_value_#{current_id}_#{year}").change()
+      if $("#global_#{current_id}").val() !=  $("#global_#{current_id}").attr("data-limit")
+        $("#global_#{current_id}").val($("#global_#{current_id}").attr("data-limit"))
+        $("#global_#{current_id}").change()
 
-
-    # LINK PRODUCT TO ANOTHER DSEI
+    # LINK PRODUCT TO ANOTHER DSEI (OLD)
+    ### OLD CODE
     $('.modal.link-product-dsei .dsei-list li', $page).click ->
       $this = $(this)
       $modal = $this.parents('.modal.link-product-dsei')
@@ -111,6 +121,8 @@ $(document).ready ->
         return
 
       return
+    ###
+
     # OPEN MODAL TO LINK PRODUCT TO ANOTHER DSEI
     $('.strategy', $page).on 'click', '.plano-anual .responsability .product .link-product-dsei', ->
       $this = $(this)
@@ -142,6 +154,7 @@ $(document).ready ->
       params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
 
       params['specific_result']['field']     = $this.data('field')
+      console.log $this.data('field')
       params['specific_result']['value']     = $this.val()
       params['specific_result']['result_id'] = $this.parents('.specific-result:eq(0)').data('resultId')
 
@@ -176,24 +189,19 @@ $(document).ready ->
       return
     $('.strategy .create-specific-result .new-specific-result ', $page).click ->
       $this = $(this)
-      $name = $this.parent().find('h4 :input')
-      $text = $this.parent().find('.result-name :input')
-
       strategy_id = $this.data('strategyId')
-
-      if $name.val() == $name.data('original')
-        toastr.error 'Nome do resultado em branco.'
-        return false
-
-      if $text.val() == $text.data('original')
-        toastr.error 'Texto do resultado em branco.'
-        return false
+      j_value = $("#j_#{strategy_id}").last().val()
+      $("#j_#{strategy_id}").val(parseInt(j_value)+1)
+      name = "Descreva o resultado específico do DSEI [#{parseInt(Math.random()*1000000)}]"
+      text = "Descreva o resultado "
 
       params = { 'specific_result' : {}}
       params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
-
-      params['specific_result']['name']     = $name.val()
-      params['specific_result']['text']     = $text.val()
+      #RESULT NUMBER PARAM
+      params['specific_result']['result_number'] = j_value
+      #SPECIFIC RESULT PARAMS (OLD)
+      params['specific_result']['name']     = name
+      params['specific_result']['text']     = text
       params['specific_result']['strategy'] = strategy_id
 
       startLoading()
@@ -202,27 +210,73 @@ $(document).ready ->
       $.post url, params, (data) ->
         stopLoading()
         id = $(data).attr 'id'
-        $('.specific-results-block', $page).append(data)
+        $("#specific_block_#{strategy_id}", $page).append(data)
         toastr.success 'Resultado específico adicionado.'
-        $name.val($name.data('original'))
-        $text.val($text.data('original'))
         startSortable $(".specific-results-block ##{id}").find('.product-list'), 'PRODUTO'
         return
       return
-    # LINK PRODUCT TO ANOTHER RESULT
+
+    # RESULT DESCRIPTION TEXT CHANGE
+    $('.strategy', $page).on 'change', '.specific-result-text', (e) ->
+      # MIRROR FROM SPECIFIC RESULT VALUE CHANGES
+      $this = $(this)
+
+      params = { 'specific_result' : {}}
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+
+      params['specific_result']['field']     = $this.data('field')
+      params['specific_result']['value']     = $this.val()
+      params['specific_result']['result_id'] = $this.parents('.specific-result:eq(0)').data('resultId')
+
+      startLoading()
+
+      url = $('#result-specific-update-url', $page).val()
+      $.post url, params, (data) ->
+        stopLoading()
+        flashField $this
+        toastr.success 'Informação atualizada.'
+        return
+      return
+
+    # DELETE SPECIFIC RESULT
+    $('.strategy', $page).on 'click', '.delete-result', (e) ->
+      result_id = $(this).attr('data-id')
+
+      params = { 'specific_result' : {}}
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+      #RESULT NUMBER PARAM
+      params['specific_result']['id'] = result_id
+
+      startLoading()
+
+      url = $('#result-delete-specific-result-url', $page).val()
+      $.post url, params, (data) ->
+        stopLoading()
+        if data.status
+          $("#result-#{result_id}").remove()
+          toastr.success 'Resultado específico apagado com sucesso!'
+        else
+          toastr.error 'Não foi possível apagar resultado específico.'
+        return
+      return
+
+    # LINK / DELETE LINK TO PRODUCT TO ANOTHER RESULT
     $('.strategy .modal.link-product .results-list li', $page).click ->
       $this = $(this)
       $modal = $this.parents('.modal.link-product')
 
       result_id = $this.data('id')
       product_id = $modal.find('.product-id').val()
+      pdsi_id = $('#current_pdsi_id').val()
 
+      # LINK
       if $this.find('.fa-square-o').length > 0
 
         params = { 'link_product' : {}}
         params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
         params['link_product']['product_id'] = product_id
         params['link_product']['result_id']  = result_id
+        params['link_product']['pdsi_id'] = pdsi_id
 
         startLoading()
 
@@ -232,16 +286,33 @@ $(document).ready ->
           $("#result-#{result_id}.result-container .plano-anual .responsability > .children").removeClass('hidden').find('.product-list').append(data)
           $("#result-#{result_id}.result-container .plano-anual .responsability > .children .product-list").sortable('reload')
           startSortable $(data).find('.children'), 'AÇÃO'
-          $this.data('newId', $(data).data('id'))
           $this.find('.fa').toggleClass('fa-square-o').toggleClass('fa-check-square-o')
           toastr.success 'Produto adicionado ao resultado escolhido'
           return
-
+      # DELINK
       else
-        new_id = $this.data('newId')
-        $("#result-#{result_id}.result-container .plano-anual .responsability > .children .product[data-id='#{new_id}'] .responsability-actions .delete-responsability").click()
-        $this.find('.fa').toggleClass('fa-square-o').toggleClass('fa-check-square-o')
-        $this.removeData('newId')
+        if $this.hasClass('original-ref')
+          alert('Esse é o produto original e não pode ser desvinculado.')
+          return false
+        #$("#result-#{result_id}.result-container .plano-anual .responsability > .children .product[data-id='#{new_id}'] .responsability-actions .delete-responsability").click()
+        params = { 'remove_link' : {} }
+        params['remove_link']['product_id'] = product_id
+        params['remove_link']['result_id']  = result_id
+        params['remove_link']['pdsi_id'] = pdsi_id
+
+        startLoading()
+
+        url = $('#result-remove-link-url', $page).val()
+        $.post url, params, (data) ->
+          stopLoading()
+          $resp = $("#responsability-reference-#{data.refId}")
+          $parent = $resp.parents('.children:eq(0)')
+          $resp.remove()
+          if $parent.find('.resp-item').length == 0
+            $parent.addClass('hidden')
+          $this.find('.fa').toggleClass('fa-square-o').toggleClass('fa-check-square-o')
+          toastr.success 'Associação removida com sucesso'
+          return
 
       return
     # OPEN MODAL TO LINK PRODUCT TO ANOTHER RESULT
@@ -251,14 +322,35 @@ $(document).ready ->
       $modal   = $this.parents('.strategy').find('.modal.link-product')
       $product = $this.parents('.product:eq(0)')
 
-      product_id = $product.data('id')
-      result_id  = $product.parents('.result-container:eq(0)').data('resultId')
+      current_pdsi_id = "current"
+      product_id      = $product.data('id')
+      result_id       = $product.parents('.result-container:eq(0)').data('resultId')
 
+      $modal.find('#current_pdsi_id').val(current_pdsi_id)
       $modal.find('ul li').show().find('.fa').removeClass('fa-check-square-o').addClass('fa-square-o').removeData('newId')
+      $modal.find('li').removeClass('original-ref')
       $modal.find('input.product-id').val(product_id)
-      $modal.find("#link-result-#{result_id}").hide()
 
-      $modal.find('.modal-state').click()
+      params = { 'responsability_reference' : {}}
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+      params['responsability_id'] = product_id
+      params['pdsi_id'] = current_pdsi_id
+      startLoading()
+      url = $('#result-get-all-related-links-url', $page).val()
+      $.post url, params, (data) ->
+        if data.products.length == 0
+          #do nothing
+        else
+          i = 0;
+          while i<data.products.length
+            $("#link-result-#{data.products[i].result_id}").find('.fa').removeClass('fa-square-o').addClass('fa-check-square-o')
+            i++
+        $("#link-result-#{data.original.result_id}").find('.fa').removeClass('fa-square-o').addClass('fa-check-square-o')
+        $("#link-result-#{data.original.result_id}").addClass('original-ref')
+        stopLoading()
+        $modal.find("#link-result-#{result_id}").hide()
+        $modal.find('.modal-state').click()
+        return
       return
     # DELETE A RESPONSABILITY
     $('.strategy', $page).on 'click', '.plano-anual .responsability .responsability-actions .delete-responsability', ->
@@ -329,6 +421,34 @@ $(document).ready ->
         toastr.success 'Comentário enviado.'
         return
 
+      return
+
+    # DELETE COMMENT
+    $('.strategy', $page).on 'click', '.plano-anual .modal.comments .delete-comment', ->
+
+      $this  = $(this)
+      $field = $this.prev()
+      $modal = $this.parents('.modal-inner:eq(0)')
+
+      id = $this.data('id')
+
+      params = { 'comment' : {}}
+      params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+
+      params['comment']['id'] = id
+
+      startLoading()
+
+      url = $('#result-delete-comment-url').val()
+      $.post url, params, (data) ->
+        stopLoading()
+
+        $modal.find('.comments-list .comment.empty').remove()
+        $modal.find('.comments-list table').removeClass('hidden')
+        $modal.find('.comments-list table tbody tr.comment[data-id="'+id+'"]').remove()
+
+        toastr.success 'Comentário apagado.'
+        return
       return
 
     # TOGGLE OVERLAY WHEN MODAL IS OPENED
@@ -421,7 +541,7 @@ $(document).ready ->
       $field = $(this)
 
       field     = $field.data 'field'
-      result_id = $field.parents('.resp-item ').data 'id'
+      # result_id = $field.parents('.resp-item ').data 'id'
       value     = $field.val()
 
       item = {}
@@ -599,7 +719,6 @@ $(document).ready ->
         return
 
       $field.on 'change', ->
-
         if $(this).val() < $(this).data('limit')
           toastr.error "Valor não pode ser menor do que #{$(this).data('limit')}."
           $(this).val($(this).data('limit')).focus()
@@ -617,6 +736,45 @@ $(document).ready ->
           toastr.success 'Informação atualizada.'
           if field == 'value_2019'
             $field.parents('.result-container:eq(0)').find('> .result .result-name span.value').text(new_value)
+          if field == 'value_2016'
+            result_text = $("#textfield_for_2016_#{result_id}").attr('data-result-text')
+            console.log new_value
+            result_text = result_text.replace(/\[VALUE\]/, new_value.toString())
+            $("#textfield_for_2016_#{result_id}").val(result_text)
+          return
+        , (data) ->
+          return
+        return
+      return
+
+    # POST A FIELD CHANGE (VALUE_GLOBAL)
+    $('.global-value-cs').each ->
+      $field = $(this)
+
+      field     = $field.data 'field'
+      result_id = $field.data 'result-id'
+      value     = $field.val()
+
+      $field.on 'keyup', (e) ->
+        e.stopPropagation()
+        return
+
+      $field.on 'change', ->
+        if $(this).val() < $(this).data('limit')
+          toastr.error "Valor não pode ser menor do que #{$(this).data('limit')}."
+          $(this).val($(this).data('limit')).focus()
+          flashField $(this)
+          return false
+
+        new_value = $(this).val()
+
+        params = {}
+        params['pdsi_results_attributes'] = [{}]
+        params['pdsi_results_attributes'][0]['id']  = result_id
+        params['pdsi_results_attributes'][0][field] = new_value
+
+        runAjaxRequest $field, params, (data) ->
+          toastr.success 'Informação atualizada.'
           return
         , (data) ->
           return
@@ -707,7 +865,11 @@ $(document).ready ->
         $person.remove()
       return
 
+    reference_id = null
     responsabilityParams = ($object, item) ->
+      parent_id = $object.parents('.responsability').data('id')
+      reference_id or= $object.parents('.resp-reference').data('result-id')
+
       # Responsability ACTION
       if $object.parents('.action').length > 0
         action = { 'children_attributes': [] }
@@ -726,7 +888,7 @@ $(document).ready ->
       else
         params = {'responsabilities_attributes': []}
         params['responsabilities_attributes'][0] = item
-        params['responsabilities_attributes'][0]['id'] = $object.parents('.responsability').data('id')
+        params['responsabilities_attributes'][0]['id'] = reference_id || parent_id
 
         params
 

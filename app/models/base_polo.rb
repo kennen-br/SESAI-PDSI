@@ -24,7 +24,13 @@ class BasePolo < ActiveRecord::Base
   def ethnicities
     return @ethnicities unless @ethnicities.nil?
 
-    @ethnicities  = Ethnicity.joins(:villages).where('villages.base_polo_id = ?', id).order('ethnicities.name').distinct
+    @ethnicities = Ethnicity.joins(:villages).where('villages.base_polo_id = ?', id).order('ethnicities.name').distinct
+  end
+
+  def infra_sanitation
+    return @infra_sanitation unless @infra_sanitation.nil?
+
+    @infra_sanitation = InfrastructureSanitation.where(base_polo_id: self)
   end
 
   def pdsi_data(pdsi)
@@ -42,5 +48,9 @@ class BasePolo < ActiveRecord::Base
     save
 
     force_service_networks(pdsi)
+  end
+
+  def villages_with_sanitations
+    villages.includes(:infrastructure_sanitations)
   end
 end

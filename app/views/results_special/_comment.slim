@@ -2,3 +2,8 @@ tr.comment data-id="#{comment.id}"
   td.date = comment.created_at.strftime('%d/%m/%Y %H:%M')
   td.user = comment.user.username
   td.comment = comment.comment
+  td = comment.user.profile.name
+  td.delete
+    - if comment.user.id == current_user.id
+      label.delete-comment data-id=(comment.id) title="Apagar"
+        = "X"

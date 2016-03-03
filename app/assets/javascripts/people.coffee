@@ -57,6 +57,10 @@ $(document).on 'click', '.add_person', (e) ->
   return
 
 $(document).ready ->
+  $('#workforce').click ->
+    $('#workforce-show').click().parent().css({ 'border': "none"  })
+    return
+
   #$(".actions").sticky({topSpacing:0, className:"actions-fixed"});
 
   #$(".menu_estrutura ul .child a").innerHeight($(window).innerHeight()/4)

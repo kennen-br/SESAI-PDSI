@@ -222,3 +222,147 @@ fieldset.expected-result {
 .inline-column{
   @include span-columns(6);
 }
+
+.budget_actions_container{
+  position: relative
+}
+
+.budget-actions{
+  @include position(absolute, 0 null null null);
+
+  font-size : 30px;
+  // margin-bottom: 0.75em;
+
+  .fa {
+    display: block;
+    cursor: pointer;
+  }
+  .toggle-comments {
+    color: #ccc;
+    font-size: 19px;
+    margin-top: 0.6em;
+
+    &:hover {
+      color: #666;
+    }
+  }
+
+  .red {
+    color: #DC5735;
+  }
+
+  .unread-comment {
+    color       : #F00;
+    font-size   : 0.56278em;
+    line-height : 1em;
+    margin-top  : 7px;
+
+    .fa {
+      cursor      : auto;
+      display     : inline;
+      margin-left : -3px;
+    }
+    .date {
+      font-size      : .55em;
+      letter-spacing : -1px;
+      margin         : -0.7em 0 0 -0.9em;
+    }
+  }
+}
+
+.modal {
+  font-size: 1.2em;
+
+  .modal-inner {
+    border-radius : 0;
+    border        : 2px solid;
+    box-shadow    : 0 0 0px 5px #FFF;
+  }
+  .tables {
+    border-radius : 0;
+    border        : 0;
+    margin        : 0;
+
+    thead tr th,
+    tbody tr td {
+      border-left: 0;
+      border-right: 0;
+    }
+    thead tr th.delete{
+       width:2em;
+    }
+  }
+
+  h1 {
+    border-bottom: 2px solid;
+    font-size: 1.2em;
+    font-family: 'Roboto', sans-serif;
+    text-transform: none;
+  }
+  ul {
+    li {
+      cursor: pointer;
+      margin: 10px;
+
+      .fa {
+        vertical-align: middle;
+      }
+
+      &:hover {
+        color: #666;
+      }
+    }
+
+  }
+  &.link-product-dsei {
+    ul li:hover {
+      text-decoration: underline;
+    }
+  }
+  &.comments {
+    .comments-list {
+      @include margin(10px null);
+      @include padding(0.5em);
+
+      border-bottom : 2px solid;
+      border-top    : 2px solid;
+      max-height    : 400px;
+      overflow      : auto;
+
+      .tables {
+        thead tr th {
+          &:nth-child(1),
+          &:nth-child(2) {
+            width: 15%;
+          }
+        }
+        .comment {
+          font-size: 1em;
+        }
+      }
+    }
+    .new-comment {
+      margin: 0;
+
+      textarea {
+        border-radius : 0;
+        float         : left;
+        height        : 70px;
+        margin        : 0;
+        resize        : none;
+        width         : 90%;
+      }
+      .send-comment {
+        border        : 1px solid;
+        border-radius : 0;
+        cursor        : pointer;
+        float         : right;
+        font-size     : 1em;
+        margin        : 0;
+        padding       : 5px 10px;
+        text-align    : center;
+        width         : 9%;
+      }
+    }
+  }
+}

@@ -12,9 +12,7 @@ rvm use 2.2.0 --default
 ```
 ### Instalar banco de dados Postgree manualmente
 ```
-sudo apt-get install postgresql-9.3
-sudo aptitude install postgresql-client
-sudo aptitude install libpq-dev
+sudo apt-get install postgresql-9.3 postgresql-client postgresql-contrib libpq-dev
 ```
 Para checar se o banco de dados esta instalado corretamente
 ```
@@ -104,6 +102,16 @@ mina development restart
 ### Recriar o banco de dados e popular novamente
 ```
 mina development purge
+```
+
+### Dump do banco
+```
+rake db:dump
+```
+
+### Restore do banco
+```
+rake db:restore
 ```
 
 # Documentação

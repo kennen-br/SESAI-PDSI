@@ -1,10 +1,19 @@
 class TextTemplatesController < ApplicationController
   before_action :set_text_template
   before_action :check_sesai_central_actions#,  only: [:index, :edit, :update]
-  before_action :set_section, except: [:index]
+  before_action :set_section, except: [:index, :introducao_sesai, :analise_situacional_sesai, :processo_de_construcao_sesai]
 
   # GET /text_templates
   def index
+  end
+
+  def introducao_sesai
+  end
+
+  def analise_situacional_sesai
+  end
+
+  def processo_de_construcao_sesai
   end
 
   def edit

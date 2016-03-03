@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   post '/image-upload',     to: 'application#image_upload', as: :image_upload
   post '/procurar-pessoa',  to: 'people#search',            as: :search
+  post '/procurar-pessoa-com-dsei', to: 'people#search_with_dsei', as: :search_with_dsei
 
   get 'category_budgets/index'
 
@@ -32,6 +33,30 @@ Rails.application.routes.draw do
     post '/:id/alterar/projecao-orcamentaria/new_budget_forecast_by_cost',
          to: 'pdsis#new_budget_forecast_by_cost',
          as: :new_budget_forecast_by_cost
+
+    post '/:id/alterar/projecao-orcamentaria/novo-comentario',
+         to: 'budget_forecasts#new_comment',
+         as: :budget_forecast_new_comment
+
+    post '/:id/alterar/projecao-orcamentaria/ver-comentario',
+         to: 'budget_forecasts#see_comment',
+         as: :budget_forecast_see_comment
+
+    post '/:id/alterar/projecao-orcamentaria/deleta-comentario',
+         to: 'budget_forecasts#delete_comment',
+         as: :budget_forecast_delete_comment
+
+    post '/:id/alterar/projecao-orcamentaria/investimento/novo-comentario',
+         to: 'budget_investments#new_comment',
+         as: :budget_investment_new_comment
+
+    post '/:id/alterar/projecao-orcamentaria/investimento/ver-comentario',
+         to: 'budget_investments#see_comment',
+         as: :budget_investment_see_comment
+
+    post '/:id/alterar/projecao-orcamentaria/investimento/deleta-comentario',
+         to: 'budget_investments#delete_comment',
+         as: :budget_investment_delete_comment
 
     post '/:id/alterar/projecao-orcamentaria/update_cost_name',
          to: 'pdsis#update_cost_name',
@@ -92,6 +117,9 @@ Rails.application.routes.draw do
     post '/:id/resultados-esperados/novo-comentario',
          to: 'results_special#new_comment', as: :results_special_new_comment
 
+    post '/:id/resultados-esperados/deleta-comentario',
+         to: 'results_special#delete_comment', as: :results_special_delete_comment
+
     post '/:id/resultados-esperados/delete',
          to: 'results_special#delete', as: :results_special_delete
 
@@ -107,11 +135,19 @@ Rails.application.routes.draw do
     post '/:id/resultados-esperados/resultado-especifico/atualizar',
          to: 'results_special#specific_update', as: :results_special_specific_update
 
+    post '/:id/resultados-esperados/resultado-especifico/deletar',
+         to: 'results_special#delete_specific_result', as: :results_special_delete_specific_result
+
     post '/:id/resultados-esperados/ordenar-produtos',
          to: 'results_special#products_order', as: :results_special_products_order
 
     post '/:id/resultados-esperados/ver-comentario',
          to: 'results_special#see_comment', as: :results_special_see_comment
+
+    post '/:id/resultados-esperados/selecionar-links',
+         to: 'results_special#get_all_related_links', as: :results_special_get_all_related_links
+    post '/:id/resultados-esperados/retirar-link',
+          to: 'results_special#remove_link', as: :results_special_remove_link
 
     # Resultados Específicos
     get '/:id/resultados-especificos',
@@ -129,6 +165,9 @@ Rails.application.routes.draw do
     get '/',                        to: 'text_templates#index',   as: :text_templates
     patch '/:id/alterar/:section',  to: 'text_templates#update',  as: :text_template
     get '/:id/alterar/:section',    to: 'text_templates#edit',    as: :edit_text_template
+    get '/introducao-sesai',        to: 'text_templates#introducao_sesai', as: :introducao_sesai
+    get '/analise-situacional-sesai', to: 'text_templates#analise_situacional_sesai', as: :analise_situacional_sesai
+    get '/processo-de-construcao-sesai', to: 'text_templates#processo_de_construcao_sesai', as: :processo_de_construcao_sesai
   end
 
   devise_for :users, path: '', path_names: { sign_in: 'entrar',
@@ -152,6 +191,7 @@ Rails.application.routes.draw do
 
   scope '/locations' do
     get '/villages', to: 'locations#villages'
+    get '/cities', to: 'locations#cities'
   end
 
   root 'users#home'

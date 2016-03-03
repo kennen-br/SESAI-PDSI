@@ -1,35 +1,20 @@
-- @pdsi.capais_with_villages.each do |capai|
-  fieldset
-    legend
-      strong = capai.city_name
-
-    .field
-      p
-        strong = Capai.human_attribute_name 'city_name'
-        br
-        = capai.city_name
-
-    .field
-      p
-        strong = Capai.human_attribute_name 'uf'
-        br
-        = capai.uf
-
-    .field
-      p
-        strong = Capai.human_attribute_name 'capai_type'
-        br
-        = capai.capai_type
-
-    .field
-      p
-        strong = Capai.human_attribute_name 'host_capacity'
-        br
-        = capai.host_capacity
-
-    fieldset
-      legend Aldeias atendidas
-
-      ul
-        - capai.capai_villages.each do |capai_village|
-          li = capai_village.village.name
+table.tables.pdsi-result-table
+  thead
+    tr
+      th Nome da CAPAI
+      th Município
+      th UF
+      th Tipo de CAPAI
+      th Aldeias Vinculadas
+      th Capacidade de Hospedagem
+    tbody
+      - @pdsi.capais_with_villages.each do |capai|
+        tr
+          td = capai.name
+          td = capai.city_name
+          td = capai.uf
+          td = capai.capai_type
+          td
+            - capai.capai_villages.each do |capai_village|
+              = capai_village.village.name
+          td = capai.host_capacity

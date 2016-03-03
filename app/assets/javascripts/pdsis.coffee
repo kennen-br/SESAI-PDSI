@@ -1,7 +1,3 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-
 #Check if this script is executing from form_custeio
 $ ->
   if $('#form-custeio').length > 0
@@ -20,7 +16,7 @@ stopLoading = ->
   return
 
 calculate_funding_balance = ->
-  console.log "Calculating funding balance"
+  # console.log "Calculating funding balance"
   for year in [2016..2019]
     subtotal = 0.0
     el1 = "#input-#{year}-3"
@@ -42,18 +38,18 @@ calculate_funding_balance = ->
     else
       $("#input-#{year}-0").val("- R$#{(subtotal).toFixed(2).replace('-','').replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
       $("#input-#{year}-0").css({'color' : 'red'})
-
   return
 
 calculate_parent_total = (parent_id) ->
   subtotal2 = 0.0
-  console.log "Recalculating subtotals by group #{parent_id}"
+  # console.log "Recalculating subtotals by group #{parent_id}"
 
   $(document).find(".#{parent_id}").each (item) ->
     input_value = parseFloat($(this).prop("value").toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
     if (!isNaN(input_value))
       subtotal2 += parseFloat(input_value)
     return
+
   # Value for hidden form (subitems)
   $("#hidden-#{parent_id}-2").val(parseFloat(subtotal2).toFixed(2))
 
@@ -65,6 +61,69 @@ calculate_parent_total = (parent_id) ->
     calculate_parent_total $("#input-#{parent_id}-2").attr('year_parent_id')
 
   calculate_funding_balance()
+  return
+
+# SEND COMMENT
+$(document).on 'click', '.budget .modal.comments .send-comment', ->
+  $this  = $(this)
+  $field = $this.prev()
+  $modal = $this.parents('.modal-inner:eq(0)')
+
+  id = $this.data('id')
+  year = $this.data('year')
+  comment = $field.val()
+
+  if comment.trim() == ''
+    toastr.error 'Comentário em branco'
+    return false
+
+  params = { 'comment' : {}}
+  params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+
+  params['comment']['budget_id'] = id
+  params['comment']['year'] = year
+  params['comment']['comment'] = comment
+
+  startLoading()
+
+  url = $('#budget-new-comment-url').val()
+  $.post url, params, (data) ->
+    stopLoading()
+    $field.val('')
+
+    $modal.find('.comments-list .comment.empty').remove()
+    $modal.find('.comments-list table').removeClass('hidden')
+    $modal.find('.comments-list table tbody').append(data)
+
+    toastr.success 'Comentário enviado.'
+    return
+  return
+
+# DELETE COMMENT
+$(document).on 'click', '.budget .modal.comments .delete-comment', ->
+  $this  = $(this)
+  $field = $this.prev()
+  $modal = $this.parents('.modal-inner:eq(0)')
+
+  id = $this.data('id')
+
+  params = { 'comment' : {}}
+  params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+
+  params['comment']['id'] = id
+
+  startLoading()
+
+  url = $('#budget-delete-comment-url').val()
+  $.post url, params, (data) ->
+    stopLoading()
+
+    $modal.find('.comments-list .comment.empty').remove()
+    $modal.find('.comments-list table').removeClass('hidden')
+    $modal.find('.comments-list table tbody tr.comment[data-id="'+id+'"]').remove()
+
+    toastr.success 'Comentário apagado.'
+    return
   return
 
 $(document).ready ->
@@ -154,7 +213,7 @@ $(document).ready ->
         value = $(this).val()
 
         if $year.find('> legend').text() == '2015'
-          console.log '2015'
+          # console.log '2015'
           needed = value - ($type.find('.initial-value').val() || 0)
         else
           needed = value
@@ -162,6 +221,7 @@ $(document).ready ->
         $year.find('table tr.new-object').each ->
           $(this).remove() if $(this).find(':text').val() == ''
           return
+
         needed -= $year.find('table tbody tr').length
 
         if needed > 0
@@ -187,13 +247,11 @@ $(document).ready ->
       $this.addClass 'green'
     else
       $this.addClass 'red'
-
     return
 
   # Recalculate values for 2017-2019 based on 2016 and correction factors
   $(document).on 'change', '.2016-budget-value', ->
-    console.log 'Recalculating budgets for years 2017-2019'
-
+    # console.log 'Recalculating budgets for years 2017-2019'
     idx = $(this).attr('input_index')
     val = parseFloat($(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
     group_parent_id = $(this).attr('group_parent_id')
@@ -204,7 +262,7 @@ $(document).ready ->
       year_parent_id = "#{year}-#{group_parent_id}"
       val += val*cf
 
-      console.log "Recalculating #{el} using correction factor #{cf}: #{val}"
+      # console.log "Recalculating #{el} using correction factor #{cf}: #{val}"
       # Value for hidden form
       $("#hidden-#{year}-#{idx}").val(val.toFixed(2))
 
@@ -216,7 +274,6 @@ $(document).ready ->
         calculate_parent_total(year_parent_id)
       if value_index == "3" || value_index == "10"
         calculate_funding_balance()
-
     return
 
   # Update subtotals by group of contracts
@@ -266,16 +323,12 @@ $(document).ready ->
           <td>
             <input type="text" id="input-nome-custo-#{id}-#{year}" cost_id="#{id}">
           </td>
-          <td>
-
-          </td>
+          <td></td>
           <td>
             <input value="0" id="hidden-#{year}-#{id}-2" type="hidden" name="pdsi[budget_forecasts_attributes][#{bfcount}][dsei_forecast_#{year}]" >
             <input type="text" name id="input-#{year}-#{id}-2" value="0,00" class="currency-input #{year}-budget-value #{year}-group-value #{year}-#{parent_id}" group_parent_id="#{parent_id}" year_parent_id="#{year}-#{parent_id}" input_index="#{id}-2" correction_factor="#{bcf}" year_cost_id="#{year}-#{id}" value_index="#{id}" cost_type="3" disabled="disabled">
           </td>
-          <td>
-
-          </td>
+          <td></td>
         </tr>
         <input type="hidden" value="#{data.id}" name="pdsi[budget_forecasts_attributes][#{bfcount}][id]" id="pdsi_budget_forecasts_atributes_#{bfcount}_id">
         """
@@ -287,10 +340,10 @@ $(document).ready ->
           id = $(this).attr('cost_id')
           startLoading()
           params = {}
-          console.log $(this).val()
+          # console.log $(this).val()
           params['cost_name'] = $(this).val()
           params['cost_id'] = $(this).attr('cost_id')
-          console.log "Nome: #{params['cost_name']}, id: #{params['cost_id']}"
+          # console.log "Nome: #{params['cost_name']}, id: #{params['cost_id']}"
           if turl.lastIndexOf("?") > 0
             url = turl.substr(0, turl.lastIndexOf("?")) + '/update_cost_name'
           else
@@ -307,9 +360,8 @@ $(document).ready ->
               alert "Não foi possível mudar o nome"
               stopLoading()
             return
-
-
           return
+
         # Money mask and hidden field data update
         $("#input-#{year}-#{id}-2").on 'change', ->
           $this = $(this)
@@ -322,10 +374,51 @@ $(document).ready ->
           decimal: ','
         # Stop showing loading
         stopLoading()
-
     return
 
+  # TOGGLE OVERLAY WHEN MODAL IS OPENED
+  $(document).on 'change', '.modal-state', ->
+    if $(this).is(":checked")
+      $("body").addClass "modal-open"
+    else
+      $("body").removeClass "modal-open"
+    return
+
+  # OPEN MODAL MODAL WITH COMMENTS
+  $(document).on 'click', '.budget-table .budget-actions .toggle-comments', ->
+    $this = $(this)
+
+    $budget = $this.parents('tr.budget:eq(0)')
+    $modal = $budget.find('> td .modal.comments')
+    comments = $budget.find('.comment.colored-border.empty')
+
+    $modal.find('.modal-state').click()
+
+    if $budget.find('.budget-actions .unread-comment').length > 0
+      comment_id = $budget.find('.budget-actions .unread-comment').data('commentId')
+      readComment(comment_id, $budget.find('.budget-actions .unread-comment'))
+
+    # console.log(comments.html()) if comments.html()
+    return
+
+  # MARK A COMMENT AS READ
+  readComment = (comment_id, $comment) ->
+    params = {}
+
+    params['comment'] = comment_id
+    params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
+    url = $('#budget-see-comment-url').val()
+
+    $.post url, params, (data) ->
+      $comment.remove() if data.status
+      return
+    return
   return
 
+$(document).on 'click', '.modal-window.investment', ->
+  icon =  $(this).parent().parent().find('i')
 
-
+  if $(this).find('.user').html()
+    icon.addClass('fa-comments red').removeClass('fa-comment')
+  else
+    icon.addClass('fa-comment').removeClass('fa-comments red')

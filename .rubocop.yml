@@ -4,9 +4,9 @@ AllCops:
     - 'vendor/**/*'
   DisplayCopNames: true
 
-BlockDelimiters:
-  EnforcedStyle: semantic
 
 Metrics/LineLength:
-  Max: 100
+  Max: 120
 
+Style/Documentation:
+  Enabled: false

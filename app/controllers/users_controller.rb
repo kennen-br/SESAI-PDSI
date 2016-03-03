@@ -20,8 +20,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new user_params
-
     if @user.save
+      unless params['people_id'].blank?
+        person = People.find(params['people_id'])
+        person.update_attributes(:user_id => @user.id, :name => user_params['profile_attributes']['name'])
+      end
       redirect_to users_path, notice: 'Usuário criado com sucesso'
     else
       render  :new
@@ -29,7 +32,22 @@ class UsersController < ApplicationController
   end
 
   def update
+    unless @user.people.blank?
+      old_people_id = @user.people.id
+      old_dsei_id = @user.people.dsei_id
+    end
     if @user.update user_params
+      unless params['people_id'].blank?
+        person = People.find(params['people_id'])
+        person.update_attributes(:user_id => @user.id, :name => user_params['profile_attributes']['name'])
+        # CHECK IF IT HAD A USER ID BEFORE
+        unless old_people_id.blank?
+          if old_people_id != params['people_id']
+            person = People.find(old_people_id)
+            person.update_attributes(:user_id => nil)
+          end
+        end
+      end
       redirect_to users_path, notice: 'Dados atualizados com sucesso'
     else
       render  :edit
@@ -57,7 +75,7 @@ private
   end
 
   def user_params
-    params.require(:user).permit(:id, :username, :password, :password_confirmation, :user_type_id, :dsei_id, :active, profile_attributes: [:id, :name])
+    params.require(:user).permit(:id, :username, :password, :password_confirmation, :user_type_id, :dsei_id, :active, profile_attributes: [:id, :name], people_atributes: [:id, :name, :dsei_id, :user_id])
   end
 
   def user_password_params

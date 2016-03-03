@@ -1,7 +1,13 @@
 .result-container.specific-result id=("result-#{pdsi_result.result.id}") data-id="#{pdsi_result.id}" data-result-id="#{pdsi_result.result.id}"
   .result
-    h4 Resultado específico
-    .result-name == pdsi_result.result.name
+    - if defined? @j
+      - j = @j.to_s
+    h4 = "Resultado #{j} (Específico)"
+    .result-name.old-input
+      - if defined? @j
+        = text_area_tag "result_name_#{pdsi_result.id}", "", { class: 'specific-result-text', placeholder: "Descreva o resultado específico do DSEI", data: { field: "name" } }
+      - else
+        = text_area_tag "result_name_#{pdsi_result.id}", pdsi_result.result.name, { class: 'specific-result-text', data: { field: "name" } }
     .show-more
       span.more
         = icon 'chevron-down'
@@ -9,6 +15,19 @@
       span.less
         = icon 'chevron-up'
         | &nbsp;Ver Menos
+    .helpers
+      /.pointer.show-default-values default-values-result-id="#{pdsi_result.id}" Restaurar valores de referência
+      / REUSING CLASS
+      .tooltip-item.orientacoes-dsei.delete-result data-id="#{pdsi_result.result.id}"
+        = icon 'close'
+        .tooltip
+          p
+            = "Excluir resultado específico"
+      .tooltip-item.orientacoes-dsei
+        = icon 'info-circle'
+        .tooltip
+          p
+            = pdsi_result.result.orientacoes_dsei? ? pdsi_result.result.orientacoes_dsei : "Não há orientações"
 
   .result-products
     .years
@@ -37,7 +56,8 @@
               th RESPONSÁVEL
               th CORRESPONSÁVEIS
         = render 'responsability', { responsability: responsability }
-        .children class=('hidden' if responsability.children.blank?)
+        - responsability_references = ResponsabilityReference.includes(:responsability).where(:pdsi_id => pdsi_result.pdsi_id, :result => pdsi_result.result.id)
+        .children class=('hidden' if (responsability.children.blank? && responsability_references.blank? ) )
           table.tables.responsability-result.head
             thead
               tr
@@ -61,6 +81,21 @@
                   a.button.colored-border.link-product
                     = icon 'pencil'
                     | &nbsp;Associar produto a outro resultado
+            - responsability_references.each do |reference|
+              .product.resp-item data-id="#{reference.responsability.id}" id="responsability-reference-#{reference.id}"
+                = render 'responsability', { responsability: reference.responsability }
+                .children.hidden
+                  - reference.responsability.children.includes(:person, :corresponsabilities).order(:order, :id).each do |action|
+                    .action.resp-item.resp-reference data-id="#{action.id}"
+                      = render 'responsability', { responsability: action }
+                .actions
+                  a.button.colored-border.add-action
+                    = icon 'plus'
+                    | &nbsp;Inserir Ações
+                  a.button.colored-border.link-product
+                    = icon 'pencil'
+                    | &nbsp;Associar produto a outro resultado
+
         .actions
           a.button.colored-border.add-product
             = icon 'plus'

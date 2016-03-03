@@ -1,7 +1,17 @@
 fieldset
+  .field.right
+    = f.label :_destroy, 'Apagar?'
+    = icon 'trash-o remove'
+    .hidden
+      = f.check_box :_destroy, class: 'remove-chk'
+
+  .field
+    = f.label :name, "Nome da CAPAI"
+    = f.text_field :name
+
   .field
     = f.label       :city_name
-    = f.text_field  :city_name
+    = select_city_from_dsei(f, @dsei, :city_name, f.object.city_name)
 
   .field
     = f.label   :uf

@@ -1,10 +1,10 @@
 class Destination < ActiveRecord::Base
   auditable
 
-  belongs_to  :pdsi
-  belongs_to  :origin_village,       class_name: 'Village', foreign_key: :origin_village_id,       required: true
-  belongs_to  :destination_village,  class_name: 'Village', foreign_key: :destination_village_id
-  belongs_to  :destination_type
+  belongs_to :pdsi
+  belongs_to :destination_type
+  belongs_to :origin_village,      class_name: 'Village', foreign_key: :origin_village_id, required: true
+  belongs_to :destination_village, class_name: 'Village', foreign_key: :destination_village_id
 
   validates :pdsi,                presence: true
   validates :origin_village,      presence: true
@@ -19,11 +19,7 @@ class Destination < ActiveRecord::Base
   end
 
   def use_fly?
-   !fly_time.blank?
-  end
-
-  def total_time
-    'TODO: Calcular isso'
+    !fly_time.blank?
   end
 
   def class_to_name

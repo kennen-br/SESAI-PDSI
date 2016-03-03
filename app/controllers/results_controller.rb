@@ -49,6 +49,6 @@ class ResultsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def result_params
-      params.require(:result).permit(:result_level_id, :result_strategy_id, :name, :orientacoes_dsei, :is_boolean, :value_2016, :value_2017, :value_2018, :value_2019)
+      params.require(:result).permit(:result_level_id, :result_strategy_id, :name, :orientacoes_dsei, :is_boolean, :value_2016, :value_2017, :value_2018, :value_2019, :value_global)
     end
 end

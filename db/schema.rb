@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160112202412) do
+ActiveRecord::Schema.define(version: 20160211142456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "absolute_data", force: :cascade do |t|
     t.integer  "absolute_datum_level_id"
@@ -77,6 +78,8 @@ ActiveRecord::Schema.define(version: 20160112202412) do
     t.integer  "sesai_id",   null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "city_name"
+    t.integer  "population"
   end
 
   add_index "base_polos", ["dsei_id"], name: "index_base_polos_on_dsei_id", using: :btree
@@ -87,6 +90,19 @@ ActiveRecord::Schema.define(version: 20160112202412) do
     t.integer  "year"
     t.decimal  "value"
   end
+
+  create_table "budget_forecast_comments", force: :cascade do |t|
+    t.integer  "budget_forecast_id"
+    t.integer  "user_id"
+    t.string   "year",               limit: 4
+    t.text     "comment"
+    t.text     "users",                        default: "[]"
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+  end
+
+  add_index "budget_forecast_comments", ["budget_forecast_id"], name: "index_budget_forecast_comments_on_budget_forecast_id", using: :btree
+  add_index "budget_forecast_comments", ["user_id"], name: "index_budget_forecast_comments_on_user_id", using: :btree
 
   create_table "budget_forecasts", force: :cascade do |t|
     t.integer  "cost_id"
@@ -110,6 +126,19 @@ ActiveRecord::Schema.define(version: 20160112202412) do
 
   add_index "budget_forecasts", ["cost_id"], name: "index_budget_forecasts_on_cost_id", using: :btree
   add_index "budget_forecasts", ["pdsi_id"], name: "index_budget_forecasts_on_pdsi_id", using: :btree
+
+  create_table "budget_investment_comments", force: :cascade do |t|
+    t.integer  "budget_investment_id"
+    t.integer  "user_id"
+    t.string   "year",                 limit: 4
+    t.text     "comment"
+    t.text     "users",                          default: "[]"
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+  end
+
+  add_index "budget_investment_comments", ["budget_investment_id"], name: "index_budget_investment_comments_on_budget_investment_id", using: :btree
+  add_index "budget_investment_comments", ["user_id"], name: "index_budget_investment_comments_on_user_id", using: :btree
 
   create_table "budget_investments", force: :cascade do |t|
     t.integer  "pdsi_id"
@@ -151,6 +180,7 @@ ActiveRecord::Schema.define(version: 20160112202412) do
     t.integer  "host_capacity"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "name"
   end
 
   add_index "capais", ["pdsi_id"], name: "index_capais_on_pdsi_id", using: :btree
@@ -178,6 +208,15 @@ ActiveRecord::Schema.define(version: 20160112202412) do
 
   add_index "category_budgets", ["pdsi_id"], name: "index_category_budgets_on_pdsi_id", using: :btree
   add_index "category_budgets", ["projection_budget_category_id"], name: "index_category_budgets_on_projection_budget_category_id", using: :btree
+
+  create_table "cities", force: :cascade do |t|
+    t.integer  "cod_uf"
+    t.string   "name_uf"
+    t.integer  "cod_city"
+    t.string   "city"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "corresponsabilities", force: :cascade do |t|
     t.integer  "responsability_id"
@@ -237,6 +276,8 @@ ActiveRecord::Schema.define(version: 20160112202412) do
     t.boolean  "fluvial"
     t.boolean  "rodoviario"
     t.boolean  "aereo"
+    t.string   "numero_sede_polos_base"
+    t.integer  "headquarters"
   end
 
   add_index "demographic_datas", ["pdsi_id"], name: "index_demographic_datas_on_pdsi_id", using: :btree
@@ -259,6 +300,7 @@ ActiveRecord::Schema.define(version: 20160112202412) do
     t.datetime "updated_at",             null: false
     t.string   "destination_class"
     t.string   "city_name"
+    t.string   "total_time"
   end
 
   add_index "destinations", ["destination_type_id"], name: "index_destinations_on_destination_type_id", using: :btree
@@ -328,16 +370,6 @@ ActiveRecord::Schema.define(version: 20160112202412) do
 
   add_index "ethnicities_villages", ["ethnicity_id"], name: "index_ethnicities_villages_on_ethnicity_id", using: :btree
   add_index "ethnicities_villages", ["village_id"], name: "index_ethnicities_villages_on_village_id", using: :btree
-
-  create_table "etnias", force: :cascade do |t|
-    t.integer  "demographic_data_id"
-    t.string   "name"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-  end
-
-  add_index "etnias", ["demographic_data_id", "name"], name: "index_etnias_on_demographic_data_id_and_name", unique: true, using: :btree
-  add_index "etnias", ["demographic_data_id"], name: "index_etnias_on_demographic_data_id", using: :btree
 
   create_table "false_results", force: :cascade do |t|
     t.integer  "dsei_id"
@@ -414,6 +446,7 @@ ActiveRecord::Schema.define(version: 20160112202412) do
     t.boolean  "esgotamento_sanitario"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.integer  "base_polo_id"
   end
 
   add_index "infrastructure_sanitations", ["pdsi_id"], name: "index_infrastructure_sanitations_on_pdsi_id", using: :btree
@@ -513,7 +546,7 @@ ActiveRecord::Schema.define(version: 20160112202412) do
     t.integer  "human_resource_function_id"
     t.integer  "ubsi_atual"
     t.integer  "polo_base_tipo_1_atual"
-    t.integer  "polo_base_tipo_2"
+    t.integer  "polo_base_tipo_2_atual"
     t.integer  "casai_atual"
     t.integer  "sead_atual"
     t.integer  "selog_atual"
@@ -541,6 +574,9 @@ ActiveRecord::Schema.define(version: 20160112202412) do
     t.integer  "diasi_necessaria"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.integer  "actual_sum"
+    t.integer  "indigenous_sum"
+    t.integer  "workforce_needed"
   end
 
   add_index "pdsi_human_resources", ["human_resource_function_id"], name: "index_pdsi_human_resources_on_human_resource_function_id", using: :btree
@@ -577,12 +613,13 @@ ActiveRecord::Schema.define(version: 20160112202412) do
   create_table "pdsi_results", force: :cascade do |t|
     t.integer  "pdsi_id"
     t.integer  "result_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "value_2016"
     t.integer  "value_2017"
     t.integer  "value_2018"
     t.integer  "value_2019"
+    t.integer  "value_global"
   end
 
   add_index "pdsi_results", ["pdsi_id"], name: "index_pdsi_results_on_pdsi_id", using: :btree
@@ -610,11 +647,18 @@ ActiveRecord::Schema.define(version: 20160112202412) do
   create_table "people", force: :cascade do |t|
     t.integer  "dsei_id"
     t.string   "name"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.string   "location"
     t.string   "bond"
-    t.boolean  "is_sesai_central", default: false
+    t.boolean  "is_sesai_central",           default: false
+    t.integer  "pdsi_id"
+    t.boolean  "indigenous_worker"
+    t.string   "role"
+    t.string   "bond_type"
+    t.string   "workplace"
+    t.integer  "user_id"
+    t.integer  "human_resource_function_id"
   end
 
   add_index "people", ["dsei_id"], name: "index_people_on_dsei_id", using: :btree
@@ -654,9 +698,10 @@ ActiveRecord::Schema.define(version: 20160112202412) do
     t.integer  "w_10_49"
     t.integer  "w_50_59"
     t.integer  "w_60"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.string   "city_name"
+    t.integer  "village_population"
   end
 
   add_index "physiographic_datas", ["pdsi_id"], name: "index_physiographic_datas_on_pdsi_id", using: :btree
@@ -759,6 +804,14 @@ ActiveRecord::Schema.define(version: 20160112202412) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "responsability_references", force: :cascade do |t|
+    t.integer  "responsability_id"
+    t.integer  "pdsi_id"
+    t.integer  "result_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
   create_table "result_axes", force: :cascade do |t|
     t.string   "name"
     t.string   "section_name"
@@ -797,6 +850,10 @@ ActiveRecord::Schema.define(version: 20160112202412) do
     t.integer  "value_2019"
     t.text     "orientacoes_dsei"
     t.text     "orientacoes_sistema"
+    t.integer  "value_global"
+    t.boolean  "meta_ppa"
+    t.boolean  "not_in"
+    t.integer  "result_item"
   end
 
   add_index "results", ["result_level_id"], name: "index_results_on_result_level_id", using: :btree
@@ -902,8 +959,12 @@ ActiveRecord::Schema.define(version: 20160112202412) do
   add_foreign_key "absolute_data_dseis", "dseis"
   add_foreign_key "absolute_data_dseis", "pdsis"
   add_foreign_key "base_polos", "dseis"
+  add_foreign_key "budget_forecast_comments", "budget_forecasts"
+  add_foreign_key "budget_forecast_comments", "users"
   add_foreign_key "budget_forecasts", "costs"
   add_foreign_key "budget_forecasts", "pdsis"
+  add_foreign_key "budget_investment_comments", "budget_investments"
+  add_foreign_key "budget_investment_comments", "users"
   add_foreign_key "budget_investments", "investments"
   add_foreign_key "budget_investments", "pdsis"
   add_foreign_key "capai_villages", "capais"
@@ -926,7 +987,6 @@ ActiveRecord::Schema.define(version: 20160112202412) do
   add_foreign_key "emsis", "pdsis"
   add_foreign_key "ethnicities_villages", "ethnicities"
   add_foreign_key "ethnicities_villages", "villages"
-  add_foreign_key "etnias", "demographic_datas"
   add_foreign_key "false_results", "dseis"
   add_foreign_key "false_results", "results"
   add_foreign_key "health_establishments", "service_network_cities"
@@ -954,6 +1014,8 @@ ActiveRecord::Schema.define(version: 20160112202412) do
   add_foreign_key "pdsis", "dseis"
   add_foreign_key "pdsis", "users"
   add_foreign_key "people", "dseis"
+  add_foreign_key "people", "human_resource_functions"
+  add_foreign_key "people", "users"
   add_foreign_key "physiographic_data_ethnicities", "ethnicities"
   add_foreign_key "physiographic_data_ethnicities", "physiographic_datas"
   add_foreign_key "physiographic_data_languages", "physiographic_datas"

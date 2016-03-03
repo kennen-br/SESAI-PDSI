@@ -1,0 +1,8 @@
+.budget-actions
+  - if  budget.comments_by_year(year).blank?
+    = icon 'comment', class: 'toggle-comments'
+  - else
+    = icon 'comments', class: 'toggle-comments red'
+  - if !budget.last_comment.nil? && !budget.last_comment.seen_by_user?(current_user) && budget.last_comment.year == year.to_s
+    .unread-comment data-comment-id="#{budget.last_comment.id}"
+      .date = budget.last_comment.created_at.strftime('%d/%m/%y')

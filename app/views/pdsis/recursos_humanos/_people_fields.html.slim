@@ -1,0 +1,22 @@
+tr
+  td
+    = f.text_field :name
+  td
+    = f.collection_select :human_resource_function_id, HumanResourceFunction.order(:name).all, :id, :name, include_blank: true
+  td
+    = f.text_field :role
+  td
+    = f.text_field :location
+  td
+    = f.text_field :workplace
+  td
+    = f.select :bond, options_for_select(['ATIVO PERMANENTE', 'MISSÃO EVANGÉLICA CAIUÁ'], f.object.bond), include_blank: true
+  td
+    = f.text_field :bond_type
+  td
+    = f.check_box :indigenous_worker
+    = f.hidden_field :dsei_id, value: @pdsi.id
+  td
+    = icon 'trash-o remove'
+    .hidden
+      = f.check_box :_destroy, class: 'remove-chk'

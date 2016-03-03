@@ -27,5 +27,6 @@
 //= require pikaday.js
 //= require select2
 //= require select2_locale_pt-BR
+//= require notie
 //= require_tree .
 //= require turbolinks

@@ -1,49 +1,33 @@
-- InfrastructureBuildingType.order(:id).all.each do |building_type|
-  fieldset
-    legend
-      strong = building_type.name
-
-    - @pdsi.infrastructure_buildings.where(infrastructure_building_type: building_type).each do |infra|
-      fieldset
-        .field
-          p
-            strong = InfrastructureBuilding.human_attribute_name 'name'
-            br
-            = infra.name
-
-        .field
-          p
-            strong = InfrastructureBuilding.human_attribute_name 'uf'
-            br
-            = infra.uf
-
-        .field
-          p
-            strong = InfrastructureBuilding.human_attribute_name 'city_name'
-            br
-            = infra.city_name
-
-        - unless infra.hide_village?
-          .field
-            p
-              strong = InfrastructureBuilding.human_attribute_name 'village'
-              br
-              = infra.village.name
-
-        .field
-          p
-            strong = InfrastructureBuilding.human_attribute_name 'cnes'
-            br
-            = infra.cnes
-
-        .field
-          p
-            strong = InfrastructureBuilding.human_attribute_name 'building_status'
-            br
-            = infra.building_status
-
-        .field
-          p
-            strong = InfrastructureBuilding.human_attribute_name 'ground_status'
-            br
-            = infra.ground_status
+table.tables.pdsi-result-table
+  thead
+    tr
+      th[rowspan="2"] Tipo de Estabelicimento
+      th[colspan="7" style="border-bottom: 1px solid #ddd;"] Rede Existente
+    tr
+      th[style="border-left: 1px solid #ddd; text-align: center;"] Nome do Estabelecimento
+      th UF
+      th Município
+      th Aldeia
+      th CNES
+      th Situação do Imóvel
+      th Situação do Terreno
+    tbody
+      - InfrastructureBuildingType.order(:id).all.each do |building_type|
+        - ib = @pdsi.infrastructure_buildings.where(infrastructure_building_type: building_type)
+        - ib.each do |infra|
+          h1 =
+          tr
+            td = infra.infrastructure_building_type.name
+            td = infra.name
+            td = infra.uf
+            td = infra.city_name
+            td = infra.village.name if infra.village
+            td = infra.cnes
+            td = infra.building_status
+            td = infra.ground_status
+        - unless building_type.name == 'Sede do DSEI'
+          tr
+            td[colspan="2" style="text-align: center;"]
+              = "Total #{building_type.name}"
+            td[colspan="6"]
+              = ib.count

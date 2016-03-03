@@ -1,0 +1,33 @@
+.pdsi-infrastructure-sanitations {
+  .rotate {
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  }
+
+  font-size: modular-scale(-1);
+
+  &.specific {
+    tr td {
+      background: #F9FBDC;
+      font-weight: bold;
+    }
+  }
+
+  thead th {
+    height: 120px;
+  }
+
+  thead th, tbody td {
+    @include padding(0.45em 0.7em);
+
+    text-align: center;
+    vertical-align: bottom;
+
+    &:first-child {
+      text-align: left;
+    }
+  }
+}

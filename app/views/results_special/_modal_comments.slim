@@ -16,6 +16,8 @@
               th Data
               th Usuário
               th Comentário
+              th Nome do usuário
+              th.delete
           tbody
             - resp.responsability_comments.each do |comment|
               = render 'comment', { comment: comment }

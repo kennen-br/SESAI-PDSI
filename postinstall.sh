@@ -19,6 +19,7 @@ aptitude install -y \
   git \
   postgresql-9.3 \
   postgresql-client \
+  postgresql-contrib-9.3\
   libpq-dev \
   libxslt1-dev \
   libxml2-dev \

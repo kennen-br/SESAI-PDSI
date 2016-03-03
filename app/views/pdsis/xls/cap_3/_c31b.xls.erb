@@ -1,0 +1,110 @@
+<Worksheet ss:Name="quadro3.1B">
+  <Table ss:ExpandedColumnCount="4" ss:ExpandedRowCount="18" x:FullColumns="1"
+   x:FullRows="1" ss:StyleID="s67" ss:DefaultColumnWidth="60"
+   ss:DefaultRowHeight="15">
+   <Column ss:StyleID="s68" ss:Width="126"/>
+   <Column ss:StyleID="s68" ss:AutoFitWidth="0" ss:Width="72.75"/>
+   <Column ss:StyleID="s67" ss:AutoFitWidth="0" ss:Width="240"/>
+   <Column ss:StyleID="s67" ss:AutoFitWidth="0" ss:Width="112.5"/>
+   <Row ss:AutoFitHeight="0" ss:Height="42" ss:StyleID="s68">
+    <Cell ss:MergeAcross="2" ss:StyleID="m339197192"><ss:Data ss:Type="String"
+      xmlns="http://www.w3.org/TR/REC-html40"><B><Font html:Color="#003366">QUADRO 3.1B - </Font><Font
+        html:Color="#FF0000">Resumo Geral</Font></B></ss:Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="42.75" ss:StyleID="s68">
+    <Cell ss:MergeAcross="1" ss:StyleID="m339197212"><Data ss:Type="String">Extensão Territorial</Data></Cell>
+    <Cell ss:StyleID="s85"><Data ss:Type="String"><%= @demographic_data.extensao_territorial || 'Não informado' %></Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="42.75" ss:StyleID="s68">
+    <Cell ss:MergeAcross="1" ss:StyleID="m339197232"><Data ss:Type="String">Município Sede do DSEI</Data></Cell>
+    <Cell ss:StyleID="s92"><Data ss:Type="String"><%= @demographic_data.municipio_sede || 'Não informado' %></Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="42.75" ss:StyleID="s68">
+    <Cell ss:MergeAcross="1" ss:StyleID="m339197252"><Data ss:Type="String">Endereço</Data></Cell>
+    <Cell ss:StyleID="s92"><Data ss:Type="String"><%= @demographic_data.endereco || 'Não informado' %></Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="42.75" ss:StyleID="s94">
+    <Cell ss:MergeAcross="1" ss:StyleID="m339197272"><Data ss:Type="String">E-mail</Data></Cell>
+    <Cell ss:StyleID="s96"><Data ss:Type="String"><%= @demographic_data.email || 'Não informado' %></Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="49.5" ss:StyleID="s94">
+    <Cell ss:MergeAcross="1" ss:StyleID="m339197292"><Data ss:Type="String">Nº de municípios com população indígena na sua jurisdição</Data></Cell>
+    <Cell ss:StyleID="s92"><Data ss:Type="String"><%= @demographic_data.numero_municipios || 'Não informado' %></Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="42.75" ss:StyleID="s94">
+    <Cell ss:MergeAcross="1" ss:StyleID="m339201976"><Data ss:Type="String">População Indígena</Data></Cell>
+    <Cell ss:StyleID="s92"><Data ss:Type="String"><%= @demographic_data.populacao_indigena || 'Não informado' %></Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="42.75" ss:StyleID="s94">
+    <Cell ss:MergeAcross="1" ss:StyleID="m339201996"><Data ss:Type="String">Etnias</Data></Cell>
+    <Cell ss:StyleID="s92"><Data ss:Type="String"><%= dsei_ethnicities(@dsei).map { |item| item }.join(', ') %></Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="42.75" ss:StyleID="s94">
+    <Cell ss:MergeAcross="1" ss:StyleID="m339202016"><Data ss:Type="String">Nº de Polos Base</Data></Cell>
+    <Cell ss:StyleID="s92"><Data ss:Type="String"><%= @demographic_data.numero_polos_base || 'Não informado' %></Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="42.75" ss:StyleID="s94">
+    <Cell ss:MergeAcross="1" ss:StyleID="m339202036"><Data ss:Type="String">Nº de sede de Polos Base</Data></Cell>
+    <Cell ss:StyleID="s92"><Data ss:Type="String"><%= @demographic_data.headquarters || 'Não informado' %></Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="42.75" ss:StyleID="s94">
+    <Cell ss:MergeAcross="1" ss:StyleID="m339202056"><Data ss:Type="String">Nº de unidades básicas de saúde indígena – UBSI</Data></Cell>
+    <Cell ss:StyleID="s92"><Data ss:Type="String"><%= @demographic_data.numero_ubsi || 'Não informado' %></Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="42.75" ss:StyleID="s94">
+    <Cell ss:MergeAcross="1" ss:StyleID="m339202076"><Data ss:Type="String">Nº de regiões de saúde</Data></Cell>
+    <Cell ss:StyleID="s92"><Data ss:Type="String"><%= @demographic_data.numero_regioes_de_saude || 'Não informado' %></Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="42.75" ss:StyleID="s94">
+    <Cell ss:MergeAcross="1" ss:StyleID="m339202392"><Data ss:Type="String">Nº de CASAI</Data></Cell>
+    <Cell ss:StyleID="s92"><Data ss:Type="String"><%= @demographic_data.numero_casais || 'Não informado' %></Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="42.75" ss:StyleID="s94">
+    <Cell ss:MergeAcross="1" ss:StyleID="m339202412"><Data ss:Type="String">Nº de Aldeias</Data></Cell>
+    <Cell ss:StyleID="s92"><Data ss:Type="String"><%= @demographic_data.numero_aldeias || 'Não informado' %></Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="42.75" ss:StyleID="s94">
+    <Cell ss:MergeAcross="1" ss:StyleID="m339202432"><Data ss:Type="String">Nº de Família</Data></Cell>
+    <Cell ss:StyleID="s92"><Data ss:Type="String">42</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="15.75" ss:StyleID="s94">
+    <Cell ss:MergeDown="2" ss:StyleID="m339202452"><Data ss:Type="String">Meio de Transportes</Data></Cell>
+    <Cell ss:StyleID="s103"><Data ss:Type="String">fluvial</Data></Cell>
+    <Cell ss:StyleID="s92"><Data ss:Type="String"><%= @demographic_data.fluvial ? 'Sim' : 'Não' %></Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="15.75">
+    <Cell ss:Index="2" ss:StyleID="s104"><Data ss:Type="String">Rodoviários</Data></Cell>
+    <Cell ss:StyleID="s105"><Data ss:Type="String"><%= @demographic_data.rodoviario ? 'Sim' : 'Não' %></Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="16.5">
+    <Cell ss:Index="2" ss:StyleID="s106"><Data ss:Type="String">Aéreo</Data></Cell>
+    <Cell ss:StyleID="s107"><Data ss:Type="String"><%= @demographic_data.aereo ? 'Sim' : 'Não' %></Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Layout x:StartPageNumber="1"/>
+    <Header x:Margin="0.78749999999999998"/>
+    <Footer x:Margin="0.78749999999999998"/>
+    <PageMargins x:Bottom="1.0249999999999999" x:Left="0.78749999999999998"
+     x:Right="0.78749999999999998" x:Top="1.0249999999999999"/>
+   </PageSetup>
+   <Unsynced/>
+   <Print>
+    <ValidPrinterInfo/>
+    <PaperSizeIndex>9</PaperSizeIndex>
+    <HorizontalResolution>300</HorizontalResolution>
+    <VerticalResolution>300</VerticalResolution>
+   </Print>
+   <PageBreakZoom>148</PageBreakZoom>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <RangeSelection>R1C1:R1C3</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+   <EnableSelection>NoSelection</EnableSelection>
+  </WorksheetOptions>
+ </Worksheet>
