@@ -39,7 +39,7 @@ h2.section-title Investimentos
               th PREVISÃO ORÇAMENTÁRIA (R$ em #{year})
           tbody
             = f.fields_for :budget_investments, @pdsi.budget_investments_with_values do |b|
-              - if b.object.investment.parent_id.blank?
+              - if b.object.investment.parent_id.blank? && b.object.investment.id != 3
                 tr.budget.category data-category=("#{b.object.investment_id}-#{year}")
                   td.action colspan=2
                     = b.object.investment.name
@@ -79,7 +79,7 @@ h2.section-title Investimentos
                     = b.number_field "forecast_amount_#{year}", class: "fc#{b.object.id}y#{year}",
                     id: "fc#{b.object.id}y#{year}"
 
-              - elsif b.object.investment.parent_id === 2..3
+              - elsif b.object.investment.parent_id === 2
                 - item_id = "#{b.object.object_id}"
                 tr.budget.item data-category=("c#{b.object.investment.parent_id}-#{year}") id=("i#{item_id}")
                   td.action
