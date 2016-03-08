@@ -6,6 +6,7 @@
   background : #FFF;
   box-shadow : 2px 2px 5px 0 rgba(0, 0, 0, .3);
   margin-top : 100px;
+  min-height: 540px;
 
   h2 {
     @include margin(null null 0);
