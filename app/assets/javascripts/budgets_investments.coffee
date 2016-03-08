@@ -1,28 +1,32 @@
 # Subgroup1 sum
 group1_sum = (class_item) ->
-  q = class_item.replace(/u/, 'q')
-  forecast = class_item.replace(/u/, 'f')
-  quant = $("##{q}").val()
+  fore = class_item.replace(/u/, 'f')
+  hidd = class_item.replace(/u/, 'h')
+  item = class_item.slice(1)
   subtotal = 0
-  $(document).find(".#{class_item}").each (item) ->
-    subtotal += $(this).val()*1
-    return
-  $("##{class_item}").val(subtotal)
-  $("##{forecast}").val(subtotal)
-  group_sum(class_item)
+  $(".#{class_item}").each ->
+    value = $(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.')
+    subtotal += parseFloat(value) if value != NaN
+
+  $("##{fore}").val("R$#{(subtotal).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+  $("##{hidd}").val(subtotal)
+  group_sum(item, 1)
 
 # Subgroup2 sum
 group2_sum = (class_item) ->
   subtotal = 0
-  item = class_item.attr('id').slice(1,9)
+  item = class_item.attr('id').slice(1)
   unit = 'u' + item
-  unit_val = $("##{unit}").val()*1
+  unit_val = $("##{unit}").val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.')
   quant = 'q' + item
   quant_val = $("##{quant}").val()*1
   fore = 'f' + item
+  hidd = 'h' + item
   subtotal = quant_val * unit_val
-  $("##{fore}").val(subtotal)
-  group_sum(class_item)
+  $("##{fore}").val("R$#{(subtotal).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+  $("##{hidd}").val(subtotal)
+
+  group_sum(item, 2)
 
 # Increase quantity and sum
 quantity_plus = (class_item) ->
@@ -41,50 +45,16 @@ quantity_sum = (class_item) ->
   $("##{class_item}").val(subtotal)
 
 # Group sum
-group_sum = (class_item) ->
-  group1y2016 = 0
-  group2y2016 = 0
-  group3y2016 = 0
-  group1y2017 = 0
-  group2y2017 = 0
-  group3y2017 = 0
-  group1y2018 = 0
-  group2y2018 = 0
-  group3y2018 = 0
-  group1y2019 = 0
-  group2y2019 = 0
-  group3y2019 = 0
+group_sum = (item, group) ->
+  year = item.slice(-4)
+  sum = 0
+  $(".group#{group}-input-#{year}").each ->
+    value = $(this).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.')
+    if value
+      sum += parseFloat(value) if value != NaN
 
-  for categorie in [4..10]
-    group1y2016 += $("#fc#{categorie}y2016").val()*1
-    group1y2017 += $("#fc#{categorie}y2017").val()*1
-    group1y2018 += $("#fc#{categorie}y2018").val()*1
-    group1y2019 += $("#fc#{categorie}y2019").val()*1
-  $("#gc1y2016").val(group1y2016)
-  $("#gc1y2017").val(group1y2017)
-  $("#gc1y2018").val(group1y2018)
-  $("#gc1y2019").val(group1y2019)
-
-  for categorie in [11..13]
-    group2y2016 += $("#fc#{categorie}y2016").val()*1
-    group2y2017 += $("#fc#{categorie}y2017").val()*1
-    group2y2018 += $("#fc#{categorie}y2018").val()*1
-    group2y2019 += $("#fc#{categorie}y2019").val()*1
-  $("#gc2y2016").val(group2y2016)
-  $("#gc2y2017").val(group2y2017)
-  $("#gc2y2018").val(group2y2018)
-  $("#gc2y2019").val(group2y2019)
-
-  for categorie in [14..20]
-    group3y2016 += $("#fc#{categorie}y2016").val()*1
-    group3y2017 += $("#fc#{categorie}y2017").val()*1
-    group3y2018 += $("#fc#{categorie}y2018").val()*1
-    group3y2019 += $("#fc#{categorie}y2019").val()*1
-  $("#gc3y2016").val(group3y2016)
-  $("#gc3y2017").val(group3y2017)
-  $("#gc3y2018").val(group3y2018)
-  $("#gc3y2019").val(group3y2019)
-
+  $("#gc#{group}y#{year}").val("R$#{(sum).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+  $("#hgc#{group}y#{year}").val(sum)
 
 $(document).ready ->
   # Sort by group
@@ -95,9 +65,8 @@ $(document).ready ->
 
   # Sum group1 fields on modification
   $(document).on 'keyup', ".group1-input", ->
-    for year in [2016..2019]
-      for categorie in [1..20]
-        group1_sum("uc#{categorie}y#{year}")
+    modify_element = $(this).attr('class').split(' ')[0]
+    group1_sum(modify_element)
     return
 
   $('#form-investment').on 'cocoon:after-insert', ->
@@ -117,6 +86,12 @@ $(document).ready ->
           results: $.map data, (item) ->
             { text: item.name, id: item.id }
     $('.village-select').next('span').next('span').remove()
+
+    $('.currency-input').each ->
+      $(this).maskMoney
+        prefix: 'R$'
+        thousands: '.'
+        decimal: ','
     return
 
   # Sum group2 fields on modification
@@ -127,14 +102,15 @@ $(document).ready ->
 
   # Insert Items
   $(document).on 'click', '#form-investment .fa-plus', ->
-    class_item = $(this).parent().attr('class').slice(0,9)
+    class_item = $(this).parent().attr('class').split(' ')[0]
     quantity_plus(class_item)
 
   # Remove items
   $(document).on 'click', '#form-investment input.check_box-destroy', ->
-    class_item = $(this).attr('class').slice(-8).replace(/\s+/g, '')
-    quant = 'q' + class_item
-    fore  = 'u' + class_item
+    class_item = $(this).attr('class').split(' ')
+    quant = 'q' + class_item[2]
+    fore  = 'u' + class_item[2]
+    quant_saved = 'q' + class_item[1]
 
     # Remove unsaved items
     if $(this).hasClass("new-record")
@@ -148,13 +124,12 @@ $(document).ready ->
         $prevtd = $(this).parent().prev('td').find('input')
         $prevprevtd = $(this).parent().prev('td').prev('td').find('input')
         toastr.warning("<div><button type='button' class='button' id='okBtn'>Sim</button>" , 'Deseja excluir este ítem?', {preventDuplicates: true})
-        $ ->
-          $('#okBtn').click ->
-            $prevtd.val(0)
-            $prevprevtd.val(0)
-            quantity_sum(quant)
-            group1_sum(fore)
-            $('form').submit()
+        $('#okBtn').click ->
+          $prevtd.val(0)
+          $prevprevtd.val(0)
+          quantity_sum(quant_saved)
+          group1_sum(fore)
+          $('form').submit()
 
   # Save form if no errors
   $('#pdsi_save_button').prop('onclick',null)
