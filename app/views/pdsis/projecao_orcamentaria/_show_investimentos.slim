@@ -46,7 +46,7 @@
                   td
                   td
                   td
-                    = b.send("forecast_amount_#{year}")
+                    = number_to_currency(eval("b.forecast_amount_#{year}"))
               - elsif b.investment.parent_id === 1
                 - item_id = "#{b.object_id}"
                 tr.item data-category=("c#{b.investment.parent_id}-#{year}") id=("i#{item_id}")
@@ -60,9 +60,9 @@
                     = b.send("quantity_#{year}")
                   td
                   td.hidden
-                    = b.send("unitary_amount_#{year}")
+                    = number_to_currency(eval("b.unitary_amount_#{year}"))
                   td
-                    = b.send("forecast_amount_#{year}")
+                    = number_to_currency(eval("b.forecast_amount_#{year}"))
 
               - elsif b.investment.parent_id === 2
                 - item_id = "#{b.object_id}"
@@ -76,9 +76,10 @@
                   td
                     = b.send("quantity_#{year}")
                   td
-                    = b.send("unitary_amount_#{year}")
+                  td.hidden
+                    = number_to_currency(eval("b.unitary_amount_#{year}"))
                   td
-                    = b.send("forecast_amount_#{year}")
+                    = number_to_currency(eval("b.forecast_amount_#{year}"))
 
               - b.investment_items.each do |item|
                 - if item.year_reference == year.to_s
@@ -96,7 +97,7 @@
                     td.field
                       = item.send("quantity_#{year}")
                     td.field
-                      = item.send("unitary_amount_#{year}")
+                      = number_to_currency(eval("item.unitary_amount_#{year}"))
                     td
 
 
