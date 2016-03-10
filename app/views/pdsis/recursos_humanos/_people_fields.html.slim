@@ -8,7 +8,7 @@ tr
   td
     = f.text_field :location
   td
-    = f.text_field :workplace
+    = f.select  :workplace, options_for_select(['UBSI', 'Polo Base tipo 1', 'Polo Base tipo 2', 'Casai', 'Sead', 'Selog', 'Sesani', 'Seofi', 'Segep', 'Gabinete', 'Diasi'], f.object.workplace), include_blank: true
   td
     = f.select :bond, options_for_select(['ATIVO PERMANENTE', 'MISSÃO EVANGÉLICA CAIUÁ'], f.object.bond), include_blank: true
   td
