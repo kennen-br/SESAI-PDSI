@@ -159,6 +159,7 @@ Rails.application.routes.draw do
           defaults: { section: 'resultados-esperados', tab: 'especificos' },
           to: 'specific_results#update',
           as: :update_specific_results
+    get '/:id/pdf', to: 'pdsis#render_pdf'
   end
 
   scope '/templates' do

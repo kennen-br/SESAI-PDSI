@@ -1,0 +1,23 @@
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+css:
+  div.alwaysbreak { page-break-before: always; }
+  div.nobreak:before { clear:both; }
+  div.nobreak { page-break-inside: avoid; }
+  .logo {  }
+
+.logo
+  == wicked_pdf_image_tag 'logo_governo_federal.jpg', size: '100'
+
+p MINISTÉRIO DA SAÚDE
+p SECRETARIA ESPECIAL DE SAÚDE INDÍGENA
+p PLANO DISTRITAL DE SAÚDE INDÍGENA 2016 – 2019
+p = "DSEI #{@pdsi.dsei.name}"
+
+.alwaysbreak
+  == @pdsi.introducao_1
+
+
+.alwaysbreak
+  == @pdsi.sample :processo_construcao_pdsi_2
+

@@ -75,6 +75,15 @@ class PdsisController < ApplicationController
     redirect_to edit_pdsi_path(@pdsi, args), notice
   end
 
+  def render_pdf
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: 'pdsi'
+      end
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
