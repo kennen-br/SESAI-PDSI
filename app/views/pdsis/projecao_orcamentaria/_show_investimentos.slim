@@ -33,7 +33,7 @@
               th PREVISÃO ORÇAMENTÁRIA (R$ em #{year})
           tbody
             - @pdsi.budget_investments_with_values.each do |b|
-              - if b.investment.parent_id.blank? && b.investment.id != 3
+              - if b.investment.parent_id.blank?
                 tr.category data-category=("#{b.investment_id}-#{year}")
                   td.action colspan=2
                     = b.investment.name
@@ -64,7 +64,7 @@
                   td
                     = number_to_currency(eval("b.forecast_amount_#{year}"))
 
-              - elsif b.investment.parent_id === 2
+              - elsif b.investment.parent_id === 2..3
                 - item_id = "#{b.object_id}"
                 tr.item data-category=("c#{b.investment.parent_id}-#{year}") id=("i#{item_id}")
                   td.action
