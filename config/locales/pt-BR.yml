@@ -28,6 +28,7 @@ pt-BR:
       budget_forecast:              Previsão de Custos
       result:                       Resultados
       person:                       Pessoa
+      village:                      Aldeia
     attributes:
       user:
         username:               Usuário
