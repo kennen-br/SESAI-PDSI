@@ -38,7 +38,7 @@
             tbody
               - @pdsi.budget_forecasts_with_values_no_child(@pdsi.id).each do |bf|
                 - if bf.cost.cost_type == 3
-                  tr data-category=("#{bf.cost.id}") data-index=("#{bf.cost.id}")
+                  tr[data-category=("#{bf.cost.id}") data-index=("#{bf.cost.id}") style="#{ 'background-color: #F7C4A4' if bf.cost.name == 'CUSTEIO DE EDIFICAÇÕES' }"]
                     td = bf.cost.name
 
                     td = number_to_currency(eval("bf.initial_forecast_#{year}"))
@@ -49,7 +49,7 @@
                       - if bf.updated_at
                         = bf.updated_at.strftime("Atualizada em %m/%d/%Y")
                 - elsif bf.cost.cost_type == 1
-                  tr data-category=("#{bf.cost.id}") data-index=("#{bf.cost.id}")
+                  tr[data-category=("#{bf.cost.id}") data-index=("#{bf.cost.id}") style="#{ 'background-color: #F7C4A4' if bf.cost.name == 'CONTRATOS' }"]
                     td = bf.cost.name
 
                     td = number_to_currency(eval("bf.initial_forecast_#{year}"))
