@@ -1,0 +1,85 @@
+p
+  strong #{DemographicData.human_attribute_name 'extensao_territorial'}:
+  br
+  = @demographic_data.extensao_territorial || 'Não informado'
+
+p
+  strong #{DemographicData.human_attribute_name 'municipio_sede'}:
+  br
+  = @demographic_data.municipio_sede || 'Não informado'
+
+p
+  strong #{DemographicData.human_attribute_name 'endereco'}:
+  br
+  = @demographic_data.endereco || 'Não informado'
+
+p
+  strong #{DemographicData.human_attribute_name 'email'}:
+  br
+  = @demographic_data.email || 'Não informado'
+
+p
+  strong #{DemographicData.human_attribute_name 'numero_municipios'}:
+  br
+  = @demographic_data.numero_municipios || 'Não informado'
+
+p
+  strong #{DemographicData.human_attribute_name 'populacao_indigena'}:
+  br
+  = @demographic_data.populacao_indigena || 'Não informado'
+
+p
+  strong #{DemographicData.human_attribute_name 'etnias'}:
+  br
+  - if dsei_ethnicities(@dsei).blank?
+    | Não informado
+  - else
+    = dsei_ethnicities(@dsei).map { |item| item }.join(', ')
+
+p
+  strong #{DemographicData.human_attribute_name 'numero_polos_base'}:
+  br
+  = @demographic_data.numero_polos_base || 'Não informado'
+
+p
+  strong Nº de Sede de Polos Base
+  br
+  = @demographic_data.headquarters || 'Não informado'
+
+p
+  strong #{DemographicData.human_attribute_name 'numero_ubsi'}:
+  br
+  = @demographic_data.numero_ubsi || 'Não informado'
+
+p
+  strong #{DemographicData.human_attribute_name 'numero_regioes_de_saude'}:
+  br
+  = @demographic_data.numero_regioes_de_saude || 'Não informado'
+
+p
+  strong #{DemographicData.human_attribute_name 'numero_casais'}:
+  br
+  = @demographic_data.numero_casais || 'Não informado'
+
+p
+  strong #{DemographicData.human_attribute_name 'numero_aldeias'}:
+  br
+  = @demographic_data.numero_aldeias || 'Não informado'
+
+p
+  strong #{DemographicData.human_attribute_name 'numero_familias'}:
+  br
+  = @demographic_data.numero_familias || 'Não informado'
+
+fieldset
+  legend #{DemographicData.human_attribute_name 'meios_de_transporte'}:
+
+  p
+    strong #{DemographicData.human_attribute_name 'fluvial'}:
+    == has_transportation @demographic_data, :fluvial
+  p
+    strong #{DemographicData.human_attribute_name 'rodoviario'}:
+    == has_transportation @demographic_data, :rodoviario
+  p
+    strong #{DemographicData.human_attribute_name 'aereo'}:
+    == has_transportation @demographic_data, :aereo

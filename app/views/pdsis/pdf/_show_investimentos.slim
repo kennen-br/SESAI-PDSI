@@ -1,0 +1,104 @@
+= link_to edit_budget_projection_path(@pdsi, subsection: 'investimento'), class: 'button pull-right edit-link' do
+  i.fa.fa-pencil
+  | Coletar dados
+.carousel-nav
+  .carousel-arrows
+    a.pull-left href="javascript:void(0)"
+      = icon 'angle-left'
+    a.pull-right href="javascript:void(0)"
+      = icon 'angle-right'
+  .carousel-list
+    .slider
+      a.is-active href="javascript:void(0)" data-index="0"
+        | 2016
+      a href="javascript:void(0)" data-index="1"
+        | 2017
+      a href="javascript:void(0)" data-index="2"
+        | 2018
+      a href="javascript:void(0)" data-index="3"
+        | 2019
+  .carousel-items[id="form-investment"]
+    - (2016..2019).map.with_index do |year, i|
+      .item-content.animated data-index="#{i}" class=('is-active' if i == 0)
+        table.table-minimal.budget-table.investiment
+          thead
+            tr
+              th[style="width: 15px;"]
+              th
+              th
+              th
+              th
+              th QUANTIDADE ESTIMADA PARA #{year}
+              th VALOR UNITÁRIO ESTIMADO (R$ em #{year})
+              th PREVISÃO ORÇAMENTÁRIA (R$ em #{year})
+          tbody
+            - @pdsi.budget_investments_with_values.each do |b|
+              - if b.investment.parent_id.blank?
+                tr.category data-category=("#{b.investment_id}-#{year}")
+                  td.action colspan=2
+                    = b.investment.name
+                  td
+                     = 'Município' if b.investment.id == 1
+                  td
+                     = 'Aldeia' if b.investment.id == 1
+                  td
+                     = 'Polo Base' if b.investment.id == 1
+                  td
+                  td
+                  td
+                    = number_to_currency(eval("b.forecast_amount_#{year}"))
+              - elsif b.investment.parent_id === 1
+                - item_id = "#{b.object_id}"
+                tr.item data-category=("c#{b.investment.parent_id}-#{year}") id=("i#{item_id}")
+                  td.action
+                  td
+                    = b.investment.name
+                  td
+                  td
+                  td
+                  td
+                    = b.send("quantity_#{year}")
+                  td
+                  td.hidden
+                    = number_to_currency(eval("b.unitary_amount_#{year}"))
+                  td
+                    = number_to_currency(eval("b.forecast_amount_#{year}"))
+
+              - elsif b.investment.parent_id === 2..3
+                - item_id = "#{b.object_id}"
+                tr.item data-category=("c#{b.investment.parent_id}-#{year}") id=("i#{item_id}")
+                  td.action
+                  td
+                    = b.investment.name
+                  td
+                  td
+                  td
+                  td
+                    = b.send("quantity_#{year}")
+                  td
+                  td.hidden
+                    = number_to_currency(eval("b.unitary_amount_#{year}"))
+                  td
+                    = number_to_currency(eval("b.forecast_amount_#{year}"))
+
+              - b.investment_items.each do |item|
+                - if item.year_reference == year.to_s
+                  tr.item data-category=("c#{item.budget_investment.investment.parent_id}-#{year}")
+                    td.action
+                    td.field
+                      = item.name
+                    td.field
+                      = city_name(item.city)
+                    td
+                      = village_name(item.village)
+                    td.field
+                      /= item.pole_base
+                      = pole_base_name(item.pole_base)
+                    td.field
+                      = item.send("quantity_#{year}")
+                    td.field
+                      = number_to_currency(eval("item.unitary_amount_#{year}"))
+                    td
+
+
+

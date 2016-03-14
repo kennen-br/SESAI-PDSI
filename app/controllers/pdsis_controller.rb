@@ -1,4 +1,5 @@
 class PdsisController < ApplicationController
+  layout "print", only: [:render_pdf]
   before_action :set_section,     only: [:index, :edit, :edit_category_budgets, :update, :health_indicators]
   before_action :set_pdsi
   before_action :set_base_polo,   only: [:edit, :health_indicators, :update]
@@ -76,10 +77,18 @@ class PdsisController < ApplicationController
   end
 
   def render_pdf
+    file = File.join(Rails.root, 'app', 'views', 'pdsis', 'pdf', 'cover', '1.html')
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: 'pdsi'
+        render  pdf: 'pdsi', 
+                footer: { right: 'Distrito', center: '[page] de [topage]', left: 'PLANO DISTRITAL DE SAÚDE INDÍGENA 2016-2019'},
+                page_size: 'A4',
+                #cover: File.read(file),
+                print_media_type: true,
+                margin: {top: 30, bottom: 30, left: 25, right: 25}
+                
+                
       end
     end
   end
