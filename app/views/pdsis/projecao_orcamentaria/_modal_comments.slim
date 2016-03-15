@@ -19,7 +19,7 @@
               th Nome do usuário
               th.delete
           tbody
-            - budget.comments_by_year(year).each do |comment|
+            - budget.comments_by_year(year).includes(:user).each do |comment|
               = render 'pdsis/projecao_orcamentaria/comment', { comment: comment }
       .new-comment
         = text_area_tag '', '', { placeholder: 'Insira seu comentário' }

@@ -235,20 +235,6 @@ $(document).ready ->
       return
     return
 
-  # Mark input for PDSI Results as red or green
-  $(document).on 'blur', '.expected-result-field', (e) ->
-    $this    = $(this)
-    expected = $this.data 'expected'
-    value    = $this.val()
-
-    $this.removeClass 'red green'
-
-    if value >= expected
-      $this.addClass 'green'
-    else
-      $this.addClass 'red'
-    return
-
   # Recalculate values for 2017-2019 based on 2016 and correction factors
   $(document).on 'change', '.2016-budget-value', ->
     # console.log 'Recalculating budgets for years 2017-2019'
@@ -422,3 +408,29 @@ $(document).on 'click', '.modal-window.investment', ->
     icon.addClass('fa-comments red').removeClass('fa-comment')
   else
     icon.addClass('fa-comment').removeClass('fa-comments red')
+
+expect_result_color = (item) ->
+  $this = item
+  initial_forecast = $this.parent().prev('td').find('input').val()
+  dsei_forecast = parseFloat($this.val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
+
+  if dsei_forecast > initial_forecast
+    $this.css({'color' : 'red'})
+  else
+    $this.css({'color' : 'green'})
+  return
+
+$(document).ready ->
+  $('.expected-result-field').each ->
+    expect_result_color($(this))
+
+# Mark input for PDSI Results as red or green
+$(document).on 'change', '.expected-result-field', ->
+  expect_result_color($(this))
+
+$(document).on 'blur', '.expected-result-modfier', ->
+  $('.expected-result-field').each ->
+    _this = $(this)
+    setTimeout (->
+      expect_result_color _this
+    ), 100
