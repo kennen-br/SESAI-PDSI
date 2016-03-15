@@ -1,3 +1,7 @@
+- sesai_cost_2016 = 0
+- sesai_cost_2017 = 0
+- sesai_cost_2018 = 0
+- sesai_cost_2019 = 0
 .item-content
   table#synthesis.table-minimal.budget-table
     thead
@@ -23,6 +27,12 @@
           #cost_2016_2019.sum-cost
 
       - @pdsi.budget_forecasts_with_values_no_child(@pdsi.id).each do |bf|
+        - if bf.cost.cost_type == 3 || bf.cost.cost_type == 1
+          - sesai_cost_2016 += bf.initial_forecast_2016 if bf.initial_forecast_2016
+          - sesai_cost_2017 += bf.initial_forecast_2017 if bf.initial_forecast_2017
+          - sesai_cost_2018 += bf.initial_forecast_2018 if bf.initial_forecast_2018
+          - sesai_cost_2019 += bf.initial_forecast_2019 if bf.initial_forecast_2019
+
         - if bf.cost.cost_type == 3 && bf.cost.name == 'CUSTEIO DE EDIFICAÇÕES'
           tr
             td = bf.cost.name
@@ -50,7 +60,7 @@
           - @pdsi.bf_with_values_children(@pdsi.id, bf.cost.id).each do |bf_child|
             - if bf_child.cost.cost_type == 2
               tr.item data-category=("#{bf_child.cost.id}")
-                td style=("padding-left:30px;")
+                td style=("padding-left:40px;")
                   = bf_child.cost.name
                 td.cost = number_to_currency(bf_child.dsei_forecast_2016)
                 td.cost = number_to_currency(bf_child.dsei_forecast_2017)
@@ -60,16 +70,11 @@
 
       tr[style="#{ 'background-color: #E8E8E8'}"]
         td INVESTIMENTO
-        td
-          #invest_2016.cost
-        td
-          #invest_2017.cost
-        td
-          #invest_2018.cost
-        td
-          #invest_2019.cost
-        td
-          #invest_2016_2019.sum-cost
+        td#invest_2016.cost
+        td#invest_2017.cost
+        td#invest_2018.cost
+        td#invest_2019.cost
+        td#invest_2016_2019.sum-cost
 
       - @pdsi.budget_investments_with_values.each do |b|
         - if b.investment.parent_id.blank?
@@ -83,13 +88,17 @@
 
       tr[style="#{ 'background-color: #E8E8E8'}"]
         td <b>TOTAL</b>
-        td
-          #total_2016.cost
-        td
-          #total_2017.cost
-        td
-          #total_2018.cost
-        td
-          #total_2019.cost
-        td
-          #total_2016_2019.sum-cost
+        td#total_2016.cost
+        td#total_2017.cost
+        td#total_2018.cost
+        td#total_2019.cost
+        td#total_2016_2019.sum-cost
+
+      tr[style="height: 30px;"]
+      tr[style="#{ 'background-color: #E8E8E8;'}"]
+        td CUSTEIO SESAI Central
+        td#sesai_cost_2016.cost = number_to_currency(sesai_cost_2016)
+        td#sesai_cost_2017.cost = number_to_currency(sesai_cost_2017)
+        td#sesai_cost_2018.cost = number_to_currency(sesai_cost_2018)
+        td#sesai_cost_2019.cost = number_to_currency(sesai_cost_2019)
+        td#sesai_cost_2016_2019.sum-cost
