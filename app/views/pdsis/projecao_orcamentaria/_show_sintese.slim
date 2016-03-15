@@ -26,36 +26,36 @@
         - if bf.cost.cost_type == 3 && bf.cost.name == 'CUSTEIO DE EDIFICAÇÕES'
           tr
             td = bf.cost.name
-            td.cost.cost_2016 = number_to_currency(eval("bf.dsei_forecast_2016"))
-            td.cost.cost_2017 = number_to_currency(eval("bf.dsei_forecast_2017"))
-            td.cost.cost_2018 = number_to_currency(eval("bf.dsei_forecast_2018"))
-            td.cost.cost_2019 = number_to_currency(eval("bf.dsei_forecast_2019"))
+            td.cost.cost_2016 = number_to_currency(bf.dsei_forecast_2016)
+            td.cost.cost_2017 = number_to_currency(bf.dsei_forecast_2017)
+            td.cost.cost_2018 = number_to_currency(bf.dsei_forecast_2018)
+            td.cost.cost_2019 = number_to_currency(bf.dsei_forecast_2019)
             td.sum-cost
         - if bf.cost.cost_type == 3 && bf.cost.name != 'CUSTEIO DE EDIFICAÇÕES'
           tr
             td = bf.cost.name
-            td.cost.cost_2016 = number_to_currency(eval("bf.initial_forecast_2016"))
-            td.cost.cost_2017 = number_to_currency(eval("bf.initial_forecast_2017"))
-            td.cost.cost_2018 = number_to_currency(eval("bf.initial_forecast_2018"))
-            td.cost.cost_2019 = number_to_currency(eval("bf.initial_forecast_2019"))
+            td.cost.cost_2016 = number_to_currency(bf.initial_forecast_2016)
+            td.cost.cost_2017 = number_to_currency(bf.initial_forecast_2017)
+            td.cost.cost_2018 = number_to_currency(bf.initial_forecast_2018)
+            td.cost.cost_2019 = number_to_currency(bf.initial_forecast_2019)
             td.sum-cost
         - elsif bf.cost.cost_type == 1
           tr[style="#{ 'background-color: #E8E8E8'}"]
             td = bf.cost.name
-            td.cost.cost_2016 = number_to_currency(eval("bf.dsei_forecast_2016"))
-            td.cost.cost_2017 = number_to_currency(eval("bf.dsei_forecast_2017"))
-            td.cost.cost_2018 = number_to_currency(eval("bf.dsei_forecast_2018"))
-            td.cost.cost_2019 = number_to_currency(eval("bf.dsei_forecast_2019"))
+            td.cost.cost_2016 = number_to_currency(bf.dsei_forecast_2016)
+            td.cost.cost_2017 = number_to_currency(bf.dsei_forecast_2017)
+            td.cost.cost_2018 = number_to_currency(bf.dsei_forecast_2018)
+            td.cost.cost_2019 = number_to_currency(bf.dsei_forecast_2019)
             td.sum-cost
           - @pdsi.bf_with_values_children(@pdsi.id, bf.cost.id).each do |bf_child|
             - if bf_child.cost.cost_type == 2
               tr.item data-category=("#{bf_child.cost.id}")
                 td style=("padding-left:30px;")
                   = bf_child.cost.name
-                td.cost = number_to_currency(eval("bf_child.dsei_forecast_2016"))
-                td.cost = number_to_currency(eval("bf_child.dsei_forecast_2017"))
-                td.cost = number_to_currency(eval("bf_child.dsei_forecast_2018"))
-                td.cost = number_to_currency(eval("bf_child.dsei_forecast_2019"))
+                td.cost = number_to_currency(bf_child.dsei_forecast_2016)
+                td.cost = number_to_currency(bf_child.dsei_forecast_2017)
+                td.cost = number_to_currency(bf_child.dsei_forecast_2018)
+                td.cost = number_to_currency(bf_child.dsei_forecast_2019)
                 td.sum-cost
 
       tr[style="#{ 'background-color: #E8E8E8'}"]
@@ -75,10 +75,10 @@
         - if b.investment.parent_id.blank?
           tr
             td = b.investment.name
-            td.cost.invest_2016 = number_to_currency(eval("b.forecast_amount_2016"))
-            td.cost.invest_2017 = number_to_currency(eval("b.forecast_amount_2017"))
-            td.cost.invest_2018 = number_to_currency(eval("b.forecast_amount_2018"))
-            td.cost.invest_2019 = number_to_currency(eval("b.forecast_amount_2019"))
+            td.cost.invest_2016 = number_to_currency(b.forecast_amount_2016)
+            td.cost.invest_2017 = number_to_currency(b.forecast_amount_2017)
+            td.cost.invest_2018 = number_to_currency(b.forecast_amount_2018)
+            td.cost.invest_2019 = number_to_currency(b.forecast_amount_2019)
             td.sum-cost
 
       tr[style="#{ 'background-color: #E8E8E8'}"]
