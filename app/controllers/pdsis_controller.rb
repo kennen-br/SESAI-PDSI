@@ -1,5 +1,5 @@
 class PdsisController < ApplicationController
-  layout "print", only: [:render_pdf]
+  #layout "print", only: [:render_pdf]
   before_action :set_section,     only: [:index, :edit, :edit_category_budgets, :update, :health_indicators]
   before_action :set_pdsi
   before_action :set_base_polo,   only: [:edit, :health_indicators, :update]
@@ -75,20 +75,29 @@ class PdsisController < ApplicationController
 
     redirect_to edit_pdsi_path(@pdsi, args), notice
   end
-
+  
   def render_pdf
-    file = File.join(Rails.root, 'app', 'views', 'pdsis', 'pdf', 'cover', '1.html')
+    av = ActionView::Base.new()
+    av.view_paths = ActionController::Base.view_paths
+
+    av.class_eval do
+      include Rails.application.routes.url_helpers
+      include ApplicationHelper
+    end
+    template_cover = av.render template: 'pdsis/pdf/front.slim', layout: nil, locals: {pdsi: @pdsi}
+
     respond_to do |format|
       format.html
       format.pdf do
         render  pdf: 'pdsi', 
-                footer: { right: 'Distrito', center: '[page] de [topage]', left: 'PLANO DISTRITAL DE SAÚDE INDÍGENA 2016-2019'},
+                encoding: 'UTF-8',
+                footer: {  right: "Distrito #{@pdsi.dsei.name}     [page]", encoding: 'UTF-8', left: 'PLANO DISTRITAL DE SAÚDE INDÍGENA 2016-2019', font_name: 'OpenSans', font_size: 8, "LANG" => 'pt_PT.UTF-8' },
                 page_size: 'A4',
-                #cover: File.read(file),
+                cover: template_cover,
                 print_media_type: true,
-                margin: {top: 30, bottom: 30, left: 25, right: 25}
-                
-                
+                margin: {top: 30, bottom: 15, left: 25, right: 25},
+                toc: { level_indentation: 3, text_size_shrink: 1, header_text: 'Sumário'}
+                #show_as_html: params.key?('debug')
       end
     end
   end

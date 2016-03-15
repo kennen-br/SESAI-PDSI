@@ -32,5 +32,8 @@ module SesaiPdsi
 
     # NavLynx Configs
     config.nav_lynx.selected_class = 'is-active'
+    
+    #Render PDF styles separately
+    config.assets.precompile += ['pdf.css']
   end
 end
