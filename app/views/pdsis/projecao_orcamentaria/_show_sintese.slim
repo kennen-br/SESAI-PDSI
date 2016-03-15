@@ -58,4 +58,38 @@
                 td.cost = number_to_currency(eval("bf_child.dsei_forecast_2019"))
                 td.sum-cost
 
+      tr[style="#{ 'background-color: #E8E8E8'}"]
+        td INVESTIMENTO
+        td
+          #invest_2016.cost
+        td
+          #invest_2017.cost
+        td
+          #invest_2018.cost
+        td
+          #invest_2019.cost
+        td
+          #invest_2016_2019.sum-cost
 
+      - @pdsi.budget_investments_with_values.each do |b|
+        - if b.investment.parent_id.blank?
+          tr
+            td = b.investment.name
+            td.cost.invest_2016 = number_to_currency(eval("b.forecast_amount_2016"))
+            td.cost.invest_2017 = number_to_currency(eval("b.forecast_amount_2017"))
+            td.cost.invest_2018 = number_to_currency(eval("b.forecast_amount_2018"))
+            td.cost.invest_2019 = number_to_currency(eval("b.forecast_amount_2019"))
+            td.sum-cost
+
+      tr[style="#{ 'background-color: #E8E8E8'}"]
+        td <b>TOTAL</b>
+        td
+          #total_2016.cost
+        td
+          #total_2017.cost
+        td
+          #total_2018.cost
+        td
+          #total_2019.cost
+        td
+          #total_2016_2019.sum-cost
