@@ -91,12 +91,12 @@ class PdsisController < ApplicationController
       format.pdf do
         render  pdf: 'pdsi', 
                 encoding: 'UTF-8',
-                footer: {  right: "Distrito #{@pdsi.dsei.name}     [page]", encoding: 'UTF-8', left: 'PLANO DISTRITAL DE SAÚDE INDÍGENA 2016-2019', font_name: 'OpenSans', font_size: 8, "LANG" => 'pt_PT.UTF-8' },
+                footer: {  right: "Distrito #{@pdsi.dsei.name}     [page]", encoding: 'UTF-8', left: 'PLANO DISTRITAL DE SAÚDE INDÍGENA 2016-2019', font_name: 'OpenSans', font_size: 8, "LANG" => 'pt_BR.UTF-8' },
                 page_size: 'A4',
                 cover: template_cover,
                 print_media_type: true,
                 margin: {top: 30, bottom: 15, left: 25, right: 25},
-                toc: { level_indentation: 3, text_size_shrink: 1, header_text: 'Sumário'}
+                toc: { level_indentation: 30, text_size_shrink: 1, header_text: 'Sumário', font_size: 14}
                 #show_as_html: params.key?('debug')
       end
     end
