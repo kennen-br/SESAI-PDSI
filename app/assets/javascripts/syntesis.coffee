@@ -2,6 +2,8 @@ $(document).ready ->
   sum_synthesis()
   sum_synthesis_total()
   sum_synthesis_rows()
+  sum_balance()
+  colorize_balance()
 
 sum_synthesis = ->
   for cost_type in ['cost_', 'invest_']
@@ -34,3 +36,26 @@ sum_synthesis_total = ->
     .toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
 
 
+sum_balance = ->
+  balance_2016_2019 = parseFloat($("#sesai_cost_2016_2019").html().replace(/(R\$|\.)/g, '').replace(/\,/, '.')) -
+  parseFloat($("#cost_2016_2019").html().replace(/(R\$|\.)/g, '').replace(/\,/, '.'))
+
+  $("#balance_cost_2016_2019").html("R$ #{(balance_2016_2019)
+  .toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+
+  for year in [2016..2019]
+    a = "sesai_cost_#{year}" : parseFloat($("#sesai_cost_#{year}").html().replace(/(R\$|\.)/g, '').replace(/\,/, '.')),
+    "cost_#{year}": parseFloat($("#cost_#{year}").html().replace(/(R\$|\.)/g, '').replace(/\,/, '.'))
+
+    $("#balance_cost_#{year}").html("R$ #{(a["sesai_cost_#{year}"] - a["cost_#{year}"])
+    .toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+
+colorize_balance = ->
+  $('#balance').each ->
+    $(this).find('td').each ->
+      cost = parseFloat($(this).html().replace(/(R\$|\.)/g, '').replace(/\,/, '.'))
+      if !isNaN(cost) and cost < 0
+        $(this).css({'color' : 'red'})
+      else if isNaN(cost)
+      else
+        $(this).css({'color' : 'green'})
