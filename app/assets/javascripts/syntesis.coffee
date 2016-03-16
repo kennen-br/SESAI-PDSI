@@ -1,9 +1,10 @@
 $(document).ready ->
-  sum_synthesis()
-  sum_synthesis_total()
-  sum_synthesis_rows()
-  sum_balance()
-  colorize_balance()
+  if location.pathname.match('ver/projecao-orcamentaria')
+    sum_synthesis()
+    sum_synthesis_total()
+    sum_synthesis_rows()
+    sum_balance()
+    colorize_balance()
 
 sum_synthesis = ->
   for cost_type in ['cost_', 'invest_']
@@ -34,7 +35,6 @@ sum_synthesis_total = ->
 
     $("#total_#{year}").html("R$ #{(a["invest_#{year}"] + a["cost_#{year}"])
     .toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
-
 
 sum_balance = ->
   balance_2016_2019 = parseFloat($("#sesai_cost_2016_2019").html().replace(/(R\$|\.)/g, '').replace(/\,/, '.')) -
