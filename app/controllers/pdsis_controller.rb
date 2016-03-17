@@ -75,7 +75,7 @@ class PdsisController < ApplicationController
 
     redirect_to edit_pdsi_path(@pdsi, args), notice
   end
-  
+
   def render_pdf
     av = ActionView::Base.new()
     av.view_paths = ActionController::Base.view_paths
@@ -89,15 +89,50 @@ class PdsisController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render  pdf: 'pdsi', 
+        render  pdf: 'pdsi',
                 encoding: 'UTF-8',
-                footer: {  right: "Distrito #{@pdsi.dsei.name}     [page]", encoding: 'UTF-8', left: 'PLANO DISTRITAL DE SAÚDE INDÍGENA 2016-2019', font_name: 'OpenSans', font_size: 8, "LANG" => 'pt_BR.UTF-8' },
+                footer: {  
+                  right: "Distrito #{@pdsi.dsei.name}     [page]", 
+                  encoding: 'UTF-8', 
+                  left: 'PLANO DISTRITAL DE SAÚDE INDÍGENA 2016-2019', 
+                  font_name: 'DINPro', 
+                  font_size: 6,
+                  spacing:10
+                },
                 page_size: 'A4',
                 cover: template_cover,
                 print_media_type: true,
-                margin: {top: 30, bottom: 15, left: 25, right: 25},
-                toc: { level_indentation: 30, text_size_shrink: 1, header_text: 'Sumário', font_size: 14}
-                #show_as_html: params.key?('debug')
+                margin: {
+                  top: 25, 
+                  bottom: 30, 
+                  left: 20, 
+                  right: 20
+                },
+                toc: {
+                  #font_name:         "DINPro", 
+                  #depth:             3, 
+                  header_text:       "Sumário", 
+                  #header_fs:         13, 
+                  text_size_shrink:  0.8, 
+                  #l1_font_size:      13, 
+                  #l2_font_size:      13, 
+                  #l3_font_size:      13, 
+                  #l4_font_size:      13,   
+                  #l5_font_size:      13, 
+                  #l6_font_size:      13, 
+                  #l7_font_size:      13, 
+                  level_indentation: 30, 
+                  #l1_indentation:    30, 
+                  #l2_indentation:    30, 
+                  #l3_indentation:    30, 
+                  #l4_indentation:    30, 
+                  #l5_indentation:    30, 
+                  #l6_indentation:    30, 
+                  #l7_indentation:    30, 
+                  #no_dots:           true, 
+                  #xsl_style_sheet:   'style.xsl' #--dump-default-toc-xsl
+                  #show_as_html: params.key?('debug')
+                }
       end
     end
   end

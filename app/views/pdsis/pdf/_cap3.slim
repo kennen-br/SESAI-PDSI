@@ -1,17 +1,22 @@
 h1 3. Caracterização do distrito de saúde indígena
 
+p Nesse item encontra-se a caracterização do Distrito de Saúde Indígena de #{@pdsi.dsei.name} organizada a partir de duas categorias: (i) Território e População, com informações sobre istórico e perfil da população indígena do território e mapas com características geográficas do distrito e (ii) Gestão, com informações sobre serviços, infraestrutura e capacidades do DSEI.
+
 h2 3.1 Território e População
 h3 3.1.1 Breve histórico
 == @pdsi.compose_item_3 || 'Não informado'
 
-H3 3.1.2 Mapa do território
+h3 3.1.2 Mapa do território
+/== wicked_pdf_image_tag 'mapas/ALAGOAS_E_SERGIPE_1.jpg'
 == image_tag @pdsi.map.url || 'Não informado'
+blockquote Figura 3. Mapa dos limites e aspectos geográficos, sede e pólos-base do DSEI
 
-h3 3.1.2 Dados Demográficos
+
+h3 3.1.3 Dados Demográficos
 p
   strong #{DemographicData.human_attribute_name 'extensao_territorial'}:
   br
-  = @demographic_data.extensao_territorial || 'Não informado'
+  = @demographic_data.extensao_territorial_km || 'Não informado'
 
 p
   strong #{DemographicData.human_attribute_name 'municipio_sede'}:
@@ -94,14 +99,14 @@ fieldset
     strong #{DemographicData.human_attribute_name 'aereo'}:
     == has_transportation @demographic_data, :aereo
 
-h3 Dados Fisiográficos
+h3 3.1.4 Dados Fisiográficos
 
-h2 3.2 Gestão
+h2 3.2 Caracterização: Gestão
 
-h3 Meios de Transporte para acesso dos povos indígenas aos serviços de saúde
-h3 Dimensionamento da força de trabalho
-h3 Equipes médicas de saúde indígena (EMSI)
-h3 Rede de complementariedade
-h3 Infraestrutura de saúde - Edificações
-h3 Infraestrutura de saúde - Saneamento
-h3 Infraestrutura de saúde - CAPAIs
+h3 3.2.1 Meios de Transporte para acesso dos povos indígenas aos serviços de saúde
+h3 3.2.2 Dimensionamento da força de trabalho
+h3 3.2.3 Equipes médicas de saúde indígena (EMSI)
+h3 3.2.4 Rede de complementariedade
+h3 3.2.5 Infraestrutura de saúde - Edificações
+h3 3.2.6 Infraestrutura de saúde - Saneamento
+h3 3.2.7 Infraestrutura de saúde - CAPAIs
