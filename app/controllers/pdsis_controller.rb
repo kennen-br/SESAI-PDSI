@@ -111,12 +111,13 @@ class PdsisController < ApplicationController
                   right: 20
                 },
                 toc: {
-                  disable_dotted_lines: false,
-                  disable_toc_links: false,
+                  disable_dotted_lines: true,
+                  disable_toc_links: true,
                   level_indentation: 2,
+                  text_size_shrink: 0.5,
                   header_text: "Sumário", 
                   text_size_shrink: 0.8, 
-                  level_indentation: 30, 
+                  
                   xsl_style_sheet: Rails.root.join('app', 'assets', 'stylesheets', 'style.xsl').to_s #--dump-default-toc-xsl
                   #show_as_html: params.key?('debug')
                 }
