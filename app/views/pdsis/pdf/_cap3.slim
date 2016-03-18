@@ -5,108 +5,295 @@ p Nesse item encontra-se a caracterização do Distrito de Saúde Indígena de #
 h2 3.1 Território e População
 h3 3.1.1 Breve histórico
 == @pdsi.compose_item_3 || 'Não informado'
-
+.alwaysbreak
 h3 3.1.2 Mapa do território
-/== wicked_pdf_image_tag 'mapas/ALAGOAS_E_SERGIPE_1.jpg'
-== image_tag @pdsi.map.url || 'Não informado'
 blockquote Figura 3. Mapa dos limites e aspectos geográficos, sede e pólos-base do DSEI
+== @pdf_atribute == 'screen' ? image_tag(@pdsi.map) : wicked_pdf_image_tag(@pdsi.map) 
+
 
 
 h3 3.1.3 Dados Demográficos
-p
-  strong #{DemographicData.human_attribute_name 'extensao_territorial'}:
-  br
-  = @demographic_data.extensao_territorial_km || 'Não informado'
+blockquote Tabela 1. Caracterização do DSEI: Resumo Geral
+table 
+  tr
+    td colspan='3'
+      p
+        strong #{DemographicData.human_attribute_name 'endereco'}:
+        br
+        = @demographic_data.endereco || 'Não informado'
+  tr
+    td colspan='3'
+      p
+        strong E-mail
+        br
+        = @demographic_data.email || 'Não informado'
+  tr
+    td colspan='2'
+      p
+        strong #{DemographicData.human_attribute_name 'extensao_territorial'}:
+        br
+        = @demographic_data.extensao_territorial_km || 'Não informado'
+    td  
+      p
+        strong #{DemographicData.human_attribute_name 'municipio_sede'}:
+        br
+        = @demographic_data.municipio_sede || 'Não informado'   
+  tr
+    td colspan='2'
+      p
+        strong #{DemographicData.human_attribute_name 'numero_municipios'}:
+        br
+        = @demographic_data.numero_municipios || 'Não informado'
+    td
+      p
+        strong #{DemographicData.human_attribute_name 'meios_de_transporte'}:
+        br
+        == has_transportation_print @demographic_data, :fluvial
+        == has_transportation_print @demographic_data, :rodoviario
+        == has_transportation_print @demographic_data, :aereo
+  tr
+    td colspan='3'
+      p
+        strong #{DemographicData.human_attribute_name 'etnias'}:
+        br
+        - if dsei_ethnicities(@dsei).blank?
+          | Não informado
+        - else
+          = dsei_ethnicities(@dsei).map { |item| item }.join(', ')
+  tr
+    td
+      p
+        strong #{DemographicData.human_attribute_name 'populacao_indigena'}:
+        br
+        = @demographic_data.populacao_indigena || 'Não informado'
+    td
+      p
+        strong #{DemographicData.human_attribute_name 'numero_familias'}:
+        br
+        = @demographic_data.numero_familias || 'Não informado'
+    td 
+      p
+        strong #{DemographicData.human_attribute_name 'numero_aldeias'}:
+        br
+        = @demographic_data.numero_aldeias || 'Não informado'
+  tr
+    td
+      p
+        strong #{DemographicData.human_attribute_name 'numero_ubsi'}:
+        br
+        = @demographic_data.numero_ubsi || 'Não informado'
+    td
+      p
+        strong #{DemographicData.human_attribute_name 'numero_polos_base'}:
+        br
+        = @demographic_data.numero_polos_base || 'Não informado'
 
-p
-  strong #{DemographicData.human_attribute_name 'municipio_sede'}:
-  br
-  = @demographic_data.municipio_sede || 'Não informado'
-
-p
-  strong #{DemographicData.human_attribute_name 'endereco'}:
-  br
-  = @demographic_data.endereco || 'Não informado'
-
-p
-  strong #{DemographicData.human_attribute_name 'email'}:
-  br
-  = @demographic_data.email || 'Não informado'
-
-p
-  strong #{DemographicData.human_attribute_name 'numero_municipios'}:
-  br
-  = @demographic_data.numero_municipios || 'Não informado'
-
-p
-  strong #{DemographicData.human_attribute_name 'populacao_indigena'}:
-  br
-  = @demographic_data.populacao_indigena || 'Não informado'
-
-p
-  strong #{DemographicData.human_attribute_name 'etnias'}:
-  br
-  - if dsei_ethnicities(@dsei).blank?
-    | Não informado
-  - else
-    = dsei_ethnicities(@dsei).map { |item| item }.join(', ')
-
-p
-  strong #{DemographicData.human_attribute_name 'numero_polos_base'}:
-  br
-  = @demographic_data.numero_polos_base || 'Não informado'
-
-p
-  strong Nº de Sede de Polos Base
-  br
-  = @demographic_data.headquarters || 'Não informado'
-
-p
-  strong #{DemographicData.human_attribute_name 'numero_ubsi'}:
-  br
-  = @demographic_data.numero_ubsi || 'Não informado'
-
-p
-  strong #{DemographicData.human_attribute_name 'numero_regioes_de_saude'}:
-  br
-  = @demographic_data.numero_regioes_de_saude || 'Não informado'
-
-p
-  strong #{DemographicData.human_attribute_name 'numero_casais'}:
-  br
-  = @demographic_data.numero_casais || 'Não informado'
-
-p
-  strong #{DemographicData.human_attribute_name 'numero_aldeias'}:
-  br
-  = @demographic_data.numero_aldeias || 'Não informado'
-
-p
-  strong #{DemographicData.human_attribute_name 'numero_familias'}:
-  br
-  = @demographic_data.numero_familias || 'Não informado'
-
-fieldset
-  legend #{DemographicData.human_attribute_name 'meios_de_transporte'}:
-
-  p
-    strong #{DemographicData.human_attribute_name 'fluvial'}:
-    == has_transportation @demographic_data, :fluvial
-  p
-    strong #{DemographicData.human_attribute_name 'rodoviario'}:
-    == has_transportation @demographic_data, :rodoviario
-  p
-    strong #{DemographicData.human_attribute_name 'aereo'}:
-    == has_transportation @demographic_data, :aereo
+    td
+      p
+        strong Nº de Sede de Polos Base
+        br
+        = @demographic_data.headquarters || 'Não informado'
+  tr
+    td
+      p
+        strong #{DemographicData.human_attribute_name 'numero_regioes_de_saude'}:
+        br
+        = @demographic_data.numero_regioes_de_saude || 'Não informado'
+    td
+      p
+        strong #{DemographicData.human_attribute_name 'numero_casais'}:
+        br
+        = @demographic_data.numero_casais || 'Não informado'
+    td
+      p
+        
 
 h3 3.1.4 Dados Fisiográficos
+blockquote Tabela 2. Caracterização sócio demográfica, étnico-cultural e linguística dos povos indígenas que habitam o território sob responsabilidade do DSEI
+h5 Polo base
+- @dsei.base_polos_with_physiographic_data.order(:id).each do |base_polo|
+  h6.capitalize #{base_polo.name}
+  table.tables.pdsi-fisiographic-data
+    thead
+      tr
+        th[rowspan="2" style="width: 95px;"] Aldeia
+        th[rowspan="2"] Etnia(s)
+        th[rowspan="2"] Fluência em português
+        th[rowspan="2"] Lingua Indígena
+        th[colspan="6" style="border-bottom: 1px solid #ddd;"] Homens
+        th[colspan="6" style="border-bottom: 1px solid #ddd;"] Mulheres
+        th[rowspan="2"] População da aldeia
+      tr
+        th[style="border-left: 1px solid #ddd;"] < 1
+        th 1-4
+        th 5-9
+        th 10-49
+        th 50-59
+        th ≥ 60
+        th < 1
+        th 1-4
+        th 5-9
+        th 10-49
+        th 50-59
+        th ≥ 60
+    tbody
+    - base_polo.villages.each do |village|
+      - if village.physiographic_data
+        tr
+          td = village.name
+          td
+            - village.physiographic_data.physiographic_data_ethnicities.each do |e|
+              = ethnicity_name(e.ethnicity_id)
+              | ,
+          td = village.physiographic_data.pt_fluency
+          td
+            - village.physiographic_data.physiographic_data_languages.each do |language|
+              = language.language
+              | ,
+          td = village.physiographic_data.m_1
+          td = village.physiographic_data.m_1_4
+          td = village.physiographic_data.m_5_9
+          td = village.physiographic_data.m_10_49
+          td = village.physiographic_data.m_50_59
+          td = village.physiographic_data.m_60
+          td = village.physiographic_data.w_1
+          td = village.physiographic_data.w_1_4
+          td = village.physiographic_data.w_5_9
+          td = village.physiographic_data.w_10_49
+          td = village.physiographic_data.w_50_59
+          td = village.physiographic_data.w_60
+          td = village.physiographic_data.village_population
+      - else
+        tr
+          td = village.name
+          td
+          td
+          td
+          td
+          td
+          td
+          td
+          td
+          td
+          td
+          td
+          td
+          td
+          td
+          td
+          td
 
 h2 3.2 Caracterização: Gestão
-
 h3 3.2.1 Meios de Transporte para acesso dos povos indígenas aos serviços de saúde
+ul.accordion-tabs-minimal
+  - @pdsi.destinations_with_villages.each_with_index do |destination_type, i|
+    table.tables.pdsi-result-table
+      thead
+        tr
+          th[colspan="8" style="border-bottom: 1px solid #ddd; text-align: center;"]
+            = destination_type.name
+        tr
+          th[rowspan="2"] Aldeia de origem
+          th[rowspan="2"] Nome do Muncípio
+          - if destination_type.name == 'UBSI' || destination_type.name == 'Média e Alta Complexidade'
+            th[rowspan="2"] Aldeia
+            th[rowspan="2"] Município
+          - if destination_type.name == 'Polo Base' || destination_type.name == 'CASAI'
+            th[rowspan="2"] Nome
+            th[rowspan="2"]  Aldeia / Município
+          th[colspan="3" style="border-bottom: 1px solid #ddd;"] Meio de transporte
+          th[rowspan="2"] Total da Viagem
+        tr
+          th[style="border-left: 1px solid #ddd; text-align: center;"] Fluvial
+          th Rodoviário
+          th Aéreo
+      tbody
+        - destination_type.destinations.each do |destination|
+          tr
+            td
+              = destination.origin_village.name
+            td
+              = destination.origin_village.city_name
+
+            - if destination.destination_type_id == 1
+              td
+                = destination.destination_village.name
+              td
+                = destination.destination_village.city_name
+            - if  destination.destination_type_id == 2
+              td
+                = @dsei.base_polos.find(destination.city_name).name
+              td
+                = @dsei.base_polos.find(destination.city_name).city_name
+            - if  destination.destination_type_id == 3
+              td
+                = Casai.find(destination.city_name).name
+              td
+                = Casai.find(destination.city_name).city_name
+            - if  destination.destination_type_id == 4
+              td
+                = destination.destination_class
+              td
+                = destination.city_name
+            td
+              = destination.boat_time
+            td
+              = destination.road_time
+            td
+              = destination.fly_time
+            td
+              = destination.total_time
+
+
 h3 3.2.2 Dimensionamento da força de trabalho
+table.tables.pdsi-result-table
+  thead
+    tr
+      th[rowspan="2"] Polo Base
+      th[rowspan="2"] EMSI
+      th[colspan="7" style="border-bottom: 1px solid #ddd;"] Número de Profissionais
+      th[rowspan="2"] Aldeias Atendidas
+      th[colspan="5" style="border-bottom: 1px solid #ddd;"] Tempo de permanência em aldeia (dias por mês)
+    tr
+      th[style="border-left: 1px solid #ddd; text-align: center;"] Méd
+      th Enf
+      th Odon
+      th Téc/Aux Enf
+      th ASB
+      th AIS
+      th AISAN
+      th[style="border-left: 1px solid #ddd; text-align: center;"] Méd
+      th Enf
+      th Odon
+      th Téc/Aux Enf
+      th ASB
+  tbody
+    - @dsei.base_polos_with_emsis.each do |base_polo|
+      - base_polo.emsis.each do |emsi|
+        tr
+          td = base_polo.name
+          td = emsi.name
+          td = emsi.numero_medicos
+          td = emsi.numero_enfermeiros
+          td = emsi.numero_odontologistas
+          td = emsi.numero_tecnicos_enfermagem
+          td = emsi.asb
+          td = emsi.ais
+          td = emsi.aisan
+          td = emsi.aldeias_atendidas
+          td = emsi.permanencia_medicos
+          td = emsi.permanencia_enfermeiros
+          td = emsi.permanencia_odontologistas
+          td = emsi.permanencia_tecnicos_enfermagem
+          td = emsi.permanencia_asb
+
+
 h3 3.2.3 Equipes médicas de saúde indígena (EMSI)
+
 h3 3.2.4 Rede de complementariedade
+
 h3 3.2.5 Infraestrutura de saúde - Edificações
+
 h3 3.2.6 Infraestrutura de saúde - Saneamento
+
 h3 3.2.7 Infraestrutura de saúde - CAPAIs

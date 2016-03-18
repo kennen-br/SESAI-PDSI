@@ -8,6 +8,14 @@ module DemographicDatasHelper
     "&nbsp; <i class='fa fa-#{icon}'></i> #{str}"
   end
 
+  def has_transportation_print(obj, attr)
+    response  = eval "obj.#{attr}"
+
+    str   = response ? "#{attr}" : ' '
+    
+    "#{str.capitalize} "
+  end
+
   def ethnicity_name(id)
     Ethnicity.find(id).name
   end

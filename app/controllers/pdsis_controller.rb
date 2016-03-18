@@ -4,7 +4,8 @@ class PdsisController < ApplicationController
   before_action :set_pdsi
   before_action :set_base_polo,   only: [:edit, :health_indicators, :update]
   before_action :set_subsection,  only: [:edit, :edit_category_budgets, :health_indicators, :update]
-
+  before_action :pdf_screen, only: [:render_pdf]
+  
   # GET /pdsis
   def index
   end
@@ -85,12 +86,13 @@ class PdsisController < ApplicationController
       include ApplicationHelper
     end
     template_cover = av.render template: 'pdsis/pdf/front.slim', layout: nil, locals: {pdsi: @pdsi}
-
+    media_type = 
     respond_to do |format|
       format.html
       format.pdf do
         render  pdf: 'pdsi',
                 encoding: 'UTF-8',
+                outline_depth: 2,
                 footer: {  
                   right: "Distrito #{@pdsi.dsei.name}     [page]", 
                   encoding: 'UTF-8', 
@@ -109,28 +111,13 @@ class PdsisController < ApplicationController
                   right: 20
                 },
                 toc: {
-                  #font_name:         "DINPro", 
-                  #depth:             3, 
-                  header_text:       "Sumário", 
-                  #header_fs:         13, 
-                  text_size_shrink:  0.8, 
-                  #l1_font_size:      13, 
-                  #l2_font_size:      13, 
-                  #l3_font_size:      13, 
-                  #l4_font_size:      13,   
-                  #l5_font_size:      13, 
-                  #l6_font_size:      13, 
-                  #l7_font_size:      13, 
+                  disable_dotted_lines: false,
+                  disable_toc_links: false,
+                  level_indentation: 2,
+                  header_text: "Sumário", 
+                  text_size_shrink: 0.8, 
                   level_indentation: 30, 
-                  #l1_indentation:    30, 
-                  #l2_indentation:    30, 
-                  #l3_indentation:    30, 
-                  #l4_indentation:    30, 
-                  #l5_indentation:    30, 
-                  #l6_indentation:    30, 
-                  #l7_indentation:    30, 
-                  #no_dots:           true, 
-                  #xsl_style_sheet:   'style.xsl' #--dump-default-toc-xsl
+                  xsl_style_sheet: Rails.root.join('app', 'assets', 'stylesheets', 'style.xsl').to_s #--dump-default-toc-xsl
                   #show_as_html: params.key?('debug')
                 }
       end
@@ -139,6 +126,10 @@ class PdsisController < ApplicationController
 
   private
 
+  def pdf_screen
+    @pdf_atribute = request.env['REQUEST_PATH'].include?('.pdf') ? 'print' : 'screen'
+  end
+  
   # Use callbacks to share common setup or constraints between actions.
   def set_pdsi
     if @section.to_s[-5,5] == 'sesai'

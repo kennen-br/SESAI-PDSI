@@ -56,9 +56,11 @@ pre, code {display:inline; font-family: "DINPro"; white-space: normal; font-size
 strong { font-weight:900 !important; }
 hr     { border:0; margin:0; padding:0; height:1px; color:#999; background-color:#999; }
 
-blockquote {border-bottom: solid 2px #666; font-size:10px; line-height:15px;  margin: 10px 0;}
+blockquote {border-bottom: solid 2px #666; font-size:20px; line-height:25px;  margin: 10px 0;}
 
 section {padding: 0 1em;}
+
+table p {margin: 0; display: inline;}
 /* Font Classes*/
 .OpenSans {
   font-family: 'OpenSans' !important;
@@ -78,6 +80,7 @@ section {padding: 0 1em;}
 .DINPro-Bold {
   font-family: 'DINProBold' !important;
 }
+.capitalize {text-transform: capitalize;}
 
 /* Page Breaks */
 .nobreak:before { clear:both !important; }
