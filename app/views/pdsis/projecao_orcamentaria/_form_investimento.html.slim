@@ -5,6 +5,8 @@
 = hidden_field_tag '', budget_investment_see_comment_path(current_dsei.pdsi), { id: 'budget-see-comment-url' }
 = hidden_field_tag '', budget_investment_delete_comment_path(current_dsei.pdsi), { id: 'budget-delete-comment-url' }
 
+= hidden_field_tag '', budget_justifier_edit_justifier_path(current_dsei.pdsi), { id: 'budget-edit-justifier-url' }
+
 h2.section-title Investimentos
 .carousel-nav
   .carousel-arrows
@@ -53,6 +55,7 @@ h2.section-title Investimentos
                   td
                   td
                   td
+                  td
                     = b.hidden_field "forecast_amount_#{year}", value: (number_with_precision(eval("b.object.forecast_amount_#{year}"), precision: 2, separator: '.', delimiter: '') || 0), id: "hgc#{b.object.investment.id}y#{year}"
                     = text_field_tag '', number_with_precision(eval("b.object.forecast_amount_#{year}"), precision: 2) || 0, id: "gc#{b.object.investment.id}y#{year}", readonly: true
               - elsif b.object.investment.parent_id === 1
@@ -66,6 +69,9 @@ h2.section-title Investimentos
                   td
                   td
                   td
+                  td
+                    = render 'pdsis/projecao_orcamentaria/justfier_actions', { budget: b.object, year: year }
+                    = render 'pdsis/projecao_orcamentaria/modal_justifiers', { budget: b.object, year: year, f: b }
                   td.budget_actions_container
                     = render 'pdsis/projecao_orcamentaria/actions', { budget: b.object, year: year }
                     = render 'pdsis/projecao_orcamentaria/modal_comments', { budget: b.object, year: year }
@@ -91,6 +97,9 @@ h2.section-title Investimentos
                   td
                   td
                   td
+                  td
+                    = render 'pdsis/projecao_orcamentaria/justfier_actions', { budget: b.object, year: year }
+                    = render 'pdsis/projecao_orcamentaria/modal_justifiers', { budget: b.object, year: year, f: b }
                   td.budget_actions_container
                     = render 'pdsis/projecao_orcamentaria/actions', { budget: b.object, year: year }
                     = render 'pdsis/projecao_orcamentaria/modal_comments', { budget: b.object, year: year }

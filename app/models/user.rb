@@ -3,7 +3,7 @@ require "#{Rails.root}/lib/debug.rb"
 class User < ActiveRecord::Base
   auditable except: [:last_sign_in_at, :current_sign_in_at, :sign_in_count]
 
-  validates :username,  presence: true, uniqueness: true
+  validates :username, presence: true, uniqueness: true
   validates_with PasswordStrengthValidator
 
   # Include default devise modules. Others available are:
@@ -14,20 +14,21 @@ class User < ActiveRecord::Base
   has_one :profile
   accepts_nested_attributes_for :profile
 
-  has_many  :costs, through:  :cost_users
+  has_many :costs, through: :cost_users
 
-  has_many  :cost_users
-  accepts_nested_attributes_for :cost_users, reject_if: lambda { |attributes| attributes['value_2015'].blank? }
+  has_many :cost_users
+  accepts_nested_attributes_for :cost_users, reject_if: -> (attributes) { attributes['value_2015'].blank? }
 
-  has_many  :responsability_comments, :dependent => :destroy
+  has_many :responsability_comments, dependent: :destroy
+  has_many :budget_justifiers, dependent: :destroy
 
-  belongs_to  :user_type
+  belongs_to :user_type
 
   has_one :pdsi
 
   has_one :people
 
-  belongs_to  :dsei
+  belongs_to :dsei
 
   validates :user_type, presence: true
 
@@ -67,14 +68,14 @@ class User < ActiveRecord::Base
     items = cost_users
 
     Cost.all.each do |item|
-      next if has_cost(item)
+      next if cost?(item)
       items << CostUser.new(user: self, cost: item)
     end
 
     items
   end
 
-  def has_cost(cost)
+  def cost?(cost)
     !CostUser.where(cost: cost, user: self).first.nil?
   end
 end
