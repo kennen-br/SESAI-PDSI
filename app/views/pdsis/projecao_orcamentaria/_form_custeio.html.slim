@@ -6,6 +6,7 @@ h2.section-title Custeio
 = hidden_field_tag '', budget_forecast_new_comment_path(current_dsei.pdsi), { id: 'budget-new-comment-url' }
 = hidden_field_tag '', budget_forecast_see_comment_path(current_dsei.pdsi), { id: 'budget-see-comment-url' }
 = hidden_field_tag '', budget_forecast_delete_comment_path(current_dsei.pdsi), { id: 'budget-delete-comment-url' }
+= hidden_field_tag '', budget_justifier_edit_justifier_path(current_dsei.pdsi), { id: 'budget-edit-justifier-url' }
 
 .carousel-nav#form-custeio
   .carousel-arrows
@@ -58,6 +59,7 @@ h2.section-title Custeio
                 = "Ano #{year}"
               th style="width: 25px;"
               th
+              th
                 = if (year == 2016) then "Dotação" else "Previsão"
                 = " orçamentária (em R$) "
                 - if (year != 2016)
@@ -72,7 +74,9 @@ h2.section-title Custeio
               - if bf.object.cost.cost_type == 3 && bf.object.cost.parent_id.blank?
                 tr[class='budget' data-category=("#{bf.object.cost.id}") data-index=("#{year}-#{bf.object.cost.id}") id=("tr-#{year}-#{bf.object.cost.id}") style="#{ 'background-color: #F7C4A4' if bf.object.cost.name == 'CUSTEIO DE EDIFICAÇÕES' }"]
                     td = bf.object.cost.name
-
+                    td
+                      = render 'pdsis/projecao_orcamentaria/justfier_actions', { budget: bf.object, year: year }
+                      = render 'pdsis/projecao_orcamentaria/modal_justifiers', { budget: bf.object, year: year, f: bf }
                     td.budget_actions_container
                       = render 'pdsis/projecao_orcamentaria/actions', { budget: bf.object, year: year }
                       = render 'pdsis/projecao_orcamentaria/modal_comments', { budget: bf.object, year: year }
@@ -96,7 +100,11 @@ h2.section-title Custeio
                     | &nbsp;&nbsp;
                     = bf.object.cost.name
                   td
-                    = ""
+                    = render 'pdsis/projecao_orcamentaria/justfier_actions', { budget: bf.object, year: year }
+                    = render 'pdsis/projecao_orcamentaria/modal_justifiers', { budget: bf.object, year: year, f: bf }
+                  td.budget_actions_container
+                    = render 'pdsis/projecao_orcamentaria/actions', { budget: bf.object, year: year }
+                    = render 'pdsis/projecao_orcamentaria/modal_comments', { budget: bf.object, year: year }
                   td
                     = bf.hidden_field "initial_forecast_#{year}", value: (number_with_precision(eval("bf.object.initial_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0), value_index: "#{bf.object.cost.id}", id: "hidden-#{year}-#{bf.object.cost.id}"
                     = text_field_tag '', number_with_precision(eval("bf.object.initial_forecast_#{year}"), precision: 2) || 0, class: "currency-input #{year}-budget-value", id: "input-#{year}-#{bf.object.cost.id}", input_index: "#{bf.object.cost.id}", correction_factor: "#{bcf}", value_index: "#{bf.object.cost.id}", :disabled => (current_user.user_type.menu_name == "dsei" ? true : false)
@@ -120,6 +128,8 @@ h2.section-title Custeio
                       td
                         = ""
                       td
+                        = ""
+                      td
                         = text_field_tag '', number_with_precision(eval("bf_child.object.initial_forecast_#{year}"), precision: 2) || 0, class: "currency-input #{year}-budget-value #{year}-#{bf_child.object.cost.parent_id}", id: "input-#{year}-#{bf_child.object.cost.id}", input_index: "#{bf_child.object.cost.id}", correction_factor: "#{bcf}", group_parent_id: "#{bf_child.object.cost.parent_id}",  value_index: "#{bf_child.object.cost.id}", disabled: true
                       td
                         = bf_child.hidden_field "dsei_forecast_#{year}", value: (number_with_precision(eval("bf_child.object.dsei_forecast_#{year}"), :precision => 2, separator: '.', delimiter: '') || 0), id: "hidden-#{year}-#{bf_child.object.cost.id}-2"
@@ -130,6 +140,7 @@ h2.section-title Custeio
                         td = bf_child_s.object.cost.name
 
                         - if bf_child_s.object.cost.cost_type == 3
+                          td
                           td.budget_actions_container
                             = render 'pdsis/projecao_orcamentaria/actions', { budget: bf_child_s.object, year: year }
                             = render 'pdsis/projecao_orcamentaria/modal_comments', { budget: bf_child_s.object, year: year }
@@ -146,6 +157,7 @@ h2.section-title Custeio
                   - elsif bf_child.object.cost.cost_type == 3
                     tr.budget.structure data-index=("#{year}-#{bf_child.object.cost.parent_id}") id=("tr-#{year}-#{bf_child.object.cost.id}")
                       td = bf_child.object.cost.name
+                      td
                       td.budget_actions_container
                         = render 'pdsis/projecao_orcamentaria/actions', { budget: bf_child.object, year: year }
                         = render 'pdsis/projecao_orcamentaria/modal_comments', { budget: bf_child.object, year: year }
