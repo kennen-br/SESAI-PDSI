@@ -58,6 +58,7 @@ hr     { border:0; margin:0; padding:0; height:1px; color:#999; background-color
 
 blockquote {border-bottom: solid 2px #666; font-size:20px; line-height:25px;  margin: 10px 0;}
 
+
 section {padding: 0 1em;}
 
 table p {margin: 0; display: inline;}
@@ -88,24 +89,6 @@ table p {margin: 0; display: inline;}
 .alwaysbreak { page-break-before: always !important; }
 .afterbreak  { page-break-after:always !important; }
 
-.rotate {
-	width: 1122px; 
-	height: 793px; 
-	page-break-before: always !important;
-	-webkit-transform: translateY(1122px) rotate(270deg); /* Chrome, Safari 3.1+ */ 
-	-moz-transform: translateY(1122px) rotate(270deg); /* Firefox 3.5+ */ 
-	-o-transform: translateY(1122px) rotate(270deg); /* Opera 10.5-12.0 */ 
-	-ms-transform: translateY(1122px) rotate(270deg); /* IE 9 */ 
-	transform: translateY(1122px) rotate(270deg); /* IE 10+, Firefox 16.0+, Opera 12.1+ */ 
-	filter: progid:DXImageTransform.Microsoft.Matrix(M11=6.123031769111886e-17, M12=1, M21=-1, M22=6.123031769111886e-17, SizingMethod='auto expand'); /* IE 6-7 */ 
-	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=6.123031769111886e-17, M12=1, M21=-1, M22=6.123031769111886e-17, SizingMethod='auto expand')"; /* IE 8 */ 
-
-	-webkit-transform-origin: 0% 0%; 
-	-moz-transform-origin: 0% 0%; 
-	-o-transform-origin: 0% 0%; 
-	-ms-transform-origin: 0% 0%; 
-	transform-origin: 0% 0%; 
-}
 
 /* General document CSS styles */
 .document { font-family: "DINPro"; -webkit-font-smoothing: antialiased;}
@@ -120,131 +103,192 @@ table p {margin: 0; display: inline;}
 	h4 {font-size: 18px; line-height:24px; color: #465DB4; text-transform: uppercase; margin: 0 0 20px; padding:0; text-indent:0; font-weight: normal !important; border: none !important;}
 }
 
+.inner {
+  position: relative;
+  top: 50%;
+  left: 50%;
+}
+
+.rotate {
+  -moz-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+  -webkit-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+  transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
+}
 .logo {  }
 
 .tables {
-  ///////////////////////////////////////////////////////////////////////////////////
-  $base-border-color: gainsboro !default;
-  $base-border-radius: 3px !default;
-  $base-line-height: 1.5em !default;
-  $base-spacing: 1.5em !default;
-  $base-accent-color: #477DCA !default;
-  $base-link-color: $base-accent-color !default;
-  $dark-gray: #333 !default;
-  $light-gray: #DDD !default;
-  $medium-screen: em(640) !default;
-  $large-screen: em(860) !default;
-  $base-font-color: $dark-gray !default;
-  
   width: 100%;
-
-  th {
-    text-align: left;
-  }
-  //////////////////////////////////////////////////////////////////////////////////
-
-  $table-border-color: $base-border-color;
-  $table-border: 1px solid $table-border-color;
-  $table-background: lighten($table-border-color, 12%);
-  $table-header-background: lighten($table-background, 10%);
-  $table-hover-background: darken($table-background, 5%);
-  $table-stripe-background: darken($table-background, 2%);
-  $table-stripe-background-hover: darken($table-stripe-background, 5%);
-  $table-padding: 0.75em 1em;
-
   border-collapse: separate;
   border-left: 0px;
-  border-radius: $base-border-radius;
+  border-radius: 3px;
   border-spacing: 0;
-  border: $table-border;
-
-  tbody {
-    background-color: $table-background;
-
-    tr:hover > td, tr:hover > th {
-      background-color: $table-hover-background;
-    }
-    tr:nth-child(even) {
-      background-color: $table-stripe-background;
-      &:hover > td {
-        background-color: $table-stripe-background-hover;
-      }
-    }
-  }
-
-  thead:first-of-type {
-    tr:first-child > th:first-child {
-      border-top-left-radius: $base-border-radius;
-    }
-
-    tr:first-child > th:last-child {
-      border-top-right-radius: $base-border-radius;
-    }
-  }
-
-  tbody:last-child {
-    tr:last-child > td:first-child {
-      border-bottom-left-radius: $base-border-radius;
-    }
-
-    tr:last-child > td:last-child {
-      border-bottom-right-radius: $base-border-radius;
-    }
-  }
-
-  thead {
-    th {
-      background-color: $table-header-background;
-      border-bottom: 0px;
-      border-left: 1px solid $table-border-color;
-      padding: $table-padding;
-
-      &:first-child {
-        border-left: none;
-      }
-    }
-  }
-
-  tbody {
-    background-color: $table-background;
-
-    td {
-      border-bottom: 0px;
-      border-left: 1px solid $table-border-color;
-      border-top: 1px solid $table-border-color;
-      padding: $table-padding;
-
-      &:first-child {
-        border-left: none;
-      }
-
-      button {
-        
-        display: inline-block;
-        font-size: 0.7em;
-        line-height: $base-line-height;
-        margin-bottom: 0.3em;
-        margin-right: 0.5em;
-        outline: none;
-        padding: 0.3em 1em;
-        width: 100%;
-
-        
-      }
-    }
-  }
+  border: none;
+}
+.tables th {
+  text-align: left;
+}
+.tables tbody {
+  background-color: #fcfcfc;
+}
+.tables tbody tr:hover > td, .tables tbody tr:hover > th {
+  background-color: #efefef;
+}
+.tables tbody tr:nth-child(even) {
+  background-color: #f7f7f7;
+}
+.tables tbody tr:nth-child(even):hover > td {
+  background-color: #eaeaea;
+}
+.tables thead:first-of-type tr:first-child > th:first-child {
+  border-top-left-radius: 3px;
+}
+.tables thead:first-of-type tr:first-child > th:last-child {
+  border-top-right-radius: 3px;
+}
+.tables tbody:last-child tr:last-child > td:first-child {
+  border-bottom-left-radius: 3px;
+}
+.tables tbody:last-child tr:last-child > td:last-child {
+  border-bottom-right-radius: 3px;
+}
+.tables thead th {
+  background-color: white;
+  border-bottom: 0px;
+  border-left: none;
+  padding: 0.75em 1em;
+}
+.tables thead th:first-child {
+  border-left: none;
+  text-align: center;
+}
+.tables tbody {
+  background-color: #fcfcfc;
+}
+.tables tbody td {
+  border-bottom: 0px;
+  border-left: 1px solid #DDD;
+  border-top: 1px solid #DDD;
+  padding: 0.75em 1em;
+  font-size: 1em;
+  text-align: center;
+}
+.tables tbody td:first-child {
+  border-left: none;
+}
+.tables tbody td button {
+  display: inline-block;
+  font-size: 0.7em;
+  line-height: 1.2em;
+  margin-bottom: 0.3em;
+  margin-right: 0.5em;
+  outline: none;
+  padding: 0.3em 1em;
+  width: 100%;
 }
 
 
+@charset "UTF-8";
 /* Sections Styles */
 /* Cap. 2 - O Processo de construção do PDSI */
-section.processo{
+section.processo h3 {
+  color: #4365af;
+  font-size: 26px;
+  line-height: 30px;
+  margin: 30px 0 0;
+  padding: 0;
+}
+section.processo h3 + p {
+  color: #4365af;
+  font-size: 24px;
+  line-height: 30px;
+  margin: 5px 0;
+  font-family: 'DINProBold' !important;
+  font-weight: 900 !important;
+  padding: 0;
+  width: 46%;
+  text-align: left;
+}
+section.processo p > em {
+  color: #4365af;
+  font-size: 24px;
+  line-height: 30px;
+  margin: 0;
+  padding: 0;
+  width: 40% !important;
+}
+section.processo h6 {
+  color: #4365af;
+  font-size: 22px;
+  line-height: 22px;
+  margin: 10px 0 10px;
+}
+section.processo u {
+  font-size: 24px;
+  text-decoration: none;
+  color: #4365af;
+}
 
-	h3 {color: #111; font-size: 26px; line-height:28px; margin:30px 0 20px; border-bottom:1px solid #000; padding: 0 0 20px 0; }
-	h4 {color: #111; font-size: 24px; line-height:26px; margin:10px 0 0; font-family: 'DINProBold' !important; font-weight:900 !important; padding:0;}
-	h5 {color: #111; font-size: 24px; line-height:24px; margin:10px 0 30px; border-bottom:1px solid #000; padding: 0 0 10px 0;}
-	h6 {color: #111; font-size: 22px; line-height:22px; margin:10px 0 10px;}
+/* Cap. 3 - Caracterizacao DSEI */
+section.caracterizacao hr {
+  margin: 20px 0;
+  padding: 1px 0;
+  background-color: #666;
+}
+section.caracterizacao .title-label {
+  font-family: 'DINProBold' !important;
+  font-weight: 900 !important;
+  padding: 0;
+  font-size: 20px;
+  line-height: 24px;
+  margin: 2px 0;
+}
+section.caracterizacao .fisiographic-table-intro {
+  margin-top: 20px;
+}
+section.caracterizacao .pdsi-fisiographic-data {
+  font-size:1em;
 }
 
 
+section.caracterizacao .pdsi-fisiographic-data thead th:first-child, .pdsi-fisiographic-data tbody td:first-child {
+  text-align: center;
+}
 
+section.caracterizacao .fisiographic-table-intro tbody tr td {
+  border: none;
+  padding: 7px;
+  height: 86px;
+  vertical-align: top;
+}
+
+section.caracterizacao .fisiographic-table-intro tbody tr td .value-label {
+  font-size: 24px;
+  line-height: 18px;
+}
+
+
+section.caracterizacao .pdsi-fisiographic-data thead tr {
+  height: auto;
+  color: #FFF;
+  font-weight: 900;
+  text-align:center;
+}
+
+section.caracterizacao .pdsi-fisiographic-data thead tr:last-child  {
+  color:#000;
+}
+
+section.caracterizacao .pdsi-fisiographic-data thead tr th:nth-child(odd)  {
+
+  background-color:#999;
+}
+section.caracterizacao .pdsi-fisiographic-data thead tr th:nth-child(even)  {
+
+  background-color:#ddd;
+}
+
+
+section.caracterizacao .pdsi-fisiographic-data tbody tr {
+  font-size: .8em;
+
+}

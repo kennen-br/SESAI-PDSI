@@ -8,13 +8,13 @@ h3 3.1.1 Breve histórico
 .alwaysbreak
 h3 3.1.2 Mapa do território
 blockquote Figura 3. Mapa dos limites e aspectos geográficos, sede e pólos-base do DSEI
-== @pdf_atribute == 'screen' ? image_tag(@pdsi.map) : wicked_pdf_image_tag(@pdsi.map) 
+== @pdf_atribute == 'screen' ? image_tag(@pdsi.map) : wicked_pdf_image_tag(@pdsi.map)
 
 
 
 h3 3.1.3 Dados Demográficos
 blockquote Tabela 1. Caracterização do DSEI: Resumo Geral
-table 
+table
   tr
     td colspan='3'
       p
@@ -33,11 +33,11 @@ table
         strong #{DemographicData.human_attribute_name 'extensao_territorial'}:
         br
         = @demographic_data.extensao_territorial_km || 'Não informado'
-    td  
+    td
       p
         strong #{DemographicData.human_attribute_name 'municipio_sede'}:
         br
-        = @demographic_data.municipio_sede || 'Não informado'   
+        = @demographic_data.municipio_sede || 'Não informado'
   tr
     td colspan='2'
       p
@@ -71,7 +71,7 @@ table
         strong #{DemographicData.human_attribute_name 'numero_familias'}:
         br
         = @demographic_data.numero_familias || 'Não informado'
-    td 
+    td
       p
         strong #{DemographicData.human_attribute_name 'numero_aldeias'}:
         br
@@ -106,7 +106,7 @@ table
         = @demographic_data.numero_casais || 'Não informado'
     td
       p
-        
+
 
 h3 3.1.4 Dados Fisiográficos
 blockquote Tabela 2. Caracterização sócio demográfica, étnico-cultural e linguística dos povos indígenas que habitam o território sob responsabilidade do DSEI
@@ -116,50 +116,57 @@ blockquote Tabela 2. Caracterização sócio demográfica, étnico-cultural e li
   p.vaueLabel #{base_polo.name}
   p.title-label Municipio do polo base
   p.value-label #{base_polo.city_name}
+  hr
   - base_polo.villages.each do |village|
     - if village.physiographic_data
-      table
+      table.fisiographic-table-intro
         tbody
           tr
             td
-              p.title-label AldeiaSem dados informados
+              p.title-label Aldeia
               br
               p.value-label #{village.name}
-            td 
-              p.title-label Municipio da aldeia
+            td
+              p.title-label Município da aldeia
               br
-              p.value-label
-            td 
+              p.value-label = village.city_name || 'Não informado'
+            td
               p.title-label Etnia
               br
               p.value-label
-                - village.physiographic_data.physiographic_data_ethnicities.each do |e|
-                  = ethnicity_name(e.ethnicity_id)
-                  | ,
+                - if village.physiographic_data.physiographic_data_ethnicities.any?
+                  - village.physiographic_data.physiographic_data_ethnicities.each do |e|
+                    = e.ethnicity.name
+                    | ,
+                - else
+                  = 'Não informado'
+
           tr
             td
-              p.title-label Fluencia em portugues
+              p.title-label Fluência em português
+              br
+              p.value-label = village.physiographic_data.pt_fluency || 'Não informado'
+            td
+              p.title-label Língua indígena
               br
               p.value-label
-            td 
-              p.title-label Lingua indigena
-              br
-              p.value-label 
-                - village.physiographic_data.physiographic_data_languages.each do |language|
-                  = language.language
-                  | ,
-            td 
-          tr
+                - if village.physiographic_data.physiographic_data_languages.any?
+                  - village.physiographic_data.physiographic_data_languages.each do |language|
+                    = language.language
+                      | ,
+                - else
+                  = 'Não informado'
+
             td
-            td 
-            td 
 
       table.tables.pdsi-fisiographic-data
         thead
           tr
-            th[colspan="6" style="border-bottom: 1px solid #ddd;"] Homens
-            th[colspan="6" style="border-bottom: 1px solid #ddd;"] Mulheres
-            th[rowspan="2"] População da aldeia
+            th[colspan="13" style="background-color:rgba(67,101,175,70);"] População
+          tr
+            th[colspan="6" style="background-color:rgba(0,174,239,50);"] Homens
+            th[colspan="6" style="background-color:rgba(236,0,140,50);"] Mulheres
+            th[rowspan="2" style="background-color:#666;"] Total
           tr
             th[style="border-left: 1px solid #ddd;"] < 1
             th 1-4
@@ -188,39 +195,43 @@ blockquote Tabela 2. Caracterização sócio demográfica, étnico-cultural e li
             td = village.physiographic_data.w_50_59
             td = village.physiographic_data.w_60
             td = village.physiographic_data.village_population
+
+      hr
     - else
-      table
+      table.fisiographic-table-intro
         tbody
           tr
             td
               p.title-label Aldeia
               br
               p.value-label #{village.name}
-            td 
-              p.title-label Municipio da aldeia
+            td
+              p.title-label Município da aldeia
               br
-              p.value-label Não preenchido
-            td 
+              p.value-label Não informado
+            td
               p.title-label Etnia
               br
-              p.value-label Não preenchido
+              p.value-label Não informado
           tr
             td
-              p.title-label Fluencia em portugues
+              p.title-label Fluência em português
               br
-              p.value-label Não preenchido
-            td 
-              p.title-label Lingua indigena
+              p.value-label Não informado
+            td
+              p.title-label Língua indígena
               br
-              p.value-label Não preenchido
-            td 
+              p.value-label Não informado
+            td
 
       table.tables.pdsi-fisiographic-data
         thead
           tr
-            th[colspan="6" style="border-bottom: 1px solid #ddd;"] Homens
-            th[colspan="6" style="border-bottom: 1px solid #ddd;"] Mulheres
-            th[rowspan="2"] População da aldeia
+            th[colspan="13" style="background-color:rgba(67,101,175,70);"] População
+          tr
+            th[colspan="6" style="background-color:rgba(0,174,239,50);"] Homens
+            th[colspan="6" style="background-color:rgba(236,0,140,50);"] Mulheres
+            th[rowspan="2" style="background-color:#666;"] Total
           tr
             th[style="border-left: 1px solid #ddd;"] < 1
             th 1-4
@@ -236,177 +247,149 @@ blockquote Tabela 2. Caracterização sócio demográfica, étnico-cultural e li
             th ≥ 60
         tbody
           tr
-            td Sem dados informados
-            td Sem dados informados
-            td Sem dados informados
-            td Sem dados informados
-            td Sem dados informados
-            td Sem dados informados
-            td Sem dados informados
-            td Sem dados informados
-            td Sem dados informados
-            td Sem dados informados
-            td Sem dados informados
-            td Sem dados informados
-            td Sem dados informados
+            td -
+            td -
+            td -
+            td -
+            td -
+            td -
+            td -
+            td -
+            td -
+            td -
+            td -
+            td -
+            td -
+
+      hr
+
+h2 3.2 Caracterização: Gestão
+h3 3.2.1 Meios de Transporte para acesso dos povos indígenas aos serviços de saúde
+
+blockquote Tabela 3. Meios de transporte para acesso dos povos indígenas aos serviços de saúde
+
+- @pdsi.destinations_with_villages.each_with_index do |destination_type, i|
+  - destination_type.destinations.each do |destination|
+    .tabela3
+      table
+        tr
+          td
+            p.title-label Aldeia de origem
+            br
+            p.value-label
+              = destination.origin_village.name || 'Não informado'
+          td
+            p.title-label Nome do Município
+            br
+            p.value-label
+              = destination.origin_village.city_name
+    table.tables
+      tr
+        td[colspan="2"]
+          p.value-label
+            - if destination_type.name == 'UBSI'
+              = 'UBSI'
+            - if destination_type.name == 'Média e Alta Complexidade'
+              = 'Média e Alta Complexidade'
+            - if destination_type.name == 'Polo Base'
+              = 'Polo Base'
+            - if destination_type.name == 'CASAI'
+              = 'CASAI'
+      tr
+        td
+          p.title-label
+            - if destination_type.name == 'UBSI'
+              = 'Aldeia'
+            - if destination_type.name == 'Média e Alta Complexidade'
+              = 'Nome'
+            - if destination_type.name == 'Polo Base'
+              = 'Nome'
+            - if destination_type.name == 'CASAI'
+              = 'CASAI'
+          br
+          p.value-label
+            - if destination.destination_type_id == 1
+              = destination.destination_village.name
+
+            - if destination.destination_type_id == 2
+              = @dsei.base_polos.find(destination.city_name).name
+
+            - if destination.destination_type_id == 3
+              = Casai.find(destination.city_name).name
+
+            - if destination.destination_type_id == 4
+              = destination.destination_class
+        td
+          p.title-label
+            - if destination_type.name == 'UBSI'
+              = 'Município'
+            - if destination_type.name == 'Média e Alta Complexidade'
+              = 'Município'
+            - if destination_type.name == 'Polo Base'
+              = 'Aldeia / Município'
+            - if destination_type.name == 'CASAI'
+              = 'Aldeia / Município'
+          br
+          p.value-label
+            - if destination.destination_type_id == 1
+              = destination.destination_village.city_name
+
+            - if destination.destination_type_id == 2
+              = @dsei.base_polos.find(destination.city_name).city_name
+
+            - if destination.destination_type_id == 3
+              = Casai.find(destination.city_name).city_name
+
+            - if destination.destination_type_id == 4
+              = destination.city_name
+
+      tr
+        td
+          p.title-label Meio de transporte
+          br
+          p.value-label Fluvial
+        td
+          p.title-label Tempo (horas)
+          br
+          p.value-label
+            = destination.boat_time || '00:00'
+      tr
+        td
+          p.title-label Meio de transporte
+          br
+          p.value-label Rodoviário
+        td
+          p.title-label Tempo (horas)
+          br
+          p.value-label
+          = destination.road_time || '00:00'
+      tr
+        td
+          p.title-label Meio de transporte
+          br
+          p.value-label Aéreo
+        td
+          p.title-label Tempo (horas)
+          br
+          p.value-label
+            = destination.fly_time || '00:00'
+      tr
+        td
+          p.title-label
+          br
+          p.value-label
+        td
+          p.title-label  TOTAL TEMPO (HORAS)
+          br
+          p.value-label
+            = destination.total_time || '00:00'
 
 
 
 
 
-/  table.tables.pdsi-fisiographic-data
-/    thead
-/      tr
-/        th[colspan=4] a a
-/        th[colspan=4] a
-/        th[colspan=4] a
-/        th[colspan=4] a
-/      tr
-/        th[colspan=4] a
-/        th[colspan=4] a
-/        th[colspan=4] a
-/        th[colspan=4] a
-/      tr
-/        th[colspan=4] a
-/        th[colspan=4] a
-/        th[colspan=4] a
-/        th[colspan=4] a
-/      tr
-/        th[rowspan="2" style="width: 95px;"] 
-/        th[rowspan="2"] Etnia(s)
-/        th[rowspan="2"] Fluência em português
-/        /th[rowspan="2"] Lingua Indígena
-/        th[colspan="6" style="border-bottom: 1px solid #ddd;"] Homens
-/        th[colspan="6" style="border-bottom: 1px solid #ddd;"] Mulheres
-/        th[rowspan="2"] População da aldeia
-/      tr
-/        th[style="border-left: 1px solid #ddd;"] < 1
-/        th 1-4
-/        th 5-9
-/        th 10-49
-/        th 50-59
-/        th ≥ 60
-/        th < 1
-/        th 1-4
-/        th 5-9
-/        th 10-49
-/        th 50-59
-/        th ≥ 60
-/    tbody
-/      tr
-/
-/      tr
-/
-/      tr
-/      
-/    - base_polo.villages.each do |village|
-/      - if village.physiographic_data
-/        tr
-/          td = village.name
-/          td
-/            - village.physiographic_data.physiographic_data_ethnicities.each do |e|
-/              = ethnicity_name(e.ethnicity_id)
-/              | ,
-/          td = village.physiographic_data.pt_fluency
-/          td
-/            - village.physiographic_data.physiographic_data_languages.each do |language|
-/              = language.language
-/              | ,
-/          td = village.physiographic_data.m_1
-/          td = village.physiographic_data.m_1_4
-/          td = village.physiographic_data.m_5_9
-/          td = village.physiographic_data.m_10_49
-/          td = village.physiographic_data.m_50_59
-/          td = village.physiographic_data.m_60
-/          td = village.physiographic_data.w_1
-/          td = village.physiographic_data.w_1_4
-/          td = village.physiographic_data.w_5_9
-/          td = village.physiographic_data.w_10_49
-/          td = village.physiographic_data.w_50_59
-/          td = village.physiographic_data.w_60
-/          td = village.physiographic_data.village_population
-/      - else
-/        tr
-/          td = village.name
-/          td
-/          td
-/          td
-/          td
-/          td
-/          td
-/          td
-/          td
-/          td
-/          td
-/          td
-/          td
-/          td
-/          td
-/          td
-/          td
-/
-/h2 3.2 Caracterização: Gestão
-/h3 3.2.1 Meios de Transporte para acesso dos povos indígenas aos serviços de saúde
-/ul.accordion-tabs-minimal
-/  - @pdsi.destinations_with_villages.each_with_index do |destination_type, i|
-/    table.tables.pdsi-result-table
-/      thead
-/        tr
-/          th[colspan="8" style="border-bottom: 1px solid #ddd; text-align: center;"]
-/            = destination_type.name
-/        tr
-/          th[rowspan="2"] Aldeia de origem
-/          th[rowspan="2"] Nome do Muncípio
-/          - if destination_type.name == 'UBSI' || destination_type.name == 'Média e Alta Complexidade'
-/            th[rowspan="2"] Aldeia
-/            th[rowspan="2"] Município
-/          - if destination_type.name == 'Polo Base' || destination_type.name == 'CASAI'
-/            th[rowspan="2"] Nome
-/            th[rowspan="2"]  Aldeia / Município
-/          th[colspan="3" style="border-bottom: 1px solid #ddd;"] Meio de transporte
-/          th[rowspan="2"] Total da Viagem
-/        tr
-/          th[style="border-left: 1px solid #ddd; text-align: center;"] Fluvial
-/          th Rodoviário
-/          th Aéreo
-/      tbody
-/        - destination_type.destinations.each do |destination|
-/          tr
-/            td
-/              = destination.origin_village.name
-/            td
-/              = destination.origin_village.city_name
-/
-/            - if destination.destination_type_id == 1
-/              td
-/                = destination.destination_village.name
-/              td
-/                = destination.destination_village.city_name
-/            - if  destination.destination_type_id == 2
-/              td
-/                = @dsei.base_polos.find(destination.city_name).name
-/              td
-/                = @dsei.base_polos.find(destination.city_name).city_name
-/            - if  destination.destination_type_id == 3
-/              td
-/                = Casai.find(destination.city_name).name
-/              td
-/                = Casai.find(destination.city_name).city_name
-/            - if  destination.destination_type_id == 4
-/              td
-/                = destination.destination_class
-/              td
-/                = destination.city_name
-/            td
-/              = destination.boat_time
-/            td
-/              = destination.road_time
-/            td
-/              = destination.fly_time
-/            td
-/              = destination.total_time
-/
-/
+
+
 /h3 3.2.2 Dimensionamento da força de trabalho
 /table.tables.pdsi-result-table
 /  thead
