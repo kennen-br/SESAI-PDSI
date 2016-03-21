@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160211142456) do
+ActiveRecord::Schema.define(version: 20160316165829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -161,6 +161,24 @@ ActiveRecord::Schema.define(version: 20160211142456) do
 
   add_index "budget_investments", ["investment_id"], name: "index_budget_investments_on_investment_id", using: :btree
   add_index "budget_investments", ["pdsi_id"], name: "index_budget_investments_on_pdsi_id", using: :btree
+
+  create_table "budget_justifiers", force: :cascade do |t|
+    t.string   "description"
+    t.string   "year"
+    t.integer  "user_id"
+    t.integer  "budget_investment_id"
+    t.integer  "budget_forecast_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+  end
+
+  add_index "budget_justifiers", ["budget_forecast_id"], name: "index_budget_justifiers_on_budget_forecast_id", using: :btree
+  add_index "budget_justifiers", ["budget_investment_id"], name: "index_budget_justifiers_on_budget_investment_id", using: :btree
+  add_index "budget_justifiers", ["user_id"], name: "index_budget_justifiers_on_user_id", using: :btree
 
   create_table "capai_villages", force: :cascade do |t|
     t.integer  "capai_id"
@@ -967,6 +985,9 @@ ActiveRecord::Schema.define(version: 20160211142456) do
   add_foreign_key "budget_investment_comments", "users"
   add_foreign_key "budget_investments", "investments"
   add_foreign_key "budget_investments", "pdsis"
+  add_foreign_key "budget_justifiers", "budget_forecasts"
+  add_foreign_key "budget_justifiers", "budget_investments"
+  add_foreign_key "budget_justifiers", "users"
   add_foreign_key "capai_villages", "capais"
   add_foreign_key "capai_villages", "villages"
   add_foreign_key "capais", "pdsis"
