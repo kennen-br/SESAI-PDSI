@@ -140,4 +140,4 @@ ul.accordion-tabs-minimal
               td = hr.human_resource_function.name
               td = hr.actual_sum
               td = hr.workforce_needed
-              td = hr.actual_sum - hr.workforce_needed
+              td = hr.actual_sum - hr.workforce_needed if hr.actual_sum && hr.workforce_needed
