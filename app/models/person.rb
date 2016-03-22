@@ -27,4 +27,5 @@ class Person < ActiveRecord::Base
       'TERCEIRIZADOS' => 'TERCEIRIZADOS'
     }
   end
+
 end

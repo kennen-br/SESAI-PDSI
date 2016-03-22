@@ -351,6 +351,10 @@ class Pdsi < ActiveRecord::Base
     human_resources_with_values
   end
 
+  def dsei_indigenous_worker
+     Person.where(indigenous_worker: true).count
+  end
+
   private
 
   def compose_item(sample_attr, key, value)

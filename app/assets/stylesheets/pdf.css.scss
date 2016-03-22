@@ -63,6 +63,9 @@ section {padding: 0 1em;}
 
 table p {margin: 0; display: inline;}
 
+table, tr, td, th, tbody, thead, tfoot {
+    page-break-inside: avoid !important;
+}
 
 /* Font Classes*/
 .OpenSans {
@@ -90,6 +93,7 @@ table p {margin: 0; display: inline;}
 .nobreak { page-break-inside: avoid !important; }
 .alwaysbreak { page-break-before: always !important; }
 .afterbreak  { page-break-after:always !important; }
+
 
 
 /* General document CSS styles */
