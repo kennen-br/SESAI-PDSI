@@ -62,6 +62,8 @@ blockquote {border-bottom: solid 2px #666; font-size:20px; line-height:25px;  ma
 section {padding: 0 1em;}
 
 table p {margin: 0; display: inline;}
+
+
 /* Font Classes*/
 .OpenSans {
   font-family: 'OpenSans' !important;
@@ -92,16 +94,18 @@ table p {margin: 0; display: inline;}
 
 /* General document CSS styles */
 .document { font-family: "DINPro"; -webkit-font-smoothing: antialiased;}
+
 .cover {
 	font-family: "DINProLight";
 	font-weight: lighter;
 	color: #465DB4;
 	margin-top: 500px;
-	h1 {font-size: 40px; line-height:46px; color: #465DB4; text-transform: uppercase; margin: 0 0 20px; padding:0; text-indent:0; font-weight: normal !important; border: none !important;}
-	h2 {font-size: 28px; line-height:32px; color: #465DB4; text-transform: uppercase; margin: 0 0 40px; padding:0; text-indent:0; font-weight: normal !important; border: none !important;}
-	h3 {font-size: 24px; line-height:28px; color: #465DB4; text-transform: uppercase; margin: 0 0 20px; padding:0; text-indent:0; font-weight: normal !important; border: none !important;}
-	h4 {font-size: 18px; line-height:24px; color: #465DB4; text-transform: uppercase; margin: 0 0 20px; padding:0; text-indent:0; font-weight: normal !important; border: none !important;}
 }
+
+.cover h1 {font-size: 40px; line-height:46px; color: #465DB4; text-transform: uppercase; margin: 0 0 20px; padding:0; text-indent:0; font-weight: normal !important; border: none !important;}
+.cover h2 {font-size: 28px; line-height:32px; color: #465DB4; text-transform: uppercase; margin: 0 0 40px; padding:0; text-indent:0; font-weight: normal !important; border: none !important;}
+.cover h3 {font-size: 24px; line-height:28px; color: #465DB4; text-transform: uppercase; margin: 0 0 20px; padding:0; text-indent:0; font-weight: normal !important; border: none !important;}
+.cover h4 {font-size: 18px; line-height:24px; color: #465DB4; text-transform: uppercase; margin: 0 0 20px; padding:0; text-indent:0; font-weight: normal !important; border: none !important;}
 
 .inner {
   position: relative;
@@ -123,6 +127,7 @@ table p {margin: 0; display: inline;}
   border-radius: 3px;
   border-spacing: 0;
   border: none;
+  text-align: left;
 }
 .tables th {
   text-align: left;
@@ -170,7 +175,7 @@ table p {margin: 0; display: inline;}
   border-top: 1px solid #DDD;
   padding: 0.75em 1em;
   font-size: 1em;
-  text-align: center;
+  text-align: left;
 }
 .tables tbody td:first-child {
   border-left: none;
