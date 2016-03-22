@@ -3,23 +3,21 @@ source 'https://rubygems.org'
 ruby '2.2.0'
 
 gem 'puma'
-gem 'rails',                        '4.2.3'
+gem 'rails', '4.2.3'
 gem 'dotenv-rails'
 gem 'rails-i18n'
-
-gem 'uglifier',                     '>= 1.3.0'
-gem 'sass-rails',                   '~> 5.0'
+gem 'uglifier', '>= 1.3.0'
+gem 'sass-rails', '~> 5.0'
 gem 'slim-rails'
 gem 'turbolinks'
-gem 'coffee-rails',                 '~> 4.1.0'
+gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
-gem 'font-awesome-sass',            '~> 4.3.0'
+gem 'font-awesome-sass', '~> 4.3.0'
 gem 'jquery-turbolinks'
 gem 'nav_lynx'
 gem 'dynamic_form'
-gem "paperclip",                    '~> 4.3'
-
-gem 'mailchimp-api',                require: 'mailchimp'
+gem 'paperclip', '~> 4.3'
+gem 'mailchimp-api', require: 'mailchimp'
 gem 'select2-rails'
 # Copy records and its associations
 gem 'amoeba'
@@ -35,10 +33,10 @@ gem 'pace-rails'
 gem 'toastr-rails'
 
 # Nested Forms
-gem "cocoon"
+gem 'cocoon'
 
 # Wysiwyg
-gem "wysiwyg-rails"
+gem 'wysiwyg-rails'
 
 # Markdown
 gem 'redcarpet'
@@ -55,11 +53,12 @@ gem 'unicorn'
 gem 'devise'
 gem 'devise-i18n'
 
-#gem 'mysql2'
 gem 'pg'
 gem 'seed_dump'
 
 gem 'whenever'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary-edge', '~> 0.12.2.1'
 
 # Audit activerecord
 gem 'espinita'
@@ -71,7 +70,6 @@ group :development do
   gem 'bullet'
   gem 'rails-erd'
   gem 'railroady'
-
   gem 'mina',             require: false
   gem 'mina-multistage',  require: false
   gem 'mina-unicorn',     require: false
@@ -85,10 +83,9 @@ group :development, :test do
   gem 'sqlite3'
   gem 'rubocop'
   gem 'pry-rails'
-  gem 'web-console',                '~> 2.0'
+  gem 'web-console', '~> 2.0'
   gem 'quiet_assets'
   gem 'sql_queries_count'
-
   gem 'simplecov'
   gem 'rspec-rails'
   gem 'factory_girl'
@@ -98,7 +95,6 @@ group :development, :test do
   gem 'codeclimate-test-reporter'
   gem 'ffaker'
   gem 'capybara'
-
   gem 'racksh'
 end
 
