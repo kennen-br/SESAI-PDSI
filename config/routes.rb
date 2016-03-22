@@ -30,6 +30,10 @@ Rails.application.routes.draw do
   end
 
   scope '/meu-pdsi' do
+    post '/:id/alterar/projecao-orcamentaria/editar-justificativa',
+         to: 'budget_justifiers#edit_justifier',
+         as: :budget_justifier_edit_justifier
+
     post '/:id/alterar/projecao-orcamentaria/new_budget_forecast_by_cost',
          to: 'pdsis#new_budget_forecast_by_cost',
          as: :new_budget_forecast_by_cost

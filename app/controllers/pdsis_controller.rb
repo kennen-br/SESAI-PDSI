@@ -266,6 +266,7 @@ class PdsisController < ApplicationController
         :initial_forecast_2017, :dsei_forecast_2017, :revised_forecast_2017,
         :initial_forecast_2018, :dsei_forecast_2018, :revised_forecast_2018,
         :initial_forecast_2019, :dsei_forecast_2019, :revised_forecast_2019,
+        budget_justifiers_attributes: [:file, :description, :year, :id, :_destroy]
       ],
       budget_investments_attributes: [
         :id, :quantity_2016, :quantity_2017, :quantity_2018, :quantity_2019,
@@ -276,7 +277,7 @@ class PdsisController < ApplicationController
          :quantity_2018, :unitary_amount_2018, :forecast_amount_2018, :quantity_2019,
          :unitary_amount_2019, :forecast_amount_2019, :year_reference, :city,
          :pole_base, :village
-        ]
+        ], budget_justifiers_attributes: [:file, :description, :year, :id, :_destroy]
       ],
       people_attributes: [ :id, :_destroy, :name, :indigenous_worker, :dsei_id,
                            :human_resource_function_id, :role, :bond_type, :bond, :workplace, :location ]

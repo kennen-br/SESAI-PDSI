@@ -33,10 +33,10 @@ calculate_funding_balance = ->
     if (!isNaN(parseFloat($(el2).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))))
       subtotal -= parseFloat($(el2).val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
     if subtotal>0
-      $("#input-#{year}-0").val("R$#{(subtotal).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+      $("#input-#{year}-0").val("R$ #{(subtotal).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
       $("#input-#{year}-0").css({'color' : 'green'})
     else
-      $("#input-#{year}-0").val("- R$#{(subtotal).toFixed(2).replace('-','').replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+      $("#input-#{year}-0").val("- R$ #{(subtotal).toFixed(2).replace('-','').replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
       $("#input-#{year}-0").css({'color' : 'red'})
   return
 
@@ -61,69 +61,6 @@ calculate_parent_total = (parent_id) ->
     calculate_parent_total $("#input-#{parent_id}-2").attr('year_parent_id')
 
   calculate_funding_balance()
-  return
-
-# SEND COMMENT
-$(document).on 'click', '.budget .modal.comments .send-comment', ->
-  $this  = $(this)
-  $field = $this.prev()
-  $modal = $this.parents('.modal-inner:eq(0)')
-
-  id = $this.data('id')
-  year = $this.data('year')
-  comment = $field.val()
-
-  if comment.trim() == ''
-    toastr.error 'Comentário em branco'
-    return false
-
-  params = { 'comment' : {}}
-  params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
-
-  params['comment']['budget_id'] = id
-  params['comment']['year'] = year
-  params['comment']['comment'] = comment
-
-  startLoading()
-
-  url = $('#budget-new-comment-url').val()
-  $.post url, params, (data) ->
-    stopLoading()
-    $field.val('')
-
-    $modal.find('.comments-list .comment.empty').remove()
-    $modal.find('.comments-list table').removeClass('hidden')
-    $modal.find('.comments-list table tbody').append(data)
-
-    toastr.success 'Comentário enviado.'
-    return
-  return
-
-# DELETE COMMENT
-$(document).on 'click', '.budget .modal.comments .delete-comment', ->
-  $this  = $(this)
-  $field = $this.prev()
-  $modal = $this.parents('.modal-inner:eq(0)')
-
-  id = $this.data('id')
-
-  params = { 'comment' : {}}
-  params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
-
-  params['comment']['id'] = id
-
-  startLoading()
-
-  url = $('#budget-delete-comment-url').val()
-  $.post url, params, (data) ->
-    stopLoading()
-
-    $modal.find('.comments-list .comment.empty').remove()
-    $modal.find('.comments-list table').removeClass('hidden')
-    $modal.find('.comments-list table tbody tr.comment[data-id="'+id+'"]').remove()
-
-    toastr.success 'Comentário apagado.'
-    return
   return
 
 $(document).ready ->
@@ -233,20 +170,6 @@ $(document).ready ->
           $year.find('.add_fields').click()
         return
       return
-    return
-
-  # Mark input for PDSI Results as red or green
-  $(document).on 'blur', '.expected-result-field', (e) ->
-    $this    = $(this)
-    expected = $this.data 'expected'
-    value    = $this.val()
-
-    $this.removeClass 'red green'
-
-    if value >= expected
-      $this.addClass 'green'
-    else
-      $this.addClass 'red'
     return
 
   # Recalculate values for 2017-2019 based on 2016 and correction factors
@@ -376,49 +299,28 @@ $(document).ready ->
         stopLoading()
     return
 
-  # TOGGLE OVERLAY WHEN MODAL IS OPENED
-  $(document).on 'change', '.modal-state', ->
-    if $(this).is(":checked")
-      $("body").addClass "modal-open"
-    else
-      $("body").removeClass "modal-open"
-    return
+expect_result_color = (item) ->
+  $this = item
+  initial_forecast = $this.parent().prev('td').find('input').val()
+  dsei_forecast = parseFloat($this.val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.'))
 
-  # OPEN MODAL MODAL WITH COMMENTS
-  $(document).on 'click', '.budget-table .budget-actions .toggle-comments', ->
-    $this = $(this)
-
-    $budget = $this.parents('tr.budget:eq(0)')
-    $modal = $budget.find('> td .modal.comments')
-    comments = $budget.find('.comment.colored-border.empty')
-
-    $modal.find('.modal-state').click()
-
-    if $budget.find('.budget-actions .unread-comment').length > 0
-      comment_id = $budget.find('.budget-actions .unread-comment').data('commentId')
-      readComment(comment_id, $budget.find('.budget-actions .unread-comment'))
-
-    # console.log(comments.html()) if comments.html()
-    return
-
-  # MARK A COMMENT AS READ
-  readComment = (comment_id, $comment) ->
-    params = {}
-
-    params['comment'] = comment_id
-    params[$("meta[name='csrf-param']").attr('content')] = $('meta[name="csrf-token"]').attr('content')
-    url = $('#budget-see-comment-url').val()
-
-    $.post url, params, (data) ->
-      $comment.remove() if data.status
-      return
-    return
+  if dsei_forecast > initial_forecast
+    $this.css({'color' : 'red'})
+  else
+    $this.css({'color' : 'green'})
   return
 
-$(document).on 'click', '.modal-window.investment', ->
-  icon =  $(this).parent().parent().find('i')
+$(document).ready ->
+  $('.expected-result-field').each ->
+    expect_result_color($(this))
 
-  if $(this).find('.user').html()
-    icon.addClass('fa-comments red').removeClass('fa-comment')
-  else
-    icon.addClass('fa-comment').removeClass('fa-comments red')
+# Mark input for PDSI Results as red or green
+$(document).on 'change', '.expected-result-field', ->
+  expect_result_color($(this))
+
+$(document).on 'blur', '.expected-result-modfier', ->
+  $('.expected-result-field').each ->
+    _this = $(this)
+    setTimeout (->
+      expect_result_color _this
+    ), 100
