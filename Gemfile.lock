@@ -329,6 +329,8 @@ GEM
       sprockets-rails (>= 2.0, < 4.0)
     whenever (0.9.4)
       chronic (>= 0.6.3)
+    wicked_pdf (1.0.4)
+    wkhtmltopdf-binary-edge (0.12.2.1)
     wysiwyg-rails (1.2.8)
       font-awesome-rails (>= 4.3.0.0)
       railties (>= 3.2, < 5.0)
@@ -402,4 +404,6 @@ DEPENDENCIES
   unicorn
   web-console (~> 2.0)
   whenever
+  wicked_pdf
+  wkhtmltopdf-binary-edge (~> 0.12.2.1)
   wysiwyg-rails
