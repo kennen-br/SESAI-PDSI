@@ -401,39 +401,41 @@ h3 3.2.2 Recursos Humanos
 
 blockquote Tabela 4. Demostrativo de recursos humanos existentes vinculado ao DSEI
 .hr-box-intro
-table.tables.pdsi-result-table
-  tr
-    td Nome
-    td Categoria Profissional
-    td Função
-    td Lotação
-    td Local de Trabalho
-    td Vínculo
-    td Tipo de Vínculo
-    td Trabalhador índigena
-  - Person.includes(:human_resource_function).where(pdsi_id: @pdsi).order(:name).each do |pp|
-    tr
-      td = pp.name
-      td = pp.human_resource_function.name if pp.human_resource_function
-      td = pp.role
-      td = pp.location
-      td = pp.workplace
-      td = pp.bond
-      td = pp.bond_type
-      td = pp.indigenous_worker ? 'Sim' : 'Não'
-
-blockquote Tabela 5. Dimensionamento de necessidades / Local de trabalho
-table.tables.pdsi-result-table
+table.tables.pdsi-result-table.page
   thead
     tr
-      th[rowspan="2" style="width: 200px;"] Categoria Profissional
-      th[colspan="4" style="border-bottom: 1px solid #ddd;"]
+      th Nome
+      th Categoria Profissional
+      th Função
+      th Lotação
+      th Local de Trabalho
+      th Vínculo
+      th Tipo de Vínculo
+      th Trabalhador índigena
+  tbody
+    - Person.includes(:human_resource_function).where(pdsi_id: @pdsi).order(:name).each do |pp|
+      tr
+        td = pp.name
+        td = pp.human_resource_function.name if pp.human_resource_function
+        td = pp.role
+        td = pp.location
+        td = pp.workplace
+        td = pp.bond
+        td = pp.bond_type
+        td = pp.indigenous_worker ? 'Sim' : 'Não'
+.alwaysbreak
+blockquote Tabela 5. Dimensionamento de necessidades / Local de trabalho
+table.tables.pdsi-result-table.page
+  thead
+    tr
+      th[rowspan="2" style="width: 200px; border-right: 1px solid #ddd;"] Categoria Profissional
+      th[colspan="4" style="border-right: 1px solid #ddd; border-bottom: 1px solid #ddd;"] Estabelecimentos
       th[colspan="7" style="border-bottom: 1px solid #ddd;"] Sede do DSEI
     tr
-      th[style="border-left: 1px solid #ddd;"] UBSI
+      th UBSI
       th Polo Base Tipo 1
       th Polo Base Tipo 2
-      th CASAI
+      th[style="border-right: 1px solid #ddd;"] CASAI
       th SEAD
       th SELOG
       th SESANE
@@ -456,7 +458,7 @@ table.tables.pdsi-result-table
         td = hr.sgep_atual
         td = hr.gabinete_atual
         td = hr.diasi_atual
-
+.alwaysbreak
 blockquote Tabela 5. Dimensionamento de necessidades /  Tipo de vínculo
 table.tables.pdsi-result-table
   thead
@@ -478,19 +480,19 @@ table.tables.pdsi-result-table
         td = hr.convenio
         td = hr.mais_medicos
         td = hr.terceirizacao
-
+.alwaysbreak
 blockquote Tabela 5. Dimensionamento de necessidades /  Quantidade necessária para atender adequadamente o DSEI
 table.tables.pdsi-result-table
   thead
     tr
-      th[rowspan="2" style="width: 200px;"] Categoria Profissional
-      th[colspan="4" style="border-bottom: 1px solid #ddd;"]
+      th[rowspan="2" style="width: 200px; border-right: 1px solid #ddd;"] Categoria Profissional
+      th[colspan="4" style="border-right: 1px solid #ddd; border-bottom: 1px solid #ddd;"] Estabelecimentos
       th[colspan="7" style="border-bottom: 1px solid #ddd;"] Sede do DSEI
     tr
-      th[style="border-left: 1px solid #ddd;"] UBSI
+      th UBSI
       th Polo Base Tipo 1
       th Polo Base Tipo 2
-      th CASAI
+      th[style="border-right: 1px solid #ddd;"] CASAI
       th SEAD
       th SELOG
       th SESANE
@@ -513,16 +515,16 @@ table.tables.pdsi-result-table
         td = hr.sgep_necessaria
         td = hr.gabinete_necessaria
         td = hr.diasi_necessaria
-
+.alwaysbreak
 blockquote Tabela 5. Dimensionamento de necessidades /  Totais
 table.tables.pdsi-result-table
   thead
     tr
-      th[colspan="2" style="border-bottom: 1px solid #ddd;"] Total de indígenas
+      th[colspan="2" style="border-bottom: 1px solid #ddd; border-right:1px solid #ddd;"] Total de indígenas
       th[colspan="2" style="border-bottom: 1px solid #ddd;"]
-        = @pdsi.demographic_data.populacao_indigena
+        = @pdsi.dsei_indigenous_worker
     tr
-      th Categoria Profissional
+      th[style="border-right: 1px solid #ddd;"] Categoria Profissional
       th RH Existente
       th Força de Trabalho Necessária
       th Diferença entre Força de Trabalho Existente e Necessária
@@ -534,55 +536,237 @@ table.tables.pdsi-result-table
         td = hr.workforce_needed
         td = hr.actual_sum - hr.workforce_needed if hr.actual_sum && hr.workforce_needed
 
+.alwaysbreak
+h3 3.2.3 Equipes médicas de saúde indígena (EMSI)
+blockquote Tabela 6. Capacidade instalada e oferta de ações programadas
+- @dsei.base_polos_with_emsis.each do |base_polo|
+  - base_polo.emsis.each do |emsi|
+    table.tables.pdsi-result-table
+      thead
+        tr
+          td
+            p.title-label Polo Base
+            br
+            p.value-label = base_polo.name
+          td
+            p.title-label EMSI
+            br
+            p.value-label = emsi.name
+      tbody
+        tr
+          td[colspan="7"]
+            p.title-label N° de Profissionais
+        tr
+          td
+            p.title-label Médicos
+            br
+            p.value-label = emsi.numero_medicos || "-"
+          td
+            p.title-label Enfermeiros
+            br
+            p.value-label = emsi.numero_enfermeiros || "-"
+          td
+            p.title-label Odonto
+            br
+            p.value-label = emsi.numero_odontologistas || "-"
+          td
+            p.title-label Téc./Aux. Enfermagem
+            br
+            p.value-label = emsi.numero_tecnicos_enfermagem || "-"
+          td
+            p.title-label ASB
+            br
+            p.value-label = emsi.asb || "-"
+          td
+            p.title-label AIS
+            br
+            p.value-label = emsi.ais || "-"
+          td
+            p.title-label AISAN
+            br
+            p.value-label = emsi.aisan || "-"
+        tr
+          td[colspan="7"]
+            p.title-label Aldeias atendidas
+            br
+            p.value-label = emsi.aldeias_atendidas || "-"
+        tr
+          td[colspan="7"]
+            p.title-label Tempo de permanência em aldeia (dias por mês)
+        tr
+          td
+            p.title-label Médicos
+            br
+            p.value-label = emsi.permanencia_medicos || "-"
+          td
+            p.title-label Enfermeiros
+            br
+            p.value-label = emsi.permanencia_enfermeiros || "-"
+          td
+            p.title-label Odonto
+            br
+            p.value-label = emsi.permanencia_odontologistas || "-"
+          td[colspan="2"]
+            p.title-label Téc./Aux. Enfermagem
+            br
+            p.value-label = emsi.permanencia_tecnicos_enfermagem || "-"
+          td[colspan="2"]
+            p.title-label ASB
+            br
+            p.value-label = emsi.permanencia_asb || "-"
+    hr
 
-/table.tables.pdsi-result-table
-/  thead
-/    tr
-/      th[rowspan="2"] Polo Base
-/      th[rowspan="2"] EMSI
-/      th[colspan="7" style="border-bottom: 1px solid #ddd;"] Número de Profissionais
-/      th[rowspan="2"] Aldeias Atendidas
-/      th[colspan="5" style="border-bottom: 1px solid #ddd;"] Tempo de permanência em aldeia (dias por mês)
-/    tr
-/      th[style="border-left: 1px solid #ddd; text-align: center;"] Méd
-/      th Enf
-/      th Odon
-/      th Téc/Aux Enf
-/      th ASB
-/      th AIS
-/      th AISAN
-/      th[style="border-left: 1px solid #ddd; text-align: center;"] Méd
-/      th Enf
-/      th Odon
-/      th Téc/Aux Enf
-/      th ASB
-/  tbody
-/    - @dsei.base_polos_with_emsis.each do |base_polo|
-/      - base_polo.emsis.each do |emsi|
-/        tr
-/          td = base_polo.name
-/          td = emsi.name
-/          td = emsi.numero_medicos
-/          td = emsi.numero_enfermeiros
-/          td = emsi.numero_odontologistas
-/          td = emsi.numero_tecnicos_enfermagem
-/          td = emsi.asb
-/          td = emsi.ais
-/          td = emsi.aisan
-/          td = emsi.aldeias_atendidas
-/          td = emsi.permanencia_medicos
-/          td = emsi.permanencia_enfermeiros
-/          td = emsi.permanencia_odontologistas
-/          td = emsi.permanencia_tecnicos_enfermagem
-/          td = emsi.permanencia_asb
-/
-/
-/h3 3.2.3 Equipes médicas de saúde indígena (EMSI)
-/
-/h3 3.2.4 Rede de complementariedade
-/
-/h3 3.2.5 Infraestrutura de saúde - Edificações
-/
-/h3 3.2.6 Infraestrutura de saúde - Saneamento
-/
-/h3 3.2.7 Infraestrutura de saúde - CAPAIs
+.alwaysbreak
+h3 3.2.4 Rede de complementariedade
+blockquote Tabela 7. Rede de serviços do Sistema Único de Saúde para a complementariedade da atenção básica, média e de alta complexidade
+table.tables.pdsi-result-table
+  thead
+    tr
+      th[rowspan="2"] Polo Base
+      th[rowspan="2"] Muncípio
+      th[rowspan="2" style="width: 80px;"] População
+      th[rowspan="2"] Muncípios de Referência
+      th[colspan="2" style="border-bottom: 1px solid #ddd;"] Estabelecimentos de Saúde
+    tr
+      th[style="border-left: 1px solid #ddd; text-align: center;"] Atenção Básica
+      th Atenção Especializada
+    tbody
+      - @dsei.base_polos_with_service_networks.order(:id).each do |base_polo|
+        - base_polo.service_networks.each do |service_network|
+          - service_network.service_network_cities.each do |city|
+            tr
+              td = base_polo.name
+              td = base_polo.city_name
+              - if base_polo.population
+                td = base_polo.population
+              - else
+                td = "Favor preencher os dados da tabela de Dados Fisiográficos (3.1 C)"
+              td = city.city_name
+              td
+                = city.health_establishments.map { |item| item.name }.join(', ')
+              td
+                = city.health_specializeds.map { |item| item.name }.join(', ')
+
+.alwaysbreak
+h3 3.2.5 Infraestrutura de saúde: Edificações
+blockquote Tabela 8. Infraestrutura de saúde: Edificações
+table.tables.pdsi-result-table
+  thead
+    tr
+      th[rowspan="2"] Tipo de Estabelicimento
+      th[colspan="7" style="border-bottom: 1px solid #ddd;"] Rede Existente
+    tr
+      th[style="border-left: 1px solid #ddd; text-align: center;"] Nome do Estabelecimento
+      th UF
+      th Município
+      th Aldeia
+      th CNES
+      th Situação do Imóvel
+      th Situação do Terreno
+    tbody
+      - InfrastructureBuildingType.order(:id).all.each do |building_type|
+        - ib = @pdsi.infrastructure_buildings.where(infrastructure_building_type: building_type)
+        - ib.each do |infra|
+          h1 =
+          tr
+            td = infra.infrastructure_building_type.name
+            td = infra.name
+            td = infra.uf
+            td = infra.city_name
+            td = infra.village.name if infra.village
+            td = infra.cnes
+            td = infra.building_status
+            td = infra.ground_status
+        - unless building_type.name == 'Sede do DSEI'
+          tr
+            td[colspan="2" style="text-align: center;"]
+              = "Total #{building_type.name}"
+            td[colspan="6"]
+              = ib.count
+.alwaysbreak
+h3 3.2.6 Infraestrutura de saúde: Saneamento
+blockquote Tabela 9. Infraestrutura de saúde: Saneamento
+- @dsei.base_polos.order(:id).each do |base_pole|
+  p.title-value = "#{base_pole.name}"
+  table.tables.pdsi-infrastructure-sanitations
+    thead
+      tr
+        th Aldeia
+        th
+          p.rotate Abastecimento de Água
+        th
+          p.rotate Abastecimento de Água Alternativo
+        th
+          p.rotate SAA Completo
+        th
+          p.rotate Nome do SAA
+        th
+          p.rotate Tipo de Captação de Água
+        th
+          p.rotate Fornecimento de Água por Concessionária
+        th
+          p.rotate Tipo de Tratamento de Água
+        th
+          p.rotate Abastecimento com MQA
+        th
+          p.rotate SAA com Manutenção
+        th
+          p.rotate Qte MSD individual
+        th
+          p.rotate Qte MSD coletiva
+        th
+          p.rotate Esgotamento Sanitário
+      tbody
+        - base_pole.villages_with_sanitations.each do |vl|
+          - vl.infrastructure_sanitations.each do |is|
+            tr
+              td = is.village.name
+              td = is.abastecimento_agua ? 'Sim' : 'Não'
+              td = is.abastecimento_agua_alternativo ? 'Sim' : 'Não'
+              td = is.saa_completo ? 'Sim' : 'Não'
+              td = is.nome_saa
+              td = is.tipo_captacao_agua
+              td = is.nome_concessionaria
+              td = is.tipo_tratamento_agua
+              td = is.abastecimento_mqa ? 'Sim' : 'Não'
+              td = is.saa_manutencao ? 'Sim' : 'Não'
+              td = is.qtd_msd_individual
+              td = is.qtd_msd_coletiva
+              td = is.esgotamento_sanitario ? 'Sim' : 'Não'
+        tr
+          td Total: #{ village_with_sanitation(base_pole) }
+          td
+          td = village_alternative_supply(base_pole)
+          td = village_complete_saa(base_pole)
+          td
+          td
+          td
+          td
+          td = village_with_mqa(base_pole)
+          td = village_saa_suport(base_pole)
+          td = village_qtd_msd_individual(base_pole)
+          td = village_qtd_msd_coletiva(base_pole)
+          td = village_esgotamento_sanitario(base_pole)
+.alwaysbreak
+h3 3.2.7 Infraestrutura de saúde: CAPAIs
+blockquote Tabela 10. Infraestrutura de saúde: CAPAIs
+table.tables.pdsi-result-table
+  thead
+    tr
+      th Nome da CAPAI
+      th Município
+      th UF
+      th Tipo de CAPAI
+      th Aldeias Vinculadas
+      th Capacidade de Hospedagem
+    tbody
+      - @pdsi.capais_with_villages.each do |capai|
+        tr
+          td = capai.name
+          td = capai.city_name
+          td = capai.uf
+          td = capai.capai_type
+          td
+            - capai.capai_villages.each do |capai_village|
+              = capai_village.village.name
+          td = capai.host_capacity

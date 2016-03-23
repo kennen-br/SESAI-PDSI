@@ -1,1 +1,56 @@
-h1 Anexos
+h1 7. Anexos
+
+h2 7.1 Dimensionamento de Necessidades: Investimentos
+- ProjectionBudgetCategory.all.each do |category|
+  br
+  strong = category.name
+
+  table.tables.pdsi-result-table
+    thead
+      tr
+        th Investimento
+        th Qtde Existente 2015
+        th Qtde Necessária
+        th Déficit Quantitativo
+        th Percentual de Cobertura
+        th Valor Unitário Médio
+        th Estimativa Orçamento Necessário
+    tbody
+      - @pdsi.need_investiments_with_values(category).each do |item|
+        tr
+          td = item.projection_budget_item.name
+          td = item.qtde_existente_2015
+          td = item.qtde_necessaria
+          td = item.deficit_quantitativo
+          td #{number_with_precision(item.percentual_cobertura, precision: 2)}%
+          td = number_to_currency item.valor_unitario_medio
+          td = number_to_currency item.estimativa_necessario
+
+br
+br
+
+h2 7.2 Dimensionamento de Necessidades: Custeios
+
+table.tables.pdsi-result-table
+  thead
+    tr
+      th Despesa
+      th Previsão 2015
+      th Estimativa 2015
+      th Déficit/Superávit 2015
+      th Percentual de Cobertura
+      th Estimativa Plena
+  tbody
+    - @pdsi.need_costs_with_values.each do |item|
+      tr
+        td = item.cost.name
+        td = number_to_currency item.previsao_orcamentaria_2015
+        td = number_to_currency item.orcamento_necessario
+        td = number_to_currency item.deficit_quantitativo
+        td #{number_with_precision(item.percentual_cobertura, precision: 2)}%
+        td
+          strong = number_to_currency item.orcamento_necessario_pleno
+
+
+- @pdsi.pdsi_attached_files.each do |item|
+  h2 7. #{item.id+2} #{item.name}
