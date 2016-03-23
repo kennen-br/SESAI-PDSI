@@ -118,7 +118,7 @@ class Pdsi < ActiveRecord::Base
   end
 
   def compose_item_4
-    #compose_item :analise_situacional_4, '[NOME_DSEI]', dsei.name
+    compose_item :analise_situacional_4, '[NOME_DSEI]', dsei.name
   end
 
   def compose_item_5
@@ -349,6 +349,10 @@ class Pdsi < ActiveRecord::Base
       pdsi_human_resources << PdsiHumanResource.new(human_resource_function: human_resource_function)
     end
     human_resources_with_values
+  end
+
+  def dsei_indigenous_worker
+     Person.where(indigenous_worker: true).count
   end
 
   private

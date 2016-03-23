@@ -1,7 +1,3 @@
-= link_to edit_budget_projection_path(@pdsi, subsection: 'custeio'), class: 'button pull-right edit-link' do
-  i.fa.fa-pencil
-  | Coletar dados
-
 .carousel-nav
   .carousel-arrows
     a.pull-left href="javascript:void(0)"
@@ -10,8 +6,6 @@
       = icon 'angle-right'
   .carousel-list
     .slider
-      a href="javascript:void(0)"
-        | Previsão Orçamentária do ano:
       a.is-active href="javascript:void(0)" data-index="1"
         | 2016
       a href="javascript:void(0)" data-index="2"
@@ -28,8 +22,11 @@
 
       - (2016..2019).map.with_index do |year, i|
         .item-content.animated data-index="#{i+1}" class=("is-active" if year == 2016)
-          table.table-minimal.budget-table.investiment
+          table.table-minimal.budget-table.investiment.tables.pdsi-result-table
             thead
+              tr
+                th[colspan="4"]
+                  p.title-value =year
               tr
                 th = "Ano #{year}"
                 th Previsão orçamentária (em R$)
@@ -75,7 +72,7 @@
                           - if bf_child.updated_at
                             = bf_child.updated_at.strftime("Atualizada em %m/%d/%Y")
                       -  @pdsi.bf_with_values_children(@pdsi.id, bf_child.cost.id).each do |bf_child_s|
-                        tr.structure data-index=("#{year}-#{bf_child_s.cost.parent_id}") style="display: none;"
+                        tr.structure data-index=("#{year}-#{bf_child_s.cost.parent_id}")
                           td = bf_child_s.cost.name
                           td = number_to_currency(eval("bf_child_s.initial_forecast_#{year}"))
                           td = number_to_currency(eval("bf_child_s.dsei_forecast_#{year}"))
@@ -97,7 +94,7 @@
 
 
       .item-content.animated data-index="5"
-        table.table-minimal.budget-table.investiment
+        table.table-minimal.budget-table.investiment.tables.pdsi-result-table
           thead
             tr
               th TOTAL
@@ -131,7 +128,7 @@
                     td = number_to_currency(dsei_forecast_total)
 
                 - else
-                    tr.structure data-index=("total-#{cost.parent_id}") style="display: none;"
+                    tr.structure data-index=("total-#{cost.parent_id}")
                       td = cost.name
 
                     td = number_to_currency(revised_forecast_total)
