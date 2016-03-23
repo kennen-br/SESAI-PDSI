@@ -543,12 +543,12 @@ blockquote Tabela 6. Capacidade instalada e oferta de ações programadas
   - base_polo.emsis.each do |emsi|
     table.tables.pdsi-result-table
       thead
-        tr
-          td
+        tr[style="margin:30px 0;"]
+          td[colspan="4"]
             p.title-label Polo Base
             br
             p.value-label = base_polo.name
-          td
+          td[colspan="3"]
             p.title-label EMSI
             br
             p.value-label = emsi.name
@@ -667,7 +667,6 @@ table.tables.pdsi-result-table
       - InfrastructureBuildingType.order(:id).all.each do |building_type|
         - ib = @pdsi.infrastructure_buildings.where(infrastructure_building_type: building_type)
         - ib.each do |infra|
-          h1 =
           tr
             td = infra.infrastructure_building_type.name
             td = infra.name
@@ -687,66 +686,70 @@ table.tables.pdsi-result-table
 h3 3.2.6 Infraestrutura de saúde: Saneamento
 blockquote Tabela 9. Infraestrutura de saúde: Saneamento
 - @dsei.base_polos.order(:id).each do |base_pole|
-  p.title-value = "#{base_pole.name}"
+  br
+  p.title-label Polo base
+  p.value-label = "#{base_pole.name}"
   table.tables.pdsi-infrastructure-sanitations
-    thead
-      tr
-        th Aldeia
-        th
-          p.rotate Abastecimento de Água
-        th
-          p.rotate Abastecimento de Água Alternativo
-        th
-          p.rotate SAA Completo
-        th
-          p.rotate Nome do SAA
-        th
-          p.rotate Tipo de Captação de Água
-        th
-          p.rotate Fornecimento de Água por Concessionária
-        th
-          p.rotate Tipo de Tratamento de Água
-        th
-          p.rotate Abastecimento com MQA
-        th
-          p.rotate SAA com Manutenção
-        th
-          p.rotate Qte MSD individual
-        th
-          p.rotate Qte MSD coletiva
-        th
-          p.rotate Esgotamento Sanitário
-      tbody
-        - base_pole.villages_with_sanitations.each do |vl|
-          - vl.infrastructure_sanitations.each do |is|
+    - base_pole.villages_with_sanitations.each do |vl|
+        - vl.infrastructure_sanitations.each do |is|
+          thead
             tr
-              td = is.village.name
-              td = is.abastecimento_agua ? 'Sim' : 'Não'
-              td = is.abastecimento_agua_alternativo ? 'Sim' : 'Não'
-              td = is.saa_completo ? 'Sim' : 'Não'
-              td = is.nome_saa
-              td = is.tipo_captacao_agua
-              td = is.nome_concessionaria
-              td = is.tipo_tratamento_agua
-              td = is.abastecimento_mqa ? 'Sim' : 'Não'
-              td = is.saa_manutencao ? 'Sim' : 'Não'
-              td = is.qtd_msd_individual
-              td = is.qtd_msd_coletiva
-              td = is.esgotamento_sanitario ? 'Sim' : 'Não'
-        tr
-          td Total: #{ village_with_sanitation(base_pole) }
-          td
-          td = village_alternative_supply(base_pole)
-          td = village_complete_saa(base_pole)
-          td
-          td
-          td
-          td
-          td = village_with_mqa(base_pole)
-          td = village_saa_suport(base_pole)
-          td = village_qtd_msd_individual(base_pole)
-          td = village_qtd_msd_coletiva(base_pole)
-          td = village_esgotamento_sanitario(base_pole)
+              th[colspan="6"]
+                p.title-label[style="text-align:left;"] Aldeia
+                br
+                p.value-label[style="text-align:left;"] = is.village.name
+          tbody
+            tr
+              td
+                p.title-label Abastecimento de Água
+                br
+                p.value-label = is.abastecimento_agua ? 'Sim' : 'Não' || "-"
+              td
+                p.title-label Abastecimento de Água Alternativo
+                br
+                p.value-label = is.abastecimento_agua_alternativo ? 'Sim' : 'Não' || "-"
+              td
+                p.title-label SAA Completo
+                br
+                p.value-label = is.saa_completo ? 'Sim' : 'Não' || "-"
+              td
+                p.title-label Nome do SAA
+                br
+                p.value-label = is.nome_saa || "-"
+              td
+                p.title-label Tipo de Captação de Água
+                br
+                p.value-label = is.tipo_captacao_agua || "-"
+              td
+                p.title-label Fornecimento de Água por Concessionária
+                br
+                p.value-label = is.nome_concessionaria || "-"
+            tr
+              td
+                p.title-label Tipo de Tratamento de Água
+                br
+                p.value-label = is.tipo_tratamento_agua || "-"
+              td
+                p.title-label Abastecimento com MQA
+                br
+                p.value-label = is.abastecimento_mqa ? 'Sim' : 'Não' || "-"
+              td
+                p.title-label SAA com Manutenção
+                br
+                p.value-label = is.saa_manutencao ? 'Sim' : 'Não' || "-"
+              td
+                p.title-label Qte MSD individual
+                br
+                p.value-label = is.qtd_msd_individual || "-"
+              td
+                p.title-label Qte MSD coletiva
+                br
+                p.value-label = is.qtd_msd_coletiva || "-"
+              td
+                p.title-label Esgotamento Sanitário
+                br
+                p.value-label = is.esgotamento_sanitario ? 'Sim' : 'Não' || "-"
+
 .alwaysbreak
 h3 3.2.7 Infraestrutura de saúde: CAPAIs
 blockquote Tabela 10. Infraestrutura de saúde: CAPAIs
