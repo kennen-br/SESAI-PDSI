@@ -1,136 +1,145 @@
-
 h1 5. Resultados esperados 2016-2019
-
+.alwaysbreak
 h2 5.1 Categorias de planejamento utilizadas pelo PDSI
 p == @pdsi.compose_item_5
-
+.alwaysbreak
 h2 5.2 Resultados esperados 2016-2019 (#{@pdsi.dsei.name})
-.carousel-items
-  - ResultAxis.includes(:result_strategies).order(:id).each_with_index do |axis, index|
-    - i = index+1
-    - responsabilities = @pdsi.responsabilities_with_values(axis)
-    .axis.item-content.animated data-index="#{i-1}" *(index  == 0 ? {:class => ['is-active']} : {:class => ['']})
-      h3 5.2.#{i}. #{axis.name}
 
-      - axis.result_strategies.each do |strategy|
-        .strategy
-          p.strategy-title Estratégia #{i}: #{strategy.name}
+- ResultAxis.includes(:result_strategies).order(:id).each_with_index do |axis, index|
+  - i = index+1
+  - responsabilities = @pdsi.responsabilities_with_values(axis)
+  .axis.item-content.animated data-index="#{i-1}" *(index  == 0 ? {:class => ['is-active']} : {:class => ['']})
+    /.alwaysbreak
+    h3[style="margin:30px 0 0; !important"] 5.2.#{i}. #{axis.name}
 
-          - j = 0
-          - results = @pdsi.pdsi_results_to_section_with_values(axis.section_name)
-          - results.each do |pdsi_result|
-            - unless pdsi_result.result.not_in
-              .result-container id=("result-#{pdsi_result.result.id}")
-                .result
-                  p.title-value Resultado #{pdsi_result.result.id}
-                  - if !pdsi_result.result.is_boolean
-                    p.result-name #{pdsi_result.value_global} #{pdsi_result.editable_value_global}
-                  - else
-                    p.result-name #{pdsi_result.result.name}
-                  /.helpers
-                    /.dsei-false-result data-result-id="#{pdsi_result.result.id}" data-dsei-id="#{current_dsei.id}"
-                      /= icon (pdsi_result.result.dsei_not_apply?(current_dsei) ? 'check-square' : 'square')
-                      /| não se aplica ao DSEI
-                    /p
-                    /  = pdsi_result.result.orientacoes_dsei? ? pdsi_result.result.orientacoes_dsei : "Não há orientações"
-                .result-products
-                  table.years
-                    tr
-                      - (2016..2019).map do |year|
-                        td.year
-                          p.title-label = year
-                          .value
-                            - if pdsi_result.result.is_boolean
-                              span = pdsi_result.result.name
-                              / label.result-checkbox
-                                - checked = pdsi_result.send("value_#{year}") == 0 ? false : true
-                                = check_box_tag '', '1', checked, { data: { field: "value_#{year}" }}
-                            -else
-                              = text_field_tag "data_value_#{pdsi_result.id}_#{year}", pdsi_result.send("value_#{year}"), { class: 'result-field colored-border', data: { field: "value_#{year}", limit: pdsi_result.result.send("value_#{year}") }}
-                              span
-                                == pdsi_result.editable_value year
-                  .plano-anual
-                    .show-more.colored-border
-                      p.title-value PLANO ANUAL 2016
+    - axis.result_strategies.each do |strategy|
+      .strategy
+        p.strategy-title Estratégia #{i}: #{strategy.name}
 
-                    - responsability = pdsi_result.result.responsability_result(@pdsi)
-                    .responsability.resp-item data-id="#{responsability.id}"
-                      table.tables.responsability-result.head
-                        thead
-                          tr
-                            th RESULTADO 2016
-                            th INÍCIO
-                            th TÉRMINO
-                            th RESPONSÁVEL
-                            th CORRESPONSÁVEIS
+        - j = 0
+        - results = @pdsi.pdsi_results_to_section_with_values(axis.section_name)
+        - results.each do |pdsi_result|
+          - unless pdsi_result.result.not_in
+            .result-container id=("result-#{pdsi_result.result.id}")
+              .result
+                p.title-value Resultado #{pdsi_result.result.id}
+                - if !pdsi_result.result.is_boolean
+                  p.result-name #{pdsi_result.value_global} #{pdsi_result.editable_value_global}
+                - else
+                  p.result-name #{pdsi_result.result.name}
+                /.helpers
+                  /.dsei-false-result data-result-id="#{pdsi_result.result.id}" data-dsei-id="#{current_dsei.id}"
+                    /= icon (pdsi_result.result.dsei_not_apply?(current_dsei) ? 'check-square' : 'square')
+                    /| não se aplica ao DSEI
+                  /p
+                  /  = pdsi_result.result.orientacoes_dsei? ? pdsi_result.result.orientacoes_dsei : "Não há orientações"
+              .result-products
+                table.years
+                  tr
+                    - (2016..2019).map do |year|
+                      td.year
+                        p.title-label = year
+                        .value
+                          - if pdsi_result.result.is_boolean
+                            span = pdsi_result.result.name
+                            / label.result-checkbox
+                              /- checked = pdsi_result.send("value_#{year}") == 0 ? false : true
+                              /= check_box_tag '', '1', checked, { data: { field: "value_#{year}" }}
+                          -else
+                            = text_field_tag "data_value_#{pdsi_result.id}_#{year}", pdsi_result.send("value_#{year}"), { class: 'result-field colored-border', data: { field: "value_#{year}", limit: pdsi_result.result.send("value_#{year}") }}
+                            span
+                              == pdsi_result.editable_value year
+                .plano-anual
+                  .show-more.colored-border
+                    p.title-value PLANO ANUAL 2016
 
-                      table.tables.responsability-result.body
-                        tbody
-                          tr
-                            td
-                              - if !pdsi_result.result.is_boolean
-                                p.value-label #{pdsi_result.value_2016} #{pdsi_result.editable_value_global}
-                              - else
-                                p.value-label #{pdsi_result.result.name}
-                            td  #{responsability.initial_date}
-                            td  #{responsability.deadline}
-                            td
-                              .people.colored-border.single
-                                ul
-                                  - unless responsability.person.nil?
-                                    li.person
-                                      label.people-checkbox
-                                        strong = responsability.person.name
-                                        | &nbsp;
-                                        span
-                                          | (#{responsability.person.location})
-                            td
-                                ul
-                                  - responsability.corresponsabilities.includes(:person).each do |person|
-                                    li.person
-                                      label.people-checkbox
-                                        strong = person.person.name
-                                        | &nbsp;
-                                        span
-                                          | (#{person.person.location})
+                  - responsability = pdsi_result.result.responsability_result(@pdsi)
+                  .responsability.resp-item data-id="#{responsability.id}"
+                    table.tables.responsability-result.head
+                      thead
+                        tr
+                          th RESULTADO 2016
+                          th INÍCIO
+                          th TÉRMINO
+                          th RESPONSÁVEL
+                          th CORRESPONSÁVEIS
 
-                      - responsability_references = ResponsabilityReference.includes(:responsability).where(:pdsi_id => @dsei.id, :result => pdsi_result.result.id)
-                      .children class=('hidden' if (responsability.children.blank? && responsability_references.blank? ) )
-                        table.tables.responsability-result.head
-                          thead
-                            tr
-                              th PRODUTO
-                              th INÍCIO
-                              th TÉRMINO
-                              th RESPONSÁVEL
-                              th CORRESPONSÁVEIS
+                    table.tables.responsability-result.body
+                      tbody
+                        tr
+                          td
+                            - if !pdsi_result.result.is_boolean
+                              p.value-label #{pdsi_result.value_2016} #{pdsi_result.editable_value_global}
+                            - else
+                              p.value-label #{pdsi_result.result.name}
+                          td  #{responsability.initial_date}
+                          td  #{responsability.deadline}
+                          td
+                            .people.colored-border.single
+                              ul
+                                - unless responsability.person.nil?
+                                  li.person
+                                    label.people-checkbox
+                                      strong = responsability.person.name
+                                      | &nbsp;
+                                      span
+                                        | (#{responsability.person.location})
+                          td
+                              ul
+                                - responsability.corresponsabilities.includes(:person).each do |person|
+                                  li.person
+                                    label.people-checkbox
+                                      strong = person.person.name
+                                      | &nbsp;
+                                      span
+                                        | (#{person.person.location})
 
-                        .product-list
-                          - responsability.children.includes(:person, :corresponsabilities).order(:order, :id).each do |product|
-                            .product.resp-item data-id="#{product.id}"
-                              = render 'pdsis/pdf/responsability', { responsability: product }
-                              .children.hidden
-                                - product.children.includes(:person, :corresponsabilities).order(:order, :id).each do |action|
-                                  /.action.resp-item data-id="#{action.id}"
-                                    /= render 'pdsis/pdf/responsability', { responsability: action }
-                              /= render 'pdsis/pdf/responsability_buttons'
-                          - responsability_references.each do |reference|
-                            .product.resp-item.resp-reference  data-result-id="#{reference.responsability.parent_id}" data-id="#{reference.responsability.id}" id="responsability-reference-#{reference.id}"
-                              = render 'pdsis/pdf/responsability', { responsability: reference.responsability }
-                              .children.hidden
-                                - reference.responsability.children.includes(:person, :corresponsabilities).order(:order, :id).each do |action|
-                                  /.action.resp-item data-id="#{action.id}"
-                                    /= render 'pdsis/pdf/responsability', { responsability: action }
-                              /= render 'pdsis/pdf/responsability_buttons'
-          .specific-results-block
-            .specific-axis id="specific_block_#{strategy.id}"
-              - @dsei.specific_pdsi_results.each do |pdsi_result|
-                - if pdsi_result.result.result_strategy_id == axis.id
-                  - j = j + 1
-                  = render 'pdsis/pdf/specific_result', { pdsi_result: pdsi_result, j: j }
-              = hidden_field_tag "j_#{strategy.id}", j+1
-          /.create-specific-result
-            /.center-button.new-specific-result data-strategy-id="#{strategy.id}" INSERIR NOVO RESULTADO ESPECÍFICO
+                    - responsability_references = ResponsabilityReference.includes(:responsability).where(:pdsi_id => @dsei.id, :result => pdsi_result.result.id)
+                    .children class=('hidden' if (responsability.children.blank? && responsability_references.blank? ) )
+
+
+                      .product-list
+                        - responsability.children.includes(:person, :corresponsabilities).order(:order, :id).each do |product|
+                          table.tables.responsability-result.head
+                            thead
+                              tr
+                                th PRODUTO
+                                th INÍCIO
+                                th TÉRMINO
+                                th RESPONSÁVEL
+                                th CORRESPONSÁVEIS
+                          .product.resp-item data-id="#{product.id}"
+                            = render 'pdsis/pdf/responsability', { responsability: product }
+                            .children
+                              table.tables.responsability-result.head
+                                thead
+                                  tr
+                                    th AÇÃO
+                                    th INÍCIO
+                                    th TÉRMINO
+                                    th RESPONSÁVEL
+                                    th CORRESPONSÁVEIS
+                              - product.children.includes(:person, :corresponsabilities).order(:order, :id).each do |action|
+                                .action.resp-item data-id="#{action.id}"
+                                  = render 'pdsis/pdf/responsability', { responsability: action }
+                            /= render 'pdsis/pdf/responsability_buttons'
+                        - responsability_references.each do |reference|
+                          .product.resp-item.resp-reference  data-result-id="#{reference.responsability.parent_id}" data-id="#{reference.responsability.id}" id="responsability-reference-#{reference.id}"
+                            = render 'pdsis/pdf/responsability', { responsability: reference.responsability }
+                            .children
+                              - reference.responsability.children.includes(:person, :corresponsabilities).order(:order, :id).each do |action|
+                                /.action.resp-item data-id="#{action.id}"
+                                  = render 'pdsis/pdf/responsability', { responsability: action }
+                            /= render 'pdsis/pdf/responsability_buttons'
+        .specific-results-block
+          .specific-axis id="specific_block_#{strategy.id}"
+            - @dsei.specific_pdsi_results.each do |pdsi_result|
+              - if pdsi_result.result.result_strategy_id == axis.id
+                - j = j + 1
+                = render 'pdsis/pdf/specific_result', { pdsi_result: pdsi_result, j: j }
+            = hidden_field_tag "j_#{strategy.id}", j+1
+        /.create-specific-result
+          /.center-button.new-specific-result data-strategy-id="#{strategy.id}" INSERIR NOVO RESULTADO ESPECÍFICO
 
 
 

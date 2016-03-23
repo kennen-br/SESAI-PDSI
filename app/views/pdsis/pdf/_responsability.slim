@@ -13,7 +13,6 @@ table.tables.responsability-result.body
             - unless responsability.person.nil?
               li.person
                 label.people-checkbox
-                  = check_box_tag '', '', true, { data: { person_id: responsability.person.id }}
                   strong = responsability.person.name
                   | &nbsp;
                   span
@@ -24,7 +23,6 @@ table.tables.responsability-result.body
             - responsability.corresponsabilities.includes(:person).each do |person|
               li.person
                 label.people-checkbox
-                  = check_box_tag '', '', true, { data: { person_id: person.person.id, id: person.id }}
                   strong = person.person.name
                   | &nbsp;
                   span
