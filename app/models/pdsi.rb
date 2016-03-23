@@ -118,7 +118,7 @@ class Pdsi < ActiveRecord::Base
   end
 
   def compose_item_4
-    #compose_item :analise_situacional_4, '[NOME_DSEI]', dsei.name
+    compose_item :analise_situacional_4, '[NOME_DSEI]', dsei.name
   end
 
   def compose_item_5
