@@ -1,12 +1,7 @@
-ul.accordion
-  li
-    a.js-accordion-trigger[href="javascript:void(0)"]
-      | INVESTIMENTOS
-    .accordion-content style="padding: 10px 20px;"
-      = render 'pdsis/pdf/show_investimentos', {  }
-
-  li
-    a.js-accordion-trigger[href="javascript:void(0)"]
-      | CUSTEIO
-    .accordion-content style="padding: 10px 20px;"
-      = render 'pdsis/pdf/show_custeio', {  }
+h1 Previsão Orçamentária
+h2 Investimentos
+.content
+  = render 'pdsis/pdf/show_investimentos', {  }
+h2 Custeio
+.content
+  = render 'pdsis/pdf/show_custeio', {  }

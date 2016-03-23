@@ -1,6 +1,3 @@
-= link_to edit_budget_projection_path(@pdsi, subsection: 'investimento'), class: 'button pull-right edit-link' do
-  i.fa.fa-pencil
-  | Coletar dados
 .carousel-nav
   .carousel-arrows
     a.pull-left href="javascript:void(0)"
@@ -22,6 +19,9 @@
       .item-content.animated data-index="#{i}" class=('is-active' if i == 0)
         table.table-minimal.budget-table.investiment
           thead
+            tr
+              th[colspan="8"]
+                p.title-value =year
             tr
               th[style="width: 15px;"]
               th

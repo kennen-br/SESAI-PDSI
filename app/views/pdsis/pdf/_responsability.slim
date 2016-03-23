@@ -1,4 +1,4 @@
-= render 'pdsis/pdf/responsability_actions', { resp: responsability }
+/= render 'pdsis/pdf/responsability_actions', { resp: responsability }
 //= render 'pdsis/pdf/modal_comments', { resp: responsability }
 
 table.tables.responsability-result.body
@@ -9,9 +9,6 @@ table.tables.responsability-result.body
       td = text_field_tag '', responsability.deadline? ? responsability.deadline.strftime('%d/%m/%y') : '', class: 'product-date date-field colored-border', data: { field: 'deadline', type: 'Resultado' }
       td
         .people.colored-border.single
-          = text_field_tag '', nil, { class: 'colored-border search', placeholder: 'Insira o responsável'}
-          = icon 'times', class: 'clear-search'
-          = icon 'circle-o-notch', class: 'loading fa-spin'
           ul
             - unless responsability.person.nil?
               li.person
@@ -23,9 +20,6 @@ table.tables.responsability-result.body
                     | (#{responsability.person.location})
       td
         .people.colored-border.multiple
-          = text_field_tag '', nil, { class: 'colored-border search', placeholder: 'Insira o corresponsável'}
-          = icon 'times', class: 'clear-search'
-          = icon 'circle-o-notch', class: 'loading fa-spin'
           ul
             - responsability.corresponsabilities.includes(:person).each do |person|
               li.person
