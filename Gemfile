@@ -15,58 +15,33 @@ gem 'jquery-rails'
 gem 'font-awesome-sass', '~> 4.3.0'
 gem 'jquery-turbolinks'
 gem 'nav_lynx'
-gem 'dynamic_form'
 gem 'paperclip', '~> 4.3'
 gem 'mailchimp-api', require: 'mailchimp'
 gem 'select2-rails'
-# Copy records and its associations
 gem 'amoeba'
-
-# Cookies Problem
-# https://github.com/rails/activerecord-session_store
-# http://stackoverflow.com/a/18581914
 gem 'activerecord-session_store'
-
-# Loading Bar to link
 gem 'pace-rails'
-
 gem 'toastr-rails'
-
-# Nested Forms
 gem 'cocoon'
-
-# Wysiwyg
 gem 'wysiwyg-rails'
-
-# Markdown
 gem 'redcarpet'
-
-# Bourbon Family
 gem 'bourbon'
 gem 'neat'
 gem 'refills'
 gem 'bitters'
-
 gem 'unicorn'
-
-# Authentication
 gem 'devise'
 gem 'devise-i18n'
-
 gem 'pg'
 gem 'seed_dump'
-
-gem 'whenever'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary-edge', '~> 0.12.2.1'
-
-# Audit activerecord
 gem 'espinita'
-
-# Host Configuration
 gem 'rack-canonical-host'
 
 group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'bullet'
   gem 'rails-erd'
   gem 'railroady'
@@ -83,7 +58,6 @@ group :development, :test do
   gem 'sqlite3'
   gem 'rubocop'
   gem 'pry-rails'
-  gem 'web-console', '~> 2.0'
   gem 'quiet_assets'
   gem 'sql_queries_count'
   gem 'simplecov'
