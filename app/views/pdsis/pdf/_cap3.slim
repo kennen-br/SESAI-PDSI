@@ -543,12 +543,12 @@ blockquote Tabela 6. Capacidade instalada e oferta de ações programadas
   - base_polo.emsis.each do |emsi|
     table.tables.pdsi-result-table
       thead
-        tr
-          td
+        tr[style="margin:30px 0;"]
+          td[colspan="4"]
             p.title-label Polo Base
             br
             p.value-label = base_polo.name
-          td
+          td[colspan="3"]
             p.title-label EMSI
             br
             p.value-label = emsi.name
@@ -667,7 +667,6 @@ table.tables.pdsi-result-table
       - InfrastructureBuildingType.order(:id).all.each do |building_type|
         - ib = @pdsi.infrastructure_buildings.where(infrastructure_building_type: building_type)
         - ib.each do |infra|
-          h1 =
           tr
             td = infra.infrastructure_building_type.name
             td = infra.name
@@ -693,29 +692,29 @@ blockquote Tabela 9. Infraestrutura de saúde: Saneamento
       tr
         th Aldeia
         th
-          p.rotate Abastecimento de Água
+          .rotate Abastecimento de Água
         th
-          p.rotate Abastecimento de Água Alternativo
+          .rotate Abastecimento de Água Alternativo
         th
-          p.rotate SAA Completo
+          .rotate SAA Completo
         th
-          p.rotate Nome do SAA
+          .rotate Nome do SAA
         th
-          p.rotate Tipo de Captação de Água
+          .rotate Tipo de Captação de Água
         th
-          p.rotate Fornecimento de Água por Concessionária
+          .rotate Fornecimento de Água por Concessionária
         th
-          p.rotate Tipo de Tratamento de Água
+          .rotate Tipo de Tratamento de Água
         th
-          p.rotate Abastecimento com MQA
+          .rotate Abastecimento com MQA
         th
-          p.rotate SAA com Manutenção
+          .rotate SAA com Manutenção
         th
-          p.rotate Qte MSD individual
+          .rotate Qte MSD individual
         th
-          p.rotate Qte MSD coletiva
+          .rotate Qte MSD coletiva
         th
-          p.rotate Esgotamento Sanitário
+          .rotate Esgotamento Sanitário
       tbody
         - base_pole.villages_with_sanitations.each do |vl|
           - vl.infrastructure_sanitations.each do |is|

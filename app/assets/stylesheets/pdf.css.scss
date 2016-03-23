@@ -121,6 +121,9 @@ table, tr, td, th, tbody, thead, tfoot {
   -moz-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
   -webkit-transform: translateX(-50%) translateY(-50%) rotate(-90deg);
   transform:  translateX(-50%) translateY(-50%) rotate(-90deg);
+  position: relative;
+  bottom: 20px;
+  left:4px;
 }
 .logo {  }
 
@@ -263,7 +266,7 @@ section.caracterizacao .pdsi-fisiographic-data thead th:first-child, .pdsi-fisio
   text-align: center;
 }
 
-section.caracterizacao .fisiographic-table-intro tbody tr td {
+section.caracterizacao .fisiographic-table-intro tbody tr td, section.caracterizacao .fisiographic-table-intro tbody tr td {
   border: none;
   padding: 7px;
   height: 86px;

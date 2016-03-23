@@ -15,7 +15,6 @@ table.tables.pdsi-result-table
       - InfrastructureBuildingType.order(:id).all.each do |building_type|
         - ib = @pdsi.infrastructure_buildings.where(infrastructure_building_type: building_type)
         - ib.each do |infra|
-          h1 =
           tr
             td = infra.infrastructure_building_type.name
             td = infra.name
