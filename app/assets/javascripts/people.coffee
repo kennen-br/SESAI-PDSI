@@ -61,6 +61,14 @@ $(document).ready ->
     $('#workforce-show').click().parent().css({ 'border': "none"  })
     return
 
+$(document).ready ->
+  $('.workforce').click ->
+    setTimeout ->
+      $('.workforce-show').click().parent().css({ 'border': "none"  })
+    , 100
+    return
+
+
   #$(".actions").sticky({topSpacing:0, className:"actions-fixed"});
 
   #$(".menu_estrutura ul .child a").innerHeight($(window).innerHeight()/4)
