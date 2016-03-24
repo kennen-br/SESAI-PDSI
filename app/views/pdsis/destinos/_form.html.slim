@@ -1,6 +1,8 @@
 - content_for :breadcrumb do
   = breadcrumbs [{ name: '3. Caracterização do DSEI', path: pdsis_path(section: 'caracterizacao-do-dsei')}, { name: '3.2.A - Meios de transporte para acesso dos povos indígenas aos serviços de saúde', path: nil}]
 
+h1 POLO BASE: #{@base_polo.name}
+
 .vertical-tabs-container
   .vertical-tabs style="width: 30%;"
     - @dsei.base_polos.order(:id).each do |base_polo|
@@ -9,23 +11,27 @@
         = base_polo.name
   .vertical-tab-content-container style="width: 70%;"
     .vertical-tab-content#destinos-form style="display: block;"
-      - @base_polo.villages.each do |village|
-        fieldset
-          legend
-            | Aldeia de Origem:&nbsp;
-            strong = village.name
-          .field
-            label Muncípio da aldeia: #{village.city_name}
-          - DestinationType.order(:id).each do |destination_type|
-            fieldset
-              legend
-                strong = destination_type.name
-              - partial = 'pdsis/destinos/destination_fields'
-              = f.fields_for :destinations, @pdsi.destinations.where(destination_type: destination_type, origin_village: village) do |destination|
-                == render partial,  f: destination, destination_type: destination_type, village: village
-              .links
-                = link_to_add_association f, :destinations, { class: 'button btn-sm', partial: partial, render_options: { locals: { destination_type: destination_type, village: village } } } do
-                  = icon 'plus'
-                  | Adicionar #{destination_type.name}
+      fieldset
+        legend
+          |Polo Base &nbsp;
+          strong = @base_polo.name
+        - @base_polo.villages.each do |village|
+          fieldset
+            legend
+              | Aldeia de Origem:&nbsp;
+              strong = village.name
+            .field
+              label Muncípio da aldeia: #{village.city_name}
+            - DestinationType.order(:id).each do |destination_type|
+              fieldset
+                legend
+                  strong = destination_type.name
+                - partial = 'pdsis/destinos/destination_fields'
+                = f.fields_for :destinations, @pdsi.destinations.where(destination_type: destination_type, origin_village: village) do |destination|
+                  == render partial,  f: destination, destination_type: destination_type, village: village
+                .links
+                  = link_to_add_association f, :destinations, { class: 'button btn-sm', partial: partial, render_options: { locals: { destination_type: destination_type, village: village } } } do
+                    = icon 'plus'
+                    | Adicionar #{destination_type.name}
 
 
