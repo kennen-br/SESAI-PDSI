@@ -10,8 +10,6 @@
       = icon 'angle-right'
   .carousel-list
     .slider
-      a href="javascript:void(0)"
-        | Previsão Orçamentária do ano:
       a.is-active href="javascript:void(0)" data-index="1"
         | 2016
       a href="javascript:void(0)" data-index="2"
@@ -47,7 +45,7 @@
                       = number_to_currency(eval("bf.revised_forecast_#{year}"))
                       br
                       - if bf.updated_at
-                        = bf.updated_at.strftime("Atualizada em %m/%d/%Y")
+                        = bf.updated_at.strftime("Atualizada em %d/%m/%Y")
                 - elsif bf.cost.cost_type == 1
                   tr[data-category=("#{bf.cost.id}") data-index=("#{bf.cost.id}") style="#{ 'background-color: #F7C4A4' if bf.cost.name == 'CONTRATOS' }"]
                     td = bf.cost.name

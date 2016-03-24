@@ -125,6 +125,7 @@ ul.accordion-tabs-minimal
                   th SESAI/DSEI
                   th Munícípio
                   th Estado
+                  th Federal
                   th Convênio
                   th Mais Médicos
                   th Terceirização
@@ -135,6 +136,7 @@ ul.accordion-tabs-minimal
                     td = hr.sesai_dsei
                     td = hr.municipio
                     td = hr.estado
+                    td = hr.federal
                     td = hr.convenio
                     td = hr.mais_medicos
                     td = hr.terceirizacao
@@ -148,7 +150,7 @@ ul.accordion-tabs-minimal
                 tr
                   th[colspan="2" style="border-bottom: 1px solid #ddd;"] Total de indígenas
                   th[colspan="2" style="border-bottom: 1px solid #ddd;"]
-                    = @pdsi.demographic_data.populacao_indigena
+                    = @pdsi.dsei_indigenous_worker
                 tr
                   th Categoria Profissional
                   th RH Existente
