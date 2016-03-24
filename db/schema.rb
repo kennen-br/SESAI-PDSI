@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160316165829) do
+ActiveRecord::Schema.define(version: 20160324161647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -595,6 +595,7 @@ ActiveRecord::Schema.define(version: 20160316165829) do
     t.integer  "actual_sum"
     t.integer  "indigenous_sum"
     t.integer  "workforce_needed"
+    t.string   "federal"
   end
 
   add_index "pdsi_human_resources", ["human_resource_function_id"], name: "index_pdsi_human_resources_on_human_resource_function_id", using: :btree

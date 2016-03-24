@@ -127,6 +127,7 @@ ul.accordion-tabs-minimal
                   th SESAI/DSEI
                   th Munícípio
                   th Estado
+                  th Federal
                   th Convênio
                   th Mais Médicos
                   th Terceirização
@@ -134,10 +135,11 @@ ul.accordion-tabs-minimal
                 = f.fields_for :pdsi_human_resources, @pdsi.human_resources_with_values do |hr|
                   tr
                     td = hr.object.human_resource_function.name
-                    td = hr.number_field :sesai_dsei
-                    td = hr.number_field :municipio
-                    td = hr.number_field :estado
-                    td = hr.number_field :convenio
-                    td = hr.number_field :mais_medicos
-                    td = hr.number_field :terceirizacao
+                    td = hr.number_field :sesai_dsei, readonly: true
+                    td = hr.number_field :municipio, readonly: true
+                    td = hr.number_field :estado, readonly: true
+                    td = hr.number_field :federal, readonly: true
+                    td = hr.number_field :convenio, readonly: true
+                    td = hr.number_field :mais_medicos, readonly: true
+                    td = hr.number_field :terceirizacao, readonly: true
 
