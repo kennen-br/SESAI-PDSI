@@ -13,3 +13,27 @@ fieldset style="position: relative;"
   .field
     = f.label :file
     = f.file_field :file
+
+/Exemplo para aplicar (Mapa/)
+/.map
+/  = image_tag @pdsi.map.url
+/
+/h2 = f.object.map.exists? ? 'Alterar mapa' : 'Inserir mapa'
+/.field
+/  = f.file_field :map
+/
+/- if f.object.map.exists?
+/  h2 OU
+/  = link_to delete_map_path(@pdsi), data: { confirm: 'Tem certeza? Esta operação é irreversível!' }, method: :delete, class: 'button' do
+/    i.fa.fa-trash
+/    | Excluir mapa atual
+/
+/javascript:
+/  $('document').ready(function(){
+/    $('form.edit_pdsi').submit(function(){
+/      if ($('#pdsi_map').get(0).files.length === 0){
+/        alert('Arquivo não pode ficar em branco');
+/        return false;
+/      }
+/    });
+/  });
