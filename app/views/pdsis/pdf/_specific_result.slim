@@ -2,48 +2,24 @@
   .result
     - if defined? @j
       - j = @j.to_s
-    h4 = "Resultado #{j} (Específico)"
+    p.title-value = "Resultado #{j} (Específico)"
     .result-name.old-input
       - if defined? @j
         = text_area_tag "result_name_#{pdsi_result.id}", "", { class: 'specific-result-text', placeholder: "Descreva o resultado específico do DSEI", data: { field: "name" } }
       - else
         = text_area_tag "result_name_#{pdsi_result.id}", pdsi_result.result.name, { class: 'specific-result-text', data: { field: "name" } }
-    .show-more
-      span.more
-        = icon 'chevron-down'
-        | &nbsp;Ver Mais
-      span.less
-        = icon 'chevron-up'
-        | &nbsp;Ver Menos
-    .helpers
-      /.pointer.show-default-values default-values-result-id="#{pdsi_result.id}" Restaurar valores de referência
-      / REUSING CLASS
-      .tooltip-item.orientacoes-dsei.delete-result data-id="#{pdsi_result.result.id}"
-        = icon 'close'
-        .tooltip
-          p
-            = "Excluir resultado específico"
-      .tooltip-item.orientacoes-dsei
-        = icon 'info-circle'
-        .tooltip
-          p
-            = pdsi_result.result.orientacoes_dsei? ? pdsi_result.result.orientacoes_dsei : "Não há orientações"
 
   .result-products
     .years
       - (2016..2019).map do |year|
         .year
-          h4 = year
+          p.title-value = year
           .value
             = text_field_tag '', pdsi_result.send("value_#{year}"), { class: 'result-field colored-border', data: { field: "value_#{year}" }}
             span
               = text_area_tag '', pdsi_result.result.dsei_specific_result(@dsei).send("text_#{year}"), { class: 'specific-text colored-border', data: { field: "text_#{year}" }, placeholder: 'Texto descritivo' }
-    .plano-anual
-      .show-more.colored-border
-        span.more
-          = icon 'chevron-down'
-          | &nbsp;Plano Anual
-        h2 PLANO ANUAL
+
+        p.title-value PLANO ANUAL 2016
 
       - responsability = pdsi_result.result.responsability_result(@pdsi)
       .responsability.resp-item data-id="#{responsability.id}"
@@ -70,35 +46,16 @@
             - responsability.children.includes(:person, :corresponsabilities).order(:order, :id).each do |product|
               .product.resp-item data-id="#{product.id}"
                 = render 'pdsis/pdf/responsability', { responsability: product }
-                .children.hidden
+                .children
                   - product.children.includes(:person, :corresponsabilities).order(:order, :id).each do |action|
                     .action.resp-item data-id="#{action.id}"
                       = render 'pdsis/pdf/responsability', { responsability: action }
-                .actions
-                  a.button.colored-border.add-action
-                    = icon 'plus'
-                    | &nbsp;Inserir Ações
-                  a.button.colored-border.link-product
-                    = icon 'pencil'
-                    | &nbsp;Associar produto a outro resultado
+
             - responsability_references.each do |reference|
               .product.resp-item data-id="#{reference.responsability.id}" id="responsability-reference-#{reference.id}"
                 = render 'pdsis/pdf/responsability', { responsability: reference.responsability }
-                .children.hidden
+                .children
                   - reference.responsability.children.includes(:person, :corresponsabilities).order(:order, :id).each do |action|
                     .action.resp-item.resp-reference data-id="#{action.id}"
                       = render 'pdsis/pdf/responsability', { responsability: action }
-                .actions
-                  a.button.colored-border.add-action
-                    = icon 'plus'
-                    | &nbsp;Inserir Ações
-                  a.button.colored-border.link-product
-                    = icon 'pencil'
-                    | &nbsp;Associar produto a outro resultado
 
-        .actions
-          a.button.colored-border.add-product
-            = icon 'plus'
-            | &nbsp;Inserir novo produto
-          a.button.colored-border.colored-bg.close
-            | Fechar
