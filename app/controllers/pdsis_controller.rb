@@ -5,7 +5,7 @@ class PdsisController < ApplicationController
   before_action :set_base_polo,   only: [:edit, :health_indicators, :update]
   before_action :set_subsection,  only: [:edit, :edit_category_budgets, :health_indicators, :update]
   before_action :pdf_screen, only: [:render_pdf]
-  
+
   # GET /pdsis
   def index
   end
@@ -86,18 +86,18 @@ class PdsisController < ApplicationController
       include ApplicationHelper
     end
     template_cover = av.render template: 'pdsis/pdf/front.slim', layout: nil, locals: {pdsi: @pdsi}
-    media_type = 
+    media_type =
     respond_to do |format|
       format.html
       format.pdf do
         render  pdf: 'pdsi',
                 encoding: 'UTF-8',
                 outline_depth: 2,
-                footer: {  
-                  right: "Distrito #{@pdsi.dsei.name}     [page]", 
-                  encoding: 'UTF-8', 
-                  left: 'PLANO DISTRITAL DE SAÚDE INDÍGENA 2016-2019', 
-                  font_name: 'DINPro', 
+                footer: {
+                  right: "Distrito #{@pdsi.dsei.name}     [page]",
+                  encoding: 'UTF-8',
+                  left: 'PLANO DISTRITAL DE SAÚDE INDÍGENA 2016-2019',
+                  font_name: 'DINPro',
                   font_size: 6,
                   spacing:10
                 },
@@ -105,9 +105,9 @@ class PdsisController < ApplicationController
                 cover: template_cover,
                 print_media_type: true,
                 margin: {
-                  top: 25, 
-                  bottom: 30, 
-                  left: 20, 
+                  top: 25,
+                  bottom: 30,
+                  left: 20,
                   right: 20
                 },
                 toc: {
@@ -115,9 +115,9 @@ class PdsisController < ApplicationController
                   disable_toc_links: true,
                   level_indentation: 2,
                   text_size_shrink: 0.5,
-                  header_text: "Sumário", 
-                  text_size_shrink: 0.8, 
-                  
+                  header_text: "Sumário",
+                  text_size_shrink: 0.8,
+
                   xsl_style_sheet: Rails.root.join('app', 'assets', 'stylesheets', 'style.xsl').to_s #--dump-default-toc-xsl
                   #show_as_html: params.key?('debug')
                 }
@@ -130,7 +130,7 @@ class PdsisController < ApplicationController
   def pdf_screen
     @pdf_atribute = request.env['REQUEST_PATH'].include?('.pdf') ? 'print' : 'screen'
   end
-  
+
   # Use callbacks to share common setup or constraints between actions.
   def set_pdsi
     if @section.to_s[-5,5] == 'sesai'
@@ -258,7 +258,7 @@ class PdsisController < ApplicationController
         :id, :projection_budget_item_id, :qtde_existente_2015, :qtde_necessaria, :valor_unitario_medio, :previsao_orcamentaria
       ],
       pdsi_attached_files_attributes: [
-        :id, :name, :file
+        :id, :name, :file, :_destroy
       ],
       budget_forecasts_attributes: [
         :id, :reference_forecast, :budget_forecast,
