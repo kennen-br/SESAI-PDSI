@@ -80,7 +80,7 @@ class CostsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def cost_params
-      params.require(:cost).permit(:id, :name, :parent_id, :cost_type, :data_type)
+      params.require(:cost).permit(:id, :name, :parent_id, :cost_type, :data_type, :tooltip)
     end
 
 end
