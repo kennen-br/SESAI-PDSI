@@ -1,0 +1,7 @@
+.budget-orientacoes
+  .tooltip-item-projecao.orientacoes-dsei
+    = icon 'info-circle'
+    .tooltip-projecao-orcamentaria
+      p
+        - klass = budget.class.name == 'BudgetInvestment' ? 'investment' : 'cost'
+        = budget.send(klass).tooltip ? budget.send(klass).tooltip : 'Não há orientações'
