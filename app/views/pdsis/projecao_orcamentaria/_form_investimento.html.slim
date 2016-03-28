@@ -92,7 +92,7 @@ h2.section-title Investimentos
                     = b.hidden_field "forecast_amount_#{year}", value: (number_with_precision(eval("b.object.forecast_amount_#{year}"), precision: 2, separator: '.', delimiter: '') || 0), id: "hc#{b.object.id}y#{year}"
                     = text_field_tag '', number_with_precision(eval("b.object.forecast_amount_#{year}"), precision: 2), class: "group1-input-#{year} currency-input fc#{b.object.id}y#{year}"|| 0, id: "fc#{b.object.id}y#{year}", readonly: true
                   td
-                    = render 'pdsis/projecao_orcamentaria/orientacoes_investimento', { budget: b.object, year: year }
+                    = render 'pdsis/projecao_orcamentaria/tooltip', { budget: b.object }
 
               - elsif b.object.investment.parent_id === 2..3
                 - item_id = "#{b.object.object_id}"
@@ -119,7 +119,8 @@ h2.section-title Investimentos
                     = b.hidden_field "forecast_amount_#{year}", value: (number_with_precision(eval("b.object.forecast_amount_#{year}"), precision: 2, separator: '.', delimiter: '') || 0), id: "hc#{b.object.id}y#{year}"
                     = text_field_tag '', number_with_precision(eval("b.object.forecast_amount_#{year}"), precision: 2), class: "group#{b.object.investment.parent_id}-input-#{year} currency-input fc#{b.object.id}y#{year}"|| 0, id: "fc#{b.object.id}y#{year}", readonly: true
                   td
-                    = render 'pdsis/projecao_orcamentaria/orientacoes_investimento', { budget: b.object, year: year }
+                    = render 'pdsis/projecao_orcamentaria/tooltip', { budget: b.object }
+
               = b.fields_for :investment_items do |item|
                 - if item.object.year_reference == year.to_s
                   = render 'investment_item_fields', f: item, year: year, cache: true
