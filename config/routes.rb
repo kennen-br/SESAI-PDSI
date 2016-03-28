@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :budget_correction_factors
   resources :costs
+  resources :investments
 
   post '/image-upload',     to: 'application#image_upload', as: :image_upload
   post '/procurar-pessoa',  to: 'people#search',            as: :search
