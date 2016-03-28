@@ -195,6 +195,10 @@ Rails.application.routes.draw do
        to: 'application#set_dsei_and_pdsi_to_sesai',
        as: :set_dsei_and_pdsi_to_sesai
 
+  post '/limpar-dsei',
+       to: 'application#unset_dsei_and_pdsi_to_sesai',
+       as: :unset_dsei_and_pdsi_to_sesai
+
   scope '/locations' do
     get '/villages', to: 'locations#villages'
     get '/cities', to: 'locations#cities'
