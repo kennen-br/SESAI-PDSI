@@ -12,11 +12,15 @@
 
   .field
     = f.label "Grupo/Subgrupo"
-    = f.select :parent_id, options_from_collection_for_select(@parent_costs, 'id', 'name'), :include_blank => true
+    = f.select :parent_id, options_from_collection_for_select(@parent_costs, 'id', 'name'), include_blank: true
 
   .field
     = f.label :tipo
-    = f.select :cost_type, options_for_select([["Grupo", "1"], ["Subgrupo", "2"], ["Item", "3"]], @cost.cost_type), :prompt => 'Selecione um tipo'
+    = f.select :cost_type, options_for_select([["Grupo", "1"], ["Subgrupo", "2"], ["Item", "3"]], @cost.cost_type), prompt: 'Selecione um tipo'
+
+  .field
+    = f.label :tooltip, 'Orientações'
+    = f.text_area :tooltip
 
     /Hidden value
     = f.hidden_field :data_type, value: "money"
