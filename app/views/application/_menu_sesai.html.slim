@@ -16,6 +16,6 @@ li.child
     | 6. <span>Projeção orçamentária 2016-2019</span>
   = nav_link_to pdsis_path(section: 'anexos-sesai') do
     | 7. <span>Anexos</span>
+  - if current_user.sesai_central? and session[:dsei]
+    = render 'menu_dsei'
 
-- if current_user.sesai_central? and session[:dsei]
-  = render 'menu_dsei'
