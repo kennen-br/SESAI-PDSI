@@ -16,3 +16,5 @@ $(document).on 'click', '.remove', ->
     $('form').submit()
     return
   return
+
+
