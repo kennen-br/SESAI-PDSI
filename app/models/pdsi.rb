@@ -83,6 +83,7 @@ class Pdsi < ActiveRecord::Base
 
   has_attached_file :map, styles: { medium: '300x300>', thumb: '100x100>' }, default_url: '/images/:style/missing.png'
   validates_attachment_content_type :map, content_type: /\Aimage\/.*\Z/
+  # validates_with AttachmentSizeValidator, attributes: :map, less_than: 2.megabytes
 
   attr_accessor :text_template
 
@@ -117,7 +118,7 @@ class Pdsi < ActiveRecord::Base
   end
 
   def compose_item_4
-    #compose_item :analise_situacional_4, '[NOME_DSEI]', dsei.name
+    compose_item :analise_situacional_4, '[NOME_DSEI]', dsei.name
   end
 
   def compose_item_5
@@ -348,6 +349,10 @@ class Pdsi < ActiveRecord::Base
       pdsi_human_resources << PdsiHumanResource.new(human_resource_function: human_resource_function)
     end
     human_resources_with_values
+  end
+
+  def dsei_indigenous_worker
+     Person.where(indigenous_worker: true).count
   end
 
   private

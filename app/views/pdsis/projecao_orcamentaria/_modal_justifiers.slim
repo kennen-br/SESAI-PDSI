@@ -1,0 +1,11 @@
+.modal.justifiers
+  input.modal-state type="checkbox" id=("justifiers-#{budget.id}-#{year}")
+  .modal-window.investment
+    .modal-inner
+      label.modal-close for=("justifiers-#{budget.id}-#{year}")
+      h1
+        | Justificativas
+      .justifiers-list.colored-border
+
+      = f.fields_for :budget_justifiers, budget.with_justifier(budget.id) do |j|
+        == render 'pdsis/projecao_orcamentaria/justifier', { f: j }

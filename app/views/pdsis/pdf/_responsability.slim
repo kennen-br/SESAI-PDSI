@@ -1,0 +1,29 @@
+/= render 'pdsis/pdf/responsability_actions', { resp: responsability }
+//= render 'pdsis/pdf/modal_comments', { resp: responsability }
+
+table.tables.responsability-result.body
+  tbody
+    tr
+      td = text_area_tag '', responsability.name,  class: 'product-name colored-border', data: { field: 'name', type: 'Resultado' }
+      td = text_field_tag '', responsability.initial_date? ? responsability.initial_date.strftime('%d/%m/%y') : '', class: 'product-date date-field colored-border', data: { field: 'initial_date', type: 'Resultado' }
+      td = text_field_tag '', responsability.deadline? ? responsability.deadline.strftime('%d/%m/%y') : '', class: 'product-date date-field colored-border', data: { field: 'deadline', type: 'Resultado' }
+      td
+        .people.colored-border.single
+          ul
+            - unless responsability.person.nil?
+              li.person
+                label.people-checkbox
+                  strong = responsability.person.name
+                  | &nbsp;
+                  span
+                    | (#{responsability.person.location})
+      td
+        .people.colored-border.multiple
+          ul
+            - responsability.corresponsabilities.includes(:person).each do |person|
+              li.person
+                label.people-checkbox
+                  strong = person.person.name
+                  | &nbsp;
+                  span
+                    | (#{person.person.location})

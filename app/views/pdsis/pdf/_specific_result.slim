@@ -1,0 +1,61 @@
+.result-container.specific-result id=("result-#{pdsi_result.result.id}") data-id="#{pdsi_result.id}" data-result-id="#{pdsi_result.result.id}"
+  .result
+    - if defined? @j
+      - j = @j.to_s
+    p.title-value = "Resultado #{j} (Específico)"
+    .result-name.old-input
+      - if defined? @j
+        = text_area_tag "result_name_#{pdsi_result.id}", "", { class: 'specific-result-text', placeholder: "Descreva o resultado específico do DSEI", data: { field: "name" } }
+      - else
+        = text_area_tag "result_name_#{pdsi_result.id}", pdsi_result.result.name, { class: 'specific-result-text', data: { field: "name" } }
+
+  .result-products
+    .years
+      - (2016..2019).map do |year|
+        .year
+          p.title-value = year
+          .value
+            = text_field_tag '', pdsi_result.send("value_#{year}"), { class: 'result-field colored-border', data: { field: "value_#{year}" }}
+            span
+              = text_area_tag '', pdsi_result.result.dsei_specific_result(@dsei).send("text_#{year}"), { class: 'specific-text colored-border', data: { field: "text_#{year}" }, placeholder: 'Texto descritivo' }
+
+        p.title-value PLANO ANUAL 2016
+
+      - responsability = pdsi_result.result.responsability_result(@pdsi)
+      .responsability.resp-item data-id="#{responsability.id}"
+        table.tables.responsability-result.head
+          thead
+            tr
+              th RESULTADO
+              th INÍCIO
+              th TÉRMINO
+              th RESPONSÁVEL
+              th CORRESPONSÁVEIS
+        = render 'pdsis/pdf/responsability', { responsability: responsability }
+        - responsability_references = ResponsabilityReference.includes(:responsability).where(:pdsi_id => pdsi_result.pdsi_id, :result => pdsi_result.result.id)
+        .children class=('hidden' if (responsability.children.blank? && responsability_references.blank? ) )
+          table.tables.responsability-result.head
+            thead
+              tr
+                th PRODUTO
+                th INÍCIO
+                th TÉRMINO
+                th RESPONSÁVEL
+                th CORRESPONSÁVEIS
+          .product-list
+            - responsability.children.includes(:person, :corresponsabilities).order(:order, :id).each do |product|
+              .product.resp-item data-id="#{product.id}"
+                = render 'pdsis/pdf/responsability', { responsability: product }
+                .children
+                  - product.children.includes(:person, :corresponsabilities).order(:order, :id).each do |action|
+                    .action.resp-item data-id="#{action.id}"
+                      = render 'pdsis/pdf/responsability', { responsability: action }
+
+            - responsability_references.each do |reference|
+              .product.resp-item data-id="#{reference.responsability.id}" id="responsability-reference-#{reference.id}"
+                = render 'pdsis/pdf/responsability', { responsability: reference.responsability }
+                .children
+                  - reference.responsability.children.includes(:person, :corresponsabilities).order(:order, :id).each do |action|
+                    .action.resp-item.resp-reference data-id="#{action.id}"
+                      = render 'pdsis/pdf/responsability', { responsability: action }
+

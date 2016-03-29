@@ -1,0 +1,19 @@
+- file_types = ['image/jpeg', 'image/png', 'image/gif']
+
+- if f.object.file_file_name
+  - if file_types.include?(f.object.file_content_type)
+    = image_tag f.object.file
+  - else
+    = icon 'file-archive-o', class: 'fa-3x'
+
+  = link_to 'Baixar Arquivo', f.object.file.url(:original, false), target: '_blank'
+- else
+  = f.file_field :file
+  = submit_tag 'Enviar arquivo'
+
+.justifier[style="margin-top: 20px;"]
+  = f.text_area :description, { placeholder: 'Insira sua justificativa', id: "#{f.object.id}" }
+
+.right
+  p Apagar ?
+  = f.check_box :_destroy

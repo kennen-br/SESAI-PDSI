@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :budget_correction_factors
   resources :costs
+  resources :investments
 
   post '/image-upload',     to: 'application#image_upload', as: :image_upload
   post '/procurar-pessoa',  to: 'people#search',            as: :search
@@ -30,6 +31,10 @@ Rails.application.routes.draw do
   end
 
   scope '/meu-pdsi' do
+    post '/:id/alterar/projecao-orcamentaria/editar-justificativa',
+         to: 'budget_justifiers#edit_justifier',
+         as: :budget_justifier_edit_justifier
+
     post '/:id/alterar/projecao-orcamentaria/new_budget_forecast_by_cost',
          to: 'pdsis#new_budget_forecast_by_cost',
          as: :new_budget_forecast_by_cost
@@ -159,6 +164,7 @@ Rails.application.routes.draw do
           defaults: { section: 'resultados-esperados', tab: 'especificos' },
           to: 'specific_results#update',
           as: :update_specific_results
+    get '/:id/pdf', to: 'pdsis#render_pdf'
   end
 
   scope '/templates' do
@@ -188,6 +194,10 @@ Rails.application.routes.draw do
   post '/selecionar-dsei',
        to: 'application#set_dsei_and_pdsi_to_sesai',
        as: :set_dsei_and_pdsi_to_sesai
+
+  post '/limpar-dsei',
+       to: 'application#unset_dsei_and_pdsi_to_sesai',
+       as: :unset_dsei_and_pdsi_to_sesai
 
   scope '/locations' do
     get '/villages', to: 'locations#villages'

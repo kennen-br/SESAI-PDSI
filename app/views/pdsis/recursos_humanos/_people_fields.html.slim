@@ -1,18 +1,19 @@
+- bond = f.object.bond.strip if f.object.bond
 tr
   td
     = f.text_field :name
   td
-    = f.collection_select :human_resource_function_id, HumanResourceFunction.order(:name).all, :id, :name, include_blank: true
-  td
     = f.text_field :role
+  td
+    = f.collection_select :human_resource_function_id, HumanResourceFunction.order(:name).all, :id, :name, include_blank: true
   td
     = f.text_field :location
   td
-    = f.text_field :workplace
+    = f.select  :workplace, options_for_select(['UBSI', 'Polo Base tipo 1', 'Polo Base tipo 2', 'Casai', 'Sead', 'Selog', 'Sesani', 'Seofi', 'Segep', 'Gabinete', 'Diasi'], f.object.workplace), include_blank: true
+  td.rh-bond
+    = f.select :bond, options_for_select(f.object.bond_selection.keys, bond), include_blank: true
   td
-    = f.select :bond, options_for_select(['ATIVO PERMANENTE', 'MISSÃO EVANGÉLICA CAIUÁ'], f.object.bond), include_blank: true
-  td
-    = f.text_field :bond_type
+    = f.text_field :bond_type, readonly: true, value: "#{f.object.bond_selection[bond]}"
   td
     = f.check_box :indigenous_worker
     = f.hidden_field :dsei_id, value: @pdsi.id

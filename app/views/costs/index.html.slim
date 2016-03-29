@@ -1,3 +1,6 @@
+.right
+  = link_to 'Voltar', pdsis_path(section: 'projecao-orcamentaria-sesai')
+
 h1 Custos
 
 table
@@ -6,13 +9,14 @@ table
       th Nome
       th Parente
       th Tipo
+      th Orientações
       th
 
   tbody
     - @costs.each do |cost|
       tr
         td = cost.name
-        td 
+        td
           - if cost.parent_id
             = @costs.find(cost.parent_id).name
         - if cost.cost_type == 1
@@ -24,6 +28,8 @@ table
         - else
           td
         td
-          - if cost.name != "CONTRATOS" && cost.name != "CUSTEIO DE EDIFICAÇÕES" 
+          = cost.tooltip ? cost.tooltip : 'Não há orientações'
+        td
+          - if cost.name != "CONTRATOS" && cost.name != "CUSTEIO DE EDIFICAÇÕES"
             = link_to 'Editar', edit_cost_path(cost)
 p = link_to 'Novo custo', new_cost_path

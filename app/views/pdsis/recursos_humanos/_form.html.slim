@@ -5,14 +5,14 @@
 ul.accordion-tabs-minimal
   li.tab-header-and-content
     a.tab-link
-      | Pessoas
+      | RH existente
     .tab-content
       table.tables.pdsi-result-table
         thead
           tr
             th Nome
             th Categoria Profissional
-            th Função
+            th Categoria Profissional Simplificada
             th Lotação
             th Local de Trabalho
             th Vínculo
@@ -29,98 +29,117 @@ ul.accordion-tabs-minimal
           | Adicionar Pessoa
 
   li.tab-header-and-content
-    a.tab-link
-      | Categoria Profissional
+    a.tab-link.workforce
+      | Dimensionamento de necessidades
     .tab-content
-      #pdsi_human_resources
-      h1 Quantidade Atual
-      table.tables.pdsi-result-table
-        thead
-          tr
-            th[rowspan="2" style="width: 200px;"] Categoria Profissional
-            th[colspan="4" style="border-bottom: 1px solid #ddd;"]
-            th[colspan="7" style="border-bottom: 1px solid #ddd;"] Sede do DSEI
-          tr
-            th[style="border-left: 1px solid #ddd;"] UBSI
-            th Polo Base Tipo 1
-            th Polo Base Tipo 2
-            th CASAI
-            th SEAD
-            th SELOG
-            th SESANE
-            th SEOFI
-            th SGEP
-            th Gabinete
-            th DIASI
-        tbody
-          = f.fields_for :pdsi_human_resources, @pdsi.human_resources_with_values do |hr|
-            tr
-              td = hr.object.human_resource_function.name
-              td = hr.number_field :ubsi_atual
-              td = hr.number_field :polo_base_tipo_1_atual
-              td = hr.number_field :polo_base_tipo_2_atual
-              td = hr.number_field :casai_atual
-              td = hr.number_field :sead_atual
-              td = hr.number_field :selog_atual
-              td = hr.number_field :sesane_atual
-              td = hr.number_field :seofi_atual
-              td = hr.number_field :sgep_atual
-              td = hr.number_field :gabinete_atual
-              td = hr.number_field :diasi_atual
+      ul.accordion-tabs-minimal
+        li.tab-header-and-content
+          a.tab-link.workforce-show
+            | Estabelecimentos
+          .tab-content
+            table.tables.pdsi-result-table
+              thead
+                tr
+                  th[rowspan="2" style="width: 200px;"] Categoria Profissional
+                  th[colspan="2" style="border-bottom: 1px solid #ddd;"] UBSI
+                  th[colspan="2" style="border-bottom: 1px solid #ddd;"] Polo Base Tipo 1
+                  th[colspan="2" style="border-bottom: 1px solid #ddd;"] Polo Base Tipo 2
+                  th[colspan="2" style="border-bottom: 1px solid #ddd;"] CASAI
+                tr
+                  th[style="border-left: 1px solid #ddd;"] Atual
+                  th Nescessário
+                  th Atual
+                  th Nescessário
+                  th Atual
+                  th Nescessário
+                  th Atual
+                  th Nescessário
+              tbody
+                = f.fields_for :pdsi_human_resources, @pdsi.human_resources_with_values do |hr|
+                  tr
+                    td = hr.object.human_resource_function.name
+                    td = hr.object.ubsi_atual
+                    td = hr.number_field :ubsi_necessaria
+                    td = hr.object.polo_base_tipo_1_atual
+                    td = hr.number_field :polo_base_tipo_1_necessaria
+                    td = hr.object.polo_base_tipo_2_atual
+                    td = hr.number_field :polo_base_tipo_2_necessaria
+                    td = hr.object.casai_atual
+                    td = hr.number_field :casai_necessaria
 
-      h1 Quantidade necessária para atender adequadamente o DSEI
-      table.tables.pdsi-result-table
-        thead
-          tr
-            th[rowspan="2" style="width: 200px;"] Categoria Profissional
-            th[colspan="4" style="border-bottom: 1px solid #ddd;"]
-            th[colspan="7" style="border-bottom: 1px solid #ddd;"] Sede do DSEI
-          tr
-            th[style="border-left: 1px solid #ddd;"] UBSI
-            th Polo Base Tipo 1
-            th Polo Base Tipo 2
-            th CASAI
-            th SEAD
-            th selog
-            th sesane
-            th seofi
-            th sgep
-            th gabinete
-            th diasi
-        tbody
-          = f.fields_for :pdsi_human_resources, @pdsi.human_resources_with_values do |hr|
-            tr
-              td = hr.object.human_resource_function.name
-              td = hr.number_field :ubsi_necessaria
-              td = hr.number_field :polo_base_tipo_1_necessaria
-              td = hr.number_field :polo_base_tipo_2_necessaria
-              td = hr.number_field :casai_necessaria
-              td = hr.number_field :sead_necessaria
-              td = hr.number_field :selog_necessaria
-              td = hr.number_field :sesane_necessaria
-              td = hr.number_field :seofi_necessaria
-              td = hr.number_field :sgep_necessaria
-              td = hr.number_field :gabinete_necessaria
-              td = hr.number_field :diasi_necessaria
+        li.tab-header-and-content
+          a.tab-link
+            | Sede do DSEI
+          .tab-content
+            table.tables.pdsi-result-table
+              thead
+                tr
+                  th[rowspan="2" style="width: 200px;"] Categoria Profissional
+                  th[colspan="2" style="border-bottom: 1px solid #ddd;"] SEAD
+                  th[colspan="2" style="border-bottom: 1px solid #ddd;"] SELOG
+                  th[colspan="2" style="border-bottom: 1px solid #ddd;"] SESANE
+                  th[colspan="2" style="border-bottom: 1px solid #ddd;"] SEOFI
+                  th[colspan="2" style="border-bottom: 1px solid #ddd;"] SGEP
+                  th[colspan="2" style="border-bottom: 1px solid #ddd;"] Gabinete
+                  th[colspan="2" style="border-bottom: 1px solid #ddd;"] DIASI
+                tr
+                  th[style="border-left: 1px solid #ddd;"] Atual
+                  th Nesc.
+                  th Atual
+                  th Nesc.
+                  th Atual
+                  th Nesc.
+                  th Atual
+                  th Nesc.
+                  th Atual
+                  th Nesc.
+                  th Atual
+                  th Nesc.
+                  th Atual
+                  th Nesc.
+              tbody
+                = f.fields_for :pdsi_human_resources, @pdsi.human_resources_with_values do |hr|
+                  tr
+                    td = hr.object.human_resource_function.name
+                    td = hr.object.sead_atual
+                    td = hr.number_field :sead_necessaria
+                    td = hr.object.selog_atual
+                    td = hr.number_field :selog_necessaria
+                    td = hr.object.sesane_atual
+                    td = hr.number_field :sesane_necessaria
+                    td = hr.object.seofi_atual
+                    td = hr.number_field :seofi_necessaria
+                    td = hr.object.sgep_atual
+                    td = hr.number_field :sgep_necessaria
+                    td = hr.object.gabinete_atual
+                    td = hr.number_field :gabinete_necessaria
+                    td = hr.object.diasi_atual
+                    td = hr.number_field :diasi_necessaria
 
-      h1 Tipo de vínculo
-      table.tables.pdsi-result-table
-        thead
-          tr
-            th Categoria Profissional
-            th SESAI/DSEI
-            th Munícípio
-            th Estado
-            th Convênio
-            th Mais Médicos
-            th Terceirização
-        tbody
-          = f.fields_for :pdsi_human_resources, @pdsi.human_resources_with_values do |hr|
-            tr
-              td = hr.object.human_resource_function.name
-              td = hr.number_field :sesai_dsei
-              td = hr.number_field :municipio
-              td = hr.number_field :estado
-              td = hr.number_field :convenio
-              td = hr.number_field :mais_medicos
-              td = hr.number_field :terceirizacao
+        li.tab-header-and-content
+          a.tab-link
+            | Tipo de vínculo
+          .tab-content
+            table.tables.pdsi-result-table
+              thead
+                tr
+                  th Categoria Profissional
+                  th SESAI/DSEI
+                  th Munícípio
+                  th Estado
+                  th Federal
+                  th Convênio
+                  th Mais Médicos
+                  th Terceirização
+              tbody
+                = f.fields_for :pdsi_human_resources, @pdsi.human_resources_with_values do |hr|
+                  tr
+                    td = hr.object.human_resource_function.name
+                    td = hr.number_field :sesai_dsei, readonly: true
+                    td = hr.number_field :municipio, readonly: true
+                    td = hr.number_field :estado, readonly: true
+                    td = hr.number_field :federal, readonly: true
+                    td = hr.number_field :convenio, readonly: true
+                    td = hr.number_field :mais_medicos, readonly: true
+                    td = hr.number_field :terceirizacao, readonly: true
+

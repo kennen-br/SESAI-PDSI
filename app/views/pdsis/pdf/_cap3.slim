@@ -1,0 +1,775 @@
+h1 3. Caracterização do distrito de saúde indígena
+
+p Nesse item encontra-se a caracterização do Distrito de Saúde Indígena de #{@pdsi.dsei.name} organizada a partir de duas categorias: (i) Território e População, com informações sobre istórico e perfil da população indígena do território e mapas com características geográficas do distrito e (ii) Gestão, com informações sobre serviços, infraestrutura e capacidades do DSEI.
+
+h2 3.1 Território e População
+h3 3.1.1 Breve histórico
+== @pdsi.compose_item_3 || 'Não informado'
+.alwaysbreak
+h3 3.1.2 Mapa do território
+blockquote Figura 3. Mapa dos limites e aspectos geográficos, sede e pólos-base do DSEI
+== @pdf_atribute == 'screen' ? image_tag(@pdsi.map) : wicked_pdf_image_tag(@pdsi.map)
+.alwaysbreak
+
+
+h3 3.1.3 Dados Demográficos
+blockquote Tabela 1. Caracterização do DSEI: Resumo Geral
+table
+  tr
+    td colspan='3'
+      p
+        strong #{DemographicData.human_attribute_name 'endereco'}:
+        br
+        = @demographic_data.endereco || 'Não informado'
+  tr
+    td colspan='3'
+      p
+        strong E-mail
+        br
+        = @demographic_data.email || 'Não informado'
+  tr
+    td colspan='2'
+      p
+        strong #{DemographicData.human_attribute_name 'extensao_territorial'}:
+        br
+        = @demographic_data.extensao_territorial_km || 'Não informado'
+    td
+      p
+        strong #{DemographicData.human_attribute_name 'municipio_sede'}:
+        br
+        = @demographic_data.municipio_sede || 'Não informado'
+  tr
+    td colspan='2'
+      p
+        strong #{DemographicData.human_attribute_name 'numero_municipios'}:
+        br
+        = @demographic_data.numero_municipios || 'Não informado'
+    td
+      p
+        strong #{DemographicData.human_attribute_name 'meios_de_transporte'}:
+        br
+        == has_transportation_print @demographic_data, :fluvial
+        == has_transportation_print @demographic_data, :rodoviario
+        == has_transportation_print @demographic_data, :aereo
+  tr
+    td colspan='3'
+      p
+        strong #{DemographicData.human_attribute_name 'etnias'}:
+        br
+        - if dsei_ethnicities(@dsei).blank?
+          | Não informado
+        - else
+          = dsei_ethnicities(@dsei).map { |item| item }.join(', ')
+  tr
+    td
+      p
+        strong #{DemographicData.human_attribute_name 'populacao_indigena'}:
+        br
+        = @demographic_data.populacao_indigena || 'Não informado'
+    td
+      p
+        strong #{DemographicData.human_attribute_name 'numero_familias'}:
+        br
+        = @demographic_data.numero_familias || 'Não informado'
+    td
+      p
+        strong #{DemographicData.human_attribute_name 'numero_aldeias'}:
+        br
+        = @demographic_data.numero_aldeias || 'Não informado'
+  tr
+    td
+      p
+        strong #{DemographicData.human_attribute_name 'numero_ubsi'}:
+        br
+        = @demographic_data.numero_ubsi || 'Não informado'
+    td
+      p
+        strong #{DemographicData.human_attribute_name 'numero_polos_base'}:
+        br
+        = @demographic_data.numero_polos_base || 'Não informado'
+
+    td
+      p
+        strong Nº de Sede de Polos Base
+        br
+        = @demographic_data.headquarters || 'Não informado'
+  tr
+    td
+      p
+        strong #{DemographicData.human_attribute_name 'numero_regioes_de_saude'}:
+        br
+        = @demographic_data.numero_regioes_de_saude || 'Não informado'
+    td
+      p
+        strong #{DemographicData.human_attribute_name 'numero_casais'}:
+        br
+        = @demographic_data.numero_casais || 'Não informado'
+    td
+      p
+.alwaysbreak
+
+h3 3.1.4 Dados Fisiográficos
+blockquote Tabela 2. Caracterização sócio demográfica, étnico-cultural e linguística dos povos indígenas que habitam o território sob responsabilidade do DSEI
+
+- @dsei.base_polos_with_physiographic_data.order(:id).each do |base_polo|
+  p.title-label Polo Base
+  p.vaueLabel #{base_polo.name}
+  p.title-label Municipio do polo base
+  p.value-label #{base_polo.city_name}
+  hr
+  - base_polo.villages.each do |village|
+    - if village.physiographic_data
+      table.fisiographic-table-intro
+        tbody
+          tr
+            td
+              p.title-label Aldeia
+              br
+              p.value-label #{village.name}
+            td
+              p.title-label Município da aldeia
+              br
+              p.value-label = village.city_name || 'Não informado'
+            td
+              p.title-label Etnia
+              br
+              p.value-label
+                - if village.physiographic_data.physiographic_data_ethnicities.any?
+                  - village.physiographic_data.physiographic_data_ethnicities.each do |e|
+                    = e.ethnicity.name
+                    | ,
+                - else
+                  = 'Não informado'
+
+          tr
+            td
+              p.title-label Fluência em português
+              br
+              p.value-label = village.physiographic_data.pt_fluency || 'Não informado'
+            td
+              p.title-label Língua indígena
+              br
+              p.value-label
+                - if village.physiographic_data.physiographic_data_languages.any?
+                  - village.physiographic_data.physiographic_data_languages.each do |language|
+                    = language.language
+                      | ,
+                - else
+                  = 'Não informado'
+
+            td
+
+      table.tables.pdsi-fisiographic-data
+        thead
+          tr
+            th[colspan="13" style="background-color:rgba(67,101,175,70);"] População
+          tr
+            th[colspan="6" style="background-color:rgba(0,174,239,50);"] Homens
+            th[colspan="6" style="background-color:rgba(236,0,140,50);"] Mulheres
+            th[rowspan="2" style="background-color:#666;"] Total
+          tr
+            th[style="border-left: 1px solid #ddd;"] < 1
+            th 1-4
+            th 5-9
+            th 10-49
+            th 50-59
+            th ≥ 60
+            th < 1
+            th 1-4
+            th 5-9
+            th 10-49
+            th 50-59
+            th ≥ 60
+        tbody
+          tr
+            td = village.physiographic_data.m_1
+            td = village.physiographic_data.m_1_4
+            td = village.physiographic_data.m_5_9
+            td = village.physiographic_data.m_10_49
+            td = village.physiographic_data.m_50_59
+            td = village.physiographic_data.m_60
+            td = village.physiographic_data.w_1
+            td = village.physiographic_data.w_1_4
+            td = village.physiographic_data.w_5_9
+            td = village.physiographic_data.w_10_49
+            td = village.physiographic_data.w_50_59
+            td = village.physiographic_data.w_60
+            td = village.physiographic_data.village_population
+
+      hr
+    - else
+      table.fisiographic-table-intro
+        tbody
+          tr
+            td
+              p.title-label Aldeia
+              br
+              p.value-label #{village.name}
+            td
+              p.title-label Município da aldeia
+              br
+              p.value-label Não informado
+            td
+              p.title-label Etnia
+              br
+              p.value-label Não informado
+          tr
+            td
+              p.title-label Fluência em português
+              br
+              p.value-label Não informado
+            td
+              p.title-label Língua indígena
+              br
+              p.value-label Não informado
+            td
+
+      table.tables.pdsi-fisiographic-data
+        thead
+          tr
+            th[colspan="13" style="background-color:rgba(67,101,175,70);"] População
+          tr
+            th[colspan="6" style="background-color:rgba(0,174,239,50);"] Homens
+            th[colspan="6" style="background-color:rgba(236,0,140,50);"] Mulheres
+            th[rowspan="2" style="background-color:#666;"] Total
+          tr
+            th[style="border-left: 1px solid #ddd;"] < 1
+            th 1-4
+            th 5-9
+            th 10-49
+            th 50-59
+            th ≥ 60
+            th < 1
+            th 1-4
+            th 5-9
+            th 10-49
+            th 50-59
+            th ≥ 60
+        tbody
+          tr
+            td -
+            td -
+            td -
+            td -
+            td -
+            td -
+            td -
+            td -
+            td -
+            td -
+            td -
+            td -
+            td -
+
+      hr
+.alwaysbreak
+h2 3.2 Caracterização: Gestão
+h3 3.2.1 Meios de Transporte para acesso dos povos indígenas aos serviços de saúde
+
+blockquote Tabela 3. Meios de transporte para acesso dos povos indígenas aos serviços de saúde
+
+- @pdsi.destinations_with_villages.each_with_index do |destination_type, i|
+  - destination_type.destinations.each do |destination|
+    .transport-box-intro
+      table.tables
+        tr
+          td
+            p.title-label Aldeia de origem
+            br
+            p.value-label
+              = destination.origin_village.name || 'Não informado'
+          td
+            p.title-label Nome do Município
+            br
+            p.value-label
+              = destination.origin_village.city_name
+    table.tables
+      tr
+        td[colspan="2"]
+          p.value-label
+            - if destination_type.name == 'UBSI'
+              = 'UBSI'
+            - if destination_type.name == 'Média e Alta Complexidade'
+              = 'Média e Alta Complexidade'
+            - if destination_type.name == 'Polo Base'
+              = 'Polo Base'
+            - if destination_type.name == 'CASAI'
+              = 'CASAI'
+      tr
+        td
+          p.title-label
+            - if destination_type.name == 'UBSI'
+              = 'Aldeia'
+            - if destination_type.name == 'Média e Alta Complexidade'
+              = 'Nome'
+            - if destination_type.name == 'Polo Base'
+              = 'Nome'
+            - if destination_type.name == 'CASAI'
+              = 'CASAI'
+          br
+          p.value-label
+            - if destination.destination_type_id == 1
+              = destination.destination_village.name
+
+            - if destination.destination_type_id == 2
+              = @dsei.base_polos.find(destination.city_name).name
+
+            - if destination.destination_type_id == 3
+              = Casai.find(destination.city_name).name
+
+            - if destination.destination_type_id == 4
+              = destination.destination_class
+        td
+          p.title-label
+            - if destination_type.name == 'UBSI'
+              = 'Município'
+            - if destination_type.name == 'Média e Alta Complexidade'
+              = 'Município'
+            - if destination_type.name == 'Polo Base'
+              = 'Aldeia / Município'
+            - if destination_type.name == 'CASAI'
+              = 'Aldeia / Município'
+          br
+          p.value-label
+            - if destination.destination_type_id == 1
+              = destination.destination_village.city_name
+
+            - if destination.destination_type_id == 2
+              = @dsei.base_polos.find(destination.city_name).city_name
+
+            - if destination.destination_type_id == 3
+              = Casai.find(destination.city_name).city_name
+
+            - if destination.destination_type_id == 4
+              = destination.city_name
+
+      tr
+        td
+          p.title-label Meio de transporte
+          br
+          p.value-label Fluvial
+        td
+          p.title-label Tempo (horas)
+          br
+          p.value-label
+            - if destination.boat_time.blank?
+              = "00:00"
+            - else
+              = destination.boat_time
+      tr
+        td
+          p.title-label Meio de transporte
+          br
+          p.value-label Rodoviário
+        td
+          p.title-label Tempo (horas)
+          br
+          p.value-label
+            - if destination.road_time.blank?
+              = "00:00"
+            - else
+              = destination.road_time
+      tr
+        td
+          p.title-label Meio de transporte
+          br
+          p.value-label Aéreo
+        td
+          p.title-label Tempo (horas)
+          br
+          p.value-label
+            - if destination.fly_time.blank?
+              = "00:00"
+            - else
+              = destination.fly_time
+      tr
+        td[style="border:none;"]
+          p.title-label
+          br
+          p.value-label
+        td[style="border:none;"]
+          p.title-label  TOTAL TEMPO (HORAS)
+          br
+          p.value-label
+          - if destination.total_time.blank?
+              = "00:00"
+          - else
+            = destination.total_time
+
+.alwaysbreak
+h3 3.2.2 Recursos Humanos
+
+blockquote Tabela 4. Demostrativo de recursos humanos existentes vinculado ao DSEI
+.hr-box-intro
+table.tables.pdsi-result-table.page
+  thead
+    tr
+      th Nome
+      th Categoria Profissional
+      th Função
+      th Lotação
+      th Local de Trabalho
+      th Vínculo
+      th Tipo de Vínculo
+      th Trabalhador índigena
+  tbody
+    - Person.includes(:human_resource_function).where(pdsi_id: @pdsi).order(:name).each do |pp|
+      tr
+        td = pp.name
+        td = pp.human_resource_function.name if pp.human_resource_function
+        td = pp.role
+        td = pp.location
+        td = pp.workplace
+        td = pp.bond
+        td = pp.bond_type
+        td = pp.indigenous_worker ? 'Sim' : 'Não'
+.alwaysbreak
+blockquote Tabela 5. Dimensionamento de necessidades / Local de trabalho
+table.tables.pdsi-result-table.page
+  thead
+    tr
+      th[rowspan="2" style="width: 200px; border-right: 1px solid #ddd;"] Categoria Profissional
+      th[colspan="4" style="border-right: 1px solid #ddd; border-bottom: 1px solid #ddd;"] Estabelecimentos
+      th[colspan="7" style="border-bottom: 1px solid #ddd;"] Sede do DSEI
+    tr
+      th UBSI
+      th Polo Base Tipo 1
+      th Polo Base Tipo 2
+      th[style="border-right: 1px solid #ddd;"] CASAI
+      th SEAD
+      th SELOG
+      th SESANE
+      th SEOFI
+      th SGEP
+      th Gabinete
+      th DIASI
+  tbody
+    - @pdsi.pdsi_human_resources.includes(:human_resource_function).each do |hr|
+      tr
+        td = hr.human_resource_function.name
+        td = hr.ubsi_atual
+        td = hr.polo_base_tipo_1_atual
+        td = hr.polo_base_tipo_2_atual
+        td = hr.casai_atual
+        td = hr.sead_atual
+        td = hr.selog_atual
+        td = hr.sesane_atual
+        td = hr.seofi_atual
+        td = hr.sgep_atual
+        td = hr.gabinete_atual
+        td = hr.diasi_atual
+.alwaysbreak
+blockquote Tabela 5. Dimensionamento de necessidades /  Tipo de vínculo
+table.tables.pdsi-result-table
+  thead
+    tr
+      th Categoria Profissional
+      th SESAI/DSEI
+      th Munícípio
+      th Estado
+      th Convênio
+      th Mais Médicos
+      th Terceirização
+  tbody
+    - @pdsi.pdsi_human_resources.each do |hr|
+      tr
+        td = hr.human_resource_function.name
+        td = hr.sesai_dsei
+        td = hr.municipio
+        td = hr.estado
+        td = hr.convenio
+        td = hr.mais_medicos
+        td = hr.terceirizacao
+.alwaysbreak
+blockquote Tabela 5. Dimensionamento de necessidades /  Quantidade necessária para atender adequadamente o DSEI
+table.tables.pdsi-result-table
+  thead
+    tr
+      th[rowspan="2" style="width: 200px; border-right: 1px solid #ddd;"] Categoria Profissional
+      th[colspan="4" style="border-right: 1px solid #ddd; border-bottom: 1px solid #ddd;"] Estabelecimentos
+      th[colspan="7" style="border-bottom: 1px solid #ddd;"] Sede do DSEI
+    tr
+      th UBSI
+      th Polo Base Tipo 1
+      th Polo Base Tipo 2
+      th[style="border-right: 1px solid #ddd;"] CASAI
+      th SEAD
+      th SELOG
+      th SESANE
+      th SEOFI
+      th SGEP
+      th Gabinete
+      th DIASI
+  tbody
+    - @pdsi.pdsi_human_resources.each do |hr|
+      tr
+        td = hr.human_resource_function.name
+        td = hr.ubsi_necessaria
+        td = hr.polo_base_tipo_1_necessaria
+        td = hr.polo_base_tipo_2_necessaria
+        td = hr.casai_necessaria
+        td = hr.sead_necessaria
+        td = hr.selog_necessaria
+        td = hr.sesane_necessaria
+        td = hr.seofi_necessaria
+        td = hr.sgep_necessaria
+        td = hr.gabinete_necessaria
+        td = hr.diasi_necessaria
+.alwaysbreak
+blockquote Tabela 5. Dimensionamento de necessidades /  Totais
+table.tables.pdsi-result-table
+  thead
+    tr
+      th[colspan="2" style="border-bottom: 1px solid #ddd; border-right:1px solid #ddd;"] Total de indígenas
+      th[colspan="2" style="border-bottom: 1px solid #ddd;"]
+        = @pdsi.dsei_indigenous_worker
+    tr
+      th[style="border-right: 1px solid #ddd;"] Categoria Profissional
+      th RH Existente
+      th Força de Trabalho Necessária
+      th Diferença entre Força de Trabalho Existente e Necessária
+  tbody
+    - @pdsi.pdsi_human_resources.each do |hr|
+      tr
+        td = hr.human_resource_function.name
+        td = hr.actual_sum
+        td = hr.workforce_needed
+        td = hr.actual_sum - hr.workforce_needed if hr.actual_sum && hr.workforce_needed
+
+.alwaysbreak
+h3 3.2.3 Equipes médicas de saúde indígena (EMSI)
+blockquote Tabela 6. Capacidade instalada e oferta de ações programadas
+- @dsei.base_polos_with_emsis.each do |base_polo|
+  - base_polo.emsis.each do |emsi|
+    table.tables.pdsi-result-table
+      thead
+        tr[style="margin:30px 0;"]
+          td[colspan="4"]
+            p.title-label Polo Base
+            br
+            p.value-label = base_polo.name
+          td[colspan="3"]
+            p.title-label EMSI
+            br
+            p.value-label = emsi.name
+      tbody
+        tr
+          td[colspan="7"]
+            p.title-label N° de Profissionais
+        tr
+          td
+            p.title-label Médicos
+            br
+            p.value-label = emsi.numero_medicos || "-"
+          td
+            p.title-label Enfermeiros
+            br
+            p.value-label = emsi.numero_enfermeiros || "-"
+          td
+            p.title-label Odonto
+            br
+            p.value-label = emsi.numero_odontologistas || "-"
+          td
+            p.title-label Téc./Aux. Enfermagem
+            br
+            p.value-label = emsi.numero_tecnicos_enfermagem || "-"
+          td
+            p.title-label ASB
+            br
+            p.value-label = emsi.asb || "-"
+          td
+            p.title-label AIS
+            br
+            p.value-label = emsi.ais || "-"
+          td
+            p.title-label AISAN
+            br
+            p.value-label = emsi.aisan || "-"
+        tr
+          td[colspan="7"]
+            p.title-label Aldeias atendidas
+            br
+            p.value-label = emsi.aldeias_atendidas || "-"
+        tr
+          td[colspan="7"]
+            p.title-label Tempo de permanência em aldeia (dias por mês)
+        tr
+          td
+            p.title-label Médicos
+            br
+            p.value-label = emsi.permanencia_medicos || "-"
+          td
+            p.title-label Enfermeiros
+            br
+            p.value-label = emsi.permanencia_enfermeiros || "-"
+          td
+            p.title-label Odonto
+            br
+            p.value-label = emsi.permanencia_odontologistas || "-"
+          td[colspan="2"]
+            p.title-label Téc./Aux. Enfermagem
+            br
+            p.value-label = emsi.permanencia_tecnicos_enfermagem || "-"
+          td[colspan="2"]
+            p.title-label ASB
+            br
+            p.value-label = emsi.permanencia_asb || "-"
+    hr
+
+.alwaysbreak
+h3 3.2.4 Rede de complementariedade
+blockquote Tabela 7. Rede de serviços do Sistema Único de Saúde para a complementariedade da atenção básica, média e de alta complexidade
+table.tables.pdsi-result-table
+  thead
+    tr
+      th[rowspan="2"] Polo Base
+      th[rowspan="2"] Muncípio
+      th[rowspan="2" style="width: 80px;"] População
+      th[rowspan="2"] Muncípios de Referência
+      th[colspan="2" style="border-bottom: 1px solid #ddd;"] Estabelecimentos de Saúde
+    tr
+      th[style="border-left: 1px solid #ddd; text-align: center;"] Atenção Básica
+      th Atenção Especializada
+    tbody
+      - @dsei.base_polos_with_service_networks.order(:id).each do |base_polo|
+        - base_polo.service_networks.each do |service_network|
+          - service_network.service_network_cities.each do |city|
+            tr
+              td = base_polo.name
+              td = base_polo.city_name
+              - if base_polo.population
+                td = base_polo.population
+              - else
+                td = "Favor preencher os dados da tabela de Dados Fisiográficos (3.1 C)"
+              td = city.city_name
+              td
+                = city.health_establishments.map { |item| item.name }.join(', ')
+              td
+                = city.health_specializeds.map { |item| item.name }.join(', ')
+
+.alwaysbreak
+h3 3.2.5 Infraestrutura de saúde: Edificações
+blockquote Tabela 8. Infraestrutura de saúde: Edificações
+table.tables.pdsi-result-table
+  thead
+    tr
+      th[rowspan="2"] Tipo de Estabelicimento
+      th[colspan="7" style="border-bottom: 1px solid #ddd;"] Rede Existente
+    tr
+      th[style="border-left: 1px solid #ddd; text-align: center;"] Nome do Estabelecimento
+      th UF
+      th Município
+      th Aldeia
+      th CNES
+      th Situação do Imóvel
+      th Situação do Terreno
+    tbody
+      - InfrastructureBuildingType.order(:id).all.each do |building_type|
+        - ib = @pdsi.infrastructure_buildings.where(infrastructure_building_type: building_type)
+        - ib.each do |infra|
+          tr
+            td = infra.infrastructure_building_type.name
+            td = infra.name
+            td = infra.uf
+            td = infra.city_name
+            td = infra.village.name if infra.village
+            td = infra.cnes
+            td = infra.building_status
+            td = infra.ground_status
+        - unless building_type.name == 'Sede do DSEI'
+          tr
+            td[colspan="2" style="text-align: center;"]
+              = "Total #{building_type.name}"
+            td[colspan="6"]
+              = ib.count
+.alwaysbreak
+h3 3.2.6 Infraestrutura de saúde: Saneamento
+blockquote Tabela 9. Infraestrutura de saúde: Saneamento
+- @dsei.base_polos.order(:id).each do |base_pole|
+  br
+  p.title-label Polo base
+  p.value-label = "#{base_pole.name}"
+  table.tables.pdsi-infrastructure-sanitations
+    - base_pole.villages_with_sanitations.each do |vl|
+        - vl.infrastructure_sanitations.each do |is|
+          thead
+            tr
+              th[colspan="6"]
+                p.title-label[style="text-align:left;"] Aldeia
+                br
+                p.value-label[style="text-align:left;"] = is.village.name
+          tbody
+            tr
+              td
+                p.title-label Abastecimento de Água
+                br
+                p.value-label = is.abastecimento_agua ? 'Sim' : 'Não' || "-"
+              td
+                p.title-label Abastecimento de Água Alternativo
+                br
+                p.value-label = is.abastecimento_agua_alternativo ? 'Sim' : 'Não' || "-"
+              td
+                p.title-label SAA Completo
+                br
+                p.value-label = is.saa_completo ? 'Sim' : 'Não' || "-"
+              td
+                p.title-label Nome do SAA
+                br
+                p.value-label = is.nome_saa || "-"
+              td
+                p.title-label Tipo de Captação de Água
+                br
+                p.value-label = is.tipo_captacao_agua || "-"
+              td
+                p.title-label Fornecimento de Água por Concessionária
+                br
+                p.value-label = is.nome_concessionaria || "-"
+            tr
+              td
+                p.title-label Tipo de Tratamento de Água
+                br
+                p.value-label = is.tipo_tratamento_agua || "-"
+              td
+                p.title-label Abastecimento com MQA
+                br
+                p.value-label = is.abastecimento_mqa ? 'Sim' : 'Não' || "-"
+              td
+                p.title-label SAA com Manutenção
+                br
+                p.value-label = is.saa_manutencao ? 'Sim' : 'Não' || "-"
+              td
+                p.title-label Qte MSD individual
+                br
+                p.value-label = is.qtd_msd_individual || "-"
+              td
+                p.title-label Qte MSD coletiva
+                br
+                p.value-label = is.qtd_msd_coletiva || "-"
+              td
+                p.title-label Esgotamento Sanitário
+                br
+                p.value-label = is.esgotamento_sanitario ? 'Sim' : 'Não' || "-"
+
+.alwaysbreak
+h3 3.2.7 Infraestrutura de saúde: CAPAIs
+blockquote Tabela 10. Infraestrutura de saúde: CAPAIs
+table.tables.pdsi-result-table
+  thead
+    tr
+      th Nome da CAPAI
+      th Município
+      th UF
+      th Tipo de CAPAI
+      th Aldeias Vinculadas
+      th Capacidade de Hospedagem
+    tbody
+      - @pdsi.capais_with_villages.each do |capai|
+        tr
+          td = capai.name
+          td = capai.city_name
+          td = capai.uf
+          td = capai.capai_type
+          td
+            - capai.capai_villages.each do |capai_village|
+              = capai_village.village.name
+          td = capai.host_capacity

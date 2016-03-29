@@ -1,5 +1,5 @@
 li
-  = link_to 'PDSI', pdsis_path(section: 'estrutura')
+  = link_to "DSEI #{@dsei ? @dsei.name : ''}", pdsis_path(section: 'estrutura')
 li.child
   = nav_link_to pdsis_path(section: 'introducao') do
     | 1. <span>Introdução</span>
@@ -16,6 +16,8 @@ li.child
   = nav_link_to pdsis_path(section: 'anexos') do
     | 7. <span>Anexos</span>
 /li
- / = link_to 'Meus CASAIs', casais_path
+  /= nav link_to 'Gerar pdf', pdsis_path(@render_pdf, :format => :pdf)
 /li
  / = link_to 'Pessoas do DSEI', people_path
+/li
+  /= nav_link_to 'Gerar pdf', pdsis_path(@render_pdf, :format => :pdf)

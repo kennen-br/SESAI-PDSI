@@ -28,6 +28,22 @@ group2_sum = (class_item) ->
 
   group_sum(item, 2)
 
+# Subgroup3 sum
+group3_sum = (class_item) ->
+  subtotal = 0
+  item = class_item.attr('id').slice(1)
+  unit = 'u' + item
+  unit_val = $("##{unit}").val().toString().replace(/(^R\$|\.)/g, '').replace(/\,/, '.')
+  quant = 'q' + item
+  quant_val = $("##{quant}").val()*1
+  fore = 'f' + item
+  hidd = 'h' + item
+  subtotal = quant_val * unit_val
+  $("##{fore}").val("R$#{(subtotal).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.')}")
+  $("##{hidd}").val(subtotal)
+
+  group_sum(item, 3)
+
 # Increase quantity and sum
 quantity_plus = (class_item) ->
   subtotal = 1
@@ -63,12 +79,6 @@ $(document).ready ->
     $("[data-category='2-#{year}']").after $("[data-category='c2-#{year}']")
     $("[data-category='3-#{year}']").after $("[data-category='c3-#{year}']")
 
-  # Sum group1 fields on modification
-  $(document).on 'keyup', ".group1-input", ->
-    modify_element = $(this).attr('class').split(' ')[0]
-    group1_sum(modify_element)
-    return
-
   $('#form-investment').on 'cocoon:after-insert', ->
     $('.select2').select2({ dropdownAutoWidth: true })
     $('.village-select').select2
@@ -94,10 +104,22 @@ $(document).ready ->
         decimal: ','
     return
 
+  # Sum group1 fields on modification
+  $(document).on 'keyup', ".group1-input", ->
+    modify_element = $(this).attr('class').split(' ')[0]
+    group1_sum(modify_element)
+    return
+
   # Sum group2 fields on modification
   $(document).on 'keyup', ".group2-input", ->
     modify_element = $(this)
     group2_sum(modify_element)
+    return
+
+  # Sum group3 fields on modification
+  $(document).on 'keyup', ".group3-input", ->
+    modify_element = $(this)
+    group3_sum(modify_element)
     return
 
   # Insert Items

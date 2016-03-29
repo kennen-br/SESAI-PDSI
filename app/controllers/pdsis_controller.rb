@@ -1,8 +1,10 @@
 class PdsisController < ApplicationController
+  #layout "print", only: [:render_pdf]
   before_action :set_section,     only: [:index, :edit, :edit_category_budgets, :update, :health_indicators]
   before_action :set_pdsi
   before_action :set_base_polo,   only: [:edit, :health_indicators, :update]
   before_action :set_subsection,  only: [:edit, :edit_category_budgets, :health_indicators, :update]
+  before_action :pdf_screen, only: [:render_pdf]
 
   # GET /pdsis
   def index
@@ -75,7 +77,59 @@ class PdsisController < ApplicationController
     redirect_to edit_pdsi_path(@pdsi, args), notice
   end
 
+  def render_pdf
+    av = ActionView::Base.new()
+    av.view_paths = ActionController::Base.view_paths
+
+    av.class_eval do
+      include Rails.application.routes.url_helpers
+      include ApplicationHelper
+    end
+    template_cover = av.render template: 'pdsis/pdf/front.slim', layout: nil, locals: {pdsi: @pdsi}
+    media_type =
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render  pdf: 'pdsi',
+                encoding: 'UTF-8',
+                outline_depth: 2,
+                footer: {
+                  right: "Distrito #{@pdsi.dsei.name}     [page]",
+                  encoding: 'UTF-8',
+                  left: 'PLANO DISTRITAL DE SAÚDE INDÍGENA 2016-2019',
+                  font_name: 'DINPro',
+                  font_size: 6,
+                  spacing:10
+                },
+                page_size: 'A4',
+                cover: template_cover,
+                print_media_type: true,
+                margin: {
+                  top: 25,
+                  bottom: 30,
+                  left: 20,
+                  right: 20
+                },
+                toc: {
+                  disable_dotted_lines: true,
+                  disable_toc_links: true,
+                  level_indentation: 2,
+                  text_size_shrink: 0.5,
+                  header_text: "Sumário",
+                  text_size_shrink: 0.8,
+
+                  xsl_style_sheet: Rails.root.join('app', 'assets', 'stylesheets', 'style.xsl').to_s #--dump-default-toc-xsl
+                  #show_as_html: params.key?('debug')
+                }
+      end
+    end
+  end
+
   private
+
+  def pdf_screen
+    @pdf_atribute = request.env['REQUEST_PATH'].include?('.pdf') ? 'print' : 'screen'
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_pdsi
@@ -86,7 +140,7 @@ class PdsisController < ApplicationController
       @demographic_data = @pdsi.demographic_data
       @dsei             = current_dsei
     else
-      @pdsi = current_dsei.pdsi
+      @pdsi = current_dsei.pdsi if current_dsei
       @demographic_data = @pdsi.demographic_data
       @dsei             = current_dsei
     end
@@ -204,7 +258,7 @@ class PdsisController < ApplicationController
         :id, :projection_budget_item_id, :qtde_existente_2015, :qtde_necessaria, :valor_unitario_medio, :previsao_orcamentaria
       ],
       pdsi_attached_files_attributes: [
-        :id, :name, :file
+        :id, :name, :file, :_destroy
       ],
       budget_forecasts_attributes: [
         :id, :reference_forecast, :budget_forecast,
@@ -212,6 +266,7 @@ class PdsisController < ApplicationController
         :initial_forecast_2017, :dsei_forecast_2017, :revised_forecast_2017,
         :initial_forecast_2018, :dsei_forecast_2018, :revised_forecast_2018,
         :initial_forecast_2019, :dsei_forecast_2019, :revised_forecast_2019,
+        budget_justifiers_attributes: [:file, :description, :year, :id, :_destroy]
       ],
       budget_investments_attributes: [
         :id, :quantity_2016, :quantity_2017, :quantity_2018, :quantity_2019,
@@ -222,7 +277,7 @@ class PdsisController < ApplicationController
          :quantity_2018, :unitary_amount_2018, :forecast_amount_2018, :quantity_2019,
          :unitary_amount_2019, :forecast_amount_2019, :year_reference, :city,
          :pole_base, :village
-        ]
+        ], budget_justifiers_attributes: [:file, :description, :year, :id, :_destroy]
       ],
       people_attributes: [ :id, :_destroy, :name, :indigenous_worker, :dsei_id,
                            :human_resource_function_id, :role, :bond_type, :bond, :workplace, :location ]

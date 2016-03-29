@@ -23,6 +23,7 @@ tr.item data-category=("c#{f.object.budget_investment.investment.parent_id}-#{ye
     = f.hidden_field "unitary_amount_#{year}", value: (number_with_precision(eval("f.object.unitary_amount_#{year}"), precision: 2, separator: '.', delimiter: '') || 0)
     = text_field_tag '', number_with_precision(eval("f.object.unitary_amount_#{year}"), precision: 2), class: "uc#{f.object.budget_investment.id}y#{year} currency-input group1-input"|| 0, id: "uc#{f.object.id}y#{year}"
     = f.hidden_field :year_reference, value: "#{year}"
+  td
   - if f.object.new_record?
     td
       = icon 'trash-o'

@@ -1,5 +1,6 @@
 class DemographicData < ActiveRecord::Base
   auditable
+  include ActionView::Helpers::NumberHelper
 
   belongs_to :pdsi
 
@@ -16,4 +17,9 @@ class DemographicData < ActiveRecord::Base
   validates :numero_casais,           numericality: { only_integer: true, allow_nil: true }
   validates :numero_aldeias,          numericality: { only_integer: true, allow_nil: true }
   validates :numero_familias,         numericality: { only_integer: true, allow_nil: true }
+  
+  def extensao_territorial_km
+    number_to_human(extensao_territorial.to_f, precision: 5, separator: '.', units: {unit: "metros", thousand: 'km²'}) 
+  end
+
 end
