@@ -3,6 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).ready ->
+  $('.menu_estrutura').find('.select_dsei_menu').hide()
+
   # Apply numeric mask
   $('input[type=number]').numeric()
 

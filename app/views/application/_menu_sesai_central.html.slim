@@ -1,21 +1,19 @@
-li
-  = link_to 'SESAI', pdsis_path(section: 'estrutura')
-
-li.child
-  = nav_link_to pdsis_path(section: 'introducao-sesai') do
-    | 1. <span>Introdução</span>
-  = nav_link_to pdsis_path(section: 'processo-de-construcao-do-pdsi-sesai') do
-    | 2. <span>O Processo de construção do PDSI</span>
-  = nav_link_to pdsis_path(section: 'caracterizacao-do-dsei-sesai') do
-    | 3. <span>Caracterização do DSEI</span>
-  = nav_link_to pdsis_path(section: 'analise-situacional-sesai') do
-    | 4. <span>Análise situacional</span>
-  = nav_link_to pdsis_path(section: 'resultados-esperados-sesai') do
-    | 5. <span>Resultados esperados</span>
-  = nav_link_to pdsis_path(section: 'projecao-orcamentaria-sesai') do
-    | 6. <span>Projeção orçamentária 2016-2019</span>
-  = nav_link_to pdsis_path(section: 'anexos-sesai') do
-    | 7. <span>Anexos</span>
-
-- if current_user.sesai_central? and session[:dsei]
+- if session[:dsei]
   = render 'menu_dsei'
+  .select_dsei_menu
+    = form_tag unset_dsei_and_pdsi_to_sesai_path do
+      | <span>Sair do DSEI</span>
+
+      button#dsei-out.button.btn-small type="submit"
+        |Ok
+- else
+  = render 'menu_sesai'
+  .select_dsei_menu
+    = form_tag set_dsei_and_pdsi_to_sesai_path do
+      | Visualizar como DSEI
+      br
+      = select_dsei
+
+      button.button.btn-small type="submit"
+        | Ok
+

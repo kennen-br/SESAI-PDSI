@@ -140,7 +140,7 @@ class PdsisController < ApplicationController
       @demographic_data = @pdsi.demographic_data
       @dsei             = current_dsei
     else
-      @pdsi = current_dsei.pdsi
+      @pdsi = current_dsei.pdsi if current_dsei
       @demographic_data = @pdsi.demographic_data
       @dsei             = current_dsei
     end

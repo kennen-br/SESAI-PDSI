@@ -27,7 +27,7 @@ body{
   z-index: 9998!important;
 }
 
-#select_dsei_menu{
+.select_dsei_menu{
   padding: 3px;
   float: right;
   font-size: .8em;
@@ -36,6 +36,10 @@ body{
     display     : inline;
     margin:4px 10px;
   }
+}
+
+#dsei-out {
+  margin-left: 5px;
 }
 
 .container{
