@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :budget_correction_factors
   resources :costs
+  resources :investments
 
   post '/image-upload',     to: 'application#image_upload', as: :image_upload
   post '/procurar-pessoa',  to: 'people#search',            as: :search
@@ -193,6 +194,10 @@ Rails.application.routes.draw do
   post '/selecionar-dsei',
        to: 'application#set_dsei_and_pdsi_to_sesai',
        as: :set_dsei_and_pdsi_to_sesai
+
+  post '/limpar-dsei',
+       to: 'application#unset_dsei_and_pdsi_to_sesai',
+       as: :unset_dsei_and_pdsi_to_sesai
 
   scope '/locations' do
     get '/villages', to: 'locations#villages'

@@ -1,0 +1,20 @@
+.right
+  = link_to 'Voltar', pdsis_path(section: 'projecao-orcamentaria-sesai')
+h1 Investimentos
+
+table
+  thead
+    tr
+      th Nome
+      th Orientações
+      th
+
+  tbody
+    - @investments.each do |investment|
+      - if investment.parent_id
+        tr
+          td = investment.name
+          td
+            = investment.tooltip ? investment.tooltip : 'Não há orientações'
+          td
+            = link_to 'Editar', edit_investment_path(investment)

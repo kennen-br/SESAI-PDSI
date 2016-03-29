@@ -1,5 +1,5 @@
 li
-  = link_to 'DSEI', pdsis_path(section: 'estrutura')
+  = link_to "DSEI #{@dsei ? @dsei.name : ''}", pdsis_path(section: 'estrutura')
 li.child
   = nav_link_to pdsis_path(section: 'introducao') do
     | 1. <span>Introdução</span>
