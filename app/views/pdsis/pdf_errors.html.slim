@@ -1,0 +1,5 @@
+h1 Os ítems abaixo precisam ser preenchidos antes de gerar o PDF
+ul
+  - @errors.keys.each do |error|
+    li
+      = I18n.t(error)

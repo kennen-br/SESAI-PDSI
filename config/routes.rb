@@ -165,6 +165,7 @@ Rails.application.routes.draw do
           to: 'specific_results#update',
           as: :update_specific_results
     get '/:id/pdf', to: 'pdsis#render_pdf'
+    get '/:id/pdf_errors', to: 'pdsis#pdf_errors', as: :pdf_errors
   end
 
   scope '/templates' do
