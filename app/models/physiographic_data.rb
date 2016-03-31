@@ -10,7 +10,9 @@ class PhysiographicData < ActiveRecord::Base
   has_many :physiographic_data_ethnicities
   accepts_nested_attributes_for :physiographic_data_ethnicities, reject_if: :all_blank, allow_destroy: true
 
-  validates_presence_of :m_1,
+  validates_presence_of :physiographic_data_languages,
+                        :physiographic_data_ethnicities,
+                        :m_1,
                         :pt_fluency,
                         :m_1,
                         :m_1_4,
