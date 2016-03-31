@@ -387,7 +387,20 @@ pt-BR:
   human_resource_function:        Capítulo 3.2B, RH EXISTENTE - Categoria Profissional Simplificada
   location:                       Capítulo 3.2B, RH EXISTENTE - Lotação
   workplace:                      Capítulo 3.2B, RH EXISTENTE - Local de trabalho
-  bond:                      Capítulo 3.2B, RH EXISTENTE - Vínculo
-
+  bond:                           Capítulo 3.2B, RH EXISTENTE - Vínculo
+  sead_necessaria:                Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - SEAD Nescessária
+  selog_necessaria:               Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - SELOG Nescessária
+  sesane_necessaria:              Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - SESANE Nescessária
+  seofi_necessaria:               Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - SEOFI Nescessária
+  sgep_necessaria:                Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - SGEP Nescessária
+  gabinete_necessaria:            Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - GABINETE Nescessária
+  diasi_necessaria:               Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - DIASI Nescessária
+  ubsi_necessaria:                Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - UBSI Nescessária
+  polo_base_tipo_1_necessaria:    Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - Polo base tipo 1 Nescessária
+  polo_base_tipo_2_necessaria:    Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - Polo base tipo 2 Nescessária
+  casai_necessaria:               Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - CASAI Nescessária
+  emsis:                          Capítulo 3.2C, Equipes médicas de saúde indígena
+  service_networks:               Capítulo 3.2D, Rede de complementariedade
+  infrastructure_buildings:       Capítulo 3.2E, Infraestrutura de saúde - Edificações
 
 

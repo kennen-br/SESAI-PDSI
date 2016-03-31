@@ -139,16 +139,20 @@ class PdsisController < ApplicationController
     @pdsi.destinations.map { |e| e.valid? @errors.merge!(e.errors.messages) }
     @pdsi.people.map { |e| e.valid? @errors.merge!(e.errors.messages) }
     @pdsi.pdsi_human_resources.map { |e| e.valid? @errors.merge!(e.errors.messages) }
+    @pdsi.infrastructure_buildings.map { |e| e.valid? @errors.merge!(e.errors.messages) }
+    @errors.blank?
   end
 
   private
 
   def pdsi_valid?
-    @pdsi.valid?(:pdf) &&
-      @pdsi.demographic_data.valid? &&
-      @pdsi.physiographic_datas.map(&:valid?).all? &&
-      @pdsi.destinations.map(&:valid?).all? &&
-      @pdsi.people.map(&:valid?).all?
+    pdf_errors
+    # @pdsi.valid?(:pdf) &&
+    #   @pdsi.demographic_data.valid? &&
+    #   @pdsi.physiographic_datas.map(&:valid?).all? &&
+    #   @pdsi.destinations.map(&:valid?).all? &&
+    #   @pdsi.people.map(&:valid?).all? &&
+    #   @pdsi.infrastructure_buildings.map(&:valid?).all?
   end
 
   def pdf_screen

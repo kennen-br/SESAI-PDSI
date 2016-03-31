@@ -4,6 +4,8 @@ class Pdsi < ActiveRecord::Base
   validates :processo_construcao_pdsi_2,
             :caracterizacao_do_dsei_3,
             :destinations,
+            :service_networks,
+            :infrastructure_buildings,
             :map,
             :emsis,
             presence: true, on: :pdf
