@@ -135,14 +135,10 @@ class PdsisController < ApplicationController
     @errors.merge!(@pdsi.errors.messages)
     @pdsi.demographic_data.valid?
     @errors.merge!(@pdsi.demographic_data.errors.messages)
-    @pdsi.physiographic_datas.each do |pd|
-      pd.valid?
-      @errors.merge!(pd.errors.messages)
-    end
-    @pdsi.destinations.each do |destination|
-      destination.valid?
-      @errors.merge!(destination.errors.messages)
-    end
+    @pdsi.physiographic_datas.map { |e| e.valid? @errors.merge!(e.errors.messages) }
+    @pdsi.destinations.map { |e| e.valid? @errors.merge!(e.errors.messages) }
+    @pdsi.people.map { |e| e.valid? @errors.merge!(e.errors.messages) }
+    @pdsi.pdsi_human_resources.map { |e| e.valid? @errors.merge!(e.errors.messages) }
   end
 
   private
@@ -151,7 +147,8 @@ class PdsisController < ApplicationController
     @pdsi.valid?(:pdf) &&
       @pdsi.demographic_data.valid? &&
       @pdsi.physiographic_datas.map(&:valid?).all? &&
-      @pdsi.destinations.map(&:valid?).all?
+      @pdsi.destinations.map(&:valid?).all? &&
+      @pdsi.people.map(&:valid?).all?
   end
 
   def pdf_screen

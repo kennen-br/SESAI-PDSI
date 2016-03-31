@@ -5,6 +5,7 @@ class Pdsi < ActiveRecord::Base
             :caracterizacao_do_dsei_3,
             :destinations,
             :map,
+            :emsis,
             presence: true, on: :pdf
 
 
