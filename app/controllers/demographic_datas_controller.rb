@@ -33,7 +33,7 @@ class DemographicDatasController < ApplicationController
                 :endereco, :email, :numero_municipios, :populacao_indigena,
                 :numero_polos_base, :numero_ubsi, :numero_regioes_de_saude,
                 :numero_casais, :numero_aldeias, :numero_familias, :fluvial,
-                :rodoviario, :aereo, :headquarters,
+                :rodoviario, :aereo, :headquarters, :numero_sede_polos_base,
                 etnias_attributes: [:id, :name, :_destroy])
     end
 end

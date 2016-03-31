@@ -1,6 +1,16 @@
 class Pdsi < ActiveRecord::Base
   auditable
 
+  validates :processo_construcao_pdsi_2,
+            :caracterizacao_do_dsei_3,
+            :destinations,
+            :service_networks,
+            :infrastructure_buildings,
+            :map,
+            :emsis,
+            presence: true, on: :pdf
+
+
   belongs_to :user
   belongs_to :dsei
 
