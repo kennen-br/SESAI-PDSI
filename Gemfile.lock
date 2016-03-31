@@ -379,7 +379,7 @@ DEPENDENCIES
   railroady
   rails (= 4.2.3)
   rails-erd
-  rails-i18n
+  rails-i18n (~> 4.0.0)
   rails_12factor
   redcarpet
   refills

@@ -3,8 +3,10 @@ class Pdsi < ActiveRecord::Base
 
   validates :processo_construcao_pdsi_2,
             :caracterizacao_do_dsei_3,
+            :destinations,
             :map,
             presence: true, on: :pdf
+
 
   belongs_to :user
   belongs_to :dsei
