@@ -10,7 +10,6 @@ class InfrastructureSanitation < ActiveRecord::Base
                         :qtd_msd_coletiva,
                         :tipo_captacao_agua,
                         :nome_concessionaria,
-                        :abastecimento_mqa,
                         :qtd_msd_individual,
                         :nome_saa
 end

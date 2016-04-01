@@ -379,6 +379,7 @@ pt-BR:
   w_60:                           Capítulo 3.1C, Mulheres com mais de 60 anos
   physiographic_data_languages:   Capítulo 3.1C, Lingua Indígena
   physiographic_data_ethnicities: Capítulo 3.1C, Etnia(s)
+  quantity_of_physiographic_data: Capítulo 3.1C, Todas as aldeias devem ter seus dados preenchidos
   destinations:                   Capítulo 3.2A, Meios de transporte para acesso dos povos indígenas aos serviços de saúde
   boat_time:                      Capítulo 3.2A, Transporte fluvial
   road_time:                      Capítulo 3.2A, Transporte rodoviário
@@ -404,3 +405,8 @@ pt-BR:
   infrastructure_buildings:       Capítulo 3.2E, Infraestrutura de saúde - Edificações
   infrastructure_sanitations:     Capítulo 3.2F, Infraestrutura de saúde - Saneamento
   capais:                         Capítulo 3.2G, Infraestrutura de saúde - CAPAIs
+  initial_date:                   Capítulo 5, Data de início
+  deadline:                       Capítulo 5, Data de término
+  name:                           Capítulo 5, Descrição
+  person:                         Capítulo 5, Responsável
+  corresponsabilities:            Capítulo 5, Corresponsável

@@ -131,7 +131,13 @@ class PdsisController < ApplicationController
 
   def pdf_errors
     @errors = {}
-    verifiers = %w(physiographic_datas destinations people pdsi_human_resources infrastructure_buildings infrastructure_sanitations capais)
+    verifiers = ['physiographic_datas',
+                 'destinations',
+                 'people',
+                 'pdsi_human_resources',
+                 'infrastructure_buildings',
+                 'infrastructure_sanitations',
+                 'capais']
 
     @pdsi.valid?(:pdf)
     @errors.merge!(@pdsi.errors.messages)
@@ -141,6 +147,8 @@ class PdsisController < ApplicationController
     verifiers.each do |vf|
       @pdsi.send(vf).map { |e| e.valid? @errors.merge!(e.errors.messages) }
     end
+
+    @pdsi.responsabilities.map { |e| e.valid?(:pdf); @errors.merge!(e.errors.messages) }
 
     @errors.blank?
   end

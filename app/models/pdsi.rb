@@ -3,13 +3,15 @@ class Pdsi < ActiveRecord::Base
 
   validates :processo_construcao_pdsi_2,
             :caracterizacao_do_dsei_3,
+            :map,
             :destinations,
+            :quantity_of_physiographic_data,
             :service_networks,
             :infrastructure_buildings,
             :infrastructure_sanitations,
             :capais,
-            :map,
             :emsis,
+            :responsabilities,
             presence: true, on: :pdf
 
 
@@ -364,7 +366,7 @@ class Pdsi < ActiveRecord::Base
   end
 
   def dsei_indigenous_worker
-     Person.where(indigenous_worker: true).count
+    Person.where(indigenous_worker: true).count
   end
 
   private
@@ -375,5 +377,10 @@ class Pdsi < ActiveRecord::Base
     return if default.nil?
 
     default.gsub key, value
+  end
+
+  def quantity_of_physiographic_data
+    return true if physiographic_datas.count == dsei.base_polos.map { |e| e.villages.count }.join.to_i
+    false
   end
 end
