@@ -6,6 +6,8 @@ class Pdsi < ActiveRecord::Base
             :destinations,
             :service_networks,
             :infrastructure_buildings,
+            :infrastructure_sanitations,
+            :capais,
             :map,
             :emsis,
             presence: true, on: :pdf

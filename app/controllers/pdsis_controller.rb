@@ -131,15 +131,17 @@ class PdsisController < ApplicationController
 
   def pdf_errors
     @errors = {}
+    verifiers = %w(physiographic_datas destinations people pdsi_human_resources infrastructure_buildings infrastructure_sanitations capais)
+
     @pdsi.valid?(:pdf)
     @errors.merge!(@pdsi.errors.messages)
     @pdsi.demographic_data.valid?
     @errors.merge!(@pdsi.demographic_data.errors.messages)
-    @pdsi.physiographic_datas.map { |e| e.valid? @errors.merge!(e.errors.messages) }
-    @pdsi.destinations.map { |e| e.valid? @errors.merge!(e.errors.messages) }
-    @pdsi.people.map { |e| e.valid? @errors.merge!(e.errors.messages) }
-    @pdsi.pdsi_human_resources.map { |e| e.valid? @errors.merge!(e.errors.messages) }
-    @pdsi.infrastructure_buildings.map { |e| e.valid? @errors.merge!(e.errors.messages) }
+
+    verifiers.each do |vf|
+      @pdsi.send(vf).map { |e| e.valid? @errors.merge!(e.errors.messages) }
+    end
+
     @errors.blank?
   end
 
@@ -147,12 +149,6 @@ class PdsisController < ApplicationController
 
   def pdsi_valid?
     pdf_errors
-    # @pdsi.valid?(:pdf) &&
-    #   @pdsi.demographic_data.valid? &&
-    #   @pdsi.physiographic_datas.map(&:valid?).all? &&
-    #   @pdsi.destinations.map(&:valid?).all? &&
-    #   @pdsi.people.map(&:valid?).all? &&
-    #   @pdsi.infrastructure_buildings.map(&:valid?).all?
   end
 
   def pdf_screen
