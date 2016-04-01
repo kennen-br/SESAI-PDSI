@@ -26,7 +26,19 @@ ul.accordion-tabs-minimal
             = link_to health_indicators_path(@pdsi, subsection: 'dsei'), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
               | Editar
-            == render 'pdsis/indicadores_saude_indigena/show_dsei'
+            - @pdsi.absolute_data_dseis_with_values.each do |item|
+              .field
+              p
+                strong = item.absolute_datum.name
+                br
+                em = item.absolute_datum.numerator_text
+                | &nbsp;
+                = item.absolute_datum.numerator || 'Não informado'
+                br
+                em = item.absolute_datum.denominator_text
+                | &nbsp;
+                = item.absolute_datum.denominator || 'Não informado'
+                br
 
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
@@ -35,7 +47,26 @@ ul.accordion-tabs-minimal
             = link_to health_indicators_path(@pdsi, subsection: 'base-polo'), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
               | Editar
-            == render 'pdsis/indicadores_saude_indigena/show_base_polo'
+            - @dsei.base_polos.order(:id).each do |base_polo|
+              fieldset
+                legend
+                  | Polo base&nbsp;
+                  strong = base_polo.name
+
+                - @pdsi.absolute_data_base_polos_with_values(base_polo).each do |item|
+                  .field
+                   p
+                    strong = item.absolute_datum.name
+                    br
+                    em = item.absolute_datum.numerator_text
+                    | &nbsp;
+                    = item.absolute_datum.numerator || 'Não informado'
+                    br
+                    em = item.absolute_datum.denominator_text
+                    | &nbsp;
+                    = item.absolute_datum.denominator || 'Não informado'
+                    br
+
 
         li
           a.js-accordion-trigger[href="javascript:void(0)"]
@@ -44,7 +75,25 @@ ul.accordion-tabs-minimal
             = link_to health_indicators_path(@pdsi, subsection: 'casai'), class: 'button pull-right edit-link' do
               i.fa.fa-pencil
               | Editar
-            == render 'pdsis/indicadores_saude_indigena/show_casai'
+            - @dsei.casais.order(:id).each do |casai|
+              fieldset
+                legend
+                  | Polo base&nbsp;
+                  strong = casai.name
+
+                - @pdsi.absolute_data_casais_with_values(casai).each do |item|
+                  .field
+                   p
+                    strong = item.absolute_datum.name
+                    br
+                    em = item.absolute_datum.numerator_text
+                    | &nbsp;
+                    = item.absolute_datum.numerator || 'Não informado'
+                    br
+                    em = item.absolute_datum.denominator_text
+                    | &nbsp;
+                    = item.absolute_datum.denominator || 'Não informado'
+                    br
 
       |&nbsp;
 

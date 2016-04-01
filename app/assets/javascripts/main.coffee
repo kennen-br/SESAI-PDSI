@@ -5,6 +5,12 @@
 $(document).ready ->
   $('.menu_estrutura').find('.select_dsei_menu').hide()
 
+  setTimeout( ->
+    $('#error_explanation').hide()
+  , 12000)
+  return
+
+
   # Apply numeric mask
   $('input[type=number]').numeric()
 
@@ -30,3 +36,4 @@ $(document).ready ->
     , 100)
     return
   return
+
