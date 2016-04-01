@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328131607) do
+ActiveRecord::Schema.define(version: 20160401191933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,9 +23,24 @@ ActiveRecord::Schema.define(version: 20160328131607) do
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
     t.boolean  "is_specific",             default: false
+    t.decimal  "numerator"
+    t.decimal  "denominator"
+    t.decimal  "count"
+    t.text     "numerator_text"
+    t.text     "denominator_text"
+    t.integer  "absolute_data_axis_id"
+    t.integer  "absolute_data_axes_id"
   end
 
+  add_index "absolute_data", ["absolute_data_axes_id"], name: "index_absolute_data_on_absolute_data_axes_id", using: :btree
   add_index "absolute_data", ["absolute_datum_level_id"], name: "index_absolute_data_on_absolute_datum_level_id", using: :btree
+
+  create_table "absolute_data_axes", force: :cascade do |t|
+    t.string   "name"
+    t.string   "section_name"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "absolute_data_base_polos", force: :cascade do |t|
     t.integer  "absolute_datum_id"
@@ -969,6 +984,7 @@ ActiveRecord::Schema.define(version: 20160328131607) do
 
   add_index "villages", ["base_polo_id"], name: "index_villages_on_base_polo_id", using: :btree
 
+  add_foreign_key "absolute_data", "absolute_data_axes"
   add_foreign_key "absolute_data", "absolute_datum_levels"
   add_foreign_key "absolute_data_base_polos", "absolute_data"
   add_foreign_key "absolute_data_base_polos", "base_polos"

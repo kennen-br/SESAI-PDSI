@@ -1,2 +1,13 @@
 - @pdsi.absolute_data_dseis_with_values.each do |item|
-  == render 'pdsis/indicadores_saude_indigena/value', item: item
+  .field
+  p
+    strong = item.absolute_datum.name
+    br
+    em = item.absolute_datum.numerator_text
+    | &nbsp;
+    = item.absolute_datum.numerator || 'Não informado'
+    br
+    em = item.absolute_datum.denominator_text
+    | &nbsp;
+    = item.absolute_datum.denominator || 'Não informado'
+    br
