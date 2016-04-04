@@ -29,6 +29,7 @@ pt-BR:
       result:                       Resultados
       person:                       Pessoa
       village:                      Aldeia
+      investment_items:             Ítens de investimento
     attributes: &attributes
       user:
         username:               Usuário
@@ -410,3 +411,7 @@ pt-BR:
   name:                           Capítulo 5, Descrição
   person:                         Capítulo 5, Responsável
   corresponsabilities:            Capítulo 5, Corresponsável
+  city:                           Capítulo 6, Investimento - Município
+  village:                        Capítulo 6, Investimento - Aldeia
+  pole_base:                      Capítulo 6, Investimento - Polo Base
+

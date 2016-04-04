@@ -149,6 +149,9 @@ class PdsisController < ApplicationController
     end
 
     @pdsi.responsabilities.map { |e| e.valid?(:pdf); @errors.merge!(e.errors.messages) }
+    @pdsi.budget_investments.map do |b|
+      b.investment_items.each { |e| e.valid? @errors.merge!(e.errors.messages) }
+    end
 
     @errors.blank?
   end
