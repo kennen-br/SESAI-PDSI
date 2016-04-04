@@ -324,7 +324,7 @@ class Pdsi < ActiveRecord::Base
       pdsi_need_investiments << PdsiNeedInvestiment.new(projection_budget_item: item)
     end
 
-    need_investiments_with_values
+    need_investiments_with_values(category)
   end
 
   def responsabilities_with_values(axis)
