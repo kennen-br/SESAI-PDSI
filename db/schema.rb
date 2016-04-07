@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160401191933) do
+ActiveRecord::Schema.define(version: 20160401225706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -221,12 +221,14 @@ ActiveRecord::Schema.define(version: 20160401191933) do
   create_table "casais", force: :cascade do |t|
     t.integer  "dsei_id"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.string   "city_name"
+    t.integer  "infrastructure_building_id"
   end
 
   add_index "casais", ["dsei_id"], name: "index_casais_on_dsei_id", using: :btree
+  add_index "casais", ["infrastructure_building_id"], name: "index_casais_on_infrastructure_building_id", using: :btree
 
   create_table "category_budgets", force: :cascade do |t|
     t.integer  "projection_budget_category_id"
@@ -1011,6 +1013,7 @@ ActiveRecord::Schema.define(version: 20160401191933) do
   add_foreign_key "capai_villages", "villages"
   add_foreign_key "capais", "pdsis"
   add_foreign_key "casais", "dseis"
+  add_foreign_key "casais", "infrastructure_buildings"
   add_foreign_key "category_budgets", "pdsis"
   add_foreign_key "category_budgets", "projection_budget_categories"
   add_foreign_key "corresponsabilities", "people"
