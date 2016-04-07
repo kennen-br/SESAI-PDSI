@@ -10,23 +10,32 @@
     - @dsei.casais.order(:id).each do |casai|
       - active = params[:casai].to_s == casai.id.to_s ? ' is-active' : ''
       = link_to  casai.name, health_indicators_path(@pdsi, subsection: 'casai', casai: casai), { class: "vertical-tab#{active}" }
+
+    = link_to 'Incluir Casai', casais_path
+
   .vertical-tab-content-container style="width: 70%;"
     .vertical-tab-content style="display: block;"
-      fieldset
-        legend
-          | CASAI &nbsp;
-          strong = @casai.name.capitalize
+      - if @casai.name?
+        fieldset
+          legend
+            | CASAI &nbsp;
+            strong = @casai.name.capitalize
 
-        table.tables
-          thead
-            tr
-              th Tempo médio de permanência CASAI
-              th CASAI
-              th Total DSEI
-            tbody
-              = f.fields_for :absolute_data_casais, @pdsi.absolute_data_casais_with_values(@casai) do |item|
-                tr
-                  td = item.object.absolute_datum.name
-                  td = item.number_field :value
-                  td = number_field_tag ''
+          table.tables
+            thead
+              tr
+                th Tempo médio de permanência CASAI
+                th CASAI
+                th Total DSEI
+              tbody
+                = f.fields_for :absolute_data_casais, @pdsi.absolute_data_casais_with_values(@casai) do |item|
+                  tr
+                    td = item.object.absolute_datum.name
+                    td = item.number_field :value
+                    td = number_field_tag ''
+      - else
+        fieldset
+          legend
+            | CASAI &nbsp;
 
+          = link_to 'Incluir Casai', casais_path
