@@ -15,9 +15,18 @@
       fieldset
         legend
           | CASAI &nbsp;
-          strong = @casai.name
+          strong = @casai.name.capitalize
 
-        = f.fields_for :absolute_data_casais, @pdsi.absolute_data_casais_with_values(@casai) do |item|
-          .field
-            label = item.object.absolute_datum.name
-            = item.number_field :value
+        table.tables
+          thead
+            tr
+              th Tempo médio de permanência CASAI
+              th CASAI
+              th Total DSEI
+            tbody
+              = f.fields_for :absolute_data_casais, @pdsi.absolute_data_casais_with_values(@casai) do |item|
+                tr
+                  td = item.object.absolute_datum.name
+                  td = item.number_field :value
+                  td = number_field_tag ''
+
