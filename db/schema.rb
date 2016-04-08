@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160408150750) do
+ActiveRecord::Schema.define(version: 20160408202003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -914,6 +914,36 @@ ActiveRecord::Schema.define(version: 20160408150750) do
   add_index "specific_results", ["dsei_id"], name: "index_specific_results_on_dsei_id", using: :btree
   add_index "specific_results", ["result_id"], name: "index_specific_results_on_result_id", using: :btree
 
+  create_table "strategic_indicator_base_poles", force: :cascade do |t|
+    t.integer  "indicator_value"
+    t.integer  "numerator_value"
+    t.integer  "denominator_value"
+    t.integer  "strategic_indicator_id"
+    t.integer  "base_polo_id"
+    t.integer  "pdsi_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "strategic_indicator_base_poles", ["base_polo_id"], name: "index_strategic_indicator_base_poles_on_base_polo_id", using: :btree
+  add_index "strategic_indicator_base_poles", ["pdsi_id"], name: "index_strategic_indicator_base_poles_on_pdsi_id", using: :btree
+  add_index "strategic_indicator_base_poles", ["strategic_indicator_id"], name: "index_strategic_indicator_base_poles_on_strategic_indicator_id", using: :btree
+
+  create_table "strategic_indicator_casais", force: :cascade do |t|
+    t.integer  "indicator_value"
+    t.integer  "numerator_value"
+    t.integer  "denominator_value"
+    t.integer  "strategic_indicator_id"
+    t.integer  "casai_id"
+    t.integer  "pdsi_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "strategic_indicator_casais", ["casai_id"], name: "index_strategic_indicator_casais_on_casai_id", using: :btree
+  add_index "strategic_indicator_casais", ["pdsi_id"], name: "index_strategic_indicator_casais_on_pdsi_id", using: :btree
+  add_index "strategic_indicator_casais", ["strategic_indicator_id"], name: "index_strategic_indicator_casais_on_strategic_indicator_id", using: :btree
+
   create_table "strategic_indicator_denominators", force: :cascade do |t|
     t.string   "name"
     t.integer  "value"
@@ -924,6 +954,23 @@ ActiveRecord::Schema.define(version: 20160408150750) do
 
   add_index "strategic_indicator_denominators", ["strategic_indicator_id"], name: "strategic_indicator_denominators_index", using: :btree
 
+  create_table "strategic_indicator_dseis", force: :cascade do |t|
+    t.integer  "indicator_value"
+    t.integer  "indicators_sum"
+    t.integer  "numerator_value"
+    t.integer  "denominator_value"
+    t.boolean  "dedicated",              default: true
+    t.integer  "strategic_indicator_id"
+    t.integer  "dsei_id"
+    t.integer  "pdsi_id"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
+  add_index "strategic_indicator_dseis", ["dsei_id"], name: "index_strategic_indicator_dseis_on_dsei_id", using: :btree
+  add_index "strategic_indicator_dseis", ["pdsi_id"], name: "index_strategic_indicator_dseis_on_pdsi_id", using: :btree
+  add_index "strategic_indicator_dseis", ["strategic_indicator_id"], name: "index_strategic_indicator_dseis_on_strategic_indicator_id", using: :btree
+
   create_table "strategic_indicator_numerators", force: :cascade do |t|
     t.string   "name"
     t.integer  "value"
@@ -932,29 +979,29 @@ ActiveRecord::Schema.define(version: 20160408150750) do
     t.datetime "updated_at",             null: false
   end
 
-  add_index "strategic_indicator_numerators", ["strategic_indicator_id"], name: "index_strategic_indicator_numerators_on_strategic_indicator_id", using: :btree
+  add_index "strategic_indicator_numerators", ["strategic_indicator_id"], name: "strategic_indicator_numerators_index", using: :btree
 
   create_table "strategic_indicators", force: :cascade do |t|
     t.string   "name"
     t.string   "level"
+    t.string   "data_base"
+    t.string   "calculation_formula"
     t.boolean  "is_specific",                           default: false
     t.integer  "strategic_indicators_sub_dimension_id"
-    t.integer  "pdsi_id"
     t.datetime "created_at",                                            null: false
     t.datetime "updated_at",                                            null: false
   end
 
-  add_index "strategic_indicators", ["pdsi_id"], name: "index_strategic_indicators_on_pdsi_id", using: :btree
   add_index "strategic_indicators", ["strategic_indicators_sub_dimension_id"], name: "index_indicators_sub_dimension_id", using: :btree
 
   create_table "strategic_indicators_dimensions", force: :cascade do |t|
     t.string   "name"
-    t.integer  "dsei"
+    t.integer  "dsei_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "strategic_indicators_dimensions", ["dsei"], name: "index_strategic_indicators_dimension_id", using: :btree
+  add_index "strategic_indicators_dimensions", ["dsei_id"], name: "index_strategic_indicators_dimension_id", using: :btree
 
   create_table "strategic_indicators_sub_dimensions", force: :cascade do |t|
     t.string   "name"
@@ -1107,10 +1154,19 @@ ActiveRecord::Schema.define(version: 20160408150750) do
   add_foreign_key "service_networks", "pdsis"
   add_foreign_key "specific_results", "dseis"
   add_foreign_key "specific_results", "results"
+  add_foreign_key "strategic_indicator_base_poles", "base_polos"
+  add_foreign_key "strategic_indicator_base_poles", "pdsis"
+  add_foreign_key "strategic_indicator_base_poles", "strategic_indicators"
+  add_foreign_key "strategic_indicator_casais", "casais"
+  add_foreign_key "strategic_indicator_casais", "pdsis"
+  add_foreign_key "strategic_indicator_casais", "strategic_indicators"
   add_foreign_key "strategic_indicator_denominators", "strategic_indicators"
+  add_foreign_key "strategic_indicator_dseis", "dseis"
+  add_foreign_key "strategic_indicator_dseis", "pdsis"
+  add_foreign_key "strategic_indicator_dseis", "strategic_indicators"
   add_foreign_key "strategic_indicator_numerators", "strategic_indicators"
-  add_foreign_key "strategic_indicators", "pdsis"
   add_foreign_key "strategic_indicators", "strategic_indicators_sub_dimensions"
+  add_foreign_key "strategic_indicators_dimensions", "dseis"
   add_foreign_key "strategic_indicators_sub_dimensions", "strategic_indicators_dimensions"
   add_foreign_key "users", "dseis"
   add_foreign_key "villages", "base_polos"

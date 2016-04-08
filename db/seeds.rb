@@ -642,14 +642,14 @@ if ProjectionBudgetItem.count == 0
   ])
 end
 
-if TextTemplate.count == 0   
+if TextTemplate.count == 0
   TextTemplate.create!([
-    { 
-      introducao_1:'<p lang="pt-BR">A Secretaria Especial de Saúde Indígena (SESAI) do Ministério da Saúde (MS) foi criada no ano de 2010 para coordenar e executar o processo de gestão do Subsistema de Atenção à Saúde Indígena em todo Território Nacional. Sua missão é promover a atenção à saúde aos povos indígenas, aprimorando as ações de atenção básica e de saneamento básico nas aldeias, observando as práticas de saúde e os saberes tradicionais, e articulando com os demais gestores do SUS para prover ações complementares e especializadas, com controle social.  </p><p lang="pt-BR"> A criação da SESAI representou um grande avanço na atenção à saúde indígena e traz grandes desafios de gestão para o MS. É uma Secretaria que, diferentemente das demais Secretarias do Ministério da Saúde, executa diretamente os serviços de atenção e prevenção à saúde, atuando nacionalmente através de equipamentos e pessoal próprios.</p><p lang="pt-BR"> Para implementar o Subsistema de Atenção à Saúde Indígena e executar suas ações, a estrutura administrativa da SESAI conta com 3 departamentos[1] no âmbito central e 34 Distritos Sanitários Especiais Indígenas (DSEIs), que são as unidades gestoras descentralizadas do Subsistema, responsáveis pela execução de ações de atenção à saúde nas aldeias, saneamento ambiental e edificações de saúde indígena.</p><p lang="pt-BR"> Os Planos Distritais de Saúde Indígena (PDSI) permitem o planejamento da oferta de serviços de atenção à Saúde Indígena atendendo às especificidades de cada um dos Distritos Especiais de Saúde Indígena. É um instrumento que visa aprimorar o planejamento da gestão, buscando maior eficiência e eficácia de suas ações. Os PDSI possibilitam a integração dos planejamentos de cada Distrito ao Plano Nacional de Saúde/ Plano Plurianual 2015-2019 e o Planejamento Estratégico da Secretaria Especial de Saúde Indígena.  </p><p lang="pt-BR"> Para efetivar as ações do Subsistema de Atenção à Saúde Indígena o Plano Distrital de Saúde Indígena 2016-2019, previsto na Lei nº 8.080/90, no Decreto nº 3.156/99 e na Portaria nº 3.965/2010, foi elaborado durante o ano de 2015 de forma democrática e participativa.&nbsp;O presente documento além de consolidar o processo e os resultados do Plano Distrital de Saúde Indígena de <strong>[NOME_DSEI]</strong> para o período 2016-2019, busca dar visibilidade e transparência para a gestão da saúde indígena, subsidiando, assim, o exercício efetivo do controle social sobre a atuação do governo.  </p><p lang="pt-BR"> Nesta introdução, além da apresentação, registram-se os propósitos e princípios dos PDSI. As etapas e atividades que conformaram o processo de construção dos PDSI são detalhadas no capítulo 2.  </p><p lang="pt-BR"> Fundamental para todo exercício de planejamento é a construção de um bom diagnóstico sobre a situação atual e a reflexão sobre os aprendizados de exercícios de planejamento anteriores. Nesse sentido, o capítulo 3 do presente documento traz a caracterização do DSEI - contemplando informações acerca das respectivas condições socioeconômicas, epidemiológicas e de gestão do sistema.  </p><p lang="pt-BR"> O capítulo 4, por sua vez, registra a análise situacional do DSEI, construída junto ao Controle Social, com a avaliação da implementação do PDSI referente ao período entre 2012-2015, os indicadores de saúde do Distrito e a análise sobre os principais desafios do distrito.</p><p lang="pt-BR"> Os resultados esperados para o período 2016-2019 encontram-se registrados no capítulo 5. Complementarmente, o capítulo 6 traz a projeção&nbsp;orçamentária para o período.</p><p lang="pt-BR"> <strong>1.2 Propósitos e Princípios do PDSI</strong></p><p lang="pt-BR"> Por sua importância como instrumento de planejamento, os Planos Distritais de Saúde Indígena respondem a diversos propósitos, tanto para a gestão dos Distritos Especiais de Saúde Indígena, como para a gestão da SESAI Central e para o Controle Social.  </p><p lang="pt-BR"> No âmbito dos Distritos Especiais de Saúde Indígena, o PDSI deve apoiar todo o ciclo do planejamento para a oferta de serviços de saúde no âmbito distrital, a saber: (i) o diagnóstico das necessidades de saúde do território; (ii) a definição dos resultados esperados, metas e indicadores, assim como a projeção do orçamento quadrienal (iii)&nbsp; o estabelecimento de prioridades estratégicas para o plano de ação anual, orientação para a execução das macro-ações (iv) a promoção do monitoramento das ações para subsidiar a prestação de contas e a aferição de resultados.  </p><p lang="pt-BR"> No âmbito da SESAI Central, os PDSI devem permitir um efetivo conhecimento das necessidades dos DSEIs contribuindo para auxiliar na definição de prioridades estratégicas para SESAI e para garantir o alinhamento entre os diferentes instrumentos de planejamento e gestão (Plano Plurianual, Plano Estratégico SESAI e PDSIs). Além disso, os PDSI são ferramenta essencial para que a SESAI Central cumpra seu papel no fomento da execução e monitoramento das ações, assim como acompanhamento da execução orçamentária, base para alimentação do Relatório Anual de Gestão (RAG).</p><p lang="pt-BR"> Finalmente, no âmbito do Controle Social, na figura dos Conselhos Distritais de Saúde Indígena, o PDSI permite o acompanhamento e fiscalização das ações aprovadas, assim como a avaliação do impacto das mesmas sobre a saúde dos povos indígenas.  </p><p lang="pt-BR"> Para cumprir com esses propósitos, a elaboração dos Planos Distritais de Saúde Indígena 2016-2019 deve prezar pela clareza de seus conteúdos e garantir o alinhamento com os demais instrumentos de planejamento do Governo Federal, assim como a viabilidade dos resultados previstos. Além disso, devem ser construídos através do diálogo e consulta com as populações indígenas. Esses princípios encontram-se registrados e detalhados na figura 1.</p><p><img class="fr-fin fr-dib" alt="[1] Departamento de Gestão da Saúde Indígena (DGESI), Departamento de Atenção à Saúde Indígena (DASI), Departamento de Saneamento e Edificações de Saúde (DSESI)" src="/images/Screenshot from 2016-03-08 15:15:47.png" width="770" title="[1] Departamento de Gestão da Saúde Indígena (DGESI), Departamento de Atenção à Saúde Indígena (DASI), Departamento de Saneamento e Edificações de Saúde (DSESI)"></p><p><br></p><p lang="pt-BR"> [1] Departamento de Gestão da Saúde Indígena (DGESI), Departamento de Atenção à Saúde Indígena (DASI),&nbsp;Departamento de Saneamento e Edificações de Saúde (DSESI)</p>', 
-      created_at: '2015-10-30 00:54:13.605808', 
-      updated_at: '2016-03-08 18:21:50.27538', 
+    {
+      introducao_1:'<p lang="pt-BR">A Secretaria Especial de Saúde Indígena (SESAI) do Ministério da Saúde (MS) foi criada no ano de 2010 para coordenar e executar o processo de gestão do Subsistema de Atenção à Saúde Indígena em todo Território Nacional. Sua missão é promover a atenção à saúde aos povos indígenas, aprimorando as ações de atenção básica e de saneamento básico nas aldeias, observando as práticas de saúde e os saberes tradicionais, e articulando com os demais gestores do SUS para prover ações complementares e especializadas, com controle social.  </p><p lang="pt-BR"> A criação da SESAI representou um grande avanço na atenção à saúde indígena e traz grandes desafios de gestão para o MS. É uma Secretaria que, diferentemente das demais Secretarias do Ministério da Saúde, executa diretamente os serviços de atenção e prevenção à saúde, atuando nacionalmente através de equipamentos e pessoal próprios.</p><p lang="pt-BR"> Para implementar o Subsistema de Atenção à Saúde Indígena e executar suas ações, a estrutura administrativa da SESAI conta com 3 departamentos[1] no âmbito central e 34 Distritos Sanitários Especiais Indígenas (DSEIs), que são as unidades gestoras descentralizadas do Subsistema, responsáveis pela execução de ações de atenção à saúde nas aldeias, saneamento ambiental e edificações de saúde indígena.</p><p lang="pt-BR"> Os Planos Distritais de Saúde Indígena (PDSI) permitem o planejamento da oferta de serviços de atenção à Saúde Indígena atendendo às especificidades de cada um dos Distritos Especiais de Saúde Indígena. É um instrumento que visa aprimorar o planejamento da gestão, buscando maior eficiência e eficácia de suas ações. Os PDSI possibilitam a integração dos planejamentos de cada Distrito ao Plano Nacional de Saúde/ Plano Plurianual 2015-2019 e o Planejamento Estratégico da Secretaria Especial de Saúde Indígena.  </p><p lang="pt-BR"> Para efetivar as ações do Subsistema de Atenção à Saúde Indígena o Plano Distrital de Saúde Indígena 2016-2019, previsto na Lei nº 8.080/90, no Decreto nº 3.156/99 e na Portaria nº 3.965/2010, foi elaborado durante o ano de 2015 de forma democrática e participativa.&nbsp;O presente documento além de consolidar o processo e os resultados do Plano Distrital de Saúde Indígena de <strong>[NOME_DSEI]</strong> para o período 2016-2019, busca dar visibilidade e transparência para a gestão da saúde indígena, subsidiando, assim, o exercício efetivo do controle social sobre a atuação do governo.  </p><p lang="pt-BR"> Nesta introdução, além da apresentação, registram-se os propósitos e princípios dos PDSI. As etapas e atividades que conformaram o processo de construção dos PDSI são detalhadas no capítulo 2.  </p><p lang="pt-BR"> Fundamental para todo exercício de planejamento é a construção de um bom diagnóstico sobre a situação atual e a reflexão sobre os aprendizados de exercícios de planejamento anteriores. Nesse sentido, o capítulo 3 do presente documento traz a caracterização do DSEI - contemplando informações acerca das respectivas condições socioeconômicas, epidemiológicas e de gestão do sistema.  </p><p lang="pt-BR"> O capítulo 4, por sua vez, registra a análise situacional do DSEI, construída junto ao Controle Social, com a avaliação da implementação do PDSI referente ao período entre 2012-2015, os indicadores de saúde do Distrito e a análise sobre os principais desafios do distrito.</p><p lang="pt-BR"> Os resultados esperados para o período 2016-2019 encontram-se registrados no capítulo 5. Complementarmente, o capítulo 6 traz a projeção&nbsp;orçamentária para o período.</p><p lang="pt-BR"> <strong>1.2 Propósitos e Princípios do PDSI</strong></p><p lang="pt-BR"> Por sua importância como instrumento de planejamento, os Planos Distritais de Saúde Indígena respondem a diversos propósitos, tanto para a gestão dos Distritos Especiais de Saúde Indígena, como para a gestão da SESAI Central e para o Controle Social.  </p><p lang="pt-BR"> No âmbito dos Distritos Especiais de Saúde Indígena, o PDSI deve apoiar todo o ciclo do planejamento para a oferta de serviços de saúde no âmbito distrital, a saber: (i) o diagnóstico das necessidades de saúde do território; (ii) a definição dos resultados esperados, metas e indicadores, assim como a projeção do orçamento quadrienal (iii)&nbsp; o estabelecimento de prioridades estratégicas para o plano de ação anual, orientação para a execução das macro-ações (iv) a promoção do monitoramento das ações para subsidiar a prestação de contas e a aferição de resultados.  </p><p lang="pt-BR"> No âmbito da SESAI Central, os PDSI devem permitir um efetivo conhecimento das necessidades dos DSEIs contribuindo para auxiliar na definição de prioridades estratégicas para SESAI e para garantir o alinhamento entre os diferentes instrumentos de planejamento e gestão (Plano Plurianual, Plano Estratégico SESAI e PDSIs). Além disso, os PDSI são ferramenta essencial para que a SESAI Central cumpra seu papel no fomento da execução e monitoramento das ações, assim como acompanhamento da execução orçamentária, base para alimentação do Relatório Anual de Gestão (RAG).</p><p lang="pt-BR"> Finalmente, no âmbito do Controle Social, na figura dos Conselhos Distritais de Saúde Indígena, o PDSI permite o acompanhamento e fiscalização das ações aprovadas, assim como a avaliação do impacto das mesmas sobre a saúde dos povos indígenas.  </p><p lang="pt-BR"> Para cumprir com esses propósitos, a elaboração dos Planos Distritais de Saúde Indígena 2016-2019 deve prezar pela clareza de seus conteúdos e garantir o alinhamento com os demais instrumentos de planejamento do Governo Federal, assim como a viabilidade dos resultados previstos. Além disso, devem ser construídos através do diálogo e consulta com as populações indígenas. Esses princípios encontram-se registrados e detalhados na figura 1.</p><p><img class="fr-fin fr-dib" alt="[1] Departamento de Gestão da Saúde Indígena (DGESI), Departamento de Atenção à Saúde Indígena (DASI), Departamento de Saneamento e Edificações de Saúde (DSESI)" src="/images/Screenshot from 2016-03-08 15:15:47.png" width="770" title="[1] Departamento de Gestão da Saúde Indígena (DGESI), Departamento de Atenção à Saúde Indígena (DASI), Departamento de Saneamento e Edificações de Saúde (DSESI)"></p><p><br></p><p lang="pt-BR"> [1] Departamento de Gestão da Saúde Indígena (DGESI), Departamento de Atenção à Saúde Indígena (DASI),&nbsp;Departamento de Saneamento e Edificações de Saúde (DSESI)</p>',
+      created_at: '2015-10-30 00:54:13.605808',
+      updated_at: '2016-03-08 18:21:50.27538',
       processo_construcao_pdsi_2: '<p lang="pt-BR"> <b>2. O Processo de construção do PDSI</b></p><p lang="pt-BR"> O processo de construção dos PDSI 2016-2019 foi estruturado em três etapas: a primeira dedicou-se a atividades preparatórias de formulação técnica e política do processo, a segunda se constituiu como o momento para a análise situacional dos Distritos de Saúde Indígena que subsidiou a terceira etapa, dedicada à elaboração de resultados e planejamento orçamentário, assim como aprovação dos Planos Distritais de Saúde Indígena. Nas três etapas, o processo previu momentos de consulta ao controle social, assim como espaço para devolutivas do governo sobre os resultados da consulta. Nos próximos itens são detalhados os objetivos e atividades de cada uma das etapas.</p><p lang="pt-BR"> A figura 2, ao final dessa seção registra graficamente as principais etapas do processo</p><p lang="pt-BR"> <br><br> </p><p lang="pt-BR"> <b>Etapa 1. Elaboração da metodologia de construção do Plano Distrital de Saúde Indígena 2016-2019</b></p><hr class="fr-tag"><p lang="pt-BR"> </p><p lang="pt-BR" style="margin-top: 0.19in; margin-bottom: 0.19in; border-top: 1px solid #00ffff; border-bottom: 1px solid #00ffff; border-left: none; border-right: none; padding: 0.01in 0in; line-height: 100%">O principal objetivo dessa etapa foi promover um processo de reflexão técnica e concertação política sobre propósitos e formatos para a elaboração dos Planos Distritais de Saúde Indígena 2016-2019.</p><p lang="pt-BR"> </p><hr class="fr-tag"><p lang="pt-BR">O processo de construção do PDSI 2016-2019 teve início em junho de 2015, com a elaboração de uma proposta de metodologia por parte do Grupo de Trabalho do PDSI (GT-PDSI), composto por todas as áreas da SESAI Central, cinco coordenadores de DSEI e&nbsp; um presidente de CONDISI. O GT-PDSI foi criado em maio de 2015, durante a Oficina de Planejamento Estratégico da Saúde Indígena, que contou com a presença de todos os coordenadores de DSEI e presidentes de CONDISI.  </p><p lang="pt-BR"> O GT-PDSI reuniu-se diversas vezes, totalizando quatro dias de reuniões, para (i) avaliar avanços e dificuldades do processo de elaboração do PDSI anterior; (ii) definir os propósitos do PDSI 2016-2019; (iii) definir os princípios norteadores do processo de construção do PDSI 2016-2019; (iv) &nbsp;definir conteúdo e metodologia processo de construção do PDSI 2016-2019. Durante essa primeira fase foram definidos, também, os tetos orçamentários anualizados por DSEI.</p><p lang="pt-BR"> No mês de julho de 2015, a proposta da metodologia foi apresentada em oficina com coordenadores do DSEI, que tiveram a oportunidade de sugerir as adaptações necessárias na proposta para que esta respondesse a necessidade e possibilidades de todos os DSEI.&nbsp; Entre julho e agosto de 2015 o processo de construção do PDSI 2016-2019 foi apresentado para os Conselhos Distritais de Saúde Indígena.</p><p lang="pt-BR"> Ainda, em agosto de 2015 uma oficina om a participação das equipes dos DSEI e presidentes do CONIDISI serviu como momento de formação sobre o processo de elaboração do PDSI, incluindo não só a metodologia de construção, mas também formação sobre critérios para a definição de tetos orçamentários e competências da SESAI. Após essa oficina, os presidentes de CONDISI realizaram devolutiva no âmbito de seus distritos sobre as questões trabalhadas na oficina de formação.</p><p lang="pt-BR"> <br><br> </p><p lang="pt-BR"> <b>Etapa 2: Análise Situacional dos Distritos Sanitários Especiais Indígenas</b></p><hr class="fr-tag"><p lang="pt-BR"> O principal objetivo dessa etapa foi construir um diagnóstico compartilhado de cada território</p><hr class="fr-tag"><p lang="pt-BR">O diagnóstico consolidado de cada território se alimentou de diversas fontes: (i) avaliação do PDSI 2012-2015; (ii) Indicadores e diagnóstico de necessidades; (iii) oficinas consultivas com CONDISI e Conselhos Locais para complementações e levantamento e priorização de necessidades do território.</p><p lang="pt-BR"> Para cumprir com esse objetivo, o primeiro passo foi a realização da avaliação do PDSI 2012-2015, tanto quantitativo (comparativo entre as metas planejadas e metas efetivamente alcançadas) como qualitativo (aprendizagens e desafios do período). Essa avaliação for realizada primeiramente, em julho de 2015, pelas equipes dos DSEIs que se encarregaram de consolidar informações. Nos meses de julho e agosto, essa avaliação foi compartilhada e complementada pelos Presidente de CONDISI. &nbsp;As equipes do DSEI e Pólos Bases se encarregaram também, entre agosto e setembro, de levantar informações para a caracterização do DSEI, incluindo dados demográficos, fisiográficos e do mapa de indicadores estratégicos, que servem como linha de base para o planejamento.</p><p lang="pt-BR"> A avaliação quantitativa e qualitativa do PDSI, assim como os dados de caracterização do DSEI foram compartilhados em reuniões com os Conselhos Locais, realizadas entre setembro e outubro. Durante essas oficinas identificaram-se também os principais desafios e prioridades de cada território.</p><p lang="pt-BR"> [PARAGRAFO_DSEI]</p><p lang="pt-BR"> Os resultados dessa etapa de Análise Situacional encontram-se registrados nos capítulos 3 e 4 desse documento. O capítulo 3 traz a caracterização do distrito. O item 4.1 registra a avaliação qualitativa do PDSI 2012-2015, o item 4.2 traz os indicadores do território e o item 4.3 traz os principais desafios do território. No anexo 1 encontram-se os resultados da avaliação quantitativa e comparativa entre planejado e realizado no período 2012-2015.</p><p lang="pt-BR"> <br><br> </p><p lang="pt-BR"> <b>Etapa 3: Definição dos Resultados Esperados e do Orçamento Macro para 2016, 2017, 2018 e 2019</b></p><hr class="fr-tag"><p lang="pt-BR" style="margin-top: 0.19in; margin-bottom: 0.19in; border-top: 1px solid #00ffff; border-bottom: 1px solid #00ffff; border-left: none; border-right: none; padding: 0.01in 0in; line-height: 100%"> Essa etapa buscou consolidar todos os desafios e prioridades levantados na segunda etapa e endereçá-los através do planejamento de resultados para o PDSI 2016-2019</p><hr><p lang="pt-BR">Em novembro, foi elaborada a primeira versão dos Resultados Esperados e o Orçamento Macro para o período de 2016-2019 pelas equipes dos DSEIs, com base nos insumos elaborados durante a etapa anterior e tendo como orientador o Plano Estratégico da SESAI. &nbsp;Essa primeira versão dos Resultados foi enviada às áreas centrais da SESAI durante o mês de novembro para que estas pudessem analisar a viabilidade técnica, financeira e legal das propostas.</p><p lang="pt-BR"> No fim de novembro as áreas da SESAI Central e as equipes dos DSEIs se juntaram para, a partir da devolutiva sobre viabilidade das propostas elaboradas, construir junto os ajustes aos Resultados Esperados e Orçamento. Por fim, as equipes retornaram aos Distritos para, ao longo do mês de dezembro e janeiro, finalizar os planos, que finalmente foram apresentados e submetidos à aprovação do Conselho Distrital de Saúde Indígena (CONDISI) com posterior encaminhamento a Secretaria Especial de Saúde Indígena para homologação, em ato realizado no mês de março.</p><p lang="pt-BR"> <br><br> </p><p lang="pt-BR"> Não informado</p>',
-      analise_situacional_4: '<p>A análise situacional do Distrito <strong>[NOME_DSEI]</strong> &nbsp;é o ponto de partida para o exercício de planejamento do futuro. Partir de um  bom diagnóstico compartilhado, entre gestão, trabalhadores e usuário, sobre as  especificidades do território é fundamental para entender as maiores  oportunidades e desafios que deverão nortear o planejamento para os próximos  anos. </p><p>Assim, o balanço do PDSI 2012-2015 (item 4.1) busca  registrar os avanços percebidos e as dificuldades enfrentadas pelo distrito no  período anterior. Essa análise deve contribuir com aprendizados que garantam a  aderência e a viabilidade dos resultados planejados. Os indicadores da saúde  indígena (item 4.2) permitem um diagnóstico preciso dos principais desafios  relacionados à saúde, assim como permitirão o acompanhamento da evolução das condições  de saúde no distrito. Os indicadores de saúde contribuem com informações  pertinentes que ajudam a priorização das ações mais urgentes. Considerando que  toda gestão enfrenta limites orçamentários, legais, de infraestrutura e de  recursos humanos, os indicadores proporcionam parâmetros que auxiliam na  escolha sobre como alocar esforços e recursos buscando maior efetividade das  ações.&nbsp; A partir desses dois conjunto de  informações e reflexões, o item 4.3 traz o registro dos principais desafios  para o período 2016-2019, que representam as escolhas estratégicas definidas e  debatidas junto ao controle social. </p>' 
+      analise_situacional_4: '<p>A análise situacional do Distrito <strong>[NOME_DSEI]</strong> &nbsp;é o ponto de partida para o exercício de planejamento do futuro. Partir de um  bom diagnóstico compartilhado, entre gestão, trabalhadores e usuário, sobre as  especificidades do território é fundamental para entender as maiores  oportunidades e desafios que deverão nortear o planejamento para os próximos  anos. </p><p>Assim, o balanço do PDSI 2012-2015 (item 4.1) busca  registrar os avanços percebidos e as dificuldades enfrentadas pelo distrito no  período anterior. Essa análise deve contribuir com aprendizados que garantam a  aderência e a viabilidade dos resultados planejados. Os indicadores da saúde  indígena (item 4.2) permitem um diagnóstico preciso dos principais desafios  relacionados à saúde, assim como permitirão o acompanhamento da evolução das condições  de saúde no distrito. Os indicadores de saúde contribuem com informações  pertinentes que ajudam a priorização das ações mais urgentes. Considerando que  toda gestão enfrenta limites orçamentários, legais, de infraestrutura e de  recursos humanos, os indicadores proporcionam parâmetros que auxiliam na  escolha sobre como alocar esforços e recursos buscando maior efetividade das  ações.&nbsp; A partir desses dois conjunto de  informações e reflexões, o item 4.3 traz o registro dos principais desafios  para o período 2016-2019, que representam as escolhas estratégicas definidas e  debatidas junto ao controle social. </p>'
       },
 
   ])
@@ -766,6 +766,301 @@ if DemographicData.count == 0
   ActiveRecord::Base.connection.execute(sql)
 end
 
+if StrategicIndicatorsDimension.count == 0
+  StrategicIndicatorsDimension.create!([
+    { name: 'Impacto' },
+    { name: 'Acesso e cobertura' },
+    { name: 'Acesso e cobertura' },
+    { name: 'Saneamento ambiental' },
+    { name: 'Força de trabalho' },
+    { name: 'Estrutura' },
+    { name: 'Gestão' },
+    { name: 'Articulação interfederativa' },
+    { name: 'Controle Social' }
+  ])
+else
+  puts '=--> StrategicIndicatorsDimension already filled'
+end
 
+if StrategicIndicatorsSubDimension.count == 0
+  puts '=--> creating StrategicIndicatorsSubDimension'
+  StrategicIndicatorsSubDimension.create!([
+    { name: 'Mortalidade', strategic_indicators_dimension_id: 1 },
+    { name: 'Morbidade', strategic_indicators_dimension_id: 1 },
+    { name: 'Imunização', strategic_indicators_dimension_id: 2 },
+    { name: 'Saúde da criança', strategic_indicators_dimension_id: 2 },
+    { name: 'Saúde da mulher', strategic_indicators_dimension_id: 2 },
+    { name: 'Educação em saúde', strategic_indicators_dimension_id: 2 },
+    { name: 'Saúde Bucal', strategic_indicators_dimension_id: 2 },
+    { name: 'Vigilância em saúde', strategic_indicators_dimension_id: 2 },
+    { name: 'Resolutividade', strategic_indicators_dimension_id: 2 },
+    { name: 'Medicamentos', strategic_indicators_dimension_id: 2 },
+    { name: 'Água', strategic_indicators_dimension_id: 3 },
+    { name: 'Esgoto', strategic_indicators_dimension_id: 3 },
+    { name: 'Resíduos sólidos', strategic_indicators_dimension_id: 3 },
+    { name: 'Profissionais', strategic_indicators_dimension_id: 4 },
+    { name: 'Educação permanente', strategic_indicators_dimension_id: 4 },
+    { name: 'Edificações', strategic_indicators_dimension_id: 5 },
+    { name: 'Equipamentos', strategic_indicators_dimension_id: 5 },
+    { name: 'Sistema de informação', strategic_indicators_dimension_id: 6 },
+    { name: 'Orçamento', strategic_indicators_dimension_id: 6 },
+    { name: 'Pactuação', strategic_indicators_dimension_id: 7 },
+    { name: 'Fluxo de atendimento', strategic_indicators_dimension_id: 7 },
+    { name: 'Participação e influência', strategic_indicators_dimension_id: 8 },
+    { name: 'Formação e qualificação', strategic_indicators_dimension_id: 8 }
+  ])
+else
+  puts '=--> StrategicIndicatorsSubDimension already filled'
+end
+
+if StrategicIndicator.count == 0
+  puts '=--> creating StrategicIndicator'
+  StrategicIndicator.create!([
+    { name: 'Taxa de mortalidade infantil',
+      calculation_formula: 'número de óbitos de menores de 1 anúmero sobre número de nascidos vivos (x1.000)',
+      level: 'base_pole', data_base: 'SIASI',
+      strategic_indicators_sub_dimension_id: 1 },
+
+    { name: 'Taxa de mortalidade neonatal',
+      calculation_formula: 'número de óbitos de menores de 28 dias sobre número de nascidos vivos (x1.000)',
+      level: 'base_pole', data_base: 'SIASI',
+      strategic_indicators_sub_dimension_id: 1 },
+
+    { name: 'Taxa de mortalidade materna',
+      calculation_formula: 'número de óbitos maternos sobre o número de nascidos vivos (x100.000)',
+      level: 'base_pole', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 1 },
+
+    { name: 'Taxa de mortalidade por suicídio',
+      calculation_formula: 'número de óbitos por suicídio sobre a população total (×100.000)',
+      level: 'base_pole', data_base: 'SIASI',
+      strategic_indicators_sub_dimension_id: 1 },
+
+    { name: 'Incidência de Infecção Respiratória Aguda (IRA) em menores de 5 anos',
+      calculation_formula: 'número de casos de IRA em menores de 5 anos de idade sobre número de crianças na mesma faixa etária (x100)',
+      level: 'base_pole', data_base: 'SIASI',
+      strategic_indicators_sub_dimension_id: 2 },
+
+    { name: 'Incidência de Doença Diarreica Aguda (DDA) em menores de 5 anos',
+      calculation_formula: 'número de casos de DDA em menores de 5 anos de idade sobre número de crianças na mesma faixa etária (x100)',
+      level: 'base_pole', data_base: 'SIASI',
+      strategic_indicators_sub_dimension_id: 2 },
+
+    { name: 'Incidência de déficit nutricional em menores de 5 anos',
+      calculation_formula: 'número de casos de déficit nutricional em menores de 5 anos de idade sobre o número total de crianças da mesma faixa etária (x100)',
+      level: 'base_pole', data_base: 'SIASI',
+      strategic_indicators_sub_dimension_id: 2 },
+
+    { name: 'Incidência de déficit nutricional em gestantes',
+      calculation_formula: 'número de gestantes com baixo peso acompanhadas número SIASI sobre o número total de gestantes número SIASI (x100)',
+      level: 'base_pole', data_base: 'SIASI',
+      strategic_indicators_sub_dimension_id: 2 },
+
+    { name: 'Incidência Parasitária Anual (IPA) de Malária',
+      calculation_formula: 'número de exames positivos de malária sobre o total da população (x 1.000)',
+      level: 'base_pole', data_base: 'SIASI',
+      strategic_indicators_sub_dimension_id: 2 },
+
+    { name: 'Taxa de prevalência de hipertensão',
+      calculation_formula: 'número de pessoas entre 18 e 59 anos que referem HAC sobre população total na mesma faixa etária (x 100)',
+      level: 'base_pole', data_base: 'SIASI',
+      strategic_indicators_sub_dimension_id: 2 },
+
+    { name: 'Taxa de prevalência de diabetes melito',
+      calculation_formula: 'número de casos de DM sobre população total (x 100)',
+      level: 'base_pole', data_base: 'SIASI',
+      strategic_indicators_sub_dimension_id: 2 },
+
+    { name: 'Taxa de incidência de tuberculose',
+      calculation_formula: 'número de casos novos de tuberculose sobre a população total (x 100.000)',
+      level: 'base_pole', data_base: 'SIASI',
+      strategic_indicators_sub_dimension_id: 2 },
+
+    { name: 'Incidência de hepatite B',
+      calculation_formula: 'número de casos novos confirmados de hepatite B sobre a população geral (X100.000)',
+      level: 'base_pole', data_base: 'SIASI',
+      strategic_indicators_sub_dimension_id: 2 },
+
+    { name: 'Proporção de menores de 5 anos com esquema vacinal completo',
+      calculation_formula: 'número de crianças menores de 5 anos com esquema vacinal completo sobre o número total de crianças menores de 5 anos (x100)',
+      level: 'base_pole', data_base: 'SIASI',
+      strategic_indicators_sub_dimension_id: 3 },
+
+    { name: 'Proporção de aleitamento materno',
+      calculation_formula: 'número de crianças menores 6 meses em aleitamento exclusivo sobre o número total de crianças menores de 6 meses (x100)',
+      level: 'base_pole', data_base: 'SIASI',
+      strategic_indicators_sub_dimension_id: 4 },
+
+    { name: 'Proporção de atendimento de crianças menores de 1 ano',
+      calculation_formula: 'número de crianças menores de 1 anúmero com atendimento de crescimento e desenvolvimento sobre o número total de crianças menores de 1 anúmero (x100)',
+      level: 'base_pole', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 4 },
+
+    { name: 'Cobertura de citopatológico de cólo de útero',
+      calculation_formula: 'número de mulheres entre 25 e 64 anos que realizaram exames citopatológicos de colo de útero nos últimos 3 anos sobre o número total de mulheres na mesma faixa etária (x100)',
+      level: 'base_pole', data_base: 'SIASI',
+      strategic_indicators_sub_dimension_id: 5 },
+
+    { name: 'Proporção de partos normais',
+      calculation_formula: 'número de partos normais sobre o número total de partos (x100)',
+      level: 'base_pole', data_base: 'SIASI',
+      strategic_indicators_sub_dimension_id: 5 },
+
+    { name: 'Proporção de atendimentos de pré-natal',
+      calculation_formula: 'número de consultas de pré-natal realizadas por médico e/ou enfermeira sobre o número total de gestantes',
+      level: 'base_pole', data_base: 'SIASI',
+      strategic_indicators_sub_dimension_id: 5 },
+
+    { name: 'Cobertura de ações de educação em saúde em aldeias',
+      calculation_formula: 'número de aldeias que receberam/participaram de ações de educação em saúde sobre o número total de aldeias (x100)',
+      level: 'base_pole', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 6 },
+
+    { name: 'Proporção de primeira consulta odontológica programática',
+      calculation_formula: 'número de atendimentos de primeira consulta sobre número total de habitantes (x100)',
+      level: 'base_pole', data_base: 'SIASI',
+      strategic_indicators_sub_dimension_id: 7 },
+
+    { name: 'Proporção de óbitos infantis investigados',
+      calculation_formula: 'número de óbitos infantis investigados sobre o número total de óbitos infantis (x100)',
+      level: 'base_pole', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 8 },
+
+    { name: 'Proporção de óbitos maternos investigados',
+      calculation_formula: 'número de óbitos maternos investigados sobre o número total de óbitos maternos (x100)',
+      level: 'base_pole', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 8 },
+
+    { name: 'Proporção de resolutividade da atenção básica',
+      calculation_formula: 'número de óbitos maternos investigados sobre o número total de óbitos maternos (x100)',
+      level: 'dsei', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 9 },
+
+    { name: 'Porcentagem de abastecimento de medicamentos',
+      calculation_formula: 'número de encaminhamentos de casos sensíveis à atenção básica para as CASAIs sobre o número total de encaminhamentos para as CASAIs (x100)',
+      level: 'dsei', data_base: 'HÓRUS',
+      strategic_indicators_sub_dimension_id: 10 },
+
+    { name: 'Proporção de aldeias com acesso a água tratada',
+      calculation_formula: 'número de aldeias com acesso a água tratada sobre o número total de aldeias com abastecimento de água (x100)',
+      level: 'base_pole', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 11 },
+
+    { name: 'Proporção de aldeias com sistemas de abastecimento de água monitorados',
+      calculation_formula: 'número de aldeias com SAA com MQAI implantado sobre número total de aldeias com abastecimento de água do DSEI (x100)',
+      level: 'base_pole', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 11 },
+
+    { name: 'Proporção de aldeias com acesso a sistemas de abastecimento',
+      calculation_formula: 'número de aldeias com abastecimento de água sobre o número total de aldeias (x100)',
+      level: 'base_pole', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 11 },
+
+    { name: 'Proporção de aldeias com destinúmero adequado dos dejetos',
+      calculation_formula: 'número de aldeias com destinúmero adequado dos dejetos sobre o número total de aldeias (x100)',
+      level: 'base_pole', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 12 },
+
+    { name: 'Proporção de aldeias com destinúmero adequado de resíduos sólidos',
+      calculation_formula: 'número de aldeias com destinação adequada de resíduos sólidos sobre o número total de aldeias (x100)',
+      level: 'base_pole', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 13 },
+
+    { name: 'Número de médicos por população indígena em aldeias',
+      calculation_formula: 'número de médicos sobre população indígena em aldeias (X1000)',
+      level: 'dsei', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 14 },
+
+    { name: 'Proporção de equipes multidisciplinares de saúde indígena completas',
+      calculation_formula: 'número de EMSI que possuem quadro sobre o número total de EMSI (x100)',
+      level: 'dsei', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 14 },
+
+    { name: 'Proporção de profissionais do SASISUS em educação permanente',
+      calculation_formula: 'número de profissionais do SASISUS em educação permanente sobre o número total de profissionais (x100)',
+      level: 'dsei', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 15 },
+
+    { name: 'Proporção de aldeias com população entre 50 a 250 habitantes que possui UBSI',
+      calculation_formula: 'número de aldeias com população entre 50 a 250 habitantes cobertas por UBSI sobre o numero total de aldeias com população entre 50 a 250 habitantes (x100)',
+      level: 'base_pole', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 16 },
+
+    { name: 'Proporção de aldeias com população entre 251 a 500 habitantes que possui UBSI',
+      calculation_formula: 'número de aldeias com população entre 251 a 500 habitantes cobertas por UBSI sobre o numero total de aldeias com população entre 251 a 500 habitantes (x100)',
+      level: 'base_pole', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 16 },
+
+    { name: 'Proporção de aldeias com população superior a 500 habitantes que possui UBSI',
+      calculation_formula: 'número de aldeias com população superior a 500 habitantes cobertas por UBSI sobre o numero total de aldeias com população superior a 500 habitantes (x100)',
+      level: 'base_pole', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 16 },
+
+    { name: 'Proporção de consultórios odontológicos em funcionamento número Dsei',
+      calculation_formula: 'número de consultórios odontológicos fixos e portáteis em funcionamento sobre o número total de consultórios odontológicos fixos e portáteis existentes (x100)',
+      level: 'base_pole', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 17 },
+
+    { name: 'Proporção de DSEIS com funcionamento de rede lógica e internet',
+      calculation_formula: 'número de estabelecimentos que possuem rede lógica em funcionamento plenúmero sobre o número total de estabelecimentos (x100)',
+      level: 'base_pole', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 17 },
+
+    { name: 'Proporção de implementação do SIASI',
+      calculation_formula: 'número de estabelecimentos com o SIASI em operação sobre o número total de estabelecimentos (x100)',
+      level: 'base_pole', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 18 },
+
+    { name: 'Proporção de implementação do sistema Hórus',
+      calculation_formula: 'número de estabelecimentos com o Sistema Hórus em operação sobre o número total de estabelecimentos (x100)',
+      level: 'base_pole', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 18 },
+
+    { name: 'Proporção de execução orçamentária',
+      calculation_formula: 'Volume de recursos empenhados sobre o volume total da dotação orçamentária recebida (x100)',
+      level: 'dsei', data_base: 'SIAFI',
+      strategic_indicators_sub_dimension_id: 19 },
+
+    { name: 'Proporção de execução financeira',
+      calculation_formula: 'Volume total de despesas pagas sobre o volume total da dotação orçamentária empenhada (x100)',
+      level: 'dsei', data_base: 'SIAFI',
+      strategic_indicators_sub_dimension_id: 19 },
+
+    { name: 'Proporção de estabelecimentos de saúde número CNES',
+      calculation_formula: 'número de estabelecimentos de saúde (UBSI, Pólos Base, CASAIs) inseridos número CNES sobre número total de estabelecimentos de saúde (UBSI, Pólos Base, CASAIs) (x100)',
+      level: 'base_pole', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 20 },
+
+    { name: 'Tempo médio de permanência nas CASAIs',
+      calculation_formula: 'número total de dias de permanência dos usuários nas CASAIs sobre o número total de usuários das CASAIs',
+      level: 'dsei', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 21 },
+
+  { name: 'Proporção de reuniões do CONDISIs realizadas',
+   calculation_formula: 'número de reuniões ordinárias realizadas pelo CONDISI sobre o número de reuniões ordinárias programadas (x100)',
+   level: 'dsei', data_base: 'pdsi',
+   strategic_indicators_sub_dimension_id: 22 },
+
+    { name: 'Proporção de reuniões do Conselhos Locais realizadas',
+      calculation_formula: 'número de reuniões ordinárias realizadas pelo Conselho Local sobre o número de reuniões ordinárias programadas (x100)',
+      level: 'dsei', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 22 },
+
+    { name: 'Proporção de conselheiros locais qualificados',
+      calculation_formula: 'número de conselheiros locais qualificados sobre o número previsto de conselheiros qualificados (x100)',
+      level: 'dsei', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 23 },
+
+    { name: 'Proporção de conselheiros distritais qualificados',
+      calculation_formula: 'número de conselheiros distritais qualificados sobre o número previsto de conselheiros qualificados (x100)',
+      level: 'dsei', data_base: 'pdsi',
+      strategic_indicators_sub_dimension_id: 23 },
+
+    { name: 'Tempo médio de permanência nas CASAI',
+      level: 'casai', data_base: 'pdsi' }
+  ])
+else
+  puts '=--> StrategicIndicator already filled'
+end
 
 puts '------>> Done!.'
