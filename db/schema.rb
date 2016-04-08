@@ -946,7 +946,6 @@ ActiveRecord::Schema.define(version: 20160408202003) do
 
   create_table "strategic_indicator_denominators", force: :cascade do |t|
     t.string   "name"
-    t.integer  "value"
     t.integer  "strategic_indicator_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
@@ -973,7 +972,6 @@ ActiveRecord::Schema.define(version: 20160408202003) do
 
   create_table "strategic_indicator_numerators", force: :cascade do |t|
     t.string   "name"
-    t.integer  "value"
     t.integer  "strategic_indicator_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
