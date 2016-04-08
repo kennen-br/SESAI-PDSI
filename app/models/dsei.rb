@@ -11,6 +11,7 @@ class Dsei < ActiveRecord::Base
   has_many :false_results
   has_many :specific_results
   has_many :results, through: :specific_results
+  has_many :strategic_indicators_dimensions
 
   accepts_nested_attributes_for :results, reject_if: :all_blank, allow_destroy: true
 

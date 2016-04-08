@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160408142659) do
+ActiveRecord::Schema.define(version: 20160408150750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -914,6 +914,57 @@ ActiveRecord::Schema.define(version: 20160408142659) do
   add_index "specific_results", ["dsei_id"], name: "index_specific_results_on_dsei_id", using: :btree
   add_index "specific_results", ["result_id"], name: "index_specific_results_on_result_id", using: :btree
 
+  create_table "strategic_indicator_denominators", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "value"
+    t.integer  "strategic_indicator_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "strategic_indicator_denominators", ["strategic_indicator_id"], name: "strategic_indicator_denominators_index", using: :btree
+
+  create_table "strategic_indicator_numerators", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "value"
+    t.integer  "strategic_indicator_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "strategic_indicator_numerators", ["strategic_indicator_id"], name: "index_strategic_indicator_numerators_on_strategic_indicator_id", using: :btree
+
+  create_table "strategic_indicators", force: :cascade do |t|
+    t.string   "name"
+    t.string   "level"
+    t.boolean  "is_specific",                           default: false
+    t.integer  "strategic_indicators_sub_dimension_id"
+    t.integer  "pdsi_id"
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
+  end
+
+  add_index "strategic_indicators", ["pdsi_id"], name: "index_strategic_indicators_on_pdsi_id", using: :btree
+  add_index "strategic_indicators", ["strategic_indicators_sub_dimension_id"], name: "index_indicators_sub_dimension_id", using: :btree
+
+  create_table "strategic_indicators_dimensions", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "dsei"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "strategic_indicators_dimensions", ["dsei"], name: "index_strategic_indicators_dimension_id", using: :btree
+
+  create_table "strategic_indicators_sub_dimensions", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "strategic_indicators_dimension_id"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "strategic_indicators_sub_dimensions", ["strategic_indicators_dimension_id"], name: "index_indicators_dimension_id", using: :btree
+
   create_table "text_templates", force: :cascade do |t|
     t.text     "introducao_1"
     t.datetime "created_at",                 null: false
@@ -1056,6 +1107,11 @@ ActiveRecord::Schema.define(version: 20160408142659) do
   add_foreign_key "service_networks", "pdsis"
   add_foreign_key "specific_results", "dseis"
   add_foreign_key "specific_results", "results"
+  add_foreign_key "strategic_indicator_denominators", "strategic_indicators"
+  add_foreign_key "strategic_indicator_numerators", "strategic_indicators"
+  add_foreign_key "strategic_indicators", "pdsis"
+  add_foreign_key "strategic_indicators", "strategic_indicators_sub_dimensions"
+  add_foreign_key "strategic_indicators_sub_dimensions", "strategic_indicators_dimensions"
   add_foreign_key "users", "dseis"
   add_foreign_key "villages", "base_polos"
 end
