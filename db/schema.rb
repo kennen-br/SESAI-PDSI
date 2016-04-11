@@ -11,66 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328131607) do
+ActiveRecord::Schema.define(version: 20160411195335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
-
-  create_table "absolute_data", force: :cascade do |t|
-    t.integer  "absolute_datum_level_id"
-    t.string   "name"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
-    t.boolean  "is_specific",             default: false
-  end
-
-  add_index "absolute_data", ["absolute_datum_level_id"], name: "index_absolute_data_on_absolute_datum_level_id", using: :btree
-
-  create_table "absolute_data_base_polos", force: :cascade do |t|
-    t.integer  "absolute_datum_id"
-    t.integer  "base_polo_id"
-    t.integer  "pdsi_id"
-    t.integer  "value"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-  end
-
-  add_index "absolute_data_base_polos", ["absolute_datum_id"], name: "index_absolute_data_base_polos_on_absolute_datum_id", using: :btree
-  add_index "absolute_data_base_polos", ["base_polo_id"], name: "index_absolute_data_base_polos_on_base_polo_id", using: :btree
-  add_index "absolute_data_base_polos", ["pdsi_id"], name: "index_absolute_data_base_polos_on_pdsi_id", using: :btree
-
-  create_table "absolute_data_casais", force: :cascade do |t|
-    t.integer  "absolute_datum_id"
-    t.integer  "casai_id"
-    t.integer  "pdsi_id"
-    t.integer  "value"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-  end
-
-  add_index "absolute_data_casais", ["absolute_datum_id"], name: "index_absolute_data_casais_on_absolute_datum_id", using: :btree
-  add_index "absolute_data_casais", ["casai_id"], name: "index_absolute_data_casais_on_casai_id", using: :btree
-  add_index "absolute_data_casais", ["pdsi_id"], name: "index_absolute_data_casais_on_pdsi_id", using: :btree
-
-  create_table "absolute_data_dseis", force: :cascade do |t|
-    t.integer  "absolute_datum_id"
-    t.integer  "dsei_id"
-    t.integer  "pdsi_id"
-    t.integer  "value"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-  end
-
-  add_index "absolute_data_dseis", ["absolute_datum_id"], name: "index_absolute_data_dseis_on_absolute_datum_id", using: :btree
-  add_index "absolute_data_dseis", ["dsei_id"], name: "index_absolute_data_dseis_on_dsei_id", using: :btree
-  add_index "absolute_data_dseis", ["pdsi_id"], name: "index_absolute_data_dseis_on_pdsi_id", using: :btree
-
-  create_table "absolute_datum_levels", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "base_polos", force: :cascade do |t|
     t.integer  "dsei_id"
@@ -900,16 +845,6 @@ ActiveRecord::Schema.define(version: 20160328131607) do
   add_index "service_networks", ["base_polo_id"], name: "index_service_networks_on_base_polo_id", using: :btree
   add_index "service_networks", ["pdsi_id"], name: "index_service_networks_on_pdsi_id", using: :btree
 
-  create_table "specific_absolute_data", force: :cascade do |t|
-    t.integer  "absolute_datum_id"
-    t.integer  "dsei_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-  end
-
-  add_index "specific_absolute_data", ["absolute_datum_id"], name: "index_specific_absolute_data_on_absolute_datum_id", using: :btree
-  add_index "specific_absolute_data", ["dsei_id"], name: "index_specific_absolute_data_on_dsei_id", using: :btree
-
   create_table "specific_results", force: :cascade do |t|
     t.integer  "result_id"
     t.integer  "dsei_id"
@@ -923,6 +858,102 @@ ActiveRecord::Schema.define(version: 20160328131607) do
 
   add_index "specific_results", ["dsei_id"], name: "index_specific_results_on_dsei_id", using: :btree
   add_index "specific_results", ["result_id"], name: "index_specific_results_on_result_id", using: :btree
+
+  create_table "strategic_indicator_base_poles", force: :cascade do |t|
+    t.integer  "indicator_value"
+    t.integer  "numerator_value"
+    t.integer  "denominator_value"
+    t.integer  "strategic_indicator_id"
+    t.integer  "base_polo_id"
+    t.integer  "pdsi_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "strategic_indicator_base_poles", ["base_polo_id"], name: "index_strategic_indicator_base_poles_on_base_polo_id", using: :btree
+  add_index "strategic_indicator_base_poles", ["pdsi_id"], name: "index_strategic_indicator_base_poles_on_pdsi_id", using: :btree
+  add_index "strategic_indicator_base_poles", ["strategic_indicator_id"], name: "index_strategic_indicator_base_poles_on_strategic_indicator_id", using: :btree
+
+  create_table "strategic_indicator_casais", force: :cascade do |t|
+    t.integer  "indicator_value"
+    t.integer  "numerator_value"
+    t.integer  "denominator_value"
+    t.integer  "strategic_indicator_id"
+    t.integer  "casai_id"
+    t.integer  "pdsi_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "strategic_indicator_casais", ["casai_id"], name: "index_strategic_indicator_casais_on_casai_id", using: :btree
+  add_index "strategic_indicator_casais", ["pdsi_id"], name: "index_strategic_indicator_casais_on_pdsi_id", using: :btree
+  add_index "strategic_indicator_casais", ["strategic_indicator_id"], name: "index_strategic_indicator_casais_on_strategic_indicator_id", using: :btree
+
+  create_table "strategic_indicator_denominators", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "strategic_indicator_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "strategic_indicator_denominators", ["strategic_indicator_id"], name: "strategic_indicator_denominators_index", using: :btree
+
+  create_table "strategic_indicator_dseis", force: :cascade do |t|
+    t.integer  "indicator_value"
+    t.integer  "indicators_sum"
+    t.integer  "numerator_value"
+    t.integer  "denominator_value"
+    t.boolean  "dedicated",              default: true
+    t.integer  "strategic_indicator_id"
+    t.integer  "dsei_id"
+    t.integer  "pdsi_id"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
+  add_index "strategic_indicator_dseis", ["dsei_id"], name: "index_strategic_indicator_dseis_on_dsei_id", using: :btree
+  add_index "strategic_indicator_dseis", ["pdsi_id"], name: "index_strategic_indicator_dseis_on_pdsi_id", using: :btree
+  add_index "strategic_indicator_dseis", ["strategic_indicator_id"], name: "index_strategic_indicator_dseis_on_strategic_indicator_id", using: :btree
+
+  create_table "strategic_indicator_numerators", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "strategic_indicator_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "strategic_indicator_numerators", ["strategic_indicator_id"], name: "strategic_indicator_numerators_index", using: :btree
+
+  create_table "strategic_indicators", force: :cascade do |t|
+    t.string   "name"
+    t.string   "level"
+    t.string   "data_base"
+    t.string   "calculation_formula"
+    t.boolean  "is_specific",                           default: false
+    t.integer  "strategic_indicators_sub_dimension_id"
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
+  end
+
+  add_index "strategic_indicators", ["strategic_indicators_sub_dimension_id"], name: "index_indicators_sub_dimension_id", using: :btree
+
+  create_table "strategic_indicators_dimensions", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "dsei_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "strategic_indicators_dimensions", ["dsei_id"], name: "index_strategic_indicators_dimension_id", using: :btree
+
+  create_table "strategic_indicators_sub_dimensions", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "strategic_indicators_dimension_id"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "strategic_indicators_sub_dimensions", ["strategic_indicators_dimension_id"], name: "index_indicators_dimension_id", using: :btree
 
   create_table "text_templates", force: :cascade do |t|
     t.text     "introducao_1"
@@ -969,16 +1000,6 @@ ActiveRecord::Schema.define(version: 20160328131607) do
 
   add_index "villages", ["base_polo_id"], name: "index_villages_on_base_polo_id", using: :btree
 
-  add_foreign_key "absolute_data", "absolute_datum_levels"
-  add_foreign_key "absolute_data_base_polos", "absolute_data"
-  add_foreign_key "absolute_data_base_polos", "base_polos"
-  add_foreign_key "absolute_data_base_polos", "pdsis"
-  add_foreign_key "absolute_data_casais", "absolute_data"
-  add_foreign_key "absolute_data_casais", "casais"
-  add_foreign_key "absolute_data_casais", "pdsis"
-  add_foreign_key "absolute_data_dseis", "absolute_data"
-  add_foreign_key "absolute_data_dseis", "dseis"
-  add_foreign_key "absolute_data_dseis", "pdsis"
   add_foreign_key "base_polos", "dseis"
   add_foreign_key "budget_forecast_comments", "budget_forecasts"
   add_foreign_key "budget_forecast_comments", "users"
@@ -1064,10 +1085,22 @@ ActiveRecord::Schema.define(version: 20160328131607) do
   add_foreign_key "service_network_cities", "service_networks"
   add_foreign_key "service_networks", "base_polos"
   add_foreign_key "service_networks", "pdsis"
-  add_foreign_key "specific_absolute_data", "absolute_data"
-  add_foreign_key "specific_absolute_data", "dseis"
   add_foreign_key "specific_results", "dseis"
   add_foreign_key "specific_results", "results"
+  add_foreign_key "strategic_indicator_base_poles", "base_polos"
+  add_foreign_key "strategic_indicator_base_poles", "pdsis"
+  add_foreign_key "strategic_indicator_base_poles", "strategic_indicators"
+  add_foreign_key "strategic_indicator_casais", "casais"
+  add_foreign_key "strategic_indicator_casais", "pdsis"
+  add_foreign_key "strategic_indicator_casais", "strategic_indicators"
+  add_foreign_key "strategic_indicator_denominators", "strategic_indicators"
+  add_foreign_key "strategic_indicator_dseis", "dseis"
+  add_foreign_key "strategic_indicator_dseis", "pdsis"
+  add_foreign_key "strategic_indicator_dseis", "strategic_indicators"
+  add_foreign_key "strategic_indicator_numerators", "strategic_indicators"
+  add_foreign_key "strategic_indicators", "strategic_indicators_sub_dimensions"
+  add_foreign_key "strategic_indicators_dimensions", "dseis"
+  add_foreign_key "strategic_indicators_sub_dimensions", "strategic_indicators_dimensions"
   add_foreign_key "users", "dseis"
   add_foreign_key "villages", "base_polos"
 end

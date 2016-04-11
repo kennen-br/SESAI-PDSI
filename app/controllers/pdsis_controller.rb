@@ -315,7 +315,10 @@ class PdsisController < ApplicationController
         ], budget_justifiers_attributes: [:file, :description, :year, :id, :_destroy]
       ],
       people_attributes: [ :id, :_destroy, :name, :indigenous_worker, :dsei_id,
-                           :human_resource_function_id, :role, :bond_type, :bond, :workplace, :location ]
+                           :human_resource_function_id, :role, :bond_type, :bond, :workplace, :location ],
+      strategic_indicator_dseis_attributes: [:id, :_destroy, :indicator_value, :numerator_value, :denominator_value],
+      strategic_indicator_casais_attributes: [:id, :_destroy, :indicator_value, :numerator_value, :denominator_value],
+      strategic_indicator_base_poles_attributes: [:id, :_destroy, :indicator_value, :numerator_value, :denominator_value]
     )
   end
 end

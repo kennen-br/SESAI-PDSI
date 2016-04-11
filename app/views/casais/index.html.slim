@@ -7,12 +7,14 @@ table
   thead
     tr
       th = Casai.human_attribute_name 'name'
+      th Município
       th Ações
 
   tbody
     - @casais.each do |casai|
       tr
         td = casai.name
+        td = casai.city_name
         td
           = link_to edit_casai_path(casai), class: 'button' do
             i.fa.fa-pencil
