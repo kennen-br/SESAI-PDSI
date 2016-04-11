@@ -1,5 +1,9 @@
-.field
-  p
-    strong = item.absolute_datum.name
-    br
-    = item.value || 'Não informado'
+tr
+  td = item.strategic_indicator.name
+  td = item.indicator_value
+tr
+  td = item.strategic_indicator.strategic_indicator_numerator.name
+  td = item.numerator_value
+tr
+  td = item.strategic_indicator.strategic_indicator_denominator.name
+  td = item.denominator_value
