@@ -104,6 +104,9 @@ class Pdsi < ActiveRecord::Base
   has_many :strategic_indicator_casais
   accepts_nested_attributes_for :strategic_indicator_casais, reject_if: :all_blank, allow_destroy: true
 
+  has_many :strategic_indicator_base_poles
+  accepts_nested_attributes_for :strategic_indicator_base_poles, reject_if: :all_blank, allow_destroy: true
+
   has_attached_file :map, styles: { medium: '300x300>', thumb: '100x100>' }, default_url: '/images/:style/missing.png'
   validates_attachment_content_type :map, content_type: /\Aimage\/.*\Z/
   # validates_with AttachmentSizeValidator, attributes: :map, less_than: 2.megabytes
@@ -199,6 +202,21 @@ class Pdsi < ActiveRecord::Base
     save
 
     strategic_indicators_casais_with_values(casai)
+  end
+
+  def strategic_indicators_base_pole_with_values(base_polo)
+    items = strategic_indicator_base_poles.order(:id)
+    return items.includes(strategic_indicator:
+                          [:strategic_indicator_numerator,
+                           :strategic_indicator_denominator]) unless items.blank?
+
+    StrategicIndicator.where(level: 'base_pole').where(data_base: 'pdsi').order(:id).each do |si|
+      strategic_indicator_base_poles << StrategicIndicatorBasePole.new(strategic_indicator: si, base_polo: base_polo, pdsi: self)
+    end
+
+    save
+
+    strategic_indicators_base_pole_with_values(base_polo)
   end
 
   def absolute_data_dseis_with_values

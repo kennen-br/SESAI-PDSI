@@ -18,16 +18,6 @@
           strong = @base_polo.name
 
         table.tables
-          thead
-            tr
-              th Ítem
-              th Polo Base
-              th Total DSEI
-            tbody
-              - names = %w(foo bar baz )
-              - ab = @pdsi.absolute_data_base_polos_with_values(@base_polo)
-              = f.fields_for :absolute_data_base_polos, ab do |item|
-                tr
-                  td = item.object.absolute_datum.name
-                  td = item.number_field :value
-                  td = number_field_tag ''
+          - ab = @pdsi.strategic_indicators_base_pole_with_values(@base_polo)
+          = f.fields_for :strategic_indicator_base_poles, ab do |item|
+            == render 'pdsis/indicadores_saude_indigena/values_table', item: item
