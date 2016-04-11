@@ -45,15 +45,6 @@ class Pdsi < ActiveRecord::Base
   has_many :destinations
   accepts_nested_attributes_for :destinations, reject_if: :all_blank, allow_destroy: true
 
-  has_many :absolute_data_dseis
-  accepts_nested_attributes_for :absolute_data_dseis, reject_if: :all_blank, allow_destroy: true
-
-  has_many :absolute_data_base_polos
-  accepts_nested_attributes_for :absolute_data_base_polos, reject_if: :all_blank, allow_destroy: true
-
-  has_many :absolute_data_casais
-  accepts_nested_attributes_for :absolute_data_casais, reject_if: :all_blank, allow_destroy: true
-
   has_many :pdsi_human_resources
   accepts_nested_attributes_for :pdsi_human_resources, reject_if: :all_blank, allow_destroy: true
 
@@ -183,7 +174,6 @@ class Pdsi < ActiveRecord::Base
     StrategicIndicator.where(level: 'dsei').where(data_base: 'pdsi').order(:id).each do |si|
       strategic_indicator_dseis << StrategicIndicatorDsei.new(strategic_indicator: si, dsei: dsei, pdsi: self)
     end
-
     save
 
     strategic_indicators_dseis_with_values
@@ -198,7 +188,6 @@ class Pdsi < ActiveRecord::Base
     StrategicIndicator.where(level: 'casai').where(data_base: 'pdsi').order(:id).each do |si|
       strategic_indicator_casais << StrategicIndicatorCasai.new(strategic_indicator: si, casai: casai, pdsi: self)
     end
-
     save
 
     strategic_indicators_casais_with_values(casai)
@@ -213,68 +202,9 @@ class Pdsi < ActiveRecord::Base
     StrategicIndicator.where(level: 'base_pole').where(data_base: 'pdsi').order(:id).each do |si|
       strategic_indicator_base_poles << StrategicIndicatorBasePole.new(strategic_indicator: si, base_polo: base_polo, pdsi: self)
     end
-
     save
 
     strategic_indicators_base_pole_with_values(base_polo)
-  end
-
-  def absolute_data_dseis_with_values
-    items = absolute_data_dseis.order(:id)
-    return items.includes(:absolute_datum) unless items.blank?
-
-    level = AbsoluteDatumLevel.find 3
-
-    AbsoluteDatum.where(absolute_datum_level: level).order(:id).each do |ad|
-      if ad.is_specific
-        item = ad.specific_absolute_data.where(dsei: dsei).first
-        next if item.nil?
-      end
-      absolute_data_dseis << AbsoluteDataDsei.new(absolute_datum: ad, dsei: dsei, pdsi: self)
-    end
-
-    save
-
-    absolute_data_dseis_with_values
-  end
-
-  #SpecificAbsoluteDatum.create absolute_datum_id: 47, dsei_id: 3
-  #SpecificAbsoluteDatum.create absolute_datum_id: 49, dsei_id: 3
-  def absolute_data_base_polos_with_values(base_polo)
-    items = absolute_data_base_polos.where(base_polo: base_polo).order(:id)
-    return items.includes(:absolute_datum) unless items.blank?
-
-    level = AbsoluteDatumLevel.find 1
-    AbsoluteDatum.where(absolute_datum_level: level).order(:id).each do |ad|
-      if ad.is_specific
-        item = ad.specific_absolute_data.where(dsei: dsei).first
-        next if item.nil?
-      end
-      absolute_data_base_polos << AbsoluteDataBasePolo.new(pdsi: self, base_polo: base_polo, absolute_datum: ad)
-    end
-
-    save
-
-    absolute_data_base_polos_with_values(base_polo)
-  end
-
-  def absolute_data_casais_with_values(casai)
-    items = absolute_data_casais.where(casai: casai).order(:id)
-    return items.includes(:absolute_datum) unless items.blank?
-
-    level = AbsoluteDatumLevel.find 2
-    AbsoluteDatum.where(absolute_datum_level: level).order(:id).each do |ad|
-      if ad.is_specific
-        item = ad.specific_absolute_data.where(dsei: dsei).first
-        next if item.nil?
-      end
-
-      absolute_data_casais << AbsoluteDataCasai.new(pdsi: self, casai: casai, absolute_datum: ad)
-    end
-
-    save
-
-    absolute_data_casais_with_values(casai)
   end
 
   def pdsi_results_to_section_with_values(section_name)

@@ -6,7 +6,6 @@ class Dsei < ActiveRecord::Base
   has_many :base_polos
   has_many :casais
   has_many :users
-  has_many :absolute_data_dseis
   has_many :people
   has_many :false_results
   has_many :specific_results
