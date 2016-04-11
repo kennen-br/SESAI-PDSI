@@ -933,7 +933,7 @@ if StrategicIndicator.count == 0
 
     { name: 'Proporção de resolutividade da atenção básica',
       calculation_formula: 'número de óbitos maternos investigados sobre o número total de óbitos maternos (x100)',
-      level: 'dsei', data_base: 'pdsi',
+      level: 'base_pole', data_base: 'pdsi',
       strategic_indicators_sub_dimension_id: 9 },
 
     { name: 'Porcentagem de abastecimento de medicamentos',
@@ -968,17 +968,17 @@ if StrategicIndicator.count == 0
 
     { name: 'Número de médicos por população indígena em aldeias',
       calculation_formula: 'número de médicos sobre população indígena em aldeias (X1000)',
-      level: 'dsei', data_base: 'pdsi',
+      level: 'base_pole', data_base: 'pdsi',
       strategic_indicators_sub_dimension_id: 14 },
 
     { name: 'Proporção de equipes multidisciplinares de saúde indígena completas',
       calculation_formula: 'número de EMSI que possuem quadro sobre o número total de EMSI (x100)',
-      level: 'dsei', data_base: 'pdsi',
+      level: 'base_pole', data_base: 'pdsi',
       strategic_indicators_sub_dimension_id: 14 },
 
     { name: 'Proporção de profissionais do SASISUS em educação permanente',
       calculation_formula: 'número de profissionais do SASISUS em educação permanente sobre o número total de profissionais (x100)',
-      level: 'dsei', data_base: 'pdsi',
+      level: 'base_pole', data_base: 'pdsi',
       strategic_indicators_sub_dimension_id: 15 },
 
     { name: 'Proporção de aldeias com população entre 50 a 250 habitantes que possui UBSI',
@@ -1033,7 +1033,7 @@ if StrategicIndicator.count == 0
 
     { name: 'Tempo médio de permanência nas CASAIs',
       calculation_formula: 'número total de dias de permanência dos usuários nas CASAIs sobre o número total de usuários das CASAIs',
-      level: 'dsei', data_base: 'pdsi',
+      level: 'casai', data_base: 'pdsi',
       strategic_indicators_sub_dimension_id: 21 },
 
   { name: 'Proporção de reuniões do CONDISIs realizadas',
@@ -1055,12 +1055,79 @@ if StrategicIndicator.count == 0
       calculation_formula: 'número de conselheiros distritais qualificados sobre o número previsto de conselheiros qualificados (x100)',
       level: 'dsei', data_base: 'pdsi',
       strategic_indicators_sub_dimension_id: 23 },
-
-    { name: 'Tempo médio de permanência nas CASAI',
-      level: 'casai', data_base: 'pdsi' }
   ])
 else
   puts '=--> StrategicIndicator already filled'
+end
+
+if StrategicIndicatorNumerator.count == 0
+  puts '=--> creating StrategicIndicatorNumerator'
+  StrategicIndicatorNumerator.create!([
+    { name: 'NÚMERO DE ÓBITOS MATERNOS EM 2014', strategic_indicator_id: 3 },
+    { name: 'NÚMERO DE MENORES DE 1 ANO COM ATENDIMENTO', strategic_indicator_id: 16 },
+    { name: 'NÚMERO DE ALDEIAS QUE RECEBERAM AÇÕES DE EDUCAÇÃO EM SAÚDE', strategic_indicator_id: 20 },
+    { name: 'NÚMERO DE ÓBITOS DE MENORES DE 1 ANO INVESTIGADOS EM 2014', strategic_indicator_id: 22 },
+    { name: 'NÚMERO TOTAL DE ÓBITOS MATERNOS INVESTIGADOS EM 2014', strategic_indicator_id: 23 },
+    { name: 'NÚMERO DE ENCAMINHAMENTOS PARA AS CASAI DE CASOS SENSÍVEIS À ATENÇÃO BÁSICA', strategic_indicator_id: 24 },
+    { name: 'NÚMERO DE ALDEIAS COM ACESSO A ÁGUA TRATADA', strategic_indicator_id: 26 },
+    { name: 'NÚMERO DE ALDEIAS COM SAA COM MQAI IMPLANTADOS', strategic_indicator_id: 27 },
+    { name: 'NÚMERO DE ALDEIAS COM SAA IMPLANTADOS', strategic_indicator_id: 28 },
+    { name: 'NÚMERO DE ALDEIAS COM DESTINO ADEQUADO DE DEJETOS', strategic_indicator_id: 29 },
+    { name: 'NÚMERO DE ALDEIAS COM DESTINO ADEQUADO DE RESÍDUOS SÓLIDOS', strategic_indicator_id: 30 },
+    { name: 'NÚMERO DE MÉDICOS EM EMSI, POLOS BASE E CASAIS', strategic_indicator_id: 31 },
+    { name: 'NÚMERO DE EMSI COMPLETAS', strategic_indicator_id: 32 },
+    { name: 'NÚMERO DE PROFISSIONAIS DO SASISUS EM EDUCAÇÃO PERMANENTE', strategic_indicator_id: 33 },
+    { name: 'NÚMERO DE ALDEIAS DE 50 A 250 INDÍGENAS COBERTAS POR UBSI', strategic_indicator_id: 34 },
+    { name: 'NÚMERO DE ALDEIAS DE 251 A 500 INDÍGENAS COBERTAS POR UBSI', strategic_indicator_id: 35 },
+    { name: 'NÚMERO DE ALDEIAS COM MAIS DE 501 INDÍGENAS COBERTAS POR UBSI', strategic_indicator_id: 36 },
+    { name: 'NÚMERO DE CONSULTÓRIOS FIXOS E PORTÁTEIS EM FUNCIONAMENTO', strategic_indicator_id: 37 },
+    { name: 'NÚMERO DE ESTABELECIMENTOS QUE POSSUEM REDE LÓGICA E INTERNET EM FUNCIONAMENTO', strategic_indicator_id: 38 },
+    { name: 'NÚMERO DE ESTABELECIMENTOS COM SIASI EM FUNCIONAMENTO', strategic_indicator_id: 39 },
+    { name: 'NÚMERO DE ESTABELECIMENTOS COM HÓRUS EM OPERAÇÃO', strategic_indicator_id: 40 },
+    { name: 'NÚMERO DE ESTABELECIMENTOS DE SAÚDE NO CNES', strategic_indicator_id: 43 },
+    { name: 'NÚMERO DE DIAS DE PERMANÊNCIA DOS USUÁRIOS NAS CASAI EM 2014', strategic_indicator_id: 44 },
+    { name: 'NÚMERO DE REUNIÕES ORDINÁRIAS DO CONDISI REALIZADAS EM 2015', strategic_indicator_id: 45 },
+    { name: 'NÚMERO DE REUNIÕES ORDINÁRIAS REALIZADAS NOS CONSELHOS LOCAIS EM 2015', strategic_indicator_id: 46 },
+    { name: 'NÚMERO DE CONSELHEIROS LOCAIS QUALIFICADOS EM 2014', strategic_indicator_id: 47 },
+    { name: 'NÚMERO DE CONSELHEIROS DISTRITAIS QUALIFICADOS EM 2014', strategic_indicator_id: 48 },
+  ])
+else
+  puts '=--> StrategicIndicatorNumerator already filled'
+end
+
+if StrategicIndicatorDenominator.count == 0
+  puts '=--> creating StrategicIndicatorDenominator'
+  StrategicIndicatorDenominator.create!([
+    { name: 'NÚMERO DE NASCIDOS VIVOS EM 2014', strategic_indicator_id: 3 },
+    { name: 'POPULAÇÃO DE MENORES DE 1 ANO', strategic_indicator_id: 16 },
+    { name: 'NÚMERO DE ALDEIAS', strategic_indicator_id: 20 },
+    { name: 'NÚMERO DE ÓBITOS DE MENORES DE 1 ANO EM 2014', strategic_indicator_id: 22 },
+    { name: 'NÚMERO DE ÓBITOS MATERNOS EM 2014', strategic_indicator_id: 23 },
+    { name: 'NÚMERO DE ENCAMINHAMENTOS PARA AS CASAI', strategic_indicator_id: 24 },
+    { name: 'NÚMERO DE ALDEIAS COM SISTEMAS DE ABASTECIMENTO DE ÁGUA (SAA)', strategic_indicator_id: 26 },
+    { name: 'NÚMERO DE ALDEIAS COM SAA', strategic_indicator_id: 27 },
+    { name: 'NÚMERO DE ALDEIAS', strategic_indicator_id: 28 },
+    { name: 'NÚMERO DE ALDEIAS', strategic_indicator_id: 29 },
+    { name: 'NÚMERO DE ALDEIAS', strategic_indicator_id: 30 },
+    { name: 'POPULAÇÃO TOTAL', strategic_indicator_id: 31 },
+    { name: 'NÚMERO DE EMSI', strategic_indicator_id: 32 },
+    { name: 'NÚMERO DE PROFISSIONAIS DO SASISUS', strategic_indicator_id: 33 },
+    { name: 'NÚMERO DE ALDEIAS DE 50 A 250 INDÍGENAS', strategic_indicator_id: 34 },
+    { name: 'NÚMERO DE ALDEIAS DE 251 A 500 INDÍGENAS', strategic_indicator_id: 35 },
+    { name: 'NÚMERO DE ALDEIAS COM MAIS DE 501 INDÍGENAS', strategic_indicator_id: 36 },
+    { name: 'NÚMERO DE CONSULTÓRIOS FIXOS E PORTÁTEIS', strategic_indicator_id: 37 },
+    { name: 'NÚMERO DE ESTABELECIMENTOS (SEDE, PÓLOS BASE, CASAI, UBSI)', strategic_indicator_id: 38 },
+    { name: 'NÚMERO DE ESTABELECIMENTOS (SEDE, PÓLOS BASE, CASAI, UBSI)', strategic_indicator_id: 39 },
+    { name: 'NÚMERO DE ESTABELECIMENTOS (SEDE, PÓLOS BASE, CASAI, UBSI)', strategic_indicator_id: 40 },
+    { name: 'NÚMERO DE ESTABELECIMENTOS (SEDE, PÓLOS BASE, CASAI, UBSI)', strategic_indicator_id: 43 },
+    { name: 'NÚMERO DE USUÁRIOS DAS CASAI EM 2014', strategic_indicator_id: 44 },
+    { name: 'NÚMERO DE REUNIÕES ORDINÁRIAS PROGRAMADAS EM 2015', strategic_indicator_id: 45 },
+    { name: 'NÚMERO DE REUNIÕES ORDINÁRIAS PROGRAMADAS EM 2015', strategic_indicator_id: 46 },
+    { name: 'NÚMERO DE CONSELHEIROS DISTRITAIS EM 2014', strategic_indicator_id: 47 },
+    { name: 'NÚMERO DE CONSELHEIROS LOCAIS EM 2014', strategic_indicator_id: 48 },
+  ])
+else
+  puts '=--> StrategicIndicatorDenominator already filled'
 end
 
 puts '------>> Done!.'
