@@ -1,7 +1,7 @@
 - content_for :breadcrumb do
   = breadcrumbs [{ name: '4. Análise Situacional', path: pdsis_path(section: 'analise-situacional')}, { name: "4.1 Indicadores - CASAIs", path: nil}]
 
-= render 'hidden_fields'
+/= render 'hidden_fields'
 
 - params[:casai] = @casai.id if params[:casai].nil?
 
@@ -22,17 +22,8 @@
             strong = @casai.name.capitalize
 
           table.tables
-            thead
-              tr
-                th Tempo médio de permanência CASAI
-                th CASAI
-                th Total DSEI
-              tbody
-                = f.fields_for :absolute_data_casais, @pdsi.absolute_data_casais_with_values(@casai) do |item|
-                  tr
-                    td = item.object.absolute_datum.name
-                    td = item.number_field :value
-                    td = number_field_tag ''
+            = f.fields_for :strategic_indicator_casais, @pdsi.strategic_indicators_casais_with_values(@casai) do |item|
+              == render 'pdsis/indicadores_saude_indigena/values_table', item: item
       - else
         fieldset
           legend

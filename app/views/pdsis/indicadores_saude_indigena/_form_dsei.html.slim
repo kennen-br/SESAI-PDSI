@@ -4,13 +4,4 @@
 fieldset
   table.tables
     = f.fields_for :strategic_indicator_dseis, @pdsi.strategic_indicators_dseis_with_values  do |item|
-      tr
-        td = item.object.strategic_indicator.name
-        td = item.number_field :indicator_value
-      tr
-        td = item.object.strategic_indicator.strategic_indicator_numerator.name
-        td = item.number_field :numerator_value
-      tr
-        td = item.object.strategic_indicator.strategic_indicator_denominator.name
-        td = item.number_field :denominator_value
-
+      == render 'pdsis/indicadores_saude_indigena/values_table', item: item
