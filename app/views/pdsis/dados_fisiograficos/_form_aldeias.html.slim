@@ -68,7 +68,7 @@ br
         = f.number_field :w_60, class: 'population-count'
     .inline_line
       = f.label 'População total'
-      = f.text_field :village_population, class: 'population-total'
+      = f.text_field :village_population, class: 'population-total', readonly: true
 
 = render 'pdsis/dados_fisiograficos/etnias',  f: f
 = render 'pdsis/dados_fisiograficos/idiomas', f: f

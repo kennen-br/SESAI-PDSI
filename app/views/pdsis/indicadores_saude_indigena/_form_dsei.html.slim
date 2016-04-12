@@ -2,8 +2,6 @@
   = breadcrumbs [{ name: '4. Análise Situacional', path: pdsis_path(section: 'analise-situacional')}, { name: "4.1 Indicadores - DSEI", path: nil}]
 
 fieldset
-
-  = f.fields_for :absolute_data_dseis, @pdsi.absolute_data_dseis_with_values do |item|
-    .field
-      label = item.object.absolute_datum.name
-      = item.number_field :value
+  table.tables
+    = f.fields_for :strategic_indicator_dseis, @pdsi.strategic_indicators_dseis_with_values  do |item|
+      == render 'pdsis/indicadores_saude_indigena/values_table', item: item

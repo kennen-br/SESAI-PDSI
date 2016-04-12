@@ -1,7 +1,7 @@
 # see http://guides.rubyonrails.org/i18n.html#translations-for-active-record-models
 pt-BR:
   activerecord:
-    models:
+    models: &models
       user:               Usuário
       text_template:      Template de texto
       pdsi:               PDSI
@@ -29,7 +29,8 @@ pt-BR:
       result:                       Resultados
       person:                       Pessoa
       village:                      Aldeia
-    attributes:
+      investment_items:             Ítens de investimento
+    attributes: &attributes
       user:
         username:               Usuário
         current_password:       Senha atual
@@ -74,6 +75,7 @@ pt-BR:
         populacao_indigena:       População indígena
         etnias:                   Etnias
         numero_polos_base:        Nº de polos base
+        numero_sede_polos_base:   Nº de sedes de polos base
         numero_ubsi:              Nº de unidades básicas de saúde indígena - UBSI
         numero_regioes_de_saude:  Nº de regiões de saúde
         numero_casais:            Nº de CASAIs
@@ -86,18 +88,18 @@ pt-BR:
 
       physiographic_data:
         pt_fluency: Fluência em português
-        #m_1:        Homens de até 1 ano
-        #m_1_4:      Homens de 1 a 4 anos
-        #m_5_9:      Homens de 5 a 9 anos
-        #m_10_49:    Homens de 10 a 49 anos
-        #m_50_59:    Homens de 50 a 59 anos
-        #m_60:       Homens com mais de 60 anos
-        #w_1:        Mulheres de até 1 ano
-        #w_1_4:      Mulheres de 1 a 4 anos
-        #w_5_9:      Mulheres de 5 a 9 anos
-        #w_10_49:    Mulheres de 10 a 49 anos
-        #w_50_59:    Mulheres de 50 a 59 anos
-        #w_60:       Mulheres com mais de 60 anos
+        # m_1:        Homens de até 1 ano
+        # m_1_4:      Homens de 1 a 4 anos
+        # m_5_9:      Homens de 5 a 9 anos
+        # m_10_49:    Homens de 10 a 49 anos
+        # m_50_59:    Homens de 50 a 59 anos
+        # m_60:       Homens com mais de 60 anos
+        # w_1:        Mulheres de até 1 ano
+        # w_1_4:      Mulheres de 1 a 4 anos
+        # w_5_9:      Mulheres de 5 a 9 anos
+        # w_10_49:    Mulheres de 10 a 49 anos
+        # w_50_59:    Mulheres de 50 a 59 anos
+        # w_60:       Mulheres com mais de 60 anos
         m_1:        até 1 ano
         m_1_4:      de 1 a 4 anos
         m_5_9:      de 5 a 9 anos
@@ -331,7 +333,7 @@ pt-BR:
         location:   Localização
         bond:       Ligação
 
-    errors:
+    errors: &errors
       models:
         user:
           attributes:
@@ -358,3 +360,59 @@ pt-BR:
               blank:        'é obrigatório'
             criteria:
               blank:        'é obrigatório'
+
+  processo_construcao_pdsi_2:     Capítulo 2, O Processo de construção do PDSI
+  caracterizacao_do_dsei_3:       Capítulo 3, Breve histórico
+  map:                            Capítulo 3.1A, Mapa do território
+  numero_sede_polos_base:         Capítulo 3.1B, Quantidade de Sede de Polos Base
+  numero_ubsi:                    Capítulo 3.1B, Quantidade de UBSI
+  pt_fluency:                     Capítulo 3.1C, Fluência em português
+  m_1:                            Capítulo 3.1C, Homens de até 1 ano
+  m_1_4:                          Capítulo 3.1C, Homens de 1 a 4 anos
+  m_5_9:                          Capítulo 3.1C, Homens de 5 a 9 anos
+  m_10_49:                        Capítulo 3.1C, Homens de 10 a 49 anos
+  m_50_59:                        Capítulo 3.1C, Homens de 50 a 59 anos
+  m_60:                           Capítulo 3.1C, Homens com mais de 60 anos
+  w_1:                            Capítulo 3.1C, Mulheres de até 1 ano
+  w_1_4:                          Capítulo 3.1C, Mulheres de 1 a 4 anos
+  w_5_9:                          Capítulo 3.1C, Mulheres de 5 a 9 anos
+  w_10_49:                        Capítulo 3.1C, Mulheres de 10 a 49 anos
+  w_50_59:                        Capítulo 3.1C, Mulheres de 50 a 59 anos
+  w_60:                           Capítulo 3.1C, Mulheres com mais de 60 anos
+  physiographic_data_languages:   Capítulo 3.1C, Lingua Indígena
+  physiographic_data_ethnicities: Capítulo 3.1C, Etnia(s)
+  quantity_of_physiographic_data: Capítulo 3.1C, Todas as aldeias devem ter seus dados preenchidos
+  destinations:                   Capítulo 3.2A, Meios de transporte para acesso dos povos indígenas aos serviços de saúde
+  boat_time:                      Capítulo 3.2A, Transporte fluvial
+  road_time:                      Capítulo 3.2A, Transporte rodoviário
+  fly_time:                       Capítulo 3.2A, Transporte aéreo
+  role:                           Capítulo 3.2B, RH EXISTENTE - Categoria Profissional
+  human_resource_function:        Capítulo 3.2B, RH EXISTENTE - Categoria Profissional Simplificada
+  location:                       Capítulo 3.2B, RH EXISTENTE - Lotação
+  workplace:                      Capítulo 3.2B, RH EXISTENTE - Local de trabalho
+  bond:                           Capítulo 3.2B, RH EXISTENTE - Vínculo
+  sead_necessaria:                Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - SEAD Nescessária
+  selog_necessaria:               Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - SELOG Nescessária
+  sesane_necessaria:              Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - SESANE Nescessária
+  seofi_necessaria:               Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - SEOFI Nescessária
+  sgep_necessaria:                Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - SGEP Nescessária
+  gabinete_necessaria:            Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - GABINETE Nescessária
+  diasi_necessaria:               Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - DIASI Nescessária
+  ubsi_necessaria:                Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - UBSI Nescessária
+  polo_base_tipo_1_necessaria:    Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - Polo base tipo 1 Nescessária
+  polo_base_tipo_2_necessaria:    Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - Polo base tipo 2 Nescessária
+  casai_necessaria:               Capítulo 3.2B, DIMENSIONAMENTO DE NECESSIDADES - CASAI Nescessária
+  emsis:                          Capítulo 3.2C, Equipes médicas de saúde indígena
+  service_networks:               Capítulo 3.2D, Rede de complementariedade
+  infrastructure_buildings:       Capítulo 3.2E, Infraestrutura de saúde - Edificações
+  infrastructure_sanitations:     Capítulo 3.2F, Infraestrutura de saúde - Saneamento
+  capais:                         Capítulo 3.2G, Infraestrutura de saúde - CAPAIs
+  initial_date:                   Capítulo 5, Data de início
+  deadline:                       Capítulo 5, Data de término
+  name:                           Capítulo 5, Descrição
+  person:                         Capítulo 5, Responsável
+  corresponsabilities:            Capítulo 5, Corresponsável
+  city:                           Capítulo 6, Investimento - Município
+  village:                        Capítulo 6, Investimento - Aldeia
+  pole_base:                      Capítulo 6, Investimento - Polo Base
+

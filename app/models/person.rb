@@ -9,6 +9,11 @@ class Person < ActiveRecord::Base
   belongs_to :human_resource_function
 
   validates :name, length: { mininum: 3, maximum: 255 }, uniqueness: { scope: :dsei }, presence: true
+  validates_presence_of :bond,
+                        :location,
+                        :workplace,
+                        :human_resource_function,
+                        :role
 
   scope :sesai_people, -> { where(is_sesai_central: true) }
 

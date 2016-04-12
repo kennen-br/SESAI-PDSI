@@ -45,6 +45,6 @@ class CasaisController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def casai_params
-      params.require(:casai).permit(:dsei_id, :name)
+      params.require(:casai).permit(:dsei_id, :name, :city_name)
     end
 end

@@ -1,0 +1,9 @@
+tr
+  td = item.object.strategic_indicator.name
+  td = item.number_field :indicator_value
+tr
+  td = item.object.strategic_indicator.strategic_indicator_numerator.name
+  td = item.number_field :numerator_value
+tr
+  td = item.object.strategic_indicator.strategic_indicator_denominator.name
+  td = item.number_field :denominator_value

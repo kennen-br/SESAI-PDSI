@@ -1,4 +1,6 @@
 li
+  = link_to 'Imprimir Pdf', print_pdf_path(@pdsi ? @pdsi.id : current_user.dsei_id, format: :pdf)
+li
   = link_to "DSEI #{@dsei ? @dsei.name : ''}", pdsis_path(section: 'estrutura')
 li.child
   = nav_link_to pdsis_path(section: 'introducao') do

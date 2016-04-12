@@ -9,4 +9,8 @@
   .field
     = f.label :name
     = f.text_field :name
+
+  .field
+    = f.label :city_name, 'Município'
+    = f.select :city_name, {"#{f.object.city_name}": f.object.city_name}, {}, { class: 'city-select' }
   .actions = f.submit

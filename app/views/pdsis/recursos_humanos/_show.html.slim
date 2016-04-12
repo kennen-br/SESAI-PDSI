@@ -163,5 +163,5 @@ ul.accordion-tabs-minimal
                     td = hr.human_resource_function.name
                     td = hr.actual_sum
                     td = hr.workforce_needed
-                    td class=(diff < 0 ? 'red' : 'green')
+                    td class=((diff ||= 0) < 0 ? 'red' : 'green')
                       = diff
